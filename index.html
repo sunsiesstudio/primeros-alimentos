@@ -298,7 +298,7 @@ window.__auth=(u,d)=>{USER=u;
   if(u){S={nm:"",bd:"",...(d||{}),log:(d&&Array.isArray(d.log))?d.log:[]};$("who").textContent="Sesión: "+(u.email||u.displayName||"");$("gate").classList.add("hide")}
   else{S={nm:"",bd:"",log:[]};$("gate").classList.remove("hide")}
   render()};
-$("gl").onclick=()=>window.cloud&&window.cloud.login().catch(()=>{$("gm").textContent="No se pudo iniciar sesión. Inténtalo de nuevo."});
+$("gl").onclick=()=>window.cloud&&window.cloud.login().catch(e=>{$("gm").textContent="No se pudo iniciar sesión: "+(e&&e.code)});
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
