@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Primeros alimentos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--onacc:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}}
+:root[data-theme="dark"]{--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 Figtree,system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
+.disp{font-family:"Bagel Fat One","Arial Rounded MT Bold",system-ui,sans-serif;font-weight:400}
+.hero{text-align:center}
+h1{font-size:clamp(2rem,8vw,3.2rem);color:var(--green);margin:0;line-height:1;transform:rotate(-2deg)}
+.hero svg{width:56px;height:56px;margin-top:6px}
+.meta{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}
+.meta label{flex:1;min-width:140px;font-size:.85rem}
+input,select,textarea{font:inherit;color:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-top:3px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tabs{display:flex;gap:8px;margin:12px 0 16px}
+.tabs button{flex:1;padding:10px;border:2px solid var(--blue);background:transparent;color:var(--blue);border-radius:999px;font-weight:700}
+.tabs button.on{background:var(--blue);color:var(--onacc)}
+.tools{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chips button{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:5px 12px;font-size:.88rem}
+.chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.col{scroll-snap-align:start;background:color-mix(in srgb,var(--line) 35%,transparent);border-radius:16px;padding:10px;min-width:0}
+.ch{display:flex;align-items:center;gap:8px;margin:2px 4px 10px}
+.pill{font-weight:700;font-size:.9rem;border-radius:8px;padding:3px 10px;color:#fff}
+.p1{background:#8a8878}.p2{background:var(--blue);color:var(--onacc)}.p3{background:var(--green);color:var(--onacc)}
+.n{color:var(--mute);font-size:.9rem}
+.cl{display:flex;flex-direction:column;gap:7px;max-height:66vh;overflow-y:auto}
+.kc{display:block;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.kc:hover{border-color:var(--blue)}
+.kc b{display:block;font-weight:600}
+.kc .al{font-weight:700}
+.kc .mt{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--mute);margin-top:3px;flex-wrap:wrap}
+.tag{font-size:.72rem;border-radius:99px;padding:1px 8px;background:var(--line);color:var(--ink)}
+.tag.w{background:var(--terra);color:var(--onacc)}
+.empty{color:var(--mute);font-size:.88rem;padding:6px}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:3px solid var(--terra);padding:16px 18px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 30px rgba(0,0,0,.2);z-index:5}
+.sheet>div{max-width:520px;margin:0 auto}
+.sheet h3{margin:0;font-size:1.5rem;color:var(--green)}
+.sheet label{display:block;font-size:.85rem;margin-top:8px}
+.btns{display:flex;gap:10px;margin-top:14px}
+.btn{flex:1;padding:11px;border-radius:999px;border:2px solid var(--blue);background:transparent;color:var(--blue);font-weight:700}
+.btn.p{background:var(--terra);border-color:var(--terra);color:var(--onacc)}
+.hide{display:none!important}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:12px;max-width:640px}
+.card p{margin:4px 0}
+.row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
+.row:first-child{border-top:0}
+.row input{width:150px;padding:5px 8px}
+.mute{color:var(--mute);font-size:.9rem}
+.x{background:none;border:0;color:var(--mute);text-decoration:underline;font-size:.85rem}
+.age{font-weight:700;color:var(--green);margin:6px 0 2px}.acc{font-size:.8rem;color:var(--mute)}.kc[disabled]{opacity:.55;cursor:default}.p4{background:var(--ink);color:var(--bg)}
+.by{display:inline-block;text-decoration:none;color:var(--blue);border:2px dashed var(--blue);border-radius:999px;padding:5px 16px;font-size:1.05rem;transform:rotate(-2deg)}
+.byrow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.sub{margin:6px 0 0;font-size:.85rem;color:var(--mute)}
+.srch{display:flex;gap:10px;align-items:center}.srch input{margin-top:0;flex:1}
+.vt{display:flex;border:2px solid var(--blue);border-radius:999px;overflow:hidden;flex:none}
+.vt button{border:0;background:transparent;color:var(--blue);padding:7px 12px;display:flex}
+.vt button.on{background:var(--blue);color:var(--onacc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 24px}
+.grid h2{font-size:1.7rem;color:var(--blue);margin:0 0 2px}
+.cn{font-size:.85rem;color:var(--mute);margin:0 0 8px}
+.it{display:flex;align-items:center;gap:9px;width:100%;background:none;border:0;padding:5px 0;text-align:left}
+.it svg{width:26px;height:26px;flex:none;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
+.it.done svg{fill:var(--terra);stroke:var(--terra)}
+.it[disabled]{opacity:.5;cursor:default}
+.it .al{font-weight:700}
+.cnt{margin-left:auto;font-size:.75rem;color:var(--mute)}
+.kc.lk,.it.lk{opacity:.65}
+.it .tag{font-size:.7rem;white-space:nowrap}
+.warn{background:color-mix(in srgb,var(--terra) 18%,transparent);border:1px solid var(--terra);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.85rem}.warn p{margin:3px 0}
+.foot p{margin:0 0 10px}
+.gate{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.gbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f1f1f;border:1px solid #747775;border-radius:999px;padding:11px 20px;font-weight:600}.gbtn svg{width:20px;height:20px}
+.sheet>div{position:relative}.sheet h3{padding-right:40px}
+.xc{position:absolute;top:-4px;right:-6px;width:38px;height:38px;border:0;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}.xc:hover{background:var(--line)}
+.foot{margin-top:26px;font-size:.88rem;border-top:1px solid var(--line);padding-top:12px}
+</style>
+</head>
+<body>
+<div class="gate" id="gate"><div>
+  <svg viewBox="0 0 24 24" width="64" height="64" aria-hidden="true"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>
+  <h1 class="disp" style="margin:8px 0">Primeros alimentos</h1>
+  <p class="mute">Inicia sesión para guardar el progreso de tu bebé en tu cuenta.</p>
+  <button class="gbtn" id="gl"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.5 13.2l7.9 6.1C12.3 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.5 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.7-4-13.6-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Continuar con Google</button>
+  <p class="mute" id="gm" style="margin-top:12px"></p>
+</div></div>
+<main>
+<div class="hero">
+  <h1 class="disp" id="ttl">Primeros alimentos</h1>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>
+</div>
+<div class="meta">
+  <label>Nombre<input id="nm" placeholder="Nombre del bebé"></label>
+  <label>Fecha de nacimiento<input id="bd" type="date"></label>
+</div>
+<div class="age" id="age"></div><div class="acc"><span id="who"></span> <button class="x" id="so">Cerrar sesión</button> <button class="x" id="bk">Copia de seguridad</button></div>
+<div class="tabs"><button id="t1" class="on">Tablero</button><button id="t2">Plan</button><button id="t3">Registro</button></div>
+
+<section id="v1">
+  <div class="tools">
+    <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+      <div class="vt" role="group" aria-label="Cambiar vista">
+        <button id="vb" aria-label="Vista tablero" title="Tablero"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg></button>
+        <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
+      </div></div>
+    <div class="chips" id="chips"></div>
+    <div class="mute" id="prog"></div>
+  </div>
+  <div class="board" id="board"></div>
+  <div class="grid" id="lst"></div>
+</section>
+<section id="v2" class="hide">
+  <div class="card"><p>Un alimento nuevo al día y uno para repetir. Los que gustaron poco vuelven, porque suelen hacer falta varios intentos.</p>
+  <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Hacer otro plan</button></div></div>
+  <div id="days"></div>
+</section>
+<section id="v3" class="hide"><div class="card" id="log"></div></section>
+
+<footer class="foot">
+<p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
+<p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no molido, triturado o en crema.</p>
+<p class="mute">Los alimentos se desbloquean según los meses del bebé con una guía orientativa. Esta app no es consejo médico: consulta con tu pediatra los alérgenos, la edad de cada alimento y cualquier reacción.</p>
+<div class="byrow"><span class="mute">Hecho por</span><a class="by disp" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener">sunsies studio</a></div>
+</footer>
+</main>
+
+<div class="sheet hide" id="bkp" role="dialog" aria-label="Copia de seguridad"><div>
+  <button class="xc" id="bkx2" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h3 class="disp">Copia de seguridad</h3>
+  <div class="mute">Para pasar tu progreso a otro móvil u ordenador, copia este código y pégalo allí en "Restaurar".</div>
+  <label>Tu código<textarea id="bkc" readonly rows="3"></textarea></label>
+  <div class="btns" style="margin-top:8px"><button class="btn" id="bkcopy">Copiar código</button></div>
+  <label>Restaurar desde un código (reemplaza lo de este dispositivo)<textarea id="bkr" rows="3" placeholder="Pega aquí el código"></textarea></label>
+  <div class="btns"><button class="btn" id="bkx">Cerrar</button><button class="btn p" id="bkok">Restaurar</button></div>
+  <div class="mute" id="bkm" style="margin-top:8px"></div>
+</div></div>
+<div class="sheet hide" id="sh" role="dialog" aria-label="Registrar alimento"><div>
+  <button class="xc" id="shx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h3 class="disp" id="shn"></h3>
+  <div class="mute" id="sht"></div>
+  <div class="warn hide" id="warn"></div>
+  <label>Fecha<input id="dt" type="date"></label>
+  <label>Cómo lo serviste<select id="how"></select></label>
+  <label>Qué tal fue<select id="rx"><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select></label>
+  <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
+</div></div>
+
+<script>
+// categoría, color, consejo de preparación, alimentos separados por |
+const C=[
+["Frutas","#c96a47","Maduras, sin piel ni pepitas, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Mandarina|Mango|Manzana asada|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera asada|Piña|Plátano|Pomelo|Sandía|Uvas"],
+["Verduras","#4a8760","Al vapor, hervidas o asadas, en bastones blandos","Acelgas|Alcachofa|Apio|Berenjena|Boniato|Brócoli|Calabacín|Calabaza|Cebolla|Champiñones|Chirivía|Coles de Bruselas|Coliflor|Endibia|Espárragos|Espinacas|Guisantes|Habas tiernas|Hinojo|Judías verdes|Lechuga|Lombarda|Maíz tierno|Nabo|Patata|Pepino|Pimiento rojo|Pimiento verde|Puerro|Rábano|Remolacha|Repollo|Rúcula|Setas|Tomate|Zanahoria"],
+["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas, en tiras tiernas o desmenuzadas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Garbanzos|Huevo|Lenguado|Lentejas|Lentejas rojas|Lubina|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
+["Cereales","#c9962f","Cocidos blandos","Amaranto|Arroz|Avena|Cebada|Cuscús|Espelta|Fideos|Harina de maíz|Mijo|Pan (tostado, sin sal)|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
+["Frutos secos","#8a5ac8","Siempre molidos, en polvo o en crema, nunca enteros","Almendra|Anacardo|Avellana|Cacahuete|Castaña|Macadamia|Nuez|Nuez de Brasil|Nuez pecana|Piñones|Pistacho|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino|Sésamo (tahini)"],
+["Lácteos","#d46a9a","Pasteurizados, sin azúcar y bajos en sal","Kéfir|Mantequilla|Mozzarella|Queso fresco|Queso tierno|Requesón|Ricotta|Yogur natural"],
+["Condimentos","#2f9aa0","Una pizca, al cocinar","AOVE|Ajo|Albahaca|Canela|Cebollino|Cilantro|Comino|Cúrcuma|Eneldo|Hierbabuena|Jengibre|Laurel|Limón (ralladura)|Orégano|Perejil|Pimentón dulce|Romero|Tomillo|Vainilla"]];
+// Editable: alérgenos (los lácteos ya van todos) y alimentos ricos en hierro
+const ALG=new Set(["Huevo","Dorada","Lubina","Merluza","Bacalao","Salmón","Sardinas","Trucha","Lenguado","Rape","Cacahuete","Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho","Sésamo (tahini)","Tofu","Tempeh","Apio","Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, sin sal)","Pan integral","Pasta","Sémola de trigo"]);
+const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza"]);
+const TIP={"Uvas":"En cuartos a lo largo","Cerezas":"Sin hueso y en trozos","Coco":"Rallado o en copos","Dátiles":"Sin hueso y aplastados","Maíz tierno":"Aplastado o en crema, el grano entero cuesta","Granada":"Granos aplastados o en zumo con pulpa"};
+const MIN={"Acelgas":12,"Espinacas":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
+const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],tip:TIP[n]||c[2],a:ALG.has(n)||c[0]==="Lácteos",fe:FE.has(n),min:MIN[n]||6})));
+const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
+const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
+const K="primeros_v2";let S={nm:"",bd:"",log:[]};
+
+let USER=null,ST;
+const save=()=>{if(!USER||!window.cloud)return;clearTimeout(ST);
+  ST=setTimeout(()=>window.cloud.save({nm:S.nm,bd:S.bd,log:S.log}).catch(()=>{$("who").textContent="No se pudo guardar, revisa tu conexión"}),400)};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const today=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+const info=n=>ALL.find(x=>x.n===n);
+function age(){if(!S.bd)return null;const b=new Date(S.bd+"T00:00:00"),n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+  const days=Math.floor((t-b)/864e5);if(isNaN(days)||days<0)return null;
+  let mo=(t.getFullYear()-b.getFullYear())*12+t.getMonth()-b.getMonth();if(t.getDate()<b.getDate())mo--;
+  return{days,mo,s6:Math.ceil((new Date(b.getFullYear(),b.getMonth()+6,b.getDate())-t)/864e5)}}
+const unlocked=x=>{const a=age();return !a||a.mo>=x.min};
+function head(){const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=t;document.title=t;
+  const a=age(),w=S.nm||"Tu bebé";
+  $("age").textContent=!S.bd?"Añade la fecha de nacimiento para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
+let cat="Todos",cur="";
+let view="list";try{view=localStorage.getItem("primeros_view")==="board"?"board":"list"}catch(e){}
+const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6"/></svg>';
+function stats(){
+  const m={};
+  S.log.map((l,i)=>({...l,i})).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.i-b.i).forEach((l,k)=>{
+    const x=m[l.f]=m[l.f]||{n:l.f,c:0,all:[]};x.c++;x.last=l.r;x.idx=k;x.all.push(l.r)});
+  return m;
+}
+function card(x,m){
+  const s=m[x.n],lk=!unlocked(x);
+  const t=!s?"":s.all.includes("react")?'<span class="tag w">Reacción</span>':`<span class="tag">${RL[s.last]}</span>`;
+  return `<button class="kc${lk?" lk":""}" data-n="${esc(x.n)}"><b class="${x.a?"al":""}">${esc(x.n)}</b><span class="mt"><span class="dot" style="background:${x.col}"></span>${x.c}${s?` · x${s.c}`:""} ${t}${lk?` <span class="tag w">No recomendado hasta los ${x.min} meses</span>`:""}${x.fe&&!lk?' <span class="tag">Hierro</span>':""}</span></button>`;
+}
+function board(){
+  const m=stats(),q=norm($("q").value.trim());
+  $("chips").classList.toggle("hide",view==="list");$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
+  $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
+  $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
+  const nd=ALL.filter(x=>m[x.n]&&m[x.n].last==="love"&&!m[x.n].all.includes("react")).length;
+  $("prog").textContent=`${nd} probados de ${ALL.length} alimentos`;
+  if(view==="list"){
+    $("lst").innerHTML=C.map(c=>{
+      const it=ALL.filter(x=>x.c===c[0]&&(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q)));
+      if(!it.length)return"";
+      return `<div><h2 class="disp">${c[0]}</h2><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
+        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">No antes de ${x.min} m</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+    $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>open(b.dataset.n));
+    return;
+  }
+  const cols={todo:[],doing:[],done:[],lock:[]};
+  ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
+    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[!s?"todo":(s.last==="love"&&!s.all.includes("react"))?"done":"doing"].push(x)});
+  cols.lock.sort((a,b)=>a.min-b.min);const defs=[["todo","Por probar","p1"],["doing","Probando","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
+  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><span class="pill ${d[2]}">${d[1]}</span><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
+  $("board").querySelectorAll(".kc").forEach(b=>b.onclick=()=>open(b.dataset.n));
+  const done=ALL.filter(x=>m[x.n]&&m[x.n].last==="love"&&!m[x.n].all.includes("react")).length;
+  $("prog").textContent=`${done} probados de ${ALL.length} alimentos`;
+}
+function render(){
+  $("nm").value=S.nm;$("bd").value=S.bd;head();
+  $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
+  $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()});
+  board();
+  const ents=S.log.map((l,i)=>({...l,i})).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:b.i-a.i);
+  $("log").innerHTML=ents.length?ents.map(l=>{const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag${l.r==="react"?" w":""}">${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}).join(""):'<p class="mute">Toca un alimento del tablero para registrar el primero.</p>';
+  $("log").querySelectorAll("input").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
+  $("log").querySelectorAll(".x").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
+}
+function open(n){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x?x.tip:"";
+  const lk=!!x&&!unlocked(x),w=[],a=age();
+  if(lk)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
+  if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo en poca cantidad, pronto en el día, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
+  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=today();$("sh").classList.remove("hide");$("how").focus()}
+$("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
+$("cx").onclick=()=>$("sh").classList.add("hide");
+$("ok").onclick=()=>{S.log.push({f:cur,how:$("how").value,r:$("rx").value,d:$("dt").value||today()});save();$("sh").classList.add("hide");render()};
+$("q").oninput=board;
+const enc=()=>btoa(unescape(encodeURIComponent(JSON.stringify({v:1,nm:S.nm,bd:S.bd,log:S.log}))));
+$("bk").onclick=()=>{$("bkc").value=enc();$("bkr").value="";$("bkm").textContent="";$("bkp").classList.remove("hide")};
+$("bkx").onclick=()=>$("bkp").classList.add("hide");
+$("bkcopy").onclick=async()=>{try{await navigator.clipboard.writeText($("bkc").value);$("bkm").textContent="Código copiado."}catch(e){$("bkc").select();$("bkm").textContent="Selecciona y copia el código."}};
+$("bkok").onclick=()=>{try{const d=JSON.parse(decodeURIComponent(escape(atob($("bkr").value.trim()))));if(!d||!Array.isArray(d.log))throw 0;
+  S={nm:String(d.nm||"").slice(0,40),bd:String(d.bd||""),log:d.log.filter(l=>l&&typeof l.f==="string").map(l=>({f:l.f,how:String(l.how||""),r:RL[l.r]?l.r:"meh",d:String(l.d||today())}))};
+  save();render();$("bkm").textContent="Restaurado."}catch(e){$("bkm").textContent="Ese código no es válido."}};
+const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
+$("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
+let tm;$("nm").oninput=e=>{S.nm=e.target.value.slice(0,40);head();clearTimeout(tm);tm=setTimeout(save,700)};
+$("bd").onchange=e=>{S.bd=e.target.value;save();render()};
+function tab(n){[1,2,3].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan()}
+[1,2,3].forEach(i=>$("t"+i).onclick=()=>tab(i));
+
+function plan(){
+  const m=stats(),cc={};
+  Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
+  let pool=ALL.filter(x=>!m[x.n]&&unlocked(x));const days=[];let lastA=-9,lastF=-9,prev="";
+  for(let d=0;d<7&&pool.length;d++){
+    let best=null,bs=-1e9;
+    pool.forEach(x=>{let s=Math.random()*1.5+(4-Math.min(4,cc[x.c]||0));
+      if(x.fe)s+=d-lastF>=2?5:2;
+      if(x.a&&d-lastA<3)s-=99;
+      if(x.c===prev)s-=2;
+      if(x.c==="Condimentos")s-=4;
+      if(s>bs){bs=s;best=x}});
+    pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;
+    if(best.a)lastA=d;if(best.fe)lastF=d;days.push({n:best});
+  }
+  const re=Object.values(m).filter(x=>!x.all.includes("react")&&x.c<8).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
+  days.forEach((d,i)=>d.r=re.length?re[i%re.length]:null);
+  $("days").innerHTML=days.map((d,i)=>{const n=d.n,r=d.r,ri=r&&info(r.n);
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">Día ${i+1}</b>
+    <p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span>  ${n.fe?'<span class="tag">Hierro</span>':""}<br><span class="mute">${esc(n.tip)}.${n.a?" Ofrécelo pronto en el día y el resto del día, alimentos ya conocidos.":""}</span></p>
+    ${r?`<p><b>Repetir:</b> ${esc(r.n)}<br><span class="mute">${r.last==="love"?"Le gustó, mantenlo en la rotación.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma o combinación."}${ri?" "+esc(ri.tip)+".":""}</span></p>`:""}
+    <div class="btns" style="max-width:220px"><button class="btn" data-n="${esc(n.n)}">Lo probamos</button></div></div>`}).join("")||'<div class="card"><p class="mute">Ya probasteis todo lo de la lista.</p></div>';
+  $("days").querySelectorAll("button").forEach(b=>b.onclick=()=>open(b.dataset.n));
+}
+$("mk").onclick=plan;
+render();
+
+
+window.__auth=(u,d)=>{USER=u;
+  if(u){S={nm:"",bd:"",...(d||{}),log:(d&&Array.isArray(d.log))?d.log:[]};$("who").textContent="Sesión: "+(u.email||u.displayName||"");$("gate").classList.add("hide")}
+  else{S={nm:"",bd:"",log:[]};$("gate").classList.remove("hide")}
+  render()};
+$("gl").onclick=()=>window.cloud&&window.cloud.login().catch(()=>{$("gm").textContent="No se pudo iniciar sesión. Inténtalo de nuevo."});
+$("so").onclick=()=>window.cloud&&window.cloud.logout();
+
+$("shx").onclick=()=>$("sh").classList.add("hide");
+$("bkx2").onclick=()=>$("bkp").classList.add("hide");
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("sh").classList.add("hide");$("bkp").classList.add("hide")}});
+</script>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// 1) Pega aquí la configuración de tu app web de Firebase (Configuración del proyecto > Tus apps)
+const CFG={apiKey:"TU_API_KEY",authDomain:"TU_PROYECTO.firebaseapp.com",projectId:"TU_PROYECTO",appId:"TU_APP_ID"};
+if(CFG.apiKey.startsWith("TU_")){
+  document.getElementById("gm").textContent="Falta configurar Firebase: pega tu configuración en el archivo.";
+  window.__auth(null);
+}else{
+  const app=initializeApp(CFG),auth=getAuth(app),db=getFirestore(app);
+  window.cloud={
+    login:()=>signInWithPopup(auth,new GoogleAuthProvider()),
+    logout:()=>signOut(auth),
+    save:d=>setDoc(doc(db,"users",auth.currentUser.uid),d)
+  };
+  onAuthStateChanged(auth,async u=>{
+    if(!u){window.__auth(null);return}
+    try{const snap=await getDoc(doc(db,"users",u.uid));window.__auth(u,snap.exists()?snap.data():null)}
+    catch(e){window.__auth(u,null);document.getElementById("who").textContent="No se pudo cargar tu progreso"}
+  });
+}
+</script>
+</body>
+</html>
