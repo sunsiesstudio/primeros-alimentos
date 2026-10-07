@@ -136,6 +136,8 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   <h2 class="disp" style="margin:0 0 6px;color:var(--green)">Perfil</h2>
   <p class="mute" style="margin:0 0 8px">Los datos de tu bebé se guardan en tu cuenta.</p>
   <div class="meta"><label>Nombre del bebé<input id="nm" placeholder="Nombre del bebé"></label><label>Fecha de nacimiento<input id="bd" type="date"></label></div>
+  <div class="btns" style="max-width:420px"><button class="btn p" id="psave">Guardar</button></div>
+  <p class="mute" id="pmsg" style="min-height:1.4em"></p>
   <p class="mute" id="who"></p>
   <div class="btns" style="max-width:420px"><button class="btn" id="bk">Copia de seguridad</button><button class="btn" id="so">Cerrar sesión</button></div>
 </div></section>
@@ -274,8 +276,16 @@ $("bkok").onclick=()=>{try{const d=JSON.parse(decodeURIComponent(escape(atob($("
   save();render();$("bkm").textContent="Restaurado."}catch(e){$("bkm").textContent="Ese código no es válido."}};
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
-let tm;$("nm").oninput=e=>{S.nm=e.target.value.slice(0,40);head();clearTimeout(tm);tm=setTimeout(save,700)};
-$("bd").onchange=e=>{S.bd=e.target.value;save();render()};
+$("nm").oninput=$("bd").oninput=()=>{$("pmsg").textContent="Cambios sin guardar"};
+$("psave").onclick=()=>{
+  S.nm=$("nm").value.trim().slice(0,40);S.bd=$("bd").value;
+  saveLocal();render();
+  if(!window.cloud||!LOADED){$("pmsg").textContent="Guardado en este dispositivo.";return}
+  $("pmsg").textContent="Guardando...";
+  window.cloud.save({nm:S.nm,bd:S.bd,log:S.log})
+    .then(()=>{$("pmsg").textContent="Guardado en tu cuenta ✓";$("err").textContent=""})
+    .catch(()=>{$("pmsg").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."});
+};
 function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan()}
 [1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
