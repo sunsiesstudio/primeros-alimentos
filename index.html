@@ -139,6 +139,15 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .menu{margin:8px 0 2px;padding:8px 10px;border-radius:10px;background:color-mix(in srgb,var(--line) 40%,transparent)}
 .menu p{margin:2px 0;font-size:.88rem}
 .aep h4{margin:12px 0 2px;font-size:.95rem;color:var(--blue)}
+.pres{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0 6px}
+.pres figure{margin:0;display:flex;gap:8px;align-items:center;background:color-mix(in srgb,var(--line) 35%,transparent);border-radius:12px;padding:6px 8px}
+.pres svg{flex:none;width:52px;height:52px}
+.pres figcaption{font-size:.78rem;line-height:1.3;color:var(--mute)}
+.pres figcaption b{display:block;color:var(--ink);font-weight:600;font-size:.8rem}
+.mr{display:flex;gap:10px;align-items:center;margin:8px 0}
+.mr svg{flex:none;width:42px;height:42px}
+.mr p{margin:0}
+.sheet{max-height:88vh;overflow-y:auto}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -253,6 +262,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
       <button class="pen" id="pen_ga" aria-label="Editar semanas de embarazo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
     <div class="prow"><div><div class="lab">Edad</div><div class="val" id="vage"></div></div></div>
     <div class="prow"><div><div class="lab">Empezar antes de los 6 meses</div><div class="val" id="vearly"></div><div class="mute">Solo si tu pediatra lo ha indicado. La AEP admite individualizarlo a partir de las 17 semanas.</div></div><button class="btn" id="tg_early" style="flex:none;padding:8px 14px">Cambiar</button></div>
+    <div class="prow"><div><div class="lab">Agarre en pinza</div><div class="val" id="vpinza"></div><div class="mute">Cambia las imágenes de trozos grandes a trocitos. Por defecto, desde los 9 meses.</div></div><button class="btn" id="tg_pinza" style="flex:none;padding:8px 14px">Cambiar</button></div>
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
@@ -264,7 +274,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 <p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
 <p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no molido, triturado o en crema.</p>
 <p class="mute">Los alimentos se desbloquean según los meses del bebé con una guía orientativa. Esta app no es consejo médico: consulta con tu pediatra los alérgenos, la edad de cada alimento y cualquier reacción.</p>
-<div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="data:image/png;base64,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" alt="sunsies studio" width="130" height="75"></a></div>
+<div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="data:image/png;base64,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" alt="sunsies studio" width="130" height="75"></a></div>
 </footer>
 </main>
 
@@ -272,6 +282,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <button class="xc" id="shx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="shn"></h3>
   <div class="mute" id="sht"></div>
+  <div id="shp"></div>
   <div class="warn hide" id="warn"></div>
   <label>Fecha<input id="dt" type="date"></label>
   <label>Cómo lo serviste<select id="how"></select></label>
@@ -282,39 +293,117 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 <script>
 // categoría, color, consejo de preparación, alimentos separados por |
 const C=[
-["Frutas","#c96a47","Maduras, sin piel ni pepitas, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Mandarina|Mango|Manzana asada|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera asada|Piña|Plátano|Pomelo|Sandía|Uvas"],
-["Verduras","#4a8760","Al vapor, hervidas o asadas, en bastones blandos","Acelgas|Alcachofa|Apio|Berenjena|Boniato|Borraja|Brócoli|Calabacín|Calabaza|Cebolla|Champiñones|Chirivía|Coles de Bruselas|Coliflor|Endibia|Espárragos|Espinacas|Guisantes|Habas tiernas|Hinojo|Judías verdes|Lechuga|Lombarda|Maíz tierno|Nabo|Patata|Pepino|Pimiento rojo|Pimiento verde|Puerro|Rábano|Remolacha|Repollo|Rúcula|Setas|Tomate|Zanahoria"],
-["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas, en tiras tiernas o desmenuzadas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Gambas|Garbanzos|Huevo|Lenguado|Lentejas|Lentejas rojas|Lubina|Mejillones|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
+["Frutas","#c96a47","Muy maduras, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Mandarina|Mango|Manzana asada|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera asada|Piña|Plátano|Pomelo|Sandía|Uvas"],
+["Verduras","#4a8760","Al vapor o asadas, muy blandas","Acelgas|Alcachofa|Apio|Berenjena|Boniato|Borraja|Brócoli|Calabacín|Calabaza|Cebolla|Champiñones|Chirivía|Coles de Bruselas|Coliflor|Endibia|Espárragos|Espinacas|Guisantes|Habas tiernas|Hinojo|Judías verdes|Lechuga|Lombarda|Maíz tierno|Nabo|Patata|Pepino|Pimiento rojo|Pimiento verde|Puerro|Rábano|Remolacha|Repollo|Rúcula|Setas|Tomate|Zanahoria"],
+["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Gambas|Garbanzos|Huevo|Lenguado|Lentejas|Lentejas rojas|Lubina|Mejillones|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
 ["Cereales","#c9962f","Cocidos blandos, mejor integrales","Amaranto|Arroz|Avena|Cebada|Cuscús|Espelta|Fideos|Harina de maíz|Mijo|Pan (tostado, sin sal)|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
-["Frutos secos","#8a5ac8","Siempre molidos, en polvo o en crema. Enteros no, por el riesgo de atragantamiento","Almendra|Anacardo|Avellana|Cacahuete|Castaña|Macadamia|Nuez|Nuez de Brasil|Nuez pecana|Piñones|Pistacho|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino|Sésamo (tahini)"],
-["Lácteos","#d46a9a","Yogur natural y queso tierno desde los 9 meses, leche de vaca entera desde los 12. Sin azúcar y bajos en sal","Kéfir|Mantequilla|Mozzarella|Queso fresco|Queso tierno|Requesón|Ricotta|Yogur natural"],
-["Condimentos","#2f9aa0","Una pizca, al cocinar","AOVE|Ajo|Albahaca|Canela|Cebollino|Cilantro|Comino|Cúrcuma|Eneldo|Hierbabuena|Jengibre|Laurel|Limón (ralladura)|Orégano|Perejil|Pimentón dulce|Romero|Tomillo|Vainilla"]];
+["Frutos secos","#8a5ac8","Siempre molidos o en crema, nunca enteros","Almendra|Anacardo|Avellana|Cacahuete|Castaña|Macadamia|Nuez|Nuez de Brasil|Nuez pecana|Piñones|Pistacho|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino|Sésamo (tahini)"],
+["Lácteos","#d46a9a","Yogur y queso desde los 9 meses, leche de vaca desde los 12","Kéfir|Mantequilla|Mozzarella|Queso fresco|Queso tierno|Requesón|Ricotta|Yogur natural"],
+["Condimentos","#2f9aa0","Una pizca al cocinar","AOVE|Ajo|Albahaca|Canela|Cebollino|Cilantro|Comino|Cúrcuma|Eneldo|Hierbabuena|Jengibre|Laurel|Limón (ralladura)|Orégano|Perejil|Pimentón dulce|Romero|Tomillo|Vainilla"]];
 // Editable: alérgenos (los lácteos ya van todos) y alimentos ricos en hierro
 const ALG=new Set(["Huevo","Dorada","Lubina","Merluza","Bacalao","Salmón","Sardinas","Trucha","Lenguado","Rape","Gambas","Mejillones","Cacahuete","Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho","Sésamo (tahini)","Tofu","Tempeh","Apio","Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, sin sal)","Pan integral","Pasta","Sémola de trigo"]);
 const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
-const FISHTIP="Bien cocinado, sin piel ni espinas, en lascas. Evita pez espada, emperador, cazón, tintorera y atún (mercurio)";
-const NITR="Mejor esperar al año (nitratos). Si se dan, menos del 20% del plato";
-const TIP={"Uvas":"En cuartos a lo largo, nunca enteras","Cerezas":"Sin hueso y en trozos","Coco":"Rallado o en copos","Dátiles":"Sin hueso y aplastados","Maíz tierno":"Aplastado o en crema, el grano entero cuesta","Granada":"Granos aplastados o en zumo con pulpa","Zanahoria":"Cocida, nunca cruda","Manzana asada":"Asada o cocida, la cruda es dura",
-"Ternera":"Carne cocida en tiras, o picada en hamburguesitas o bolas","Cordero":"Carne cocida en tiras, o picada en hamburguesitas o bolas","Cerdo":"Carne cocida en tiras tiernas, o picada en bolitas","Pollo":"Muslo cocido en tiras, sin piel","Pavo":"Cocido en tiras tiernas o desmenuzado","Conejo":"Cocido en tiras tiernas o desmenuzado",
-"Lentejas":"Tortitas de lentejas, o cocidas y aplastadas","Lentejas rojas":"Tortitas, o cocidas y aplastadas","Alubias blancas":"Tortitas de judías cocidas, o aplastadas","Alubias negras":"Tortitas, o cocidas y aplastadas","Alubias pintas":"Tortitas, o cocidas y aplastadas","Garbanzos":"Hummus, o cocidos y aplastados","Tofu":"Palitos de tofu","Tempeh":"En palitos, bien cocinado","Huevo":"Bien cocinado, en tiras de tortilla o huevo duro aplastado",
-"Acelgas":NITR,"Espinacas":NITR,"Borraja":NITR,"Remolacha":"Mejor esperar al año (nitratos)","Rúcula":"Mejor esperar al año (nitratos)",
-"Pan (tostado, sin sal)":"Tostado, en tiras y sin sal","Pan integral":"Tostado, en tiras y sin sal","Avena":"Papilla espesa o tortitas, mejor integral"};
-["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"].forEach(n=>TIP[n]=FISHTIP);
-TIP.Gambas=TIP.Mejillones="Bien cocinados, pelados y desmenuzados";
 const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
 ["Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"].forEach(n=>MIN[n]=9);
 MIN["Kéfir"]=12;MIN["Mantequilla"]=12;
-const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],tip:TIP[n]||c[2],a:ALG.has(n)||c[0]==="Lácteos",fe:FE.has(n),min:MIN[n]||6})));
+const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],a:ALG.has(n)||c[0]==="Lácteos",fe:FE.has(n),min:MIN[n]||6})));
+
+const COLD={"Frutas":"#e9a23b","Verduras":"#7bb661","Proteínas":"#c98b6b","Cereales":"#dcc08a","Frutos secos":"#b98b5e","Lácteos":"#f1e7cf","Condimentos":"#8fb76a"};
+const COL={Aguacate:"#8cb04a",Albaricoque:"#f2a93b",Arándanos:"#4a4f8f",Caqui:"#ee8a2e",Cerezas:"#b3243a",Chirimoya:"#a7c47a",Ciruela:"#6b3f7a",Coco:"#f3ede0",Dátiles:"#7a4a2a",Frambuesas:"#c2284d",Fresas:"#d93a4a",Granada:"#b32a3d",Higos:"#7a4a6b",Kiwi:"#8bb43a",Mandarina:"#f39a2d",Mango:"#f4b02a","Manzana asada":"#d9a35a",Maracuyá:"#e2a42b",Melocotón:"#f1a56a",Melón:"#f2b36a","Membrillo cocido":"#d9a05b",Mora:"#4a2a5a",Naranja:"#f08a24",Nectarina:"#ef7a3a",Níspero:"#e8a032",Papaya:"#f08a3a","Pera asada":"#c9b45a",Piña:"#f1c232",Plátano:"#f3d24a",Pomelo:"#f08a6a",Sandía:"#e24a5a",Uvas:"#8a9a4a",
+Acelgas:"#5f9a4a",Alcachofa:"#8ba05a",Apio:"#a8c46a",Berenjena:"#5a3a6a",Boniato:"#e08a3c",Borraja:"#6f9a5a",Brócoli:"#4a8a3c",Calabacín:"#8bb04a",Calabaza:"#f0902c",Cebolla:"#e3c9a0",Champiñones:"#d9c8b0",Chirivía:"#eadfc0","Coles de Bruselas":"#6aa04a",Coliflor:"#efe9d2",Endibia:"#e8e6b8",Espárragos:"#8ab04a",Espinacas:"#3f7a3a",Guisantes:"#7ab648","Habas tiernas":"#8ab85a",Hinojo:"#dfe6b8","Judías verdes":"#6aa84a",Lechuga:"#9ac85a",Lombarda:"#8a3a7a","Maíz tierno":"#f1cf3a",Nabo:"#efe0e8",Patata:"#e6c27a",Pepino:"#8ab85a","Pimiento rojo":"#d93a2a","Pimiento verde":"#5a9a3a",Puerro:"#9ab85a",Rábano:"#d94a6a",Remolacha:"#a3204a",Repollo:"#a8d08a",Rúcula:"#4a8a3a",Setas:"#cdb89a",Tomate:"#e0402a",Zanahoria:"#f08a2a",
+"Alubias blancas":"#efe6cf","Alubias negras":"#4a3a3a","Alubias pintas":"#c9a08a",Bacalao:"#e8e6df",Cerdo:"#e0a090",Conejo:"#e0b09a",Cordero:"#c97b6a",Dorada:"#cfd6d8",Garbanzos:"#e3c27a",Huevo:"#f3d25a",Lenguado:"#e8dcc0",Lentejas:"#b8844a","Lentejas rojas":"#e0703a",Lubina:"#cfd6d8",Merluza:"#ece9e2",Pavo:"#e8c9a0",Pollo:"#efd2a8",Rape:"#e8e2d4",Salmón:"#f08a6a",Sardinas:"#aab8c4",Ternera:"#b8504a",Tempeh:"#c9b07a",Tofu:"#f2ead2",Trucha:"#e0a08a",Gambas:"#f08a6a",Mejillones:"#e0a05a",
+Arroz:"#f4efe0",Avena:"#e0cfa8",Pasta:"#f1d98a","Pan (tostado, sin sal)":"#d9a45a","Pan integral":"#c9954a",Quinoa:"#e3cf9a"};
+const shade=(h,f)=>{const n=parseInt(h.slice(1),16),m=v=>Math.round(f<0?v*(1+f):v+(255-v)*f);return "#"+[n>>16,n>>8&255,n&255].map(v=>m(v).toString(16).padStart(2,"0")).join("")};
+const colOf=x=>COL[x.n]||COLD[x.c]||"#cccccc";
+function fig(form,c,rind){
+  const s=shade(c,-.3),l=shade(c,.35),o=`fill="${c}" stroke="${s}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"`;let g="";
+  if(form==="stick")g=`<rect x="11" y="16" width="12" height="40" rx="6" ${o}/><rect x="26" y="8" width="12" height="48" rx="6" ${o}/><rect x="41" y="18" width="12" height="38" rx="6" ${o}/>`;
+  else if(form==="wedge")g=`<path d="M6 46 A26 26 0 0 1 58 46 Z" fill="${c}" stroke="${rind||s}" stroke-width="5" stroke-linejoin="round"/><path d="M15 42 A17 17 0 0 1 49 42" fill="none" stroke="${l}" stroke-width="3" stroke-linecap="round"/>`;
+  else if(form==="peel")g=`<g transform="rotate(28 32 34)"><rect x="24" y="24" width="16" height="34" rx="8" ${o}/><path d="M24 30 L15 14 L27 24Z" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2" stroke-linejoin="round"/><path d="M40 30 L49 14 L37 24Z" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2" stroke-linejoin="round"/><rect x="28" y="6" width="8" height="22" rx="4" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2"/></g>`;
+  else if(form==="floret")g=`<rect x="27" y="34" width="10" height="24" rx="4" fill="${shade(c,.2)}" stroke="${s}" stroke-width="2"/><circle cx="20" cy="30" r="11" ${o}/><circle cx="34" cy="21" r="12" ${o}/><circle cx="45" cy="31" r="10" ${o}/>`;
+  else if(form==="mash")g=`<path d="M6 36 H58 A26 22 0 0 1 6 36 Z" fill="#ece7da" stroke="#b9b2a0" stroke-width="2" stroke-linejoin="round"/><path d="M13 36 Q17 18 32 18 Q47 18 51 36 Z" ${o}/><path d="M44 12 L58 4" stroke="#b9b2a0" stroke-width="3" stroke-linecap="round"/><ellipse cx="42" cy="14" rx="5" ry="3" transform="rotate(-30 42 14)" fill="#ece7da" stroke="#b9b2a0" stroke-width="2"/>`;
+  else if(form==="bits")g=[[10,12],[28,8],[44,14],[16,32],[34,30],[50,34],[22,48],[42,48]].map(([x,y],i)=>`<rect x="${x}" y="${y}" width="${11+(i%3)*2}" height="${11+(i%2)*2}" rx="3" ${o}/>`).join("");
+  else if(form==="patty")g=`<ellipse cx="24" cy="40" rx="17" ry="14" ${o}/><ellipse cx="24" cy="38" rx="9" ry="6" fill="${l}" opacity=".6"/><ellipse cx="42" cy="25" rx="15" ry="12" ${o}/><ellipse cx="42" cy="23" rx="8" ry="5" fill="${l}" opacity=".6"/>`;
+  else if(form==="flake")g=`<path d="M8 38 L20 24 L36 28 L32 44 L14 48 Z" ${o}/><path d="M34 20 L50 14 L58 28 L44 36 Z" ${o}/><path d="M32 46 L48 40 L56 52 L38 56 Z" ${o}/>`;
+  else if(form==="balls")g=[[18,40,10],[36,44,10],[46,26,10],[28,22,10],[14,20,8]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" ${o}/>`).join("");
+  return `<svg viewBox="0 0 64 64" aria-hidden="true">${g}</svg>`}
+// Cómo ofrecer cada alimento: b = trozos grandes (BLW), pu = puré, q = trocitos con pinza
+const PD={"Frutas":{b:["wedge","Muy madura, en tiras o cuñas que sobresalgan del puño"],pu:"Aplastada con tenedor",q:["bits","Trocitos blandos"]},
+"Verduras":{b:["stick","Bastón cocido muy blando, del largo de un dedo"],pu:"Puré espeso con grumos",q:["bits","Dados cocidos blandos"]},
+"Proteínas":{b:["stick","Tira tierna y bien cocinada"],pu:"Desmenuzado y aplastado",q:["bits","Desmenuzado en trocitos"]},
+"Cereales":{b:["balls","Bolitas o bastones blandos que se agarren"],pu:"Papilla espesa",q:["bits","Trocitos blandos"]},
+"Frutos secos":{b:["mash","Crema fina, en capa fina sobre fruta o tostada"],pu:"Molido, mezclado con yogur o papilla",q:["mash","Molido, mezclado con la comida"]},
+"Lácteos":{b:["stick","Tira de queso tierno"],pu:"Aplastado con tenedor",q:["bits","Dados pequeños y blandos"]}};
+const PO={};const P=(names,o)=>names.split("|").forEach(n=>PO[n]=o);
+P("Plátano",{b:["peel","Pelado a medias, con un trozo de piel como asa para que no resbale"],pu:"Aplastado con tenedor",q:["bits","Rodajas gruesas o trocitos"]});
+P("Aguacate",{b:["wedge","Muy maduro, en cuña con un poco de piel como asa"],pu:"Aplastado con tenedor",rind:"#3d5a22",q:["bits","Trocitos blandos o aplastado"]});
+P("Melón",{b:["wedge","En tira con un poco de corteza como asa, sin pepitas"],pu:"Aplastado con tenedor",rind:"#7a9a4a"});
+P("Sandía",{b:["wedge","En tira con un poco de corteza como asa, sin pepitas"],rind:"#3f7a3a"});
+P("Uvas",{b:["bits","En cuartos a lo largo, nunca enteras"],q:["bits","En cuartos a lo largo, nunca enteras"]});
+P("Cerezas",{b:["bits","Sin hueso y troceadas"]});
+P("Dátiles",{b:["mash","Sin hueso y aplastados"],q:["mash","Sin hueso y aplastados"]});
+P("Coco",{b:["bits","Rallado o en copos"]});
+P("Granada",{b:["mash","Granos aplastados"]});
+P("Fresas",{b:["wedge","Muy madura, en mitades grandes"]});
+P("Frambuesas|Mora",{b:["bits","Aplastadas con el tenedor"]});
+P("Arándanos",{b:["bits","Aplastados o abiertos por la mitad"]});
+P("Kiwi",{b:["wedge","Muy maduro, en cuñas sin piel"],pu:"Aplastado con tenedor"});
+P("Naranja|Mandarina|Pomelo",{b:["wedge","Gajos pelados, sin semillas ni piel blanca"]});
+P("Mango",{b:["wedge","Tira grande y muy madura"],pu:"Aplastado con tenedor"});
+P("Albaricoque|Caqui|Melocotón|Níspero",{b:["wedge","Muy maduro, en tiras o cuñas que sobresalgan del puño"],pu:"Aplastado con tenedor"});
+P("Higos",{b:["wedge","Muy maduros, en mitades o cuñas"],pu:"Aplastados con tenedor"});
+P("Piña",{b:["stick","Tira blanda y madura, sin el centro duro"]});
+P("Chirimoya",{b:["mash","Sin pepitas, a cucharadas"]});
+P("Manzana asada|Pera asada|Membrillo cocido",{b:["wedge","Cuña asada muy blanda"],pu:"Aplastada con tenedor"});
+P("Brócoli|Coliflor",{b:["floret","Ramillete al vapor, con el tallo como asa"],q:["bits","Ramilletes pequeños"]});
+P("Coles de Bruselas",{b:["floret","Cocidas y partidas por la mitad"]});
+P("Zanahoria",{b:["stick","Bastón cocido muy blando (nunca crudo)"]});
+P("Patata|Boniato",{b:["stick","Bastón o gajo cocido o asado, blando"]});
+P("Calabaza|Calabacín",{b:["stick","Bastón o gajo al vapor, muy blando"]});
+P("Guisantes",{b:["bits","Aplastados ligeramente con el tenedor"],q:["bits","Cocidos y aplastados"]});
+P("Judías verdes",{b:["stick","Enteras y bien cocidas, para agarrar"]});
+P("Espárragos",{b:["stick","Puntas cocidas blandas"]});
+P("Maíz tierno",{b:["mash","Aplastado o en crema, el grano entero cuesta"],q:["mash","Aplastado o en crema"]});
+P("Tomate",{b:["wedge","Cuña sin piel ni pepitas"]});
+P("Pimiento rojo|Pimiento verde",{b:["stick","Tira asada, sin piel"]});
+P("Berenjena",{b:["stick","Tira asada, muy blanda"]});
+P("Champiñones|Setas",{b:["bits","Cocinados y muy picados"]});
+P("Cebolla|Puerro|Apio|Hinojo",{b:["bits","Cocinado, mezclado con otras comidas"]});
+P("Acelgas|Espinacas|Borraja|Remolacha|Rúcula",{b:["bits","Cocidas y picadas, menos del 20% del plato"],pu:"Mezcladas con otras verduras",q:["bits","Cocidas y picadas, menos del 20% del plato"]});
+P("Pollo",{b:["stick","Muslo cocido en tiras, sin piel"]});
+P("Alubias blancas|Alubias negras|Alubias pintas|Lentejas|Lentejas rojas",{b:["patty","Tortita, o aplastadas con las manos"],pu:"Aplastadas con un poco de agua de cocción",q:["bits","Enteras muy blandas, algo aplastadas"]});
+P("Garbanzos",{b:["mash","Hummus, o aplastados"],pu:"Aplastados con agua de cocción",q:["bits","Muy blandos, algo aplastados"]});
+P("Huevo",{b:["stick","Tortilla en tiras o huevo duro en bastones"],pu:"Huevo duro aplastado",q:["bits","Trocitos de tortilla"]});
+P("Tofu|Tempeh",{b:["stick","Palitos a la plancha"],q:["bits","Dados pequeños"]});
+P("Bacalao|Dorada|Lenguado|Lubina|Merluza|Rape|Salmón|Sardinas|Trucha",{b:["flake","Lascas grandes, sin piel ni espinas"],pu:"Desmenuzado y aplastado",q:["bits","Lascas pequeñas"]});
+P("Gambas|Mejillones",{b:["bits","Bien cocinados, pelados y desmenuzados"]});
+P("Arroz",{b:["balls","Bolitas de arroz hervido y chafado"],q:["bits","Arroz suelto, bien cocido"]});
+P("Pasta|Fideos",{b:["stick","Pasta gruesa bien cocida (fusilli o macarrón)"],q:["bits","Pasta corta bien cocida"]});
+P("Avena",{b:["patty","Tortitas de avena"],pu:"Papilla espesa",q:["mash","Papilla con trocitos de fruta"]});
+P("Pan (tostado, sin sal)|Pan integral",{b:["stick","Tostada en tiras, sin sal"],q:["bits","Trocitos de tostada blanda"]});
+P("Polenta",{b:["stick","Bastones de polenta fría"]});
+P("Yogur natural|Kéfir",{b:["mash","En cuchara cargada, para que la lleve a la boca"],pu:"Natural, sin azúcar",q:["mash","Con trocitos de fruta"]});
+P("Mantequilla",{b:["mash","En capa fina sobre tostada"]});
+const presOf=x=>{const d=PD[x.c];if(!d)return null;const o=PO[x.n]||{};return{b:o.b||d.b,pu:o.pu||d.pu,q:o.q||d.q,rind:o.rind}};
+const pinzaNow=()=>{if(S.pinza===true)return true;if(S.pinza===false)return false;const a=age();return !!a&&a.mo>=9};
+const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
+const offerText=(x,pz)=>{const p=presOf(x);return !p?"":pz?p.q[1]:p.b[1]+(p.b[0]==="mash"?"":". O "+lowFirst(p.pu))};
+function presHtml(x,pz){const p=presOf(x);if(!p)return"";const c=colOf(x);
+  const f=(form,t,lab)=>`<figure>${fig(form,c,p.rind)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
+  if(pz)return `<div class="pres">${f(p.q[0],p.q[1],p.q[0]==="mash"?"En crema o puré":"Trocitos (pinza)")}</div>`;
+  if(p.b[0]==="mash")return `<div class="pres">${f("mash",p.b[1],"En crema o puré")}</div>`;
+  return `<div class="pres">${f(p.b[0],p.b[1],"Trozos grandes")}${f("mash",p.pu,"Puré")}</div>`}
+
 const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,log:[],prefs:DEFP()});
+const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;
-  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,log:Array.isArray(o.log)?o.log:[],prefs:pr}};
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,log:Array.isArray(o.log)?o.log:[],prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
   return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
 let DB=fixDB(null),S=DB.babies[DB.cur];
@@ -446,7 +535,7 @@ function render(){
   renderCal();renderPlanForm();
   if(!$("v2").classList.contains("hide"))plan();
 }
-function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x?x.tip:"";
+function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":"";$("shp").innerHTML=x?presHtml(x,pinzaNow()):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
   if(lk)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo de uno en uno, en poca cantidad, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
@@ -468,6 +557,7 @@ function renderProfile(){
   $("vage").textContent=ra?wk(ra.days)+(a&&a.pre?` · corregida: ${a.days>=0?wk(a.days)+" ("+a.mo+" m)":"aún antes de la fecha prevista"}`:` (${ra.mo} mes${ra.mo===1?"":"es"})`):"Sin calcular";
   $("vga").textContent=S.ga?S.ga+" semanas"+(S.ga<37?" (prematuro)":""):"No indicado";
   $("vearly").textContent=S.early?"Sí, desde las 17 semanas":"No";
+  $("vpinza").textContent=S.pinza===true?"Sí":S.pinza===false?"Todavía no":"Automático (desde los 9 meses)";
   $("vcnt").textContent=Object.keys(stats()).length+" alimentos";
   ["nm","bd","ga"].forEach(k=>{
     $("ed_"+k).classList.toggle("hide",editing!==k);$("vw_"+k).classList.toggle("hide",editing===k);$("pen_"+k).classList.toggle("hide",editing===k);
@@ -490,6 +580,7 @@ function pushCloud(){
     saveLocal();render();pushCloud();
   };
 });
+$("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
 $("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
 function askProfile(){if(!S.bd){editing=S.nm?"bd":"nm";tab(4);renderProfile()}}
 function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3)renderCal()}
@@ -538,36 +629,36 @@ const NOCOOK=new Set(["Lechuga","Pepino","Rábano","Endibia"]);
 const CER=new Set(["Arroz","Pasta","Quinoa","Cuscús"]);
 const PANES=new Set(["Pan (tostado, sin sal)","Pan integral"]);
 const low=x=>x.n.toLowerCase();
-const tex=mo=>mo<8?"Puré espeso con grumos o trozos blandos que pueda coger con la mano.":"Aplastado con tenedor y con trocitos blandos, que pueda coger con la mano.";
 const mealsFor=mo=>mo<6?["Comida"]:mo<7?["Comida","Merienda"]:mo<9?["Desayuno","Comida","Merienda"]:mo<12?["Desayuno","Comida","Merienda","Cena"]:["Desayuno","Media mañana","Comida","Merienda","Cena"];
-const qty=mo=>mo<9?"Cantidad: la decide el bebé. Empieza con poca y ofrece más si pide. A esta edad la comida aporta solo el 20 a 30% de lo que necesita, la leche sigue siendo lo principal.":"Cantidad: la decide el bebé, sin forzar ni fijar raciones. La comida va aportando cada vez más y la leche sigue a demanda.";
-function recipesFor(kn,mo){
-  const out=[],add=(t,k,n,ing,how,meals)=>out.push({t,k,n,ing:ing.map(low).join(", "),how,meals});
+const RF={pure:["mash","bits"],arroz:["balls","bits"],guiso:["mash","bits"],tortita:["patty","patty"],tortilla:["stick","bits"],burger:["stick","bits"],pescado:["flake","bits"],tofu:["stick","bits"],hummus:["mash","mash"],avena:["mash","mash"],yogur:["mash","mash"],queso:["stick","bits"],tostada:["stick","bits"]};
+function recipesFor(kn,mo,pz){
+  const out=[],T=(a,b)=>pz?b:a;
+  const add=(t,k,n,ing,how,meals,g)=>{const key=ing.find(x=>x.c==="Verduras")||ing.find(x=>x.c==="Frutas")||ing[0];out.push({t,k,n,ing:ing.map(low).join(", "),how,meals,g:g||fig(RF[t][pz?1:0],colOf(key))})};
   const veg=kn.filter(x=>x.c==="Verduras"&&!NOCOOK.has(x.n)),fru=kn.filter(x=>x.c==="Frutas"),
     meat=kn.filter(x=>MEAT.has(x.n)),fish=kn.filter(x=>FISH.has(x.n)&&x.n!=="Gambas"&&x.n!=="Mejillones"),
     leg=kn.filter(x=>/^(Lentejas|Alubias|Garbanzos)/.test(x.n)),egg=kn.filter(x=>x.n==="Huevo"),tofu=kn.filter(x=>x.n==="Tofu"),
     cer=kn.filter(x=>CER.has(x.n)),pan=kn.filter(x=>PANES.has(x.n)),
     g=n=>kn.find(x=>x.n===n),prot=[...meat,...fish,...leg,...egg,...tofu],mainM=["Comida","Cena"];
   veg.forEach(v=>{
-    prot.forEach(p=>add("pure",p.n,`Puré de ${low(v)} con ${low(p)}`,[v,p],tex(mo)+" Un chorrito de aceite de oliva virgen extra, sin sal.",mainM));
-    cer.forEach(c=>[...meat,...fish,...leg].forEach(p=>add("arroz",p.n,`${c.n} con ${low(v)} y ${low(p)}`,[c,v,p],"Cocido muy blando, con la verdura y la proteína desmenuzadas o aplastadas. Aceite de oliva virgen extra, sin sal.",mainM)));
-    leg.forEach(l=>add("guiso",l.n,`Guiso suave de ${low(l)} con ${low(v)}`,[l,v],"Legumbre muy blanda, aplastada con tenedor, con la verdura cocida y troceada. Sin sal.",mainM));
-    leg.filter(l=>/^(Lentejas|Alubias)/.test(l.n)).forEach(l=>add("tortita",l.n,`Tortitas de ${low(l)} con ${low(v)}`,[l,v],"Legumbre cocida y aplastada con la verdura, en tortitas pequeñas a la plancha. Sin sal.",mainM));
-    egg.forEach(e=>add("tortilla",e.n,`Tortilla de ${low(v)}`,[e,v],"Bien cuajada, en tiras o triángulos que pueda coger. Sin sal.",mainM));
-    meat.forEach(m=>add("burger",m.n,`Hamburguesitas de ${low(m)} con ${low(v)}`,[m,v],"Carne picada bien cocinada, mezclada con la verdura cocida y rallada, en forma de dedo. Sin sal.",mainM));
-    fish.forEach(f=>add("pescado",f.n,`${f.n} con ${low(v)}`,[f,v],"Al vapor o al horno, sin piel ni espinas, en lascas. La verdura, en bastones blandos o aplastada. Sin sal.",mainM));
-    tofu.forEach(t=>add("tofu",t.n,`Palitos de tofu con ${low(v)}`,[t,v],"Tofu a la plancha en palitos, con la verdura en bastones blandos. Sin sal.",mainM));
-    if(g("Garbanzos"))add("hummus","Garbanzos",`Hummus con bastones de ${low(v)}`,[g("Garbanzos"),v],"Garbanzos cocidos triturados con aceite de oliva y un poco de agua de cocción, sin sal. Con bastones de verdura bien cocida.",["Comida","Merienda"]);
+    prot.forEach(p=>add("pure",p.n,`Puré de ${low(v)} con ${low(p)}`,[v,p],T("Puré espeso con grumos","Aplastado con tenedor, con trocitos blandos"),mainM));
+    cer.forEach(c=>[...meat,...fish,...leg].forEach(p=>add("arroz",p.n,`${c.n} con ${low(v)} y ${low(p)}`,[c,v,p],"Bien cocido, con la verdura y la proteína desmenuzadas",mainM)));
+    leg.forEach(l=>add("guiso",l.n,`Guiso suave de ${low(l)} con ${low(v)}`,[l,v],T("Muy blando, aplastado con tenedor","Muy blando, algo aplastado"),mainM));
+    leg.filter(l=>/^(Lentejas|Alubias)/.test(l.n)).forEach(l=>add("tortita",l.n,`Tortitas de ${low(l)} con ${low(v)}`,[l,v],"Tortitas pequeñas a la plancha",mainM));
+    egg.forEach(e=>add("tortilla",e.n,`Tortilla de ${low(v)}`,[e,v],T("En tiras o triángulos","En trocitos"),mainM));
+    meat.forEach(m=>add("burger",m.n,`Hamburguesitas de ${low(m)} con ${low(v)}`,[m,v],T("En forma de dedo","Pequeñas o desmenuzadas"),mainM));
+    fish.forEach(f=>add("pescado",f.n,`${f.n} con ${low(v)}`,[f,v],T("Lascas grandes, sin piel ni espinas","Lascas pequeñas, sin piel ni espinas"),mainM));
+    tofu.forEach(t=>add("tofu",t.n,`Palitos de tofu con ${low(v)}`,[t,v],T("En palitos","En dados pequeños"),mainM));
+    if(g("Garbanzos"))add("hummus","Garbanzos",`Hummus con ${T("bastones","trocitos")} de ${low(v)}`,[g("Garbanzos"),v],T("Verdura muy bien cocida, en bastones","Verdura muy bien cocida, en trocitos"),["Comida","Merienda"]);
   });
   const av=g("Avena"),pl=g("Plátano"),ag=g("Aguacate"),yo=g("Yogur natural"),qf=g("Queso fresco");
-  if(av)fru.forEach(f=>add("avena",null,`Papilla de avena con ${low(f)}`,[av,f],"Copos de avena cocidos con leche materna, de fórmula o agua, y la fruta aplastada. Sin azúcar.",["Desayuno"]));
-  if(yo)fru.forEach(f=>add("yogur",null,`Yogur natural con ${low(f)}`,[yo,f],"Yogur natural sin azúcar, con la fruta aplastada o en trozos blandos.",["Desayuno","Merienda"]));
-  if(qf)fru.forEach(f=>add("queso",null,`Queso fresco con ${low(f)}`,[qf,f],"Queso fresco bajo en sal, con la fruta aplastada o en trozos blandos.",["Merienda"]));
-  pan.forEach(b=>{if(ag)add("tostada",null,"Tostada con aguacate",[b,ag],"Tostada sin sal en tiras, con el aguacate aplastado.",["Desayuno","Merienda"]);
-    if(qf)add("tostada",null,"Tostada con queso fresco",[b,qf],"Tostada sin sal en tiras, con queso fresco bajo en sal.",["Desayuno","Merienda"])});
-  if(pl&&av&&egg.length)add("tortita","Huevo","Tortitas de plátano y avena",[pl,av,egg[0]],"Plátano maduro aplastado, avena y huevo, a la plancha en tortitas pequeñas. Sin azúcar.",["Desayuno","Merienda"]);
-  egg.forEach(e=>add("tortilla","Huevo","Tortilla francesa en tiras",[e],"Bien cuajada, en tiras que pueda coger. Sin sal.",["Desayuno"]));
-  fru.forEach(f=>add("fruta",null,f.n,[f],(TIP[f.n]||"Fruta bien madura, sin piel ni pepitas, en tiras blandas o aplastada")+". Sin zumo.",["Desayuno","Media mañana","Merienda"]));
+  if(av)fru.forEach(f=>add("avena",null,`Papilla de avena con ${low(f)}`,[av,f],"Papilla espesa, con la fruta aplastada",["Desayuno"]));
+  if(yo)fru.forEach(f=>add("yogur",null,`Yogur natural con ${low(f)}`,[yo,f],T("Con la fruta aplastada","Con trocitos blandos de fruta"),["Desayuno","Merienda"]));
+  if(qf)fru.forEach(f=>add("queso",null,`Queso fresco con ${low(f)}`,[qf,f],T("Con la fruta aplastada","Con trocitos blandos de fruta"),["Merienda"]));
+  pan.forEach(b=>{if(ag)add("tostada",null,"Tostada con aguacate",[b,ag],T("En tiras, con el aguacate aplastado","En trocitos, con el aguacate aplastado"),["Desayuno","Merienda"]);
+    if(qf)add("tostada",null,"Tostada con queso fresco",[b,qf],T("En tiras","En trocitos"),["Desayuno","Merienda"])});
+  if(pl&&av&&egg.length)add("tortita","Huevo","Tortitas de plátano y avena",[pl,av,egg[0]],"Tortitas pequeñas a la plancha",["Desayuno","Merienda"]);
+  egg.forEach(e=>add("tortilla","Huevo","Tortilla francesa",[e],T("En tiras","En trocitos"),["Desayuno"]));
+  fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],colOf(f),p.rind))});
   return out}
 
 function plan(){
@@ -580,7 +671,6 @@ function plan(){
   if(p.gf)notes.push("Sin gluten.");
   if(every===1)notes.push("La AEP recomienda dejar unos días entre alimentos nuevos.");
   if(ag&&ag.mo>=6&&ag.mo<12&&!p.gf&&![...GLU].some(n=>m[n]))notes.push("Gluten: la AEP recomienda introducirlo entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.");
-  if(ag&&ag.mo>=8)notes.push("Texturas: la AEP recomienda texturas grumosas lo antes posible y nunca más tarde de los 8 o 9 meses.");
   if(!p.days)notes.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
   $("pf_note").textContent=notes.join(" ");
   if(ag&&ag.mo<ag.th){
@@ -627,9 +717,9 @@ function plan(){
     const nw=o.items.find(x=>fn(x)&&!used.has(x.n));
     const pick=nw||c[(o.di+i*2+(p.seed||1))%c.length];used.add(pick.n);
     return `<p><b>${lab}:</b> <span class="${pick.a?"al":""}">${esc(pick.n)}</span></p>`}).join("")};
-  const mo=ag?ag.mo:8;
+  const mo=ag?ag.mo:8,pz=pinzaNow();
   const menuHtml=o=>{
-    const kd=o.kn.filter(x=>!o.items.includes(x)),R=recipesFor(kd,mo),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[];
+    const kd=o.kn.filter(x=>!o.items.includes(x)),R=recipesFor(kd,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[];
     ms.forEach((meal,si)=>{
       const L=R.filter(r=>r.meals.includes(meal)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k)));
       if(!L.length)return;
@@ -637,17 +727,17 @@ function plan(){
       usedN.add(r.n);if(r.k)usedK.add(r.k);rows.push([meal,r]);
     });
     if(!rows.length){const mn=menuFor(o);return mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:""}
-    return `<div class="menu"><b>Menú del día</b> <span class="mute">${ms.length} comida${ms.length===1?"":"s"}, además de la leche a demanda</span>`+rows.map(([meal,r])=>`<p><b>${meal}:</b> ${esc(r.n)}<br><span class="mute">${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</span></p>`).join("")+`<p class="mute">${esc(qty(mo))}</p></div>`;
+    return `<div class="menu"><b>Menú del día</b> <span class="mute">${ms.length} comida${ms.length===1?"":"s"} + leche a demanda</span>`+rows.map(([meal,r])=>`<div class="mr">${r.g}<p><b>${meal}:</b> ${esc(r.n)}<br><span class="mute">${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</span></p></div>`).join("")+`</div>`;
   };
   const useful=out.some(o=>o.items.length||o.done.length||o.kn.length);
-  $("days").innerHTML=useful?out.slice(0,show).map((o,i)=>{
+  $("days").innerHTML=useful?'<p class="mute" style="margin:0 0 8px">Cantidad: la decide el bebé. Empieza con poca y ofrece más si pide.</p>'+out.slice(0,show).map((o,i)=>{
     const r=re.length?re[i%re.length]:null,ri=r&&info(r.n);
     const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
     const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
-      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${tg}<br><span class="mute">${esc(n.tip)}.${n.fe&&(goals.includes("iron")||p.diet!=="om")?" Combínalo con algo con vitamina C (naranja, kiwi, pimiento), que ayuda a absorber el hierro.":""}${n.a?" Ofrécelo en poca cantidad y, mejor a primera hora del día o a mediodía, para poder vigilar posibles reacciones.":""}</span><br><button class="btn" style="margin-top:6px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button></p>`}).join("");
-    const none=(!o.items.length&&!o.done.length)?'<p class="mute">Hoy no toca alimento nuevo: ofrece los que ya conoce.</p>':"";
+      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.a?'<span class="tag w">alérgeno</span> ':""}${tg}</p>${presHtml(n,pz)}<button class="btn" style="margin:2px 0 6px;max-width:200px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button>`}).join("");
+    const none=(!o.items.length&&!o.done.length)?'<p class="mute">Hoy sin alimento nuevo.</p>':"";
     const mh=menuHtml(o);
-    const rep=r?`<p><b>Repetir:</b> ${esc(r.n)}<br><span class="mute">${r.last==="love"?"Le gustó, mantenlo en la rotación.":"Última vez: "+RL[r.last].toLowerCase()+". Un rechazo no es definitivo: vuelve a ofrecerlo sin presionar."}${ri?" "+esc(ri.tip)+".":""}</span></p>`:"";
+    const rep=r?`<p><b>Repetir:</b> ${esc(r.n)} <span class="mute">${r.last==="love"?"Le gustó.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma."}</span></p>`:"";
     return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${none}${mh}${rep}</div>`}).join("")+(!p.days&&out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver más días</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d));
   if($("pmore"))$("pmore").onclick=()=>{planShown+=30;plan()};
