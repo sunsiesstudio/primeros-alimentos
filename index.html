@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -94,7 +95,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   <svg viewBox="0 0 24 24" width="64" height="64" aria-hidden="true"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>
   <h1 class="disp" style="margin:8px 0">Primeros alimentos</h1>
   <p class="mute">Inicia sesión para guardar el progreso de tu bebé en tu cuenta.</p>
-  <button class="gbtn" id="gl"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.5 13.2l7.9 6.1C12.3 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.5 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.7-4-13.6-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Continuar con Google</button>
+  <div id="gbtn" style="display:flex;justify-content:center;min-height:44px"></div><button class="gbtn hide" id="gl"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.5 13.2l7.9 6.1C12.3 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.5 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.7-4-13.6-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Continuar con Google</button>
   <p class="mute" id="gm" style="margin-top:12px"></p>
 </div></div>
 <main>
@@ -307,7 +308,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("sh").classList.a
 </script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithCredential,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {getFirestore,doc,getDoc,setDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 // 1) Pega aquí la configuración de tu app web de Firebase (Configuración del proyecto > Tus apps)
 const CFG={apiKey:"AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ",authDomain:"primeros-alimentos.firebaseapp.com",projectId:"primeros-alimentos",appId:"1:210048481917:web:f7a4e8f31d067a7152cf14"};
@@ -321,6 +322,14 @@ if(CFG.apiKey.startsWith("TU_")){
     logout:()=>signOut(auth),
     save:d=>setDoc(doc(db,"users",auth.currentUser.uid),d)
   };
+    const CLIENT_ID="210048481917-ul8kftm5f33lsfc3f5lskj4au5mvm9tk.apps.googleusercontent.com";
+  const gm=document.getElementById("gm");
+  (function initGIS(){
+    if(!window.google||!google.accounts){setTimeout(initGIS,200);return}
+    google.accounts.id.initialize({client_id:CLIENT_ID,callback:r=>{
+      signInWithCredential(auth,GoogleAuthProvider.credential(r.credential)).catch(e=>{gm.textContent="No se pudo iniciar sesión: "+(e&&e.code)})}});
+    google.accounts.id.renderButton(document.getElementById("gbtn"),{theme:"outline",size:"large",shape:"pill",text:"continue_with",locale:"es",width:260});
+  })();
   onAuthStateChanged(auth,async u=>{
     if(!u){window.__auth(null);return}
     try{const snap=await getDoc(doc(db,"users",u.uid));window.__auth(u,snap.exists()?snap.data():null)}
