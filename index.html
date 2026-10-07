@@ -190,8 +190,10 @@ const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";let S={nm:"",bd:"",log:[]};
 
 let USER=null,ST,LOADED=false;
-const save=()=>{if(!USER||!window.cloud||!LOADED)return;clearTimeout(ST);
-  ST=setTimeout(()=>window.cloud.save({nm:S.nm,bd:S.bd,log:S.log}).catch(()=>{$("err").textContent="No se pudo guardar, revisa tu conexión"}),400)};
+const LKEY=()=>"primeros_u_"+(USER?USER.uid:"anon");
+const saveLocal=()=>{try{localStorage.setItem(LKEY(),JSON.stringify({nm:S.nm,bd:S.bd,log:S.log}))}catch(e){}};
+const save=()=>{if(!USER)return;saveLocal();if(!window.cloud||!LOADED)return;clearTimeout(ST);
+  ST=setTimeout(()=>window.cloud.save({nm:S.nm,bd:S.bd,log:S.log}).then(()=>{$("err").textContent=""}).catch(()=>{$("err").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."}),400)};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
@@ -307,10 +309,13 @@ render();
 
 window.__auth=(u,d,pending)=>{USER=u;LOADED=!!u&&!pending;
   S={nm:"",bd:"",log:[]};
-  if(u){$("who").textContent="Sesión: "+(u.email||u.displayName||"");$("err").textContent="Cargando tu progreso...";$("gate").classList.add("hide")}
+  if(u){try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l&&Array.isArray(l.log))S={nm:"",bd:"",...l}}catch(e){}
+    $("who").textContent="Sesión: "+(u.email||u.displayName||"");$("err").textContent="Cargando tu progreso...";$("gate").classList.add("hide")}
   else{$("gate").classList.remove("hide")}
   render()};
-window.__data=d=>{if(d)S={nm:"",bd:"",...d,log:Array.isArray(d.log)?d.log:[]};LOADED=true;$("err").textContent="";render();if(!S.bd)tab(4)};
+window.__data=d=>{if(d){S={nm:"",bd:"",...d,log:Array.isArray(d.log)?d.log:[]};saveLocal()}
+  LOADED=true;$("err").textContent="";render();if(!d&&(S.nm||S.bd||S.log.length))save();if(!S.bd)tab(4)};
+window.__fail=code=>{LOADED=false;$("err").textContent="No se pudo conectar con tu cuenta ("+code+"). Tus datos se guardan en este dispositivo.";render();if(!S.bd)tab(4)};
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
@@ -363,7 +368,7 @@ onAuthStateChanged(auth,async u=>{
   try{
     const snap=await Promise.race([getDoc(doc(db,"users",u.uid)),new Promise((_,no)=>setTimeout(()=>no({code:"timeout"}),8000))]);
     window.__data(snap.exists()?snap.data():null);
-  }catch(e){document.getElementById("err").textContent="No se pudo cargar tu progreso: "+(e&&e.code)+". Recarga la página."}
+  }catch(e){window.__fail((e&&e.code)||"error")}
 });
 </script>
 </body>
