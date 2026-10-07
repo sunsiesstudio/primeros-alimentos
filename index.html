@@ -82,7 +82,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .it .tag{font-size:.7rem;white-space:nowrap}
 .warn{background:color-mix(in srgb,var(--terra) 18%,transparent);border:1px solid var(--terra);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.85rem}.warn p{margin:3px 0}
 .foot p{margin:0 0 10px}
-.gate{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.gate{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;overflow-y:auto}
 .gbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f1f1f;border:1px solid #747775;border-radius:999px;padding:11px 20px;font-weight:600}.gbtn svg{width:20px;height:20px}
 .sheet>div{position:relative}.sheet h3{padding-right:40px}
 .xc{position:absolute;top:-4px;right:-6px;width:38px;height:38px;border:0;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}.xc:hover{background:var(--line)}
@@ -96,6 +96,13 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   <h1 class="disp" style="margin:8px 0">Primeros alimentos</h1>
   <p class="mute">Inicia sesión para guardar el progreso de tu bebé en tu cuenta.</p>
   <div id="gbtn" style="display:flex;justify-content:center;min-height:44px"></div>
+  <p class="mute" style="margin:14px 0 8px">o con tu email</p>
+  <div style="max-width:300px;margin:0 auto;text-align:left">
+    <input id="em" type="email" placeholder="Email" autocomplete="email" aria-label="Email">
+    <input id="pw" type="password" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="current-password" aria-label="Contraseña" style="margin-top:8px">
+    <div class="btns"><button class="btn" id="eup">Crear cuenta</button><button class="btn p" id="ein">Entrar</button></div>
+    <p style="text-align:center;margin:10px 0 0"><button class="x" id="erst">He olvidado mi contraseña</button></p>
+  </div>
   <p class="mute" id="gm" style="margin-top:12px"></p>
 </div></div>
 <main>
@@ -317,10 +324,10 @@ const fail=m=>{gm.textContent=m};
 window.addEventListener("error",e=>fail("Error: "+(e.message||"desconocido")));
 window.addEventListener("unhandledrejection",e=>fail("Error: "+((e.reason&&(e.reason.code||e.reason.message))||"desconocido")));
 gm.textContent="Cargando...";
-let initializeApp,getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,getFirestore,doc,getDoc,setDoc;
+let initializeApp,getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,getFirestore,doc,getDoc,setDoc;
 try{
   ({initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"));
-  ({getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
+  ({getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
   ({getFirestore,doc,getDoc,setDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
 }catch(e){fail("No se pudo cargar Firebase: "+(e&&e.message));throw e}
 const CFG={apiKey:"AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ",authDomain:"primeros-alimentos.firebaseapp.com",projectId:"primeros-alimentos",appId:"1:210048481917:web:f7a4e8f31d067a7152cf14"};
@@ -330,6 +337,12 @@ window.cloud={
   logout:()=>{try{google.accounts.id.disableAutoSelect()}catch(e){}return signOut(auth)},
   save:d=>setDoc(doc(db,"users",auth.currentUser.uid),d)
 };
+const MSG={"auth/invalid-credential":"Email o contraseña incorrectos.","auth/wrong-password":"Email o contraseña incorrectos.","auth/user-not-found":"No hay cuenta con ese email. Pulsa Crear cuenta.","auth/email-already-in-use":"Ese email ya tiene cuenta. Pulsa Entrar.","auth/weak-password":"La contraseña necesita al menos 6 caracteres.","auth/invalid-email":"Revisa el email, no parece válido.","auth/missing-password":"Escribe tu contraseña.","auth/too-many-requests":"Demasiados intentos. Espera un momento y vuelve a probar.","auth/operation-not-allowed":"El acceso con email no está activado en Firebase."};
+const errm=e=>MSG[e&&e.code]||("No se pudo: "+(e&&e.code));
+const val=()=>({em:document.getElementById("em").value.trim(),pw:document.getElementById("pw").value});
+document.getElementById("ein").onclick=()=>{const{em,pw}=val();if(!em||!pw){fail("Escribe tu email y tu contraseña.");return}fail("Entrando...");signInWithEmailAndPassword(auth,em,pw).catch(e=>fail(errm(e)))};
+document.getElementById("eup").onclick=()=>{const{em,pw}=val();if(!em||!pw){fail("Escribe tu email y una contraseña.");return}fail("Creando tu cuenta...");createUserWithEmailAndPassword(auth,em,pw).catch(e=>fail(errm(e)))};
+document.getElementById("erst").onclick=()=>{const{em}=val();if(!em){fail("Escribe tu email arriba y vuelve a pulsar.");return}sendPasswordResetEmail(auth,em).then(()=>fail("Te hemos enviado un email para cambiar la contraseña.")).catch(e=>fail(errm(e)))};
 let tries=0;
 (function initGIS(){
   if(!window.google||!google.accounts){
