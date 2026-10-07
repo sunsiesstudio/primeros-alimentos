@@ -82,11 +82,36 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .it .tag{font-size:.7rem;white-space:nowrap}
 .warn{background:color-mix(in srgb,var(--terra) 18%,transparent);border:1px solid var(--terra);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.85rem}.warn p{margin:3px 0}
 .foot p{margin:0 0 10px}
-.gate{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;overflow-y:auto}
+.gate{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
 .gbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f1f1f;border:1px solid #747775;border-radius:999px;padding:11px 20px;font-weight:600}.gbtn svg{width:20px;height:20px}
 .sheet>div{position:relative}.sheet h3{padding-right:40px}
 .xc{position:absolute;top:-4px;right:-6px;width:38px;height:38px;border:0;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}.xc:hover{background:var(--line)}
 .foot{margin-top:26px;font-size:.88rem;border-top:1px solid var(--line);padding-top:12px}
+input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;height:42px;text-align:left;display:block}
+.btn.on{background:var(--blue);color:var(--onacc)}
+.sec{font-size:1.05rem;margin:18px 0 8px;color:var(--mute);font-weight:600}
+.avatar{width:96px;height:96px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:2.4rem;color:var(--green);margin:0 auto 8px}
+.prow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.prow:first-child{border-top:0}
+.prow>div{flex:1;min-width:0}
+.lab{font-size:.85rem;color:var(--mute)}
+.val{font-size:1.15rem;font-weight:600}
+.ed{margin-top:6px}
+.pen{width:42px;height:42px;border-radius:50%;border:0;background:var(--line);display:flex;align-items:center;justify-content:center;color:var(--blue);flex:none}
+.pf{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.pf label{font-size:.85rem;min-width:0}
+.calh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:1.05rem}
+.calh .x{font-size:1.6rem;text-decoration:none;padding:0 12px}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cg.wk{margin-bottom:4px;text-align:center;font-size:.75rem;color:var(--mute)}
+.cd{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:4px 2px;min-height:54px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.85rem}
+.cd.today{border:2px solid var(--terra)}
+.cd.sel{background:var(--blue);color:var(--onacc);border-color:var(--blue)}
+.cd .dts{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.cd .dot{width:7px;height:7px}
+.cd .more{font-size:.65rem;color:var(--mute)}
+.cd.sel .more{color:var(--onacc)}
+.cdetail{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -126,21 +151,44 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   <div class="grid" id="lst"></div>
 </section>
 <section id="v2" class="hide">
-  <div class="card"><p>Un alimento nuevo al día y uno para repetir. Los que gustaron poco vuelven, porque suelen hacer falta varios intentos.</p>
-  <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Hacer otro plan</button></div></div>
+  <div class="card">
+    <h3 class="sec" style="margin-top:0">Tu plan</h3>
+    <div class="pf">
+      <label>Dieta<select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
+      <label>Duración<select id="pf_days"><option value="7">7 días</option><option value="14">14 días</option></select></label>
+      <label>Nuevos al día<select id="pf_per"><option value="1">1 alimento</option><option value="2">2 alimentos</option></select></label>
+    </div>
+    <div class="chips" style="margin-top:10px"><button id="pf_iron">Reforzar hierro</button><button id="pf_alg">Potenciar alérgenos</button><button id="pf_gf">Sin gluten</button></div>
+    <div class="btns" style="max-width:260px"><button class="btn" id="mk">Otras ideas</button></div>
+    <p class="mute" id="pf_note"></p>
+  </div>
   <div id="days"></div>
 </section>
-<section id="v3" class="hide"><div class="card" id="log"></div></section>
-
-<section id="v4" class="hide"><div class="card">
-  <h2 class="disp" style="margin:0 0 6px;color:var(--green)">Perfil</h2>
-  <p class="mute" style="margin:0 0 8px">Los datos de tu bebé se guardan en tu cuenta.</p>
-  <div class="meta"><label>Nombre del bebé<input id="nm" placeholder="Nombre del bebé"></label><label>Fecha de nacimiento<input id="bd" type="date"></label></div>
-  <div class="btns" style="max-width:420px"><button class="btn p" id="psave">Guardar</button></div>
-  <p class="mute" id="pmsg" style="min-height:1.4em"></p>
-  <p class="mute" id="who"></p>
-  <div class="btns" style="max-width:420px"><button class="btn" id="bk">Copia de seguridad</button><button class="btn" id="so">Cerrar sesión</button></div>
+<section id="v3" class="hide"><div class="card">
+  <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Lista</button></div>
+  <div id="cal"></div>
+  <div id="log" class="hide"></div>
 </div></section>
+<section id="v4" class="hide">
+  <div style="text-align:center;margin:6px 0 14px"><div class="avatar disp" id="av"></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2></div>
+  <h3 class="sec">Detalles del bebé</h3>
+  <div class="card">
+    <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
+      <div class="ed hide" id="ed_nm"><input id="nm" placeholder="Nombre del bebé" maxlength="40" aria-label="Nombre del bebé"><div class="btns"><button class="btn" id="x_nm">Cancelar</button><button class="btn p" id="ok_nm">Guardar</button></div></div></div>
+      <button class="pen" id="pen_nm" aria-label="Editar nombre"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
+    <div class="prow"><div><div class="lab">Fecha de nacimiento</div><div class="val" id="vw_bd"><span id="vbd"></span></div>
+      <div class="ed hide" id="ed_bd"><input id="bd" type="date" aria-label="Fecha de nacimiento"><div class="btns"><button class="btn" id="x_bd">Cancelar</button><button class="btn p" id="ok_bd">Guardar</button></div></div></div>
+      <button class="pen" id="pen_bd" aria-label="Editar fecha de nacimiento"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
+    <div class="prow"><div><div class="lab">Edad</div><div class="val" id="vage"></div></div></div>
+    <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
+  </div>
+  <p class="mute" id="pmsg" style="min-height:1.4em"></p>
+  <h3 class="sec">Cuenta</h3>
+  <div class="card">
+    <p class="mute" id="who" style="margin:0 0 6px"></p>
+    <div class="btns" style="margin-top:8px"><button class="btn" id="bk">Copia de seguridad</button><button class="btn" id="so">Cerrar sesión</button></div>
+  </div>
+</section>
 
 <footer class="foot">
 <p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
@@ -189,13 +237,17 @@ const MIN={"Acelgas":12,"Espinacas":12,"Remolacha":12,"Rúcula":12};// meses mí
 const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],tip:TIP[n]||c[2],a:ALG.has(n)||c[0]==="Lácteos",fe:FE.has(n),min:MIN[n]||6})));
 const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
-const K="primeros_v2";let S={nm:"",bd:"",log:[]};
+const K="primeros_v2";
+const DEF=()=>({nm:"",bd:"",log:[],prefs:{diet:"om",iron:false,alg:false,gf:false,days:7,per:1,seed:1}});
+const fix=o=>{const d=DEF();o=o||{};return{...d,nm:o.nm||"",bd:o.bd||"",log:Array.isArray(o.log)?o.log:[],prefs:{...d.prefs,...(o.prefs||{})}}};
+let S=DEF();
+const snap=()=>({nm:S.nm,bd:S.bd,log:S.log,prefs:S.prefs});
 
 let USER=null,ST,LOADED=false;
 const LKEY=()=>"primeros_u_"+(USER?USER.uid:"anon");
-const saveLocal=()=>{try{localStorage.setItem(LKEY(),JSON.stringify({nm:S.nm,bd:S.bd,log:S.log}))}catch(e){}};
+const saveLocal=()=>{try{localStorage.setItem(LKEY(),JSON.stringify(snap()))}catch(e){}};
 const save=()=>{if(!USER)return;saveLocal();if(!window.cloud||!LOADED)return;clearTimeout(ST);
-  ST=setTimeout(()=>window.cloud.save({nm:S.nm,bd:S.bd,log:S.log}).then(()=>{$("err").textContent=""}).catch(()=>{$("err").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."}),400)};
+  ST=setTimeout(()=>window.cloud.save(snap()).then(()=>{$("err").textContent=""}).catch(()=>{$("err").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."}),400)};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
@@ -248,84 +300,184 @@ function board(){
   const done=ALL.filter(x=>m[x.n]&&m[x.n].last==="love"&&!m[x.n].all.includes("react")).length;
   $("prog").textContent=`${done} probados de ${ALL.length} alimentos`;
 }
+function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag${l.r==="react"?" w":""}">${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+function bindRows(el){
+  el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
+  el.querySelectorAll(".x[data-i]").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
+}
+let cm=new Date();cm=new Date(cm.getFullYear(),cm.getMonth(),1);let csel=today();let rmode="cal";
+function renderCal(){
+  const isCal=rmode==="cal";
+  $("rc").classList.toggle("on",isCal);$("rl").classList.toggle("on",!isCal);
+  $("cal").classList.toggle("hide",!isCal);$("log").classList.toggle("hide",isCal);
+  if(!isCal)return;
+  const y=cm.getFullYear(),mo=cm.getMonth();
+  const lead=(new Date(y,mo,1).getDay()+6)%7,dim=new Date(y,mo+1,0).getDate();
+  const byDay={};S.log.forEach((l,i)=>{(byDay[l.d]=byDay[l.d]||[]).push({...l,i})});
+  const title=new Date(y,mo,1).toLocaleDateString("es-ES",{month:"long",year:"numeric"});
+  let cells="";
+  for(let i=0;i<lead;i++)cells+="<div></div>";
+  for(let d=1;d<=dim;d++){
+    const ds=`${y}-${String(mo+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    const es=byDay[ds]||[];
+    const dots=es.slice(0,4).map(e=>{const a=info(e.f);return `<span class="dot" style="background:${a?a.col:"#999"}"></span>`}).join("");
+    cells+=`<button class="cd${ds===today()?" today":""}${ds===csel?" sel":""}" data-d="${ds}" aria-label="${d}: ${es.length} alimentos"><span>${d}</span><span class="dts">${dots}</span>${es.length>4?`<span class="more">+${es.length-4}</span>`:""}</button>`;
+  }
+  const list=byDay[csel]||[];
+  const sel=new Date(csel+"T00:00:00").toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
+  $("cal").innerHTML=`<div class="calh"><button class="x" id="cprev" aria-label="Mes anterior">‹</button><b style="text-transform:capitalize">${title}</b><button class="x" id="cnext" aria-label="Mes siguiente">›</button></div>
+  <div class="cg wk">${["L","M","X","J","V","S","D"].map(w=>`<span>${w}</span>`).join("")}</div>
+  <div class="cg">${cells}</div>
+  <div class="cdetail"><b style="text-transform:capitalize">${sel}</b>${list.length?list.map(rowHtml).join(""):'<p class="mute">Nada registrado este día.</p>'}</div>`;
+  $("cprev").onclick=()=>{cm=new Date(y,mo-1,1);renderCal()};
+  $("cnext").onclick=()=>{cm=new Date(y,mo+1,1);renderCal()};
+  $("cal").querySelectorAll(".cd").forEach(b=>b.onclick=()=>{csel=b.dataset.d;renderCal()});
+  bindRows($("cal"));
+}
+$("rc").onclick=()=>{rmode="cal";renderCal()};
+$("rl").onclick=()=>{rmode="list";renderCal()};
 function render(){
-  $("nm").value=S.nm;$("bd").value=S.bd;head();
+  head();renderProfile();
   $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
   $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()});
   board();
   const ents=S.log.map((l,i)=>({...l,i})).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:b.i-a.i);
-  $("log").innerHTML=ents.length?ents.map(l=>{const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag${l.r==="react"?" w":""}">${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}).join(""):'<p class="mute">Toca un alimento del tablero para registrar el primero.</p>';
-  $("log").querySelectorAll("input").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
-  $("log").querySelectorAll(".x").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
+  $("log").innerHTML=ents.length?ents.map(rowHtml).join(""):'<p class="mute">Toca un alimento del tablero para registrar el primero.</p>';
+  bindRows($("log"));
+  renderCal();renderPlanForm();
+  if(!$("v2").classList.contains("hide"))plan();
 }
-function openSheet(n){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x?x.tip:"";
+function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x?x.tip:"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
   if(lk)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo en poca cantidad, pronto en el día, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
-  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=today();$("sh").classList.remove("hide");$("how").focus()}
+  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("sh").classList.remove("hide");$("how").focus()}
 $("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{S.log.push({f:cur,how:$("how").value,r:$("rx").value,d:$("dt").value||today()});save();$("sh").classList.add("hide");render()};
 $("q").oninput=board;
-const enc=()=>btoa(unescape(encodeURIComponent(JSON.stringify({v:1,nm:S.nm,bd:S.bd,log:S.log}))));
+const enc=()=>btoa(unescape(encodeURIComponent(JSON.stringify({v:1,...snap()}))));
 $("bk").onclick=()=>{$("bkc").value=enc();$("bkr").value="";$("bkm").textContent="";$("bkp").classList.remove("hide")};
 $("bkx").onclick=()=>$("bkp").classList.add("hide");
 $("bkcopy").onclick=async()=>{try{await navigator.clipboard.writeText($("bkc").value);$("bkm").textContent="Código copiado."}catch(e){$("bkc").select();$("bkm").textContent="Selecciona y copia el código."}};
 $("bkok").onclick=()=>{try{const d=JSON.parse(decodeURIComponent(escape(atob($("bkr").value.trim()))));if(!d||!Array.isArray(d.log))throw 0;
-  S={nm:String(d.nm||"").slice(0,40),bd:String(d.bd||""),log:d.log.filter(l=>l&&typeof l.f==="string").map(l=>({f:l.f,how:String(l.how||""),r:RL[l.r]?l.r:"meh",d:String(l.d||today())}))};
+  S=fix({prefs:d.prefs,nm:String(d.nm||"").slice(0,40),bd:String(d.bd||""),log:d.log.filter(l=>l&&typeof l.f==="string").map(l=>({f:l.f,how:String(l.how||""),r:RL[l.r]?l.r:"meh",d:String(l.d||today())}))});
   save();render();$("bkm").textContent="Restaurado."}catch(e){$("bkm").textContent="Ese código no es válido."}};
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
-$("nm").oninput=$("bd").oninput=()=>{$("pmsg").textContent="Cambios sin guardar"};
-$("psave").onclick=()=>{
-  S.nm=$("nm").value.trim().slice(0,40);S.bd=$("bd").value;
-  saveLocal();render();
+let editing=null;
+function renderProfile(){
+  const a=age();
+  $("pname").textContent=S.nm||"Tu bebé";
+  $("av").textContent=(S.nm||"?").trim().charAt(0).toUpperCase()||"?";
+  $("vnm").textContent=S.nm||"Sin nombre";
+  $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
+  $("vage").textContent=a?`${a.days} días (${a.mo} meses)`:"Sin calcular";
+  $("vcnt").textContent=Object.keys(stats()).length+" alimentos";
+  ["nm","bd"].forEach(k=>{
+    $("ed_"+k).classList.toggle("hide",editing!==k);$("vw_"+k).classList.toggle("hide",editing===k);$("pen_"+k).classList.toggle("hide",editing===k);
+    if(editing!==k)$(k).value=S[k];
+  });
+}
+function pushCloud(){
   if(!window.cloud||!LOADED){$("pmsg").textContent="Guardado en este dispositivo.";return}
   $("pmsg").textContent="Guardando...";
-  window.cloud.save({nm:S.nm,bd:S.bd,log:S.log})
+  window.cloud.save(snap())
     .then(()=>{$("pmsg").textContent="Guardado en tu cuenta ✓";$("err").textContent=""})
     .catch(()=>{$("pmsg").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."});
-};
-function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan()}
+}
+["nm","bd"].forEach(k=>{
+  $("pen_"+k).onclick=()=>{editing=k;$("pmsg").textContent="";renderProfile();$(k).focus()};
+  $("x_"+k).onclick=()=>{editing=null;renderProfile()};
+  $("ok_"+k).onclick=()=>{
+    if(k==="nm")S.nm=$("nm").value.trim().slice(0,40);else S.bd=$("bd").value;
+    editing=(k==="nm"&&!S.bd)?"bd":null;
+    saveLocal();render();pushCloud();
+  };
+});
+function askProfile(){if(!S.bd){editing=S.nm?"bd":"nm";tab(4);renderProfile()}}
+function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3)renderCal()}
 [1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
-function plan(){
-  const m=stats(),cc={};
-  Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
-  let pool=ALL.filter(x=>!m[x.n]&&unlocked(x));const days=[];let lastA=-9,lastF=-9,prev="";
-  for(let d=0;d<7&&pool.length;d++){
-    let best=null,bs=-1e9;
-    pool.forEach(x=>{let s=Math.random()*1.5+(4-Math.min(4,cc[x.c]||0));
-      if(x.fe)s+=d-lastF>=2?5:2;
-      if(x.a&&d-lastA<3)s-=99;
-      if(x.c===prev)s-=2;
-      if(x.c==="Condimentos")s-=4;
-      if(s>bs){bs=s;best=x}});
-    pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;
-    if(best.a)lastA=d;if(best.fe)lastF=d;days.push({n:best});
-  }
-  const re=Object.values(m).filter(x=>!x.all.includes("react")&&x.c<8).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
-  days.forEach((d,i)=>d.r=re.length?re[i%re.length]:null);
-  $("days").innerHTML=days.map((d,i)=>{const n=d.n,r=d.r,ri=r&&info(r.n);
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">Día ${i+1}</b>
-    <p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span>  ${n.fe?'<span class="tag">Hierro</span>':""}<br><span class="mute">${esc(n.tip)}.${n.a?" Ofrécelo pronto en el día y el resto del día, alimentos ya conocidos.":""}</span></p>
-    ${r?`<p><b>Repetir:</b> ${esc(r.n)}<br><span class="mute">${r.last==="love"?"Le gustó, mantenlo en la rotación.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma o combinación."}${ri?" "+esc(ri.tip)+".":""}</span></p>`:""}
-    <div class="btns" style="max-width:220px"><button class="btn" data-n="${esc(n.n)}">Lo probamos</button></div></div>`}).join("")||'<div class="card"><p class="mute">Ya probasteis todo lo de la lista.</p></div>';
-  $("days").querySelectorAll("button").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
+const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
+const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"]);
+const GLU=new Set(["Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, sin sal)","Pan integral","Pasta","Sémola de trigo"]);
+const rng=seed=>{let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}};
+const dstr=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+function allowed(x,p){
+  if(p.diet!=="om"&&(MEAT.has(x.n)||FISH.has(x.n)))return false;
+  if(p.diet==="vgn"&&(x.n==="Huevo"||x.c==="Lácteos"))return false;
+  if(p.gf&&GLU.has(x.n))return false;
+  return true;
 }
-$("mk").onclick=plan;
+function renderPlanForm(){
+  const p=S.prefs;
+  $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);$("pf_per").value=String(p.per);
+  [["iron","pf_iron"],["alg","pf_alg"],["gf","pf_gf"]].forEach(([k,id])=>{$(id).classList.toggle("on",!!p[k]);$(id).setAttribute("aria-pressed",!!p[k])});
+}
+function setPref(k,v){S.prefs[k]=v;save();renderPlanForm();plan()}
+$("pf_diet").onchange=e=>setPref("diet",e.target.value);
+$("pf_days").onchange=e=>setPref("days",+e.target.value);
+$("pf_per").onchange=e=>setPref("per",+e.target.value);
+[["iron","pf_iron"],["alg","pf_alg"],["gf","pf_gf"]].forEach(([k,id])=>$(id).onclick=()=>setPref(k,!S.prefs[k]));
+function plan(){
+  const p=S.prefs,m=stats(),rnd=rng((p.seed||1)*7919);
+  const cc={};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
+  let pool=ALL.filter(x=>!m[x.n]&&unlocked(x)&&allowed(x,p));
+  const start=new Date();start.setHours(0,0,0,0);
+  const gap=p.alg?2:3,out=[];let lastA=-9,lastF=-9,prev="";
+  for(let d=0;d<p.days;d++){
+    const dt=new Date(start);dt.setDate(start.getDate()+d);const ds=dstr(dt);
+    const done=[...new Set(S.log.filter(l=>l.d===ds).map(l=>l.f))];
+    done.forEach(n=>{const a=info(n);if(a&&a.a)lastA=d;if(a&&a.fe)lastF=d});
+    const items=[];
+    for(let k=0;k<Math.max(0,p.per-done.length);k++){
+      let best=null,bs=-1e9;
+      pool.forEach(x=>{
+        let s=rnd()*1.5+(4-Math.min(4,cc[x.c]||0));
+        if(x.fe)s+=p.iron?8:(d-lastF>=2?5:2);
+        if(x.a){if(d-lastA<gap)s-=99;else s+=p.alg?5:-1}
+        if(x.c===prev&&k===0)s-=2;
+        if(x.c==="Condimentos")s-=4;
+        if(items.some(i=>i.c===x.c))s-=2;
+        if(s>bs){bs=s;best=x}});
+      if(!best)break;
+      pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;
+      if(best.a)lastA=d;if(best.fe)lastF=d;items.push(best);
+    }
+    out.push({dt,ds,done,items});
+  }
+  const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&!x.all.includes("react")&&x.c<8}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
+  const fmt=dt=>{const s=dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});return s.charAt(0).toUpperCase()+s.slice(1)};
+  const t0=today();
+  $("days").innerHTML=out.some(o=>o.items.length||o.done.length)?out.map((o,i)=>{
+    const r=re.length?re[i%re.length]:null,ri=r&&info(r.n);
+    const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
+    const itemsH=o.items.map(n=>`<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.fe?'<span class="tag">Hierro</span>':""}<br><span class="mute">${esc(n.tip)}.${n.fe&&(p.iron||p.diet!=="om")?" Combínalo con algo con vitamina C (naranja, kiwi, pimiento).":""}${n.a?" Ofrécelo pronto en el día y el resto del día, alimentos ya conocidos.":""}</span><br><button class="btn" style="margin-top:6px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button></p>`).join("");
+    const rep=r?`<p><b>Repetir:</b> ${esc(r.n)}<br><span class="mute">${r.last==="love"?"Le gustó, mantenlo en la rotación.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma o combinación."}${ri?" "+esc(ri.tip)+".":""}</span></p>`:"";
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${rep}</div>`}).join(""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d));
+  const notes=[];
+  if(p.diet==="veg")notes.push("Vegetariana: sin carne ni pescado, con huevo y lácteos.");
+  if(p.diet==="vgn")notes.push("Vegana: sin carne, pescado, huevo ni lácteos. Consulta con tu pediatra la vitamina B12 y el hierro.");
+  if(p.iron)notes.push("Hierro: un alimento rico en hierro cada día.");
+  if(p.alg)notes.push("Alérgenos: uno cada 2 días, de uno en uno.");
+  if(p.gf)notes.push("Sin gluten.");
+  $("pf_note").textContent=notes.join(" ");
+}
+$("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;save();plan()};
 render();
 
 
 window.__auth=(u,d,pending)=>{USER=u;LOADED=!!u&&!pending;
-  S={nm:"",bd:"",log:[]};
-  if(u){try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l&&Array.isArray(l.log))S={nm:"",bd:"",...l}}catch(e){}
+  S=DEF();
+  if(u){try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l&&Array.isArray(l.log))S=fix(l)}catch(e){}
     $("who").textContent="Sesión: "+(u.email||u.displayName||"");$("err").textContent="Cargando tu progreso...";$("gate").classList.add("hide")}
   else{$("gate").classList.remove("hide")}
   render()};
-window.__data=d=>{if(d){S={nm:"",bd:"",...d,log:Array.isArray(d.log)?d.log:[]};saveLocal()}
-  LOADED=true;$("err").textContent="";render();if(!d&&(S.nm||S.bd||S.log.length))save();if(!S.bd)tab(4)};
-window.__fail=code=>{LOADED=false;$("err").textContent="No se pudo conectar con tu cuenta ("+code+"). Tus datos se guardan en este dispositivo.";render();if(!S.bd)tab(4)};
+window.__data=d=>{if(d){S=fix(d);saveLocal()}
+  LOADED=true;$("err").textContent="";render();if(!d&&(S.nm||S.bd||S.log.length))save();askProfile()};
+window.__fail=code=>{LOADED=false;$("err").textContent="No se pudo conectar con tu cuenta ("+code+"). Tus datos se guardan en este dispositivo.";render();askProfile()};
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
