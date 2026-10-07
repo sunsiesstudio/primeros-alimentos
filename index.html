@@ -319,7 +319,7 @@ function board(){
   const cols={todo:[],doing:[],done:[],lock:[]};
   ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
     if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[!s?"todo":(s.last==="love"&&!s.all.includes("react"))?"done":"doing"].push(x)});
-  cols.lock.sort((a,b)=>a.min-b.min);const defs=[["todo","Por probar","p1"],["doing","Probando","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
+ Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));const defs=[["todo","Por probar","p1"],["doing","Probando","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
   $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
   $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
   const done=ALL.filter(x=>m[x.n]&&m[x.n].last==="love"&&!m[x.n].all.includes("react")).length;
