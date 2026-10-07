@@ -326,9 +326,9 @@ if(CFG.apiKey.startsWith("TU_")){
   const gm=document.getElementById("gm");
   (function initGIS(){
     if(!window.google||!google.accounts){setTimeout(initGIS,200);return}
-    google.accounts.id.initialize({client_id:CLIENT_ID,callback:r=>{
+      google.accounts.id.initialize({client_id:CLIENT_ID,use_fedcm_for_button:true,use_fedcm_for_prompt:true,callback:r=>{
       signInWithCredential(auth,GoogleAuthProvider.credential(r.credential)).catch(e=>{gm.textContent="No se pudo iniciar sesión: "+(e&&e.code)})}});
-    google.accounts.id.renderButton(document.getElementById("gbtn"),{theme:"outline",size:"large",shape:"pill",text:"continue_with",locale:"es",width:260});
+    google.accounts.id.renderButton(document.getElementById("gbtn"),{theme:"outline",size:"large",shape:"pill",text:"continue_with",locale:"es",width:260});google.accounts.id.prompt();
   })();
   onAuthStateChanged(auth,async u=>{
     if(!u){window.__auth(null);return}
