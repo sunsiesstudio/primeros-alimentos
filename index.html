@@ -134,6 +134,11 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ct .dot{width:7px;height:7px}
 .by-logo{display:block;line-height:0}
 .by-logo img{display:block;width:130px;height:auto}
+.aep summary{cursor:pointer;font-weight:700;color:var(--green)}
+.aep ul{margin:8px 0 0;padding-left:18px}.aep li{margin:5px 0;font-size:.88rem}
+.menu{margin:8px 0 2px;padding:8px 10px;border-radius:10px;background:color-mix(in srgb,var(--line) 40%,transparent)}
+.menu p{margin:2px 0;font-size:.88rem}
+.aep h4{margin:12px 0 2px;font-size:.95rem;color:var(--blue)}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -185,6 +190,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <h3 class="sec" style="margin-top:0">Tu plan</h3>
     <div class="pf">
       <label>Dieta<select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
+      <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
       <label>Duración<select id="pf_days"><option value="7">7 días</option><option value="14">14 días</option><option value="30">1 mes</option><option value="0">Indefinido</option></select></label>
       <div class="fl"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
     </div>
@@ -192,6 +198,37 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
   </div>
+  <details class="card aep"><summary>Pautas de la AEP y de la OMS</summary>
+    <h4>Asociación Española de Pediatría (2018)</h4>
+    <ul>
+      <li>Empezar hacia los 6 meses (26 semanas), nunca antes de los 4, y no retrasarlo más allá del séptimo mes. La leche (materna o de fórmula) sigue siendo el alimento principal hasta los 12 meses y se mantiene a demanda.</li>
+      <li>Señales de que está listo: interés por la comida, ya no empuja con la lengua los alimentos no líquidos, coge comida y se la lleva a la boca, y se mantiene sentado con apoyo.</li>
+      <li>Alimentos nuevos de uno en uno, con unos días de intervalo, para ver cómo los tolera. Sin sal, azúcar ni edulcorantes.</li>
+      <li>Dar prioridad a los alimentos ricos en hierro y zinc (carne roja, legumbres, huevo) y ofrecer proteína cada día, de forma variada.</li>
+      <li>No hace falta retrasar los alérgenos: se pueden introducir hacia los 6 meses, de uno en uno y en poca cantidad. El gluten, entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.</li>
+      <li>Texturas grumosas lo antes posible, nunca más tarde de los 8 o 9 meses. Como orientación, 4 o 5 tomas al día.</li>
+      <li>Un rechazo inicial no es definitivo: pueden hacer falta hasta 10 o 15 intentos, sin presionar.</li>
+      <li>En el primer año evitar acelga, espinaca y borraja (nitratos), sal, miel, azúcares, zumos, y pescados grandes como atún, pez espada, emperador, cazón y tintorera (mercurio). Yogur natural y queso desde los 9 meses, leche de vaca entera desde los 12. Azúcares, miel, cacao, bollería, galletas y embutidos, siempre a partir de los 12 meses y cuanto más tarde mejor.</li>
+      <li>Seguridad: sentado y erguido, nunca recostado ni solo. Nada de frutos secos enteros, palomitas, uvas enteras, salchichas en rodajas, ni manzana o zanahoria crudas. Los sólidos con riesgo de atragantamiento, por encima de los 3 años.</li>
+      <li>Prematuros: no hay pautas claras, se individualiza. Una edad corregida de 6 meses puede ser apropiada, y se prioriza el hierro. El baby-led weaning no se recomienda con fallo de medro ni dificultades neurológicas o motoras.</li>
+      <li>Los padres deciden qué, cuándo y dónde. El bebé decide cuánto. Sin pantallas ni distracciones.</li>
+    </ul>
+    <h4>Organización Mundial de la Salud (2023)</h4>
+    <ul>
+      <li>Empezar a los 6 meses (180 días) sin dejar la lactancia, que puede seguir hasta los 2 años o más.</li>
+      <li>Dieta variada. Cuando se excluyen los alimentos de origen animal, a los 6 a 8 meses es difícil cubrir el hierro, el zinc y la vitamina B12.</li>
+      <li>Evitar alimentos y bebidas con mucho azúcar, sal, grasas trans y edulcorantes, incluidas las bebidas azucaradas.</li>
+      <li>Alimentación perceptiva: atender las señales de hambre y saciedad.</li>
+      <li>La guía no cubre a bebés prematuros ni con enfermedades graves.</li>
+    </ul>
+    <h4>Otra fuente: Pediatría Integral (2025)</h4>
+    <ul>
+      <li>Vitamina D, 400 UI al día hasta los 12 meses. Vitamina B12 si la alimentación es vegana estricta. Consúltalo con tu pediatra.</li>
+      <li>El hierro se cubre con dos porciones diarias de alimentos proteicos o cereales enriquecidos.</li>
+      <li>No retrasar los sólidos más allá del octavo mes.</li>
+    </ul>
+    <p class="mute">Fuentes: Recomendaciones de la AEP sobre alimentación complementaria (Comités de Nutrición y de Lactancia Materna, noviembre de 2018), Guía de la OMS sobre alimentación complementaria de 6 a 23 meses (octubre de 2023) y Pediatría Integral, marzo de 2025 (SEPEAP, no es un documento de la AEP). Los objetivos de fibra, omega-3 y calcio vienen de ese artículo de 2025. No sustituye el consejo de tu pediatra.</p>
+  </details>
   <div id="days"></div>
 </section>
 <section id="v3" class="hide"><div class="card">
@@ -209,7 +246,11 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <div class="prow"><div><div class="lab">Fecha de nacimiento</div><div class="val" id="vw_bd"><span id="vbd"></span></div>
       <div class="ed hide" id="ed_bd"><input id="bd" type="date" aria-label="Fecha de nacimiento"><div class="btns"><button class="btn" id="x_bd">Cancelar</button><button class="btn p" id="ok_bd">Guardar</button></div></div></div>
       <button class="pen" id="pen_bd" aria-label="Editar fecha de nacimiento"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
+    <div class="prow"><div><div class="lab">Semanas de embarazo al nacer</div><div class="val" id="vw_ga"><span id="vga"></span></div>
+      <div class="ed hide" id="ed_ga"><input id="ga" type="number" inputmode="numeric" min="22" max="42" placeholder="Por ejemplo 40" aria-label="Semanas de embarazo al nacer"><div class="mute" style="margin-top:4px">Si nació antes de las 37 semanas, la app cuenta desde la edad corregida.</div><div class="btns"><button class="btn" id="x_ga">Cancelar</button><button class="btn p" id="ok_ga">Guardar</button></div></div></div>
+      <button class="pen" id="pen_ga" aria-label="Editar semanas de embarazo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
     <div class="prow"><div><div class="lab">Edad</div><div class="val" id="vage"></div></div></div>
+    <div class="prow"><div><div class="lab">Empezar antes de los 6 meses</div><div class="val" id="vearly"></div><div class="mute">Solo si tu pediatra lo ha indicado. La AEP admite individualizarlo a partir de las 17 semanas.</div></div><button class="btn" id="tg_early" style="flex:none;padding:8px 14px">Cambiar</button></div>
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
@@ -240,28 +281,38 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 // categoría, color, consejo de preparación, alimentos separados por |
 const C=[
 ["Frutas","#c96a47","Maduras, sin piel ni pepitas, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Mandarina|Mango|Manzana asada|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera asada|Piña|Plátano|Pomelo|Sandía|Uvas"],
-["Verduras","#4a8760","Al vapor, hervidas o asadas, en bastones blandos","Acelgas|Alcachofa|Apio|Berenjena|Boniato|Brócoli|Calabacín|Calabaza|Cebolla|Champiñones|Chirivía|Coles de Bruselas|Coliflor|Endibia|Espárragos|Espinacas|Guisantes|Habas tiernas|Hinojo|Judías verdes|Lechuga|Lombarda|Maíz tierno|Nabo|Patata|Pepino|Pimiento rojo|Pimiento verde|Puerro|Rábano|Remolacha|Repollo|Rúcula|Setas|Tomate|Zanahoria"],
-["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas, en tiras tiernas o desmenuzadas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Garbanzos|Huevo|Lenguado|Lentejas|Lentejas rojas|Lubina|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
-["Cereales","#c9962f","Cocidos blandos","Amaranto|Arroz|Avena|Cebada|Cuscús|Espelta|Fideos|Harina de maíz|Mijo|Pan (tostado, sin sal)|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
-["Frutos secos","#8a5ac8","Siempre molidos, en polvo o en crema, nunca enteros","Almendra|Anacardo|Avellana|Cacahuete|Castaña|Macadamia|Nuez|Nuez de Brasil|Nuez pecana|Piñones|Pistacho|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino|Sésamo (tahini)"],
-["Lácteos","#d46a9a","Pasteurizados, sin azúcar y bajos en sal","Kéfir|Mantequilla|Mozzarella|Queso fresco|Queso tierno|Requesón|Ricotta|Yogur natural"],
+["Verduras","#4a8760","Al vapor, hervidas o asadas, en bastones blandos","Acelgas|Alcachofa|Apio|Berenjena|Boniato|Borraja|Brócoli|Calabacín|Calabaza|Cebolla|Champiñones|Chirivía|Coles de Bruselas|Coliflor|Endibia|Espárragos|Espinacas|Guisantes|Habas tiernas|Hinojo|Judías verdes|Lechuga|Lombarda|Maíz tierno|Nabo|Patata|Pepino|Pimiento rojo|Pimiento verde|Puerro|Rábano|Remolacha|Repollo|Rúcula|Setas|Tomate|Zanahoria"],
+["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas, en tiras tiernas o desmenuzadas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Gambas|Garbanzos|Huevo|Lenguado|Lentejas|Lentejas rojas|Lubina|Mejillones|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
+["Cereales","#c9962f","Cocidos blandos, mejor integrales","Amaranto|Arroz|Avena|Cebada|Cuscús|Espelta|Fideos|Harina de maíz|Mijo|Pan (tostado, sin sal)|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
+["Frutos secos","#8a5ac8","Siempre molidos, en polvo o en crema. Enteros no, por el riesgo de atragantamiento","Almendra|Anacardo|Avellana|Cacahuete|Castaña|Macadamia|Nuez|Nuez de Brasil|Nuez pecana|Piñones|Pistacho|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino|Sésamo (tahini)"],
+["Lácteos","#d46a9a","Yogur natural y queso tierno desde los 9 meses, leche de vaca entera desde los 12. Sin azúcar y bajos en sal","Kéfir|Mantequilla|Mozzarella|Queso fresco|Queso tierno|Requesón|Ricotta|Yogur natural"],
 ["Condimentos","#2f9aa0","Una pizca, al cocinar","AOVE|Ajo|Albahaca|Canela|Cebollino|Cilantro|Comino|Cúrcuma|Eneldo|Hierbabuena|Jengibre|Laurel|Limón (ralladura)|Orégano|Perejil|Pimentón dulce|Romero|Tomillo|Vainilla"]];
 // Editable: alérgenos (los lácteos ya van todos) y alimentos ricos en hierro
-const ALG=new Set(["Huevo","Dorada","Lubina","Merluza","Bacalao","Salmón","Sardinas","Trucha","Lenguado","Rape","Cacahuete","Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho","Sésamo (tahini)","Tofu","Tempeh","Apio","Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, sin sal)","Pan integral","Pasta","Sémola de trigo"]);
-const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza"]);
-const TIP={"Uvas":"En cuartos a lo largo","Cerezas":"Sin hueso y en trozos","Coco":"Rallado o en copos","Dátiles":"Sin hueso y aplastados","Maíz tierno":"Aplastado o en crema, el grano entero cuesta","Granada":"Granos aplastados o en zumo con pulpa"};
-const MIN={"Acelgas":12,"Espinacas":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
+const ALG=new Set(["Huevo","Dorada","Lubina","Merluza","Bacalao","Salmón","Sardinas","Trucha","Lenguado","Rape","Gambas","Mejillones","Cacahuete","Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho","Sésamo (tahini)","Tofu","Tempeh","Apio","Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, sin sal)","Pan integral","Pasta","Sémola de trigo"]);
+const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
+const FISHTIP="Bien cocinado, sin piel ni espinas, en lascas. Evita pez espada, emperador, cazón, tintorera y atún (mercurio)";
+const NITR="Mejor esperar al año (nitratos). Si se dan, menos del 20% del plato";
+const TIP={"Uvas":"En cuartos a lo largo, nunca enteras","Cerezas":"Sin hueso y en trozos","Coco":"Rallado o en copos","Dátiles":"Sin hueso y aplastados","Maíz tierno":"Aplastado o en crema, el grano entero cuesta","Granada":"Granos aplastados o en zumo con pulpa","Zanahoria":"Cocida, nunca cruda","Manzana asada":"Asada o cocida, la cruda es dura",
+"Ternera":"Carne cocida en tiras, o picada en hamburguesitas o bolas","Cordero":"Carne cocida en tiras, o picada en hamburguesitas o bolas","Cerdo":"Carne cocida en tiras tiernas, o picada en bolitas","Pollo":"Muslo cocido en tiras, sin piel","Pavo":"Cocido en tiras tiernas o desmenuzado","Conejo":"Cocido en tiras tiernas o desmenuzado",
+"Lentejas":"Tortitas de lentejas, o cocidas y aplastadas","Lentejas rojas":"Tortitas, o cocidas y aplastadas","Alubias blancas":"Tortitas de judías cocidas, o aplastadas","Alubias negras":"Tortitas, o cocidas y aplastadas","Alubias pintas":"Tortitas, o cocidas y aplastadas","Garbanzos":"Hummus, o cocidos y aplastados","Tofu":"Palitos de tofu","Tempeh":"En palitos, bien cocinado","Huevo":"Bien cocinado, en tiras de tortilla o huevo duro aplastado",
+"Acelgas":NITR,"Espinacas":NITR,"Borraja":NITR,"Remolacha":"Mejor esperar al año (nitratos)","Rúcula":"Mejor esperar al año (nitratos)",
+"Pan (tostado, sin sal)":"Tostado, en tiras y sin sal","Pan integral":"Tostado, en tiras y sin sal","Avena":"Papilla espesa o tortitas, mejor integral"};
+["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"].forEach(n=>TIP[n]=FISHTIP);
+TIP.Gambas=TIP.Mejillones="Bien cocinados, pelados y desmenuzados";
+const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
+["Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"].forEach(n=>MIN[n]=9);
+MIN["Kéfir"]=12;MIN["Mantequilla"]=12;
 const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],tip:TIP[n]||c[2],a:ALG.has(n)||c[0]==="Lácteos",fe:FE.has(n),min:MIN[n]||6})));
 const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";
-const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,seed:1});
+const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const newBaby=()=>({id:uid(),nm:"",bd:"",log:[],prefs:DEFP()});
+const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;
-  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",log:Array.isArray(o.log)?o.log:[],prefs:pr}};
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,log:Array.isArray(o.log)?o.log:[],prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
   return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
 let DB=fixDB(null),S=DB.babies[DB.cur];
@@ -279,11 +330,15 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const today=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
 const info=n=>ALL.find(x=>x.n===n);
-function age(){if(!S.bd)return null;const b=new Date(S.bd+"T00:00:00"),n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
-  const days=Math.floor((t-b)/864e5);if(isNaN(days)||days<0)return null;
+function age(raw){if(!S.bd)return null;const b0=new Date(S.bd+"T00:00:00");if(isNaN(b0))return null;
+  const pre=!raw&&S.ga&&S.ga<37?(40-S.ga)*7:0,b=new Date(b0);b.setDate(b.getDate()+pre);
+  const n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+  const days=Math.floor((t-b)/864e5);if(days<0&&!pre)return null;
   let mo=(t.getFullYear()-b.getFullYear())*12+t.getMonth()-b.getMonth();if(t.getDate()<b.getDate())mo--;
-  return{days,mo,s6:Math.ceil((new Date(b.getFullYear(),b.getMonth()+6,b.getDate())-t)/864e5)}}
-const unlocked=x=>{const a=age();return !a||a.mo>=x.min};
+  const th=S.early?4:6;
+  const until=m=>Math.ceil((new Date(b.getFullYear(),b.getMonth()+m,b.getDate())-t)/864e5);
+  return{days,mo,s6:until(6),sT:until(th),th,pre:pre>0}}
+const unlocked=x=>{const a=age();return !a||a.mo>=(x.min===6?a.th:x.min)};
 function head(){const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=S.nm?"de "+S.nm:"";document.title=t;
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
@@ -305,7 +360,7 @@ function board(){
   $("chips").classList.toggle("hide",view==="list");$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
   $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
   $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
-  const nd=ALL.filter(x=>m[x.n]&&m[x.n].last==="love"&&!m[x.n].all.includes("react")).length;
+  const nd=ALL.filter(x=>m[x.n]).length;
   $("prog").textContent=`${nd} probados de ${ALL.length} alimentos`;
   if(view==="list"){
     $("lst").innerHTML=C.map(c=>{
@@ -316,13 +371,13 @@ function board(){
     $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
     return;
   }
-  const cols={todo:[],doing:[],done:[],lock:[]};
+  const cols={todo:[],done:[],lock:[]};
   ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
-    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[!s?"todo":(s.last==="love"&&!s.all.includes("react"))?"done":"doing"].push(x)});
- Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));const defs=[["todo","Por probar","p1"],["doing","Probando","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
+    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":"todo"].push(x)});
+  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));const defs=[["todo","Por probar","p1"],["done","Probado","p3"],["lock","Más adelante","p4"]];
   $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
   $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
-  const done=ALL.filter(x=>m[x.n]&&m[x.n].last==="love"&&!m[x.n].all.includes("react")).length;
+  const done=ALL.filter(x=>m[x.n]).length;
   $("prog").textContent=`${done} probados de ${ALL.length} alimentos`;
 }
 function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag${l.r==="react"?" w":""}">${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
@@ -392,7 +447,7 @@ function render(){
 function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x?x.tip:"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
   if(lk)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
-  if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo en poca cantidad, pronto en el día, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
+  if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo de uno en uno, en poca cantidad, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
   $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("sh").classList.remove("hide");$("how").focus()}
 $("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
 $("cx").onclick=()=>$("sh").classList.add("hide");
@@ -407,11 +462,14 @@ function renderProfile(){
   $("av").textContent=(S.nm||"?").trim().charAt(0).toUpperCase()||"?";
   $("vnm").textContent=S.nm||"Sin nombre";
   $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
-  $("vage").textContent=a?(a.days<7?`${a.days} día${a.days===1?"":"s"}`:`${Math.floor(a.days/7)} semana${Math.floor(a.days/7)===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`):"Sin calcular";
+  const wk=d=>d<7?`${d} día${d===1?"":"s"}`:`${Math.floor(d/7)} semana${Math.floor(d/7)===1?"":"s"}`,ra=age(true);
+  $("vage").textContent=ra?wk(ra.days)+(a&&a.pre?` · corregida: ${a.days>=0?wk(a.days)+" ("+a.mo+" m)":"aún antes de la fecha prevista"}`:` (${ra.mo} mes${ra.mo===1?"":"es"})`):"Sin calcular";
+  $("vga").textContent=S.ga?S.ga+" semanas"+(S.ga<37?" (prematuro)":""):"No indicado";
+  $("vearly").textContent=S.early?"Sí, desde las 17 semanas":"No";
   $("vcnt").textContent=Object.keys(stats()).length+" alimentos";
-  ["nm","bd"].forEach(k=>{
+  ["nm","bd","ga"].forEach(k=>{
     $("ed_"+k).classList.toggle("hide",editing!==k);$("vw_"+k).classList.toggle("hide",editing===k);$("pen_"+k).classList.toggle("hide",editing===k);
-    if(editing!==k)$(k).value=S[k];
+    if(editing!==k)$(k).value=S[k]||"";
   });
 }
 function pushCloud(){
@@ -421,21 +479,22 @@ function pushCloud(){
     .then(()=>{$("pmsg").textContent="Guardado en tu cuenta ✓";$("err").textContent=""})
     .catch(()=>{$("pmsg").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."});
 }
-["nm","bd"].forEach(k=>{
+["nm","bd","ga"].forEach(k=>{
   $("pen_"+k).onclick=()=>{editing=k;$("pmsg").textContent="";renderProfile();$(k).focus()};
   $("x_"+k).onclick=()=>{editing=null;renderProfile()};
   $("ok_"+k).onclick=()=>{
-    if(k==="nm")S.nm=$("nm").value.trim().slice(0,40);else S.bd=$("bd").value;
+    if(k==="nm")S.nm=$("nm").value.trim().slice(0,40);else if(k==="bd")S.bd=$("bd").value;else{const g=parseInt($("ga").value);S.ga=g>=22&&g<=42?g:0}
     editing=(k==="nm"&&!S.bd)?"bd":null;
     saveLocal();render();pushCloud();
   };
 });
+$("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
 function askProfile(){if(!S.bd){editing=S.nm?"bd":"nm";tab(4);renderProfile()}}
 function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3)renderCal()}
 [1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
-const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"]);
+const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha","Gambas","Mejillones"]);
 const GLU=new Set(["Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, sin sal)","Pan integral","Pasta","Sémola de trigo"]);
 const rng=seed=>{let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}};
 const dstr=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
@@ -453,13 +512,13 @@ const VC=CSV("Naranja|Mandarina|Kiwi|Fresas|Pomelo|Piña|Mango|Papaya|Maracuyá|
 const ZN=CSV("Ternera|Cordero|Cerdo|Pavo|Pollo|Huevo|Lentejas|Garbanzos|Semillas de calabaza|Yogur natural|Queso fresco|Avena|Quinoa|Anacardo");
 const FAT=CSV("Aguacate|Salmón|Sardinas|Trucha|AOVE|Huevo|Yogur natural|Coco");
 const GS={iron:x=>x.fe,fiber:x=>FIB.has(x.n),omega3:x=>O3.has(x.n),calcium:x=>CAL.has(x.n),vitc:x=>VC.has(x.n),protein:x=>x.c==="Proteínas"||x.c==="Lácteos",zinc:x=>ZN.has(x.n),fats:x=>FAT.has(x.n)||x.c==="Frutos secos",alg:x=>x.a,verd:x=>x.c==="Verduras"};
-const GOALS=[["iron","Hierro","carne, legumbres, huevo"],["fiber","Fibra","digestión"],["omega3","Omega-3","cerebro y vista"],["calcium","Calcio","huesos"],["vitc","Vitamina C","ayuda a absorber el hierro"],["protein","Proteína","crecimiento"],["zinc","Zinc","defensas"],["fats","Grasas saludables","energía"],["alg","Alérgenos","introducirlos pronto"],["verd","Más verduras","sabores y fibra"]];
+const GOALS=[["iron","Hierro","carne, legumbres, huevo"],["fiber","Fibra","digestión"],["omega3","Omega-3","cerebro y vista"],["calcium","Calcio","huesos"],["protein","Proteína","crecimiento"],["zinc","Zinc","defensas"],["alg","Alérgenos","no hace falta retrasarlos"],["verd","Más verduras","sabores y fibra"]];
 const GL=Object.fromEntries(GOALS.map(g=>[g[0],g[1]]));
 let planShown=30;
 $("pf_glist").innerHTML=GOALS.map(g=>`<label class="ck"><input type="checkbox" value="${g[0]}"><span><b>${g[1]}</b><small>${g[2]}</small></span></label>`).join("");
 function renderPlanForm(){
   const p=S.prefs;
-  $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);
+  $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);$("pf_every").value=String(p.every||2);
   $("pf_gf").classList.toggle("on",!!p.gf);$("pf_gf").setAttribute("aria-pressed",!!p.gf);
   $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
   const g=p.goals.map(x=>GL[x]);
@@ -468,54 +527,80 @@ function renderPlanForm(){
 function setPref(k,v){S.prefs[k]=v;planShown=30;save();renderPlanForm();plan()}
 $("pf_diet").onchange=e=>setPref("diet",e.target.value);
 $("pf_days").onchange=e=>setPref("days",+e.target.value);
+$("pf_every").onchange=e=>setPref("every",+e.target.value);
 $("pf_gf").onclick=()=>setPref("gf",!S.prefs.gf);
 $("pf_glist").querySelectorAll("input").forEach(i=>i.onchange=()=>setPref("goals",[...$("pf_glist").querySelectorAll("input:checked")].map(x=>x.value)));
 document.addEventListener("click",e=>{const d=$("pf_goals");if(d.open&&!d.contains(e.target))d.open=false});
+const SLOTS=[["Hierro y proteína",x=>x.fe||x.c==="Proteínas"],["Verdura",x=>x.c==="Verduras"],["Fruta",x=>x.c==="Frutas"],["Cereal",x=>x.c==="Cereales"]];
 function plan(){
-  const p=S.prefs,goals=p.goals||[],m=stats(),rnd=rng((p.seed||1)*7919);
+  const p=S.prefs,goals=p.goals||[],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
+  const notes=[];
+  if(ag&&ag.pre)notes.push("Nació prematuro: la app cuenta desde la edad corregida. Consulta con tu pediatra cuándo empezar.");
+  if(p.diet==="veg")notes.push("Vegetariana: sin carne ni pescado, con huevo y lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses: consúltalo con tu pediatra.");
+  if(p.diet==="vgn")notes.push("Vegana: sin carne, pescado, huevo ni lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses, y la vitamina B12 necesita suplemento. Consúltalo con tu pediatra.");
+  if(goals.length)notes.push("Objetivos: "+goals.map(g=>GL[g].toLowerCase()).join(", ")+".");
+  if(p.gf)notes.push("Sin gluten.");
+  if(every===1)notes.push("La AEP recomienda dejar unos días entre alimentos nuevos.");
+  if(ag&&ag.mo>=6&&ag.mo<12&&!p.gf&&![...GLU].some(n=>m[n]))notes.push("Gluten: la AEP recomienda introducirlo entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.");
+  if(ag&&ag.mo>=8)notes.push("Texturas: la AEP recomienda texturas grumosas lo antes posible y nunca más tarde de los 8 o 9 meses.");
+  if(!p.days)notes.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
+  $("pf_note").textContent=notes.join(" ");
+  if(ag&&ag.mo<ag.th){
+    $("days").innerHTML=`<div class="card"><p><b>Todavía no toca empezar.</b> La AEP recomienda empezar hacia los 6 meses (26 semanas) y nunca antes de los 4. A ${esc(S.nm||"tu bebé")} le faltan ${Math.max(ag.sT,0)} días para ${ag.th===4?"las 17 semanas (4 meses)":"los 6 meses"}${ag.pre?", contando desde la edad corregida":""}. Puedes ajustarlo en Perfil si tu pediatra te ha indicado otra cosa.</p></div>`;
+    return;
+  }
   const cc={};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
   let pool=ALL.filter(x=>!m[x.n]&&unlocked(x)&&allowed(x,p));
+  const first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
+  const t0=today(),lastFirst=Object.values(first).sort().pop();
+  let lastNew=lastFirst?-Math.max(0,Math.round((new Date(t0+"T00:00:00")-new Date(lastFirst+"T00:00:00"))/864e5)):-99;
   const start=new Date();start.setHours(0,0,0,0);
-  const total=p.days||ALL.length,gap=goals.includes("alg")?2:3,out=[];let lastA=-9,lastF=-9,prev="";
+  const total=p.days||ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="";
+  const known=Object.keys(m).filter(k=>!m[k].all.includes("react")).map(info).filter(a=>a&&allowed(a,p));
   for(let d=0;d<total;d++){
     const dt=new Date(start);dt.setDate(start.getDate()+d);const ds=dstr(dt);
     const done=[...new Set(S.log.filter(l=>l.d===ds).map(l=>l.f))];
-    done.forEach(n=>{const a=info(n);if(a&&a.a)lastA=d;if(a&&a.fe)lastF=d});
+    const doneNew=done.filter(f=>first[f]===ds);
+    done.forEach(n=>{const a=info(n);if(a&&a.a)lastA=d});
+    if(doneNew.length)lastNew=d;
     const items=[];
-    if(!done.length){
+    if(!doneNew.length&&d-lastNew>=every){
       let best=null,bs=-1e9;
       pool.forEach(x=>{
         let s=rnd()*1.5+(4-Math.min(4,cc[x.c]||0));
+        s+=(x.fe?3:0)+(ZN.has(x.n)?2:0);
         s+=Math.min(goals.filter(g=>GS[g](x)).length,2)*5;
-        if(x.fe)s+=goals.includes("iron")?3:(d-lastF>=2?5:2);
+        if(x.fe&&goals.includes("iron"))s+=3;
         if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
         if(x.c===prev)s-=2;
         if(x.c==="Condimentos")s-=4;
         if(s>bs){bs=s;best=x}});
-      if(best){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a)lastA=d;if(best.fe)lastF=d;items.push(best)}
+      if(best){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a)lastA=d;lastNew=d;known.push(best);items.push(best)}
     }
-    out.push({dt,ds,done,items});
+    out.push({dt,ds,done,items,di:d,kn:[...known]});
   }
-  while(out.length&&!out[out.length-1].items.length&&!out[out.length-1].done.length)out.pop();
-  const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&!x.all.includes("react")&&x.c<8}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
+  if(!p.days){let k=out.length;while(k>0&&!out[k-1].items.length&&!out[k-1].done.length)k--;out.length=k}
+  const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&!x.all.includes("react")&&x.c<15}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
   const fmt=dt=>{const s=dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});return s.charAt(0).toUpperCase()+s.slice(1)};
-  const t0=today(),show=p.days?out.length:Math.min(out.length,planShown);
-  $("days").innerHTML=out.length?out.slice(0,show).map((o,i)=>{
+  const show=p.days?out.length:Math.min(out.length,planShown);
+  const menuFor=o=>{const used=new Set();return SLOTS.map(([lab,fn],i)=>{
+    let c=o.kn.filter(x=>fn(x)&&!used.has(x.n));if(i===0){const ir=c.filter(x=>x.fe);if(ir.length)c=ir}
+    if(!c.length)return"";
+    const nw=o.items.find(x=>fn(x)&&!used.has(x.n));
+    const pick=nw||c[(o.di+i*2+(p.seed||1))%c.length];used.add(pick.n);
+    return `<p><b>${lab}:</b> <span class="${pick.a?"al":""}">${esc(pick.n)}</span></p>`}).join("")};
+  const useful=out.some(o=>o.items.length||o.done.length||o.kn.length);
+  $("days").innerHTML=useful?out.slice(0,show).map((o,i)=>{
     const r=re.length?re[i%re.length]:null,ri=r&&info(r.n);
     const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
     const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
-      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${tg}<br><span class="mute">${esc(n.tip)}.${n.fe&&(goals.includes("iron")||p.diet!=="om")?" Combínalo con algo con vitamina C (naranja, kiwi, pimiento).":""}${n.a?" Ofrécelo pronto en el día y el resto del día, alimentos ya conocidos.":""}</span><br><button class="btn" style="margin-top:6px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button></p>`}).join("");
-    const rep=r?`<p><b>Repetir:</b> ${esc(r.n)}<br><span class="mute">${r.last==="love"?"Le gustó, mantenlo en la rotación.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma o combinación."}${ri?" "+esc(ri.tip)+".":""}</span></p>`:"";
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${rep}</div>`}).join("")+(!p.days&&out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver más días</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${tg}<br><span class="mute">${esc(n.tip)}.${n.a?" Ofrécelo en poca cantidad y vigila posibles reacciones.":""}</span><br><button class="btn" style="margin-top:6px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button></p>`}).join("");
+    const none=(!o.items.length&&!o.done.length)?'<p class="mute">Hoy no toca alimento nuevo: ofrece los que ya conoce.</p>':"";
+    const mn=menuFor(o);
+    const rep=r?`<p><b>Repetir:</b> ${esc(r.n)}<br><span class="mute">${r.last==="love"?"Le gustó, mantenlo en la rotación.":"Última vez: "+RL[r.last].toLowerCase()+". Un rechazo no es definitivo: vuelve a ofrecerlo sin presionar."}${ri?" "+esc(ri.tip)+".":""}</span></p>`:"";
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${none}${mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:""}${rep}</div>`}).join("")+(!p.days&&out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver más días</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d));
   if($("pmore"))$("pmore").onclick=()=>{planShown+=30;plan()};
-  const notes=[];
-  if(p.diet==="veg")notes.push("Vegetariana: sin carne ni pescado, con huevo y lácteos.");
-  if(p.diet==="vgn")notes.push("Vegana: sin carne, pescado, huevo ni lácteos. Consulta con tu pediatra la vitamina B12 y el hierro.");
-  if(goals.length)notes.push("Objetivos: "+goals.map(g=>GL[g].toLowerCase()).join(", ")+".");
-  if(p.gf)notes.push("Sin gluten.");
-  if(!p.days)notes.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
-  $("pf_note").textContent=notes.join(" ");
 }
 $("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;planShown=30;save();plan()};
 render();
