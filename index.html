@@ -61,12 +61,12 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .row input{width:150px;padding:5px 8px}
 .mute{color:var(--mute);font-size:.9rem}
 .x{background:none;border:0;color:var(--mute);text-decoration:underline;font-size:.85rem}
-.age{font-weight:700;color:var(--green);margin:6px 0 2px}.acc{font-size:.8rem;color:var(--mute)}.kc[disabled]{opacity:.55;cursor:default}.p4{background:var(--ink);color:var(--bg)}
+.age{display:none}.acc{font-size:.8rem;color:var(--mute)}.kc[disabled]{opacity:.55;cursor:default}.p4{background:var(--ink);color:var(--bg)}
 .by{display:inline-block;text-decoration:none;color:var(--blue);border:2px dashed var(--blue);border-radius:999px;padding:5px 16px;font-size:1.05rem;transform:rotate(-2deg)}
 .byrow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
 .sub{margin:6px 0 0;font-size:.85rem;color:var(--mute)}
 .srch{display:flex;gap:10px;align-items:center}.srch input{margin-top:0;flex:1}
-.vt{display:flex;border:2px solid var(--blue);border-radius:999px;overflow:hidden;flex:none}
+.vt{display:flex;flex-direction:row-reverse;border:2px solid var(--blue);border-radius:999px;overflow:hidden;flex:none}
 .vt button{border:0;background:transparent;color:var(--blue);padding:7px 12px;display:flex}
 .vt button.on{background:var(--blue);color:var(--onacc)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 24px}
@@ -112,13 +112,38 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .cd .more{font-size:.65rem;color:var(--mute)}
 .cd.sel .more{color:var(--onacc)}
 .cdetail{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.logo{display:block;width:min(460px,94%);height:auto;margin:0 auto}
+.fl{min-width:0}.flab{font-size:.85rem;display:block}
+.ms{position:relative}
+.ms summary{list-style:none;cursor:pointer;margin-top:3px;padding:9px 30px 9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--card);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative}
+.ms summary::-webkit-details-marker{display:none}
+.ms summary::after{content:"\25BE";position:absolute;right:11px;top:50%;transform:translateY(-50%)}
+.msl{position:absolute;z-index:6;left:0;min-width:250px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;margin-top:4px;box-shadow:0 8px 24px rgba(0,0,0,.18);max-height:300px;overflow:auto}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border-radius:8px;cursor:pointer;margin:0;font-size:.9rem}
+.ck:hover{background:var(--line)}
+.ck input{width:auto;margin:3px 0 0;flex:none}
+.ck b{display:block;font-weight:600}.ck small{color:var(--mute);font-size:.78rem}
+.chips button.addb{border-style:dashed;color:var(--blue);border-color:var(--blue)}
+.col{background:none;padding:0}
+.ch h2{font-size:1.5rem;color:var(--blue);margin:0}
+.cl{gap:2px}
+.it.kb{align-items:flex-start}
+.it.kb svg{margin-top:1px}
+.kt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ct{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;border-radius:99px;padding:1px 8px;background:var(--line);width:fit-content}
+.ct .dot{width:7px;height:7px}
+.by-logo{display:block;line-height:0}
+.by-logo img{display:block;width:130px;height:auto}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 <div class="gate" id="gate"><div>
-  <svg viewBox="0 0 24 24" width="64" height="64" aria-hidden="true"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>
-  <h1 class="disp" style="margin:8px 0">Primeros alimentos</h1>
+  <svg class="logo" viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos" style="width:min(420px,90%);margin-bottom:10px">
+    <defs><path id="ARC1" d="M30,185 Q320,10 610,185"/></defs>
+    <text class="disp" text-anchor="middle" style="font-size:50px;fill:var(--green)"><textPath href="#ARC1" startOffset="50%">Primeros alimentos</textPath></text>
+    <g transform="translate(279 112) scale(3.4)" style="fill:var(--terra)"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" style="stroke:var(--bg);fill:none;stroke-width:.9;stroke-linecap:round"/></g>
+  </svg>
   <div id="gbtn" style="display:flex;justify-content:center;min-height:44px"></div>
   <p class="mute" style="margin:14px 0 8px">o con tu email</p>
   <div style="max-width:300px;margin:0 auto;text-align:left">
@@ -131,8 +156,13 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 </div></div>
 <main>
 <div class="hero">
-  <h1 class="disp" id="ttl">Primeros alimentos</h1>
-  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>
+  <svg class="logo" viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos">
+    <defs><path id="ARC2" d="M30,185 Q320,10 610,185"/></defs>
+    <text class="disp" text-anchor="middle" style="font-size:50px;fill:var(--green)"><textPath href="#ARC2" startOffset="50%">Primeros alimentos</textPath></text>
+    <g transform="translate(279 112) scale(3.4)" style="fill:var(--terra)"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" style="stroke:var(--bg);fill:none;stroke-width:.9;stroke-linecap:round"/></g>
+  </svg>
+  <div class="disp" id="ttl" style="color:var(--green);font-size:1.5rem;line-height:1.1;margin-top:2px"></div>
+  <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
 <div class="tabs"><button id="t1" class="on">Tablero</button><button id="t2">Plan</button><button id="t3">Registro</button><button id="t4">Perfil</button></div>
@@ -155,11 +185,11 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <h3 class="sec" style="margin-top:0">Tu plan</h3>
     <div class="pf">
       <label>Dieta<select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
-      <label>Duración<select id="pf_days"><option value="7">7 días</option><option value="14">14 días</option></select></label>
-      <label>Nuevos al día<select id="pf_per"><option value="1">1 alimento</option><option value="2">2 alimentos</option></select></label>
+      <label>Duración<select id="pf_days"><option value="7">7 días</option><option value="14">14 días</option><option value="30">1 mes</option><option value="0">Indefinido</option></select></label>
+      <div class="fl"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
     </div>
-    <div class="chips" style="margin-top:10px"><button id="pf_iron">Reforzar hierro</button><button id="pf_alg">Potenciar alérgenos</button><button id="pf_gf">Sin gluten</button></div>
-    <div class="btns" style="max-width:260px"><button class="btn" id="mk">Otras ideas</button></div>
+    <div class="chips" style="margin-top:10px"><button id="pf_gf">Sin gluten</button></div>
+    <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
   </div>
   <div id="days"></div>
@@ -170,7 +200,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div id="log" class="hide"></div>
 </div></section>
 <section id="v4" class="hide">
-  <div style="text-align:center;margin:6px 0 14px"><div class="avatar disp" id="av"></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2></div>
+  <div style="text-align:center;margin:6px 0 14px"><div class="avatar disp" id="av"></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec">Detalles del bebé</h3>
   <div class="card">
     <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
@@ -183,31 +213,18 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
-  <h3 class="sec">Cuenta</h3>
-  <div class="card">
-    <p class="mute" id="who" style="margin:0 0 6px"></p>
-    <div class="btns" style="margin-top:8px"><button class="btn" id="bk">Copia de seguridad</button><button class="btn" id="so">Cerrar sesión</button></div>
-  </div>
+  <p style="margin:0"><button class="x" id="bdel">Eliminar este perfil</button></p>
+  <div class="btns" style="max-width:260px;margin:18px 0 0"><button class="btn" id="so">Cerrar sesión</button></div>
 </section>
 
 <footer class="foot">
 <p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
 <p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no molido, triturado o en crema.</p>
 <p class="mute">Los alimentos se desbloquean según los meses del bebé con una guía orientativa. Esta app no es consejo médico: consulta con tu pediatra los alérgenos, la edad de cada alimento y cualquier reacción.</p>
-<div class="byrow"><span class="mute">Hecho por</span><a class="by disp" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener">sunsies studio</a></div>
+<div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="data:image/png;base64,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" alt="sunsies studio" width="130" height="75"></a></div>
 </footer>
 </main>
 
-<div class="sheet hide" id="bkp" role="dialog" aria-label="Copia de seguridad"><div>
-  <button class="xc" id="bkx2" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  <h3 class="disp">Copia de seguridad</h3>
-  <div class="mute">Para pasar tu progreso a otro móvil u ordenador, copia este código y pégalo allí en "Restaurar".</div>
-  <label>Tu código<textarea id="bkc" readonly rows="3"></textarea></label>
-  <div class="btns" style="margin-top:8px"><button class="btn" id="bkcopy">Copiar código</button></div>
-  <label>Restaurar desde un código (reemplaza lo de este dispositivo)<textarea id="bkr" rows="3" placeholder="Pega aquí el código"></textarea></label>
-  <div class="btns"><button class="btn" id="bkx">Cerrar</button><button class="btn p" id="bkok">Restaurar</button></div>
-  <div class="mute" id="bkm" style="margin-top:8px"></div>
-</div></div>
 <div class="sheet hide" id="sh" role="dialog" aria-label="Registrar alimento"><div>
   <button class="xc" id="shx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="shn"></h3>
@@ -238,10 +255,19 @@ const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1]
 const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";
-const DEF=()=>({nm:"",bd:"",log:[],prefs:{diet:"om",iron:false,alg:false,gf:false,days:7,per:1,seed:1}});
-const fix=o=>{const d=DEF();o=o||{};return{...d,nm:o.nm||"",bd:o.bd||"",log:Array.isArray(o.log)?o.log:[],prefs:{...d.prefs,...(o.prefs||{})}}};
-let S=DEF();
-const snap=()=>({nm:S.nm,bd:S.bd,log:S.log,prefs:S.prefs});
+const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,seed:1});
+const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const newBaby=()=>({id:uid(),nm:"",bd:"",log:[],prefs:DEFP()});
+const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
+  if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
+  delete pr.iron;delete pr.alg;delete pr.per;
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",log:Array.isArray(o.log)?o.log:[],prefs:pr}};
+const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
+  return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
+let DB=fixDB(null),S=DB.babies[DB.cur];
+const setDB=o=>{DB=fixDB(o);S=DB.babies[DB.cur]};
+const snap=()=>({v:2,cur:DB.cur,babies:DB.babies});
+const anyData=()=>DB.babies.some(b=>b.nm||b.bd||b.log.length);
 
 let USER=null,ST,LOADED=false;
 const LKEY=()=>"primeros_u_"+(USER?USER.uid:"anon");
@@ -258,7 +284,7 @@ function age(){if(!S.bd)return null;const b=new Date(S.bd+"T00:00:00"),n=new Dat
   let mo=(t.getFullYear()-b.getFullYear())*12+t.getMonth()-b.getMonth();if(t.getDate()<b.getDate())mo--;
   return{days,mo,s6:Math.ceil((new Date(b.getFullYear(),b.getMonth()+6,b.getDate())-t)/864e5)}}
 const unlocked=x=>{const a=age();return !a||a.mo>=x.min};
-function head(){const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=t;document.title=t;
+function head(){const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=S.nm?"de "+S.nm:"";document.title=t;
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
 let cat="Todos",cur="";
@@ -272,8 +298,7 @@ function stats(){
 }
 function card(x,m){
   const s=m[x.n],lk=!unlocked(x);
-  const t=!s?"":s.all.includes("react")?'<span class="tag w">Reacción</span>':`<span class="tag">${RL[s.last]}</span>`;
-  return `<button class="kc${lk?" lk":""}" data-n="${esc(x.n)}"><b class="${x.a?"al":""}">${esc(x.n)}</b><span class="mt"><span class="dot" style="background:${x.col}"></span>${x.c}${s?` · x${s.c}`:""} ${t}${lk?` <span class="tag w">No recomendado hasta los ${x.min} meses</span>`:""}${x.fe&&!lk?' <span class="tag">Hierro</span>':""}</span></button>`;
+  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span></span>${lk?`<span class="tag w">No antes de ${x.min} m</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
 function board(){
   const m=stats(),q=norm($("q").value.trim());
@@ -295,8 +320,8 @@ function board(){
   ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
     if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[!s?"todo":(s.last==="love"&&!s.all.includes("react"))?"done":"doing"].push(x)});
   cols.lock.sort((a,b)=>a.min-b.min);const defs=[["todo","Por probar","p1"],["doing","Probando","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
-  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><span class="pill ${d[2]}">${d[1]}</span><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
-  $("board").querySelectorAll(".kc").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
+  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
+  $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
   const done=ALL.filter(x=>m[x.n]&&m[x.n].last==="love"&&!m[x.n].all.includes("react")).length;
   $("prog").textContent=`${done} probados de ${ALL.length} alimentos`;
 }
@@ -336,8 +361,25 @@ function renderCal(){
 }
 $("rc").onclick=()=>{rmode="cal";renderCal()};
 $("rl").onclick=()=>{rmode="list";renderCal()};
+const bname=(b,i)=>b.nm||"Bebé "+(i+1);
+function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=30;$("pmsg").textContent="";save();render()}
+function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing="nm";cat="Todos";csel=today();planShown=30;$("pmsg").textContent="";save();render();tab(4);$("nm").focus()}
+function renderBabies(){
+  const chip=(b,i)=>`<button class="${i===DB.cur?"on":""}" data-i="${i}">${esc(bname(b,i))}</button>`;
+  $("bchips").innerHTML=DB.babies.map(chip).join("")+'<button class="addb" id="badd">+ Añadir bebé</button>';
+  $("bsw").innerHTML=DB.babies.length>1?DB.babies.map(chip).join(""):"";
+  document.querySelectorAll("#bchips button[data-i],#bsw button[data-i]").forEach(b=>b.onclick=()=>switchBaby(+b.dataset.i));
+  $("badd").onclick=addBaby;
+  $("bdel").classList.toggle("hide",DB.babies.length<2);
+}
+let delArm=0;
+$("bdel").onclick=()=>{
+  if(!delArm){delArm=1;$("bdel").textContent="Pulsa otra vez para eliminar";setTimeout(()=>{delArm=0;$("bdel").textContent="Eliminar este perfil"},4000);return}
+  DB.babies.splice(DB.cur,1);DB.cur=Math.max(0,DB.cur-1);S=DB.babies[DB.cur];delArm=0;editing=null;
+  $("bdel").textContent="Eliminar este perfil";save();render();
+};
 function render(){
-  head();renderProfile();
+  head();renderProfile();renderBabies();
   $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
   $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()});
   board();
@@ -356,13 +398,6 @@ $("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{S.log.push({f:cur,how:$("how").value,r:$("rx").value,d:$("dt").value||today()});save();$("sh").classList.add("hide");render()};
 $("q").oninput=board;
-const enc=()=>btoa(unescape(encodeURIComponent(JSON.stringify({v:1,...snap()}))));
-$("bk").onclick=()=>{$("bkc").value=enc();$("bkr").value="";$("bkm").textContent="";$("bkp").classList.remove("hide")};
-$("bkx").onclick=()=>$("bkp").classList.add("hide");
-$("bkcopy").onclick=async()=>{try{await navigator.clipboard.writeText($("bkc").value);$("bkm").textContent="Código copiado."}catch(e){$("bkc").select();$("bkm").textContent="Selecciona y copia el código."}};
-$("bkok").onclick=()=>{try{const d=JSON.parse(decodeURIComponent(escape(atob($("bkr").value.trim()))));if(!d||!Array.isArray(d.log))throw 0;
-  S=fix({prefs:d.prefs,nm:String(d.nm||"").slice(0,40),bd:String(d.bd||""),log:d.log.filter(l=>l&&typeof l.f==="string").map(l=>({f:l.f,how:String(l.how||""),r:RL[l.r]?l.r:"meh",d:String(l.d||today())}))});
-  save();render();$("bkm").textContent="Restaurado."}catch(e){$("bkm").textContent="Ese código no es válido."}};
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
 let editing=null;
@@ -372,7 +407,7 @@ function renderProfile(){
   $("av").textContent=(S.nm||"?").trim().charAt(0).toUpperCase()||"?";
   $("vnm").textContent=S.nm||"Sin nombre";
   $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
-  $("vage").textContent=a?`${a.days} días (${a.mo} meses)`:"Sin calcular";
+  $("vage").textContent=a?(a.days<7?`${a.days} día${a.days===1?"":"s"}`:`${Math.floor(a.days/7)} semana${Math.floor(a.days/7)===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`):"Sin calcular";
   $("vcnt").textContent=Object.keys(stats()).length+" alimentos";
   ["nm","bd"].forEach(k=>{
     $("ed_"+k).classList.toggle("hide",editing!==k);$("vw_"+k).classList.toggle("hide",editing===k);$("pen_"+k).classList.toggle("hide",editing===k);
@@ -410,79 +445,95 @@ function allowed(x,p){
   if(p.gf&&GLU.has(x.n))return false;
   return true;
 }
+const CSV=t=>new Set(t.split("|"));
+const FIB=CSV("Alubias blancas|Alubias negras|Alubias pintas|Garbanzos|Lentejas|Lentejas rojas|Avena|Quinoa|Pan integral|Amaranto|Trigo sarraceno|Cebada|Espelta|Pera asada|Ciruela|Kiwi|Frambuesas|Mora|Higos|Dátiles|Arándanos|Granada|Alcachofa|Brócoli|Coles de Bruselas|Guisantes|Coliflor|Zanahoria|Boniato|Espárragos|Semillas de chía|Semillas de lino|Semillas de girasol|Semillas de calabaza");
+const O3=CSV("Salmón|Sardinas|Trucha|Semillas de chía|Semillas de lino|Nuez");
+const CAL=CSV("Yogur natural|Queso fresco|Queso tierno|Mozzarella|Ricotta|Requesón|Kéfir|Tofu|Sardinas|Almendra|Sésamo (tahini)|Brócoli|Semillas de chía|Alubias blancas|Higos");
+const VC=CSV("Naranja|Mandarina|Kiwi|Fresas|Pomelo|Piña|Mango|Papaya|Maracuyá|Frambuesas|Mora|Pimiento rojo|Pimiento verde|Brócoli|Coliflor|Coles de Bruselas|Tomate|Perejil|Limón (ralladura)");
+const ZN=CSV("Ternera|Cordero|Cerdo|Pavo|Pollo|Huevo|Lentejas|Garbanzos|Semillas de calabaza|Yogur natural|Queso fresco|Avena|Quinoa|Anacardo");
+const FAT=CSV("Aguacate|Salmón|Sardinas|Trucha|AOVE|Huevo|Yogur natural|Coco");
+const GS={iron:x=>x.fe,fiber:x=>FIB.has(x.n),omega3:x=>O3.has(x.n),calcium:x=>CAL.has(x.n),vitc:x=>VC.has(x.n),protein:x=>x.c==="Proteínas"||x.c==="Lácteos",zinc:x=>ZN.has(x.n),fats:x=>FAT.has(x.n)||x.c==="Frutos secos",alg:x=>x.a,verd:x=>x.c==="Verduras"};
+const GOALS=[["iron","Hierro","carne, legumbres, huevo"],["fiber","Fibra","digestión"],["omega3","Omega-3","cerebro y vista"],["calcium","Calcio","huesos"],["vitc","Vitamina C","ayuda a absorber el hierro"],["protein","Proteína","crecimiento"],["zinc","Zinc","defensas"],["fats","Grasas saludables","energía"],["alg","Alérgenos","introducirlos pronto"],["verd","Más verduras","sabores y fibra"]];
+const GL=Object.fromEntries(GOALS.map(g=>[g[0],g[1]]));
+let planShown=30;
+$("pf_glist").innerHTML=GOALS.map(g=>`<label class="ck"><input type="checkbox" value="${g[0]}"><span><b>${g[1]}</b><small>${g[2]}</small></span></label>`).join("");
 function renderPlanForm(){
   const p=S.prefs;
-  $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);$("pf_per").value=String(p.per);
-  [["iron","pf_iron"],["alg","pf_alg"],["gf","pf_gf"]].forEach(([k,id])=>{$(id).classList.toggle("on",!!p[k]);$(id).setAttribute("aria-pressed",!!p[k])});
+  $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);
+  $("pf_gf").classList.toggle("on",!!p.gf);$("pf_gf").setAttribute("aria-pressed",!!p.gf);
+  $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
+  const g=p.goals.map(x=>GL[x]);
+  $("pf_gsum").textContent=!g.length?"Elegir":g.length<=2?g.join(", "):g.length+" objetivos";
 }
-function setPref(k,v){S.prefs[k]=v;save();renderPlanForm();plan()}
+function setPref(k,v){S.prefs[k]=v;planShown=30;save();renderPlanForm();plan()}
 $("pf_diet").onchange=e=>setPref("diet",e.target.value);
 $("pf_days").onchange=e=>setPref("days",+e.target.value);
-$("pf_per").onchange=e=>setPref("per",+e.target.value);
-[["iron","pf_iron"],["alg","pf_alg"],["gf","pf_gf"]].forEach(([k,id])=>$(id).onclick=()=>setPref(k,!S.prefs[k]));
+$("pf_gf").onclick=()=>setPref("gf",!S.prefs.gf);
+$("pf_glist").querySelectorAll("input").forEach(i=>i.onchange=()=>setPref("goals",[...$("pf_glist").querySelectorAll("input:checked")].map(x=>x.value)));
+document.addEventListener("click",e=>{const d=$("pf_goals");if(d.open&&!d.contains(e.target))d.open=false});
 function plan(){
-  const p=S.prefs,m=stats(),rnd=rng((p.seed||1)*7919);
+  const p=S.prefs,goals=p.goals||[],m=stats(),rnd=rng((p.seed||1)*7919);
   const cc={};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
   let pool=ALL.filter(x=>!m[x.n]&&unlocked(x)&&allowed(x,p));
   const start=new Date();start.setHours(0,0,0,0);
-  const gap=p.alg?2:3,out=[];let lastA=-9,lastF=-9,prev="";
-  for(let d=0;d<p.days;d++){
+  const total=p.days||ALL.length,gap=goals.includes("alg")?2:3,out=[];let lastA=-9,lastF=-9,prev="";
+  for(let d=0;d<total;d++){
     const dt=new Date(start);dt.setDate(start.getDate()+d);const ds=dstr(dt);
     const done=[...new Set(S.log.filter(l=>l.d===ds).map(l=>l.f))];
     done.forEach(n=>{const a=info(n);if(a&&a.a)lastA=d;if(a&&a.fe)lastF=d});
     const items=[];
-    for(let k=0;k<Math.max(0,p.per-done.length);k++){
+    if(!done.length){
       let best=null,bs=-1e9;
       pool.forEach(x=>{
         let s=rnd()*1.5+(4-Math.min(4,cc[x.c]||0));
-        if(x.fe)s+=p.iron?8:(d-lastF>=2?5:2);
-        if(x.a){if(d-lastA<gap)s-=99;else s+=p.alg?5:-1}
-        if(x.c===prev&&k===0)s-=2;
+        s+=Math.min(goals.filter(g=>GS[g](x)).length,2)*5;
+        if(x.fe)s+=goals.includes("iron")?3:(d-lastF>=2?5:2);
+        if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
+        if(x.c===prev)s-=2;
         if(x.c==="Condimentos")s-=4;
-        if(items.some(i=>i.c===x.c))s-=2;
         if(s>bs){bs=s;best=x}});
-      if(!best)break;
-      pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;
-      if(best.a)lastA=d;if(best.fe)lastF=d;items.push(best);
+      if(best){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a)lastA=d;if(best.fe)lastF=d;items.push(best)}
     }
     out.push({dt,ds,done,items});
   }
+  while(out.length&&!out[out.length-1].items.length&&!out[out.length-1].done.length)out.pop();
   const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&!x.all.includes("react")&&x.c<8}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
   const fmt=dt=>{const s=dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});return s.charAt(0).toUpperCase()+s.slice(1)};
-  const t0=today();
-  $("days").innerHTML=out.some(o=>o.items.length||o.done.length)?out.map((o,i)=>{
+  const t0=today(),show=p.days?out.length:Math.min(out.length,planShown);
+  $("days").innerHTML=out.length?out.slice(0,show).map((o,i)=>{
     const r=re.length?re[i%re.length]:null,ri=r&&info(r.n);
     const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
-    const itemsH=o.items.map(n=>`<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.fe?'<span class="tag">Hierro</span>':""}<br><span class="mute">${esc(n.tip)}.${n.fe&&(p.iron||p.diet!=="om")?" Combínalo con algo con vitamina C (naranja, kiwi, pimiento).":""}${n.a?" Ofrécelo pronto en el día y el resto del día, alimentos ya conocidos.":""}</span><br><button class="btn" style="margin-top:6px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button></p>`).join("");
+    const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
+      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${tg}<br><span class="mute">${esc(n.tip)}.${n.fe&&(goals.includes("iron")||p.diet!=="om")?" Combínalo con algo con vitamina C (naranja, kiwi, pimiento).":""}${n.a?" Ofrécelo pronto en el día y el resto del día, alimentos ya conocidos.":""}</span><br><button class="btn" style="margin-top:6px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button></p>`}).join("");
     const rep=r?`<p><b>Repetir:</b> ${esc(r.n)}<br><span class="mute">${r.last==="love"?"Le gustó, mantenlo en la rotación.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma o combinación."}${ri?" "+esc(ri.tip)+".":""}</span></p>`:"";
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${rep}</div>`}).join(""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${rep}</div>`}).join("")+(!p.days&&out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver más días</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d));
+  if($("pmore"))$("pmore").onclick=()=>{planShown+=30;plan()};
   const notes=[];
   if(p.diet==="veg")notes.push("Vegetariana: sin carne ni pescado, con huevo y lácteos.");
   if(p.diet==="vgn")notes.push("Vegana: sin carne, pescado, huevo ni lácteos. Consulta con tu pediatra la vitamina B12 y el hierro.");
-  if(p.iron)notes.push("Hierro: un alimento rico en hierro cada día.");
-  if(p.alg)notes.push("Alérgenos: uno cada 2 días, de uno en uno.");
+  if(goals.length)notes.push("Objetivos: "+goals.map(g=>GL[g].toLowerCase()).join(", ")+".");
   if(p.gf)notes.push("Sin gluten.");
+  if(!p.days)notes.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
   $("pf_note").textContent=notes.join(" ");
 }
-$("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;save();plan()};
+$("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;planShown=30;save();plan()};
 render();
 
 
 window.__auth=(u,d,pending)=>{USER=u;LOADED=!!u&&!pending;
-  S=DEF();
-  if(u){try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l&&Array.isArray(l.log))S=fix(l)}catch(e){}
-    $("who").textContent="Sesión: "+(u.email||u.displayName||"");$("err").textContent="Cargando tu progreso...";$("gate").classList.add("hide")}
+  setDB(null);
+  if(u){try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l)setDB(l)}catch(e){}
+    $("err").textContent="Cargando tu progreso...";$("gate").classList.add("hide")}
   else{$("gate").classList.remove("hide")}
   render()};
-window.__data=d=>{if(d){S=fix(d);saveLocal()}
-  LOADED=true;$("err").textContent="";render();if(!d&&(S.nm||S.bd||S.log.length))save();askProfile()};
+window.__data=d=>{if(d){setDB(d);saveLocal()}
+  LOADED=true;$("err").textContent="";render();if(!d&&anyData())save();askProfile()};
 window.__fail=code=>{LOADED=false;$("err").textContent="No se pudo conectar con tu cuenta ("+code+"). Tus datos se guardan en este dispositivo.";render();askProfile()};
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
-$("bkx2").onclick=()=>$("bkp").classList.add("hide");
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("sh").classList.add("hide");$("bkp").classList.add("hide")}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("sh").classList.add("hide")});
 </script>
 <script type="module">
 const gm=document.getElementById("gm");
