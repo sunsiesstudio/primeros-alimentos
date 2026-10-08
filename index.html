@@ -181,6 +181,16 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ps.gold.on polygon{fill:#d0a14f}
 .ps b{position:relative;margin-top:3px;font-size:.72rem;font-weight:700;color:var(--mute)}
 .ps.on b{color:#fff}
+.sub3{max-width:440px;margin:0 0 12px}
+.shcols{column-width:250px;column-gap:28px}
+.shc{break-inside:avoid;margin-bottom:6px}
+.sh{margin:12px 0 2px;font-size:.95rem;color:var(--blue)}
+.sl{display:flex;align-items:center;gap:10px;padding:7px 2px;border-top:1px solid var(--line);cursor:pointer}
+.sl input{width:20px;height:20px;margin:0;flex:none}
+.sl .mute{margin-left:auto;font-size:.8rem}
+.sl input:checked~span{text-decoration:line-through;opacity:.5}
+#fam{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:12px;align-items:start}
+#fam .card{margin:0}
 .rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
 .leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
 .leg span{display:inline-flex;align-items:center;gap:6px}
@@ -246,12 +256,13 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div class="grid" id="lst"></div>
 </section>
 <section id="v2" class="hide">
+  <div class="btns sub3"><button class="btn on" id="p1">Menú</button><button class="btn" id="p2">Compra</button><button class="btn" id="p3">Para papis</button></div>
+  <div id="pv1">
   <div class="card">
     <h3 class="sec" style="margin-top:0">Tu plan</h3>
     <div class="pf">
       <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
-      <label>Duración<select id="pf_days"><option value="7">7 días</option><option value="14">14 días</option><option value="30">1 mes</option><option value="0">Indefinido</option></select></label>
       <div class="fl"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
     </div>
     <p class="pop hide" id="dpop"></p>
@@ -259,40 +270,55 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <p class="mute" id="pf_note"></p>
   </div>
   <details class="card aep"><summary>Pautas de la AEP y de la OMS</summary>
-    <h4 id="pf_tips_h" class="hide">Para este plan</h4><ul id="pf_tips" class="hide"></ul>
-    <h4>Asociación Española de Pediatría (2018)</h4>
+    <h4>Cuándo empezar</h4>
     <ul>
-      <li>Empezar hacia los 6 meses (26 semanas), nunca antes de los 4, y no retrasarlo más allá del séptimo mes. La leche (materna o de fórmula) sigue siendo el alimento principal hasta los 12 meses y se mantiene a demanda.</li>
+      <li>Hacia los 6 meses (26 semanas), nunca antes de los 4 y sin retrasarlo más allá del séptimo mes. La lactancia puede seguir hasta los 2 años o más.</li>
       <li>Señales de que está listo: interés por la comida, ya no empuja con la lengua los alimentos no líquidos, coge comida y se la lleva a la boca, y se mantiene sentado con apoyo.</li>
-      <li>Alimentos nuevos de uno en uno, con unos días de intervalo, para ver cómo los tolera. Sin sal, azúcar ni edulcorantes.</li>
-      <li>Dar prioridad a los alimentos ricos en hierro y zinc (carne roja, legumbres, huevo) y ofrecer proteína cada día, de forma variada.</li>
+      <li>La leche (materna o de fórmula) sigue siendo el alimento principal hasta los 12 meses y se mantiene a demanda. Se puede empezar con 2 tomas de comida al día y subir hasta 4 o 5 hacia los 12 meses. A los 6 a 8 meses la comida aporta entre el 20 y el 30% de la energía.</li>
+    </ul>
+    <h4>Qué ofrecer</h4>
+    <ul>
+      <li>Alimentos nuevos de uno en uno, con unos días de intervalo, para ver cómo los tolera.</li>
+      <li>Prioridad a los alimentos ricos en hierro y zinc (carne roja, legumbres, huevo), y proteína cada día, de forma variada. El hierro se cubre con dos porciones diarias de alimentos proteicos o cereales enriquecidos, y la vitamina C ayuda a absorberlo.</li>
+      <li>Dieta variada. Sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la vitamina B12 a los 6 a 8 meses: consúltalo con tu pediatra. En la alimentación vegana estricta, la B12 necesita suplemento.</li>
+      <li>Vitamina D, 400 UI al día hasta los 12 meses. Consúltalo con tu pediatra.</li>
       <li>No hace falta retrasar los alérgenos: se pueden introducir hacia los 6 meses, de uno en uno y en poca cantidad. El gluten, entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.</li>
-      <li>Texturas grumosas lo antes posible, nunca más tarde de los 8 o 9 meses. Como orientación, 4 o 5 tomas al día.</li>
+      <li>Texturas grumosas lo antes posible, nunca más tarde de los 8 o 9 meses.</li>
+    </ul>
+    <h4>Cómo ofrecerlo</h4>
+    <ul>
+      <li>Sin sal, azúcar ni edulcorantes.</li>
       <li>Un rechazo inicial no es definitivo: pueden hacer falta hasta 10 o 15 intentos, sin presionar.</li>
-      <li>En el primer año evitar acelga, espinaca y borraja (nitratos), sal, miel, azúcares, zumos, y pescados grandes como atún, pez espada, emperador, cazón y tintorera (mercurio). Yogur natural y queso desde los 9 meses, leche de vaca entera desde los 12. Azúcares, miel, cacao, bollería, galletas y embutidos, siempre a partir de los 12 meses y cuanto más tarde mejor.</li>
-      <li>Seguridad: sentado y erguido, nunca recostado ni solo. Nada de frutos secos enteros, palomitas, uvas enteras, salchichas en rodajas, ni manzana o zanahoria crudas. Los sólidos con riesgo de atragantamiento, por encima de los 3 años.</li>
-      <li>Prematuros: no hay pautas claras, se individualiza. Una edad corregida de 6 meses puede ser apropiada, y se prioriza el hierro. El baby-led weaning no se recomienda con fallo de medro ni dificultades neurológicas o motoras.</li>
-      <li>Los padres deciden qué, cuándo y dónde. El bebé decide cuánto. Sin pantallas ni distracciones.</li>
+      <li>Los padres deciden qué, cuándo y dónde, y el bebé decide cuánto. Atender sus señales de hambre y saciedad, sin pantallas ni distracciones.</li>
     </ul>
-    <h4>Organización Mundial de la Salud (2023)</h4>
+    <h4>Qué evitar</h4>
     <ul>
-      <li>Empezar a los 6 meses (180 días) sin dejar la lactancia, que puede seguir hasta los 2 años o más.</li>
-      <li>Dieta variada. Cuando se excluyen los alimentos de origen animal, a los 6 a 8 meses es difícil cubrir el hierro, el zinc y la vitamina B12.</li>
-      <li>Evitar alimentos y bebidas con mucho azúcar, sal, grasas trans y edulcorantes, incluidas las bebidas azucaradas.</li>
-      <li>Alimentación perceptiva: atender las señales de hambre y saciedad.</li>
-      <li>La guía no cubre a bebés prematuros ni con enfermedades graves.</li>
+      <li>En el primer año: acelga, espinaca y borraja (nitratos), zumos, bebidas azucaradas y grasas trans, y pescados grandes como atún, pez espada, emperador, cazón y tintorera (mercurio).</li>
+      <li>Azúcares, miel, cacao, bollería, galletas y embutidos, siempre a partir de los 12 meses y cuanto más tarde mejor.</li>
+      <li>Yogur natural y queso, desde los 9 meses. Leche de vaca entera, desde los 12.</li>
     </ul>
-    <h4>Otra fuente: Pediatría Integral (2025)</h4>
+    <h4>Seguridad</h4>
     <ul>
-      <li>Vitamina D, 400 UI al día hasta los 12 meses. Vitamina B12 si la alimentación es vegana estricta. Consúltalo con tu pediatra.</li>
-      <li>El hierro se cubre con dos porciones diarias de alimentos proteicos o cereales enriquecidos.</li>
-      <li>La vitamina C favorece la absorción del hierro (guía de bolsillo de la ESPGHAN, publicada en la web de la AEP).</li>
-      <li>No retrasar los sólidos más allá del octavo mes.</li>
-      <li>Se puede empezar con 2 tomas de comida al día y subir hasta 4 o 5 hacia los 12 meses. A los 6 a 8 meses la comida aporta entre el 20 y el 30% de la energía y el resto es leche.</li>
+      <li>Sentado y erguido, nunca recostado ni solo. Nada de frutos secos enteros, palomitas, uvas enteras, salchichas en rodajas, ni manzana o zanahoria crudas. Los sólidos con riesgo de atragantamiento, por encima de los 3 años.</li>
     </ul>
-    <p class="mute">Fuentes: Recomendaciones de la AEP sobre alimentación complementaria (Comités de Nutrición y de Lactancia Materna, noviembre de 2018), Guía de la OMS sobre alimentación complementaria de 6 a 23 meses (octubre de 2023) y Pediatría Integral, marzo de 2025 (SEPEAP, no es un documento de la AEP). Los objetivos de fibra, omega-3 y calcio vienen de ese artículo de 2025. No sustituye el consejo de tu pediatra.</p>
+    <h4>Casos especiales</h4>
+    <ul>
+      <li>Prematuros: no hay pautas claras y se individualiza. Una edad corregida de 6 meses puede ser apropiada, y se prioriza el hierro. La guía de la OMS no los cubre.</li>
+      <li>El baby-led weaning no se recomienda con fallo de medro ni dificultades neurológicas o motoras.</li>
+    </ul>
+    <h4>Fuentes</h4>
+    <ul>
+      <li><b>AEP, noviembre de 2018.</b> Recomendaciones de la Asociación Española de Pediatría sobre alimentación complementaria (Comités de Nutrición y de Lactancia Materna). Es la base de casi todas estas pautas.</li>
+      <li><b>OMS, octubre de 2023.</b> Guía sobre alimentación complementaria de 6 a 23 meses. Aporta, entre otras, la falta de hierro, zinc y B12 sin alimentos de origen animal y evitar bebidas azucaradas y grasas trans.</li>
+      <li><b>Pediatría Integral, marzo de 2025</b> (SEPEAP, no es un documento de la AEP). Aporta la vitamina D, la B12 vegana, el hierro, el número de tomas y los objetivos de fibra, omega-3 y calcio.</li>
+      <li><b>Guía de bolsillo de la ESPGHAN</b>, publicada en la web de la AEP. Aporta la vitamina C para absorber el hierro.</li>
+    </ul>
+    <p class="mute">No sustituye el consejo de tu pediatra.</p>
   </details>
   <div id="days"></div>
+  </div>
+  <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><p class="mute">Lo que necesitas para los días del menú que tienes abierto. Marca lo que ya tienes en casa.</p><div id="shop"></div></div></div>
+  <div id="pv3" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Platos para los papis</h3><p class="mute">Platos que se hacen con lo mismo que come el bebé, para cocinar una vez y no comprar de más. Primero se aparta la ración del bebé, sin sal.</p></div><div id="fam"></div></div>
 </section>
 <section id="v3" class="hide"><div class="card">
   <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Lista</button></div>
@@ -382,6 +408,7 @@ const AG={};Object.keys(AGD).forEach(g=>AGD[g].forEach(n=>AG[n]=g));
 const cleanAl=o=>{const r={};if(o&&typeof o==="object")Object.keys(AGD).forEach(g=>{if(o[g]==="alergia"||o[g]==="sospecha")r[g]=o[g]});return r};
 const cleanRx=a=>Array.isArray(a)?a.filter(r=>r&&AGD[r.g]&&typeof r.d==="string").map(r=>({id:r.id||uid(),g:r.g,d:r.d,r:String(r.r||"").slice(0,120),n:String(r.n||"").slice(0,300)})):[];
 const validPh=v=>typeof v==="string"&&v.length<400000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(v)?v:"";
+const cleanSl=o=>{const r={};if(o&&typeof o==="object")ALL.forEach(x=>{if(o[x.n]===true)r[x.n]=true});return r};
 const blockedG=x=>{const g=AG[x.n];return !!g&&!!S.al&&(S.al[g]==="alergia"||S.al[g]==="sospecha")};
 const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
 const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
@@ -480,11 +507,11 @@ const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],ph:"",log:[],prefs:DEFP()});
+const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],ph:"",sl:{},log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;
-  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),log:Array.isArray(o.log)?o.log:[],prefs:pr}};
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),log:Array.isArray(o.log)?o.log:[],prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
   return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
 let DB=fixDB(null),S=DB.babies[DB.cur];
@@ -596,8 +623,8 @@ function renderCal(){
 $("rc").onclick=()=>{rmode="cal";renderCal()};
 $("rl").onclick=()=>{rmode="list";renderCal()};
 const bname=(b,i)=>b.nm||"Bebé "+(i+1);
-function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=30;$("pmsg").textContent="";save();render()}
-function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing="nm";cat="Todos";csel=today();planShown=30;$("pmsg").textContent="";save();render();tab(4);$("nm").focus()}
+function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render()}
+function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing="nm";cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render();tab(4);$("nm").focus()}
 function renderBabies(){
   const chip=(b,i)=>`<button class="${i===DB.cur?"on":""}" data-i="${i}">${esc(bname(b,i))}</button>`;
   $("bchips").innerHTML=DB.babies.map(chip).join("")+'<button class="addb" id="badd">+ Añadir bebé</button>';
@@ -705,21 +732,20 @@ const FAT=CSV("Aguacate|Salmón|Sardinas|Trucha|AOVE|Huevo|Yogur natural|Coco");
 const GS={iron:x=>x.fe,fiber:x=>FIB.has(x.n),omega3:x=>O3.has(x.n),calcium:x=>CAL.has(x.n),vitc:x=>VC.has(x.n),protein:x=>x.c==="Proteínas"||x.c==="Lácteos",zinc:x=>ZN.has(x.n),fats:x=>FAT.has(x.n)||x.c==="Frutos secos",alg:x=>x.a,verd:x=>x.c==="Verduras"};
 const GOALS=[["iron","Hierro","carne, legumbres, huevo"],["fiber","Fibra","digestión"],["omega3","Omega-3","cerebro y vista"],["calcium","Calcio","huesos"],["protein","Proteína","crecimiento"],["zinc","Zinc","defensas"],["alg","Alérgenos","no hace falta retrasarlos"],["verd","Más verduras","sabores y fibra"]];
 const GL=Object.fromEntries(GOALS.map(g=>[g[0],g[1]]));
-let planShown=30;
+let planShown=7;
 $("pf_glist").innerHTML=GOALS.map(g=>`<label class="ck"><input type="checkbox" value="${g[0]}"><span><b>${g[1]}</b><small>${g[2]}</small></span></label>`).join("");
 const DIETTXT={veg:"Vegetariana: sin carne ni pescado, con huevo y lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses. Consúltalo con tu pediatra.",vgn:"Vegana: sin carne, pescado, huevo ni lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses, y la vitamina B12 necesita suplemento. Consúltalo con tu pediatra."};
 function renderPlanForm(){
   const p=S.prefs,dt=DIETTXT[p.diet];
   $("dinfo").classList.toggle("hide",!dt);$("dinfo").title=dt||"";$("dpop").textContent=dt||"";if(!dt)$("dpop").classList.add("hide");
-  $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);$("pf_every").value=String(p.every||2);
+  $("pf_diet").value=p.diet;$("pf_every").value=String(p.every||2);
   $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
   const g=p.goals.map(x=>GL[x]);
   $("pf_gsum").textContent=!g.length?"Elegir":g.length<=2?g.join(", "):g.length+" objetivos";
 }
-function setPref(k,v){S.prefs[k]=v;planShown=30;save();renderPlanForm();plan()}
+function setPref(k,v){S.prefs[k]=v;planShown=7;save();renderPlanForm();plan()}
 $("dinfo").onclick=e=>{e.preventDefault();$("dpop").classList.toggle("hide")};
 $("pf_diet").onchange=e=>setPref("diet",e.target.value);
-$("pf_days").onchange=e=>setPref("days",+e.target.value);
 $("pf_every").onchange=e=>setPref("every",+e.target.value);
 $("pf_glist").querySelectorAll("input").forEach(i=>i.onchange=()=>setPref("goals",[...$("pf_glist").querySelectorAll("input:checked")].map(x=>x.value)));
 document.addEventListener("click",e=>{const d=$("pf_goals");if(d.open&&!d.contains(e.target))d.open=false});
@@ -729,17 +755,17 @@ const CER=new Set(["Arroz","Pasta","Quinoa","Cuscús"]);
 const PANES=new Set(["Pan (tostado, sin sal)","Pan integral"]);
 const low=x=>x.n.toLowerCase();
 const mealsFor=mo=>mo<6?["Comida"]:mo<7?["Comida","Merienda"]:mo<9?["Desayuno","Comida","Merienda"]:mo<12?["Desayuno","Comida","Merienda","Cena"]:["Desayuno","Media mañana","Comida","Merienda","Cena"];
-const RF={pure:["mash","bits"],arroz:["balls","bits"],guiso:["mash","bits"],tortita:["patty","patty"],tortilla:["stick","bits"],burger:["stick","bits"],pescado:["flake","bits"],tofu:["stick","bits"],hummus:["mash","mash"],avena:["mash","mash"],yogur:["mash","mash"],queso:["stick","bits"],tostada:["stick","bits"]};
+const RF={pure:["mash","bits"],arroz:["balls","bits"],guiso:["mash","bits"],tortita:["patty","patty"],tortilla:["stick","bits"],burger:["stick","bits"],pescado:["flake","bits"],tofu:["stick","bits"],hummus:["mash","mash"],avena:["mash","mash"],yogur:["mash","mash"],queso:["stick","bits"],tostada:["stick","bits"],mix:["mash","bits"]};
 function recipesFor(kn,mo,pz){
   const out=[],T=(a,b)=>pz?b:a;
-  const add=(t,k,n,ing,how,meals,g)=>{const key=ing.find(x=>x.c==="Verduras")||ing.find(x=>x.c==="Frutas")||ing[0];out.push({t,k,n,ing:ing.map(low).join(", "),how,meals,g:g||fig(RF[t][pz?1:0],colOf(key))})};
+  const add=(t,k,n,ing,how,meals,g)=>{const key=ing.find(x=>x.c==="Verduras")||ing.find(x=>x.c==="Frutas")||ing[0];out.push({t,k,n,ing:ing.map(low).join(", "),ings:ing.map(x=>x.n),how,meals,g:g||fig(RF[t][pz?1:0],colOf(key))})};
   const veg=kn.filter(x=>x.c==="Verduras"&&!NOCOOK.has(x.n)),fru=kn.filter(x=>x.c==="Frutas"),
     meat=kn.filter(x=>MEAT.has(x.n)),fish=kn.filter(x=>FISH.has(x.n)&&x.n!=="Gambas"&&x.n!=="Mejillones"),
     leg=kn.filter(x=>/^(Lentejas|Alubias|Garbanzos)/.test(x.n)),egg=kn.filter(x=>x.n==="Huevo"),tofu=kn.filter(x=>x.n==="Tofu"),
     cer=kn.filter(x=>CER.has(x.n)),pan=kn.filter(x=>PANES.has(x.n)),
     g=n=>kn.find(x=>x.n===n),prot=[...meat,...fish,...leg,...egg,...tofu],mainM=["Comida","Cena"];
   veg.forEach(v=>{
-    prot.forEach(p=>add("pure",p.n,`Puré de ${low(v)} con ${low(p)}`,[v,p],T("Puré espeso con grumos","Aplastado con tenedor, con trocitos blandos"),mainM));
+    prot.forEach(p=>add("pure",p.n,`Puré de ${low(v)} con ${p.n==="Huevo"?"huevo hervido aplastado":low(p)}`,[v,p],T("Puré espeso con grumos","Aplastado con tenedor, con trocitos blandos"),mainM));
     cer.forEach(c=>[...meat,...fish,...leg].forEach(p=>add("arroz",p.n,`${c.n} con ${low(v)} y ${low(p)}`,[c,v,p],"Bien cocido, con la verdura y la proteína desmenuzadas",mainM)));
     leg.forEach(l=>add("guiso",l.n,`Guiso suave de ${low(l)} con ${low(v)}`,[l,v],T("Muy blando, aplastado con tenedor","Muy blando, algo aplastado"),mainM));
     leg.filter(l=>/^(Lentejas|Alubias)/.test(l.n)).forEach(l=>add("tortita",l.n,`Tortitas de ${low(l)} con ${low(v)}`,[l,v],"Tortitas pequeñas a la plancha",mainM));
@@ -749,12 +775,19 @@ function recipesFor(kn,mo,pz){
     tofu.forEach(t=>add("tofu",t.n,`Palitos de tofu con ${low(v)}`,[t,v],T("En palitos","En dados pequeños"),mainM));
     if(g("Garbanzos"))add("hummus","Garbanzos",`Hummus con ${T("bastones","trocitos")} de ${low(v)}`,[g("Garbanzos"),v],T("Verdura muy bien cocida, en bastones","Verdura muy bien cocida, en trocitos"),["Comida","Merienda"]);
   });
-  const av=g("Avena"),pl=g("Plátano"),ag=g("Aguacate"),yo=g("Yogur natural"),qf=g("Queso fresco");
+  const av=g("Avena"),pl=g("Plátano"),ag=g("Aguacate"),yo=g("Yogur natural"),qf=g("Queso fresco"),pa=g("Patata"),za=g("Zanahoria");
+  [...veg,...prot].forEach(x=>{const p=presOf(x);add("solo",prot.includes(x)?x.n:null,x.n,[x],offerText(x,pz),["Comida","Cena"],fig(pz?p.q[0]:p.b[0],colOf(x),p.rind))});
+  cer.forEach(x=>{const p=presOf(x);add("solo",null,x.n,[x],offerText(x,pz),["Comida","Merienda"],fig(pz?p.q[0]:p.b[0],colOf(x),p.rind))});
+  if(ag)egg.forEach(e=>add("mix","Huevo","Aguacate con huevo hervido aplastado",[ag,e],T("Aguacate muy maduro y huevo hervido aplastados juntos","Aguacate y huevo hervido aplastados, con trocitos"),["Desayuno","Merienda","Cena"]));
+  if(ag&&pl)add("mix",null,"Mousse de aguacate y plátano",[ag,pl],"Aplastados juntos, como una crema espesa",["Desayuno","Merienda"]);
+  if(yo&&pl&&av)add("yogur",null,"Yogur con plátano y avena",[yo,pl,av],T("Plátano aplastado y avena cocida, con el yogur","Con trocitos de plátano y avena cocida"),["Desayuno","Merienda"]);
+  if(pa&&za&&egg.length)add("mix","Huevo","Ensaladilla suave de patata, zanahoria y huevo",[pa,za,egg[0]],"Todo cocido y aplastado con tenedor, con un chorrito de aceite de oliva",["Comida","Cena"]);
   if(av)fru.forEach(f=>add("avena",null,`Papilla de avena con ${low(f)}`,[av,f],"Papilla espesa, con la fruta aplastada",["Desayuno"]));
   if(yo)fru.forEach(f=>add("yogur",null,`Yogur natural con ${low(f)}`,[yo,f],T("Con la fruta aplastada","Con trocitos blandos de fruta"),["Desayuno","Merienda"]));
   if(qf)fru.forEach(f=>add("queso",null,`Queso fresco con ${low(f)}`,[qf,f],T("Con la fruta aplastada","Con trocitos blandos de fruta"),["Merienda"]));
   pan.forEach(b=>{if(ag)add("tostada",null,"Tostada con aguacate",[b,ag],T("En tiras, con el aguacate aplastado","En trocitos, con el aguacate aplastado"),["Desayuno","Merienda"]);
-    if(qf)add("tostada",null,"Tostada con queso fresco",[b,qf],T("En tiras","En trocitos"),["Desayuno","Merienda"])});
+    if(qf)add("tostada",null,"Tostada con queso fresco",[b,qf],T("En tiras","En trocitos"),["Desayuno","Merienda"]);
+    if(ag&&egg.length)add("tostada","Huevo","Tostada con aguacate y huevo hervido aplastado",[b,ag,egg[0]],T("En tiras, con el aguacate y el huevo aplastados","En trocitos, con el aguacate y el huevo aplastados"),["Desayuno","Merienda","Cena"])});
   if(pl&&av&&egg.length)add("tortita","Huevo","Tortitas de plátano y avena",[pl,av,egg[0]],"Tortitas pequeñas a la plancha",["Desayuno","Merienda"]);
   egg.forEach(e=>add("tortilla","Huevo","Tortilla francesa",[e],T("En tiras","En trocitos"),["Desayuno"]));
   fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],colOf(f),p.rind))});
@@ -765,22 +798,20 @@ function plan(){
   const notes=[],tips=[];
   if(ag&&ag.pre)notes.push("Nació prematuro: la app cuenta desde la edad corregida. Consulta con tu pediatra cuándo empezar.");
   {const ex=Object.keys(S.al||{}).map(g=>AGL[g].toLowerCase());if(ex.length)notes.push("Fuera del plan por alergia: "+ex.join(", ")+".")}
-  if(every===1)tips.push("La AEP recomienda dejar unos días entre alimentos nuevos.");
-  if(ag&&ag.mo>=6&&ag.mo<12&&!(S.al&&S.al.gluten)&&![...GLU].some(n=>m[n]))tips.push("Gluten: la AEP recomienda introducirlo entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.");
-  if(!p.days)tips.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
   $("pf_note").textContent=notes.join(" ");$("pf_note").classList.toggle("hide",!notes.length);
-  $("pf_tips").innerHTML=tips.map(t=>`<li>${esc(t)}</li>`).join("");$("pf_tips").classList.toggle("hide",!tips.length);$("pf_tips_h").classList.toggle("hide",!tips.length);
+
   if(ag&&ag.mo<ag.th){
     $("days").innerHTML=`<div class="card"><p><b>Todavía no toca empezar.</b> La AEP recomienda empezar hacia los 6 meses (26 semanas) y nunca antes de los 4. A ${esc(S.nm||"tu bebé")} le faltan ${Math.max(ag.sT,0)} días para ${ag.th===4?"las 17 semanas (4 meses)":"los 6 meses"}${ag.pre?", contando desde la edad corregida":""}. Puedes ajustarlo en Perfil si tu pediatra te ha indicado otra cosa.</p></div>`;
+    $("shop").innerHTML="";$("fam").innerHTML="";
     return;
   }
-  const cc={};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
+  const cc={},TGT={"Proteínas":2,"Verduras":3,"Cereales":1,"Frutas":3},SH={"Proteínas":.3,"Verduras":.3,"Frutas":.25,"Cereales":.15};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
   let pool=ALL.filter(x=>!m[x.n]&&unlocked(x)&&allowed(x,p));
   const first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
   const t0=today(),lastFirst=Object.values(first).sort().pop();
   let lastNew=lastFirst?-Math.max(0,Math.round((new Date(t0+"T00:00:00")-new Date(lastFirst+"T00:00:00"))/864e5)):-99;
   const start=new Date();start.setHours(0,0,0,0);
-  const total=p.days||ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="";
+  const total=ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="";
   const known=Object.keys(m).filter(k=>!m[k].all.includes("react")).map(info).filter(a=>a&&allowed(a,p));
   for(let d=0;d<total;d++){
     const dt=new Date(start);dt.setDate(start.getDate()+d);const ds=dstr(dt);
@@ -790,24 +821,26 @@ function plan(){
     if(doneNew.length)lastNew=d;
     const items=[];
     if(!doneNew.length&&d-lastNew>=every){
-      let best=null,bs=-1e9;
+      let best=null,bs=-1e9;const T0=Object.values(cc).reduce((a,b)=>a+b,0);
       pool.forEach(x=>{
-        let s=rnd()*1.5+(4-Math.min(4,cc[x.c]||0));
-        s+=(x.fe?3:0)+(ZN.has(x.n)?2:0);
+        const extra=x.c==="Frutos secos"||x.c==="Condimentos";
+        const des=Math.max(TGT[x.c]||0,(SH[x.c]||0)*(T0+1)),cnt=cc[x.c]||0;
+        let s=rnd()*1.5+Math.min(Math.max(0,des-cnt),3)*2.5;
+        if(!extra)s+=((x.fe?3:0)+(ZN.has(x.n)?2:0))*(cnt>=des?.3:1);
         s+=Math.min(goals.filter(g=>GS[g](x)).length,2)*5;
-        if(x.fe&&goals.includes("iron"))s+=3;
+        if(x.fe&&goals.includes("iron")&&!extra)s+=3;
         if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
         if(x.c===prev)s-=2;
-        if(x.c==="Condimentos")s-=4;
+        if(extra)s-=(T0<12?9:3);
         if(s>bs){bs=s;best=x}});
       if(best){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a)lastA=d;lastNew=d;known.push(best);items.push(best)}
     }
     out.push({dt,ds,done,items,di:d,kn:[...known]});
   }
-  if(!p.days){let k=out.length;while(k>0&&!out[k-1].items.length&&!out[k-1].done.length)k--;out.length=k}
+  {let k=out.length;while(k>0&&!out[k-1].items.length&&!out[k-1].done.length)k--;out.length=k}
   const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&!x.all.includes("react")&&x.c<15}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
   const fmt=dt=>{const s=dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});return s.charAt(0).toUpperCase()+s.slice(1)};
-  const show=p.days?out.length:Math.min(out.length,planShown);
+  const show=Math.min(out.length,planShown);
   const menuFor=o=>{const used=new Set();return SLOTS.map(([lab,fn],i)=>{
     let c=o.kn.filter(x=>fn(x)&&!used.has(x.n));if(i===0){const ir=c.filter(x=>x.fe);if(ir.length)c=ir}
     if(!c.length)return"";
@@ -815,31 +848,100 @@ function plan(){
     const pick=nw||c[(o.di+i*2+(p.seed||1))%c.length];used.add(pick.n);
     return `<p><b>${lab}:</b> <span class="${pick.a?"al":""}">${esc(pick.n)}</span></p>`}).join("")};
   const mo=ag?ag.mo:8,pz=pinzaNow();
-  const menuHtml=o=>{
-    const kd=o.kn.filter(x=>!o.items.includes(x)),R=recipesFor(kd,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[];
+  const menuRows=o=>{
+    const R=recipesFor(o.kn,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[],nn=o.items.map(x=>x.n);
+    const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
+    const newSlot=nn.length?ms.find(m=>R.some(r=>ok(r,m)&&hasNew(r))):null;
     ms.forEach((meal,si)=>{
-      const L=R.filter(r=>r.meals.includes(meal)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k)));
+      let L=R.filter(r=>ok(r,meal)&&(meal===newSlot?hasNew(r):!hasNew(r)));
+      const mixes=L.filter(r=>r.t!=="solo");if(mixes.length)L=mixes;
+      if(!L.length)L=R.filter(r=>r.t==="fruta"&&!usedN.has(r.n)&&!hasNew(r));
+      if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
       if(!L.length)return;
       const ts=[...new Set(L.map(r=>r.t))],t=ts[(o.di+si+(p.seed||1))%ts.length],L2=L.filter(r=>r.t===t),r=L2[(o.di*2+si+(p.seed||1))%L2.length];
       usedN.add(r.n);if(r.k)usedK.add(r.k);rows.push([meal,r]);
     });
+    return rows};
+  const menuHtml=(o,rows)=>{
     if(!rows.length){const mn=menuFor(o);return mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:""}
-    return `<div class="menu"><b>Menú del día</b> <span class="mute">${ms.length} comida${ms.length===1?"":"s"} + leche a demanda</span>`+rows.map(([meal,r])=>`<div class="mr">${r.g}<p><b>${meal}:</b> ${esc(r.n)}<br><span class="mute">${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</span></p></div>`).join("")+`</div>`;
+    return `<div class="menu"><b>Menú del día</b> <span class="mute">${rows.length} comida${rows.length===1?"":"s"} + leche a demanda</span>`+rows.map(([meal,r])=>`<div class="mr">${r.g}<p><b>${meal}:</b> ${esc(r.n)}<br><span class="mute">${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</span></p></div>`).join("")+`</div>`;
   };
+  const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));
+  const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
+  const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
+  renderShop(wk);renderFam(wk,have);
   const useful=out.some(o=>o.items.length||o.done.length||o.kn.length);
-  $("days").innerHTML=useful?'<p class="mute" style="margin:0 0 8px">Cantidad: la decide el bebé. Empieza con poca y ofrece más si pide.</p>'+out.slice(0,show).map((o,i)=>{
+  $("days").innerHTML=useful?'<p class="mute" style="margin:0 0 8px">Cantidad: la decide el bebé. Empieza con poca y ofrece más si pide.</p>'+shown.map((o,i)=>{
     const r=re.length?re[i%re.length]:null,ri=r&&info(r.n);
     const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
     const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
       return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.a?'<span class="tag w">alérgeno</span> ':""}${tg}</p>${presHtml(n,pz)}<button class="btn" style="margin:2px 0 6px;max-width:200px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button>`}).join("");
     const none=(!o.items.length&&!o.done.length)?'<p class="mute">Hoy sin alimento nuevo.</p>':"";
-    const mh=menuHtml(o);
-    const rep=r?`<p><b>Repetir:</b> ${esc(r.n)} <span class="mute">${r.last==="love"?"Le gustó.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma."}</span></p>`:"";
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${none}${mh}${rep}</div>`}).join("")+(!p.days&&out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver más días</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+    const mh=menuHtml(o,o.rows);
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${none}${mh}</div>`}).join("")+(out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver otra semana</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d));
-  if($("pmore"))$("pmore").onclick=()=>{planShown+=30;plan()};
+  if($("pmore"))$("pmore").onclick=()=>{planShown+=7;plan()};
 }
-$("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;planShown=30;save();plan()};
+$("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;planShown=7;save();plan()};
+
+const SHOPORD=["Frutas","Verduras","Proteínas","Cereales","Lácteos","Frutos secos","Condimentos"];
+let shopCur={};
+function renderShop(wk){
+  shopCur=wk;const names=Object.keys(wk);
+  if(!names.length){$("shop").innerHTML='<p class="mute">Cuando haya menú, aquí sale lo que hay que comprar.</p>';return}
+  const by={};names.forEach(n=>{const x=info(n);if(x)(by[x.c]=by[x.c]||[]).push(x)});
+  $("shop").innerHTML='<div class="shcols">'+SHOPORD.filter(c=>by[c]).map(c=>`<div class="shc"><h4 class="sh">${c}</h4>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(x=>`<label class="sl"><input type="checkbox" data-sl="${esc(x.n)}"${S.sl[x.n]?" checked":""}><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="mute">${wk[x.n]} ${wk[x.n]===1?"día":"días"}</span></label>`).join("")+"</div>").join("")+'</div><div class="btns" style="max-width:420px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Aceite de oliva virgen extra para cocinar. Sin sal ni azúcar.</p>';
+}
+$("shop").addEventListener("change",e=>{const n=e.target.dataset&&e.target.dataset.sl;if(!n)return;if(e.target.checked)S.sl[n]=true;else delete S.sl[n];save()});
+$("shop").addEventListener("click",e=>{
+  if(e.target.id==="sl_reset"){S.sl={};save();renderShop(shopCur);return}
+  if(e.target.id==="sl_copy"){
+    const by={};Object.keys(shopCur).filter(n=>!S.sl[n]).forEach(n=>{const x=info(n);if(x)(by[x.c]=by[x.c]||[]).push(n)});
+    const txt="Lista de la compra del bebé\n"+SHOPORD.filter(c=>by[c]).map(c=>c+": "+by[c].sort((a,b)=>a.localeCompare(b,"es")).join(", ")).join("\n");
+    const b=e.target,done=()=>{b.textContent="Copiada";setTimeout(()=>{b.textContent="Copiar lista"},1600)};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done).catch(()=>prompt("Copia la lista:",txt));else prompt("Copia la lista:",txt)}
+});
+const FAM=[
+{n:"Crema de calabaza y zanahoria",base:["Calabaza","Zanahoria"],extra:"cebolla y caldo",baby:"Aparta su ración antes de salar, con grumos o con trozos blandos.",adult:"Sala, y añade jengibre o un chorrito de nata."},
+{n:"Crema de calabacín y patata",base:["Calabacín","Patata"],extra:"puerro",baby:"Aparta su ración antes de salar, espesa y con grumos.",adult:"Sala y termina con queso o picatostes."},
+{n:"Crema de brócoli y patata",base:["Brócoli","Patata"],extra:"cebolla",baby:"Aparta su ración sin sal. Ramilletes al vapor aparte si quiere agarrarlos.",adult:"Sala y añade queso rallado."},
+{n:"Lentejas estofadas con zanahoria",base:["Lentejas","Zanahoria"],extra:"cebolla y pimentón",baby:"Aparta lentejas y zanahoria antes del pimentón y la sal, aplastadas.",adult:"Sazona y añade chorizo o jamón si os gusta."},
+{n:"Garbanzos con calabaza",base:["Garbanzos","Calabaza"],extra:"cebolla y comino",baby:"Aparta su ración sin sal, garbanzos aplastados o en hummus.",adult:"Sala y añade comino o espinacas."},
+{n:"Alubias blancas con verduras",base:["Alubias blancas","Zanahoria"],extra:"cebolla y laurel",baby:"Aparta su ración antes de salar, muy blandas y algo aplastadas.",adult:"Sala y añade chorizo o morcilla."},
+{n:"Hummus con bastones de verdura",base:["Garbanzos"],extra:"tahini, limón y ajo",baby:"Su ración, sin sal, ajo ni limón, con bastones de verdura bien cocida.",adult:"Hummus completo, con crudités y pan."},
+{n:"Pollo al horno con patatas y zanahorias",base:["Pollo","Patata","Zanahoria"],extra:"romero y aceite",baby:"Aparta muslo sin piel y verduras antes de salar, en tiras tiernas.",adult:"Sala y especia al gusto, con piel crujiente."},
+{n:"Arroz con pollo y verduras",base:["Arroz","Pollo","Zanahoria"],extra:"cebolla y caldo",baby:"Aparta su ración antes de salar, bien cocido y con el pollo desmenuzado.",adult:"Sazona con pimentón o azafrán."},
+{n:"Guiso de pavo con patata y zanahoria",base:["Pavo","Patata","Zanahoria"],extra:"cebolla y laurel",baby:"Aparta su ración sin sal, todo muy blando y desmenuzado.",adult:"Sala y añade vino blanco o especias."},
+{n:"Cordero estofado con patatas",base:["Cordero","Patata"],extra:"cebolla y romero",baby:"Aparta carne tierna y patata antes de salar, en tiras o desmenuzada.",adult:"Sala y añade vino o ajo."},
+{n:"Albóndigas de ternera con zanahoria",base:["Ternera","Zanahoria"],extra:"pan rallado, perejil y salsa",baby:"Sin sal, bien hechas y en forma de dedo o desmenuzadas.",adult:"Salsa de tomate y sal al gusto."},
+{n:"Hamburguesas caseras con boniato asado",base:["Ternera","Boniato"],extra:"pan y cebolla",baby:"Hamburguesita sin sal, bien hecha, y bastones de boniato asado.",adult:"Con pan, sal y vuestros extras."},
+{n:"Merluza al horno con patata y calabacín",base:["Merluza","Patata","Calabacín"],extra:"limón y aceite",baby:"Aparta lascas sin piel ni espinas antes de salar.",adult:"Sala y añade limón y ajo."},
+{n:"Salmón al horno con brócoli",base:["Salmón","Brócoli"],extra:"limón y eneldo",baby:"Lascas sin piel ni espinas, sin sal, y ramilletes al vapor.",adult:"Sala y termina con limón y eneldo."},
+{n:"Sopa de pescado con verduras",base:["Merluza","Zanahoria","Patata"],extra:"cebolla y caldo",baby:"Aparta su ración antes de salar, con el pescado desmenuzado.",adult:"Sala y añade fideos o un toque de pimentón."},
+{n:"Tortilla de patata",base:["Huevo","Patata"],extra:"cebolla",baby:"Aparta su ración bien cuajada y sin sal, en tiras.",adult:"Sala y sirve con pan."},
+{n:"Tortilla de calabacín",base:["Huevo","Calabacín"],extra:"cebolla",baby:"Aparta su ración bien cuajada y sin sal, en tiras.",adult:"Sala y añade queso."},
+{n:"Ensaladilla suave de patata, zanahoria y huevo",base:["Patata","Zanahoria","Huevo"],extra:"atún y mayonesa",baby:"Su ración antes de añadir atún, sal y mayonesa, todo aplastado.",adult:"Con atún, aceitunas y mayonesa."},
+{n:"Boniato asado con huevo duro",base:["Boniato","Huevo"],extra:"yogur y especias",baby:"Boniato blando en bastones y huevo duro aplastado, sin sal.",adult:"Con sal, yogur y especias."},
+{n:"Tostadas de aguacate con huevo duro",base:["Aguacate","Huevo","Pan integral"],extra:"limón y pimienta",baby:"Tostada en tiras con aguacate y huevo duro aplastados, sin sal.",adult:"Con sal, limón y pimienta."},
+{n:"Pasta con verduras y pollo",base:["Pasta","Calabacín","Pollo"],extra:"tomate y albahaca",baby:"Aparta su ración antes de salar, pasta gruesa y pollo desmenuzado.",adult:"Con salsa, sal y queso."},
+{n:"Pasta con brócoli",base:["Pasta","Brócoli"],extra:"ajo y queso",baby:"Aparta su ración sin sal ni ajo, con el brócoli aplastado.",adult:"Con ajo, sal y queso."},
+{n:"Cuscús con verduras",base:["Cuscús","Calabacín","Zanahoria"],extra:"especias",baby:"Aparta su ración antes de las especias y la sal.",adult:"Con comino, sal y garbanzos."},
+{n:"Quinoa con verduras",base:["Quinoa","Brócoli"],extra:"limón",baby:"Aparta su ración sin sal, bien cocida y en bolitas.",adult:"Con sal, limón y hierbas."},
+{n:"Menestra de verduras",base:["Judías verdes","Zanahoria","Guisantes"],extra:"cebolla y jamón",baby:"Aparta su ración sin sal ni jamón, aplastando los guisantes.",adult:"Con jamón, sal y un huevo."},
+{n:"Salteado de tofu con verduras",base:["Tofu","Brócoli","Zanahoria"],extra:"salsa de soja",baby:"Aparta su ración antes de la salsa de soja, que lleva sal.",adult:"Con salsa de soja y jengibre."},
+{n:"Hamburguesas de lentejas",base:["Lentejas","Zanahoria"],extra:"avena y especias",baby:"Tortitas sin sal ni especias, en la plancha, blandas por dentro.",adult:"Con sal y especias, con yogur."},
+{n:"Gachas de avena con plátano",base:["Avena","Plátano"],extra:"canela y frutos secos",baby:"Su ración sin azúcar ni miel, con el plátano aplastado.",adult:"Con canela, miel y frutos secos."},
+{n:"Tortitas de plátano y avena",base:["Plátano","Avena","Huevo"],extra:"yogur",baby:"Tortitas pequeñas sin azúcar, en trocitos.",adult:"Con miel o sirope y fruta."},
+{n:"Yogur con plátano y avena",base:["Yogur natural","Plátano","Avena"],extra:"frutos secos",baby:"Yogur natural sin azúcar, con plátano aplastado.",adult:"Con miel y frutos secos."},
+{n:"Pera asada con canela",base:["Pera asada"],extra:"canela",baby:"Cuña muy blanda, sin azúcar ni miel.",adult:"Con miel, nueces y yogur."}
+];
+function renderFam(wk,have){
+  const list=FAM.filter(d=>d.base.every(n=>{const x=info(n);return have.has(n)&&x&&allowed(x,S.prefs)})).map(d=>({d,sc:d.base.filter(n=>wk[n]).length,k:(d.n.length*31+(S.prefs.seed||1)*17)%97})).sort((a,b)=>b.sc-a.sc||a.k-b.k).slice(0,8);
+  if(!list.length){$("fam").innerHTML='<div class="card"><p class="mute">Cuando haya probado más verduras, proteínas o cereales, aquí salen platos para los papis con lo mismo.</p></div>';return}
+  $("fam").innerHTML=list.map(({d,sc})=>`<div class="card"><b>${esc(d.n)}</b><p class="mute">Con lo del bebé: ${d.base.map(esc).join(", ")}. Para vosotros además: ${esc(d.extra)}.</p>${sc===d.base.length?'<p><span class="tag">Usa lo que ya compras esta semana</span></p>':""}<p><b>Para el bebé:</b> ${esc(d.baby)}</p><p><b>Para vosotros:</b> ${esc(d.adult)}</p></div>`).join("");
+}
+function subtab(n){[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",i!==n);$("p"+i).classList.toggle("on",i===n)})}
+[1,2,3].forEach(i=>$("p"+i).onclick=()=>subtab(i));
 
 const AGL={gluten:"Gluten",huevo:"Huevo",pescado:"Pescado",crustaceos:"Crustáceos",moluscos:"Moluscos",cacahuete:"Cacahuete",frutoscascara:"Frutos de cáscara",sesamo:"Sésamo",soja:"Soja",apio:"Apio",lacteos:"Leche y lácteos"};
 const RXO=["Sin reacción","Enrojecimiento alrededor de la boca o en la piel","Ronchas o urticaria","Hinchazón de labios, cara o lengua","Vómitos","Diarrea o heces con sangre","Picor, eccema o piel irritada","Mocos, estornudos o tos","Dificultad para respirar o muy decaído (urgente)","Otra (la describo en notas)"];
