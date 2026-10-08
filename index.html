@@ -168,10 +168,19 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .phl{display:flex;justify-content:center;gap:14px;margin:0 0 6px}
-.pbar{margin:2px 0 0}
-.pbar svg{display:block;width:100%;max-width:520px;height:auto}
-.pbar svg text{font-family:Montserrat,system-ui,sans-serif;font-weight:700;font-size:15px;text-anchor:middle;dominant-baseline:central}
-.pbar p{margin:2px 0 0;font-size:.82rem;color:var(--mute)}
+#progcard{padding:10px 16px 14px}
+.pc{margin:0;font-size:.85rem;color:var(--mute)}
+.pb{position:relative;height:46px;margin:6px 22px 0}
+.pb .t,.pb .f{position:absolute;left:0;top:50%;height:7px;margin-top:-3.5px;border-radius:4px}
+.pb .t{right:0;background:var(--line)}
+.pb .f{background:var(--green)}
+.ps{position:absolute;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;display:flex;align-items:center;justify-content:center}
+.ps svg{position:absolute;inset:0;width:100%;height:100%}
+.ps polygon{fill:var(--line);stroke:var(--mute);stroke-opacity:.45;stroke-width:2;stroke-linejoin:round}
+.ps.on polygon{fill:var(--terra);stroke:none}
+.ps.gold.on polygon{fill:#d0a14f}
+.ps b{position:relative;margin-top:3px;font-size:.72rem;font-weight:700;color:var(--mute)}
+.ps.on b{color:#fff}
 .rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
 .leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
 .leg span{display:inline-flex;align-items:center;gap:6px}
@@ -232,7 +241,6 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
         <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
       </div></div>
     <div class="chips" id="chips"></div>
-    <div class="mute" id="prog"></div>
   </div>
   <div class="board" id="board"></div>
   <div class="grid" id="lst"></div>
@@ -251,6 +259,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <p class="mute" id="pf_note"></p>
   </div>
   <details class="card aep"><summary>Pautas de la AEP y de la OMS</summary>
+    <h4 id="pf_tips_h" class="hide">Para este plan</h4><ul id="pf_tips" class="hide"></ul>
     <h4>Asociación Española de Pediatría (2018)</h4>
     <ul>
       <li>Empezar hacia los 6 meses (26 semanas), nunca antes de los 4, y no retrasarlo más allá del séptimo mes. La leche (materna o de fórmula) sigue siendo el alimento principal hasta los 12 meses y se mantiene a demanda.</li>
@@ -291,6 +300,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div id="cal"></div>
   <div id="log" class="hide"></div>
 </div>
+<div class="card" id="progcard"><div id="prog"></div></div>
 <div class="tk" id="tkwrap">
   <div class="card">
     <h3 class="sec" style="margin-top:0">Alérgenos</h3>
@@ -517,15 +527,13 @@ function card(x,m){
   const s=m[x.n],lk=!unlocked(x);
   return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span></span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
-const PM=[1,10,25,50,100],PX=[40,170,300,430,560];
+const PM=[1,10,25,50,100];
+const SP=Array.from({length:10},(_,k)=>{const a=-Math.PI/2+k*Math.PI/5,q=k%2?13:30;return (32+q*Math.cos(a)).toFixed(1)+","+(33+q*Math.sin(a)).toFixed(1)}).join(" ");
 function progHtml(c){
-  let x=PX[0];if(c>=PM[4])x=PX[4];else if(c>=1){let i=0;while(i<3&&c>=PM[i+1])i++;x=PX[i]+(PX[i+1]-PX[i])*(c-PM[i])/(PM[i+1]-PM[i])}
-  const star=(cx,cy,R,r)=>Array.from({length:10},(_,k)=>{const a=-Math.PI/2+k*Math.PI/5,q=k%2?r:R;return (cx+q*Math.cos(a)).toFixed(1)+","+(cy+q*Math.sin(a)).toFixed(1)}).join(" ");
-  const line=c>=1?`<line x1="${PX[0]}" y1="35" x2="${x.toFixed(1)}" y2="35" stroke="var(--green)" stroke-width="7" stroke-linecap="round"/>`:"";
-  const stars=PM.map((m,i)=>{const on=c>=m,fill=on?(i===4?"#d0a14f":"var(--terra)"):"var(--line)";
-    return `<polygon points="${star(PX[i],35,29,12.5)}" fill="${fill}" stroke-linejoin="round"${on?"":' stroke="var(--mute)" stroke-opacity=".45" stroke-width="1.5"'}/><text x="${PX[i]}" y="37" fill="${on?"#fff":"var(--mute)"}">${m}</text>`}).join("");
+  let pct=0;if(c>=PM[4])pct=100;else if(c>=1){let i=0;while(i<3&&c>=PM[i+1])i++;pct=25*i+25*(c-PM[i])/(PM[i+1]-PM[i])}
   const next=PM.find(m=>m>c);
-  return `<div class="pbar"><svg viewBox="0 0 600 70" role="img" aria-label="${c} alimentos probados"><line x1="${PX[0]}" y1="35" x2="${PX[4]}" y2="35" stroke="var(--line)" stroke-width="7" stroke-linecap="round"/>${line}${stars}</svg><p>${c} ${c===1?"alimento probado":"alimentos probados"}${next?" · siguiente meta: "+next:" · meta de 100 conseguida"}</p></div>`}
+  const stars=PM.map((m,i)=>`<span class="ps${c>=m?" on":""}${i===4?" gold":""}" style="left:${i*25}%"><svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="${SP}"/></svg><b>${m}</b></span>`).join("");
+  return `<p class="pc">${c} ${c===1?"alimento probado":"alimentos probados"}${next?" · siguiente meta: "+next:" · meta de 100 conseguida"}</p><div class="pb" role="img" aria-label="${c} alimentos probados"><div class="t"></div><div class="f" style="width:${pct.toFixed(1)}%"></div>${stars}</div>`}
 function board(){
   const m=stats(),q=norm($("q").value.trim());
   $("chips").classList.toggle("hide",view==="list");$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
@@ -754,13 +762,14 @@ function recipesFor(kn,mo,pz){
 
 function plan(){
   const p=S.prefs,goals=p.goals||[],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
-  const notes=[];
+  const notes=[],tips=[];
   if(ag&&ag.pre)notes.push("Nació prematuro: la app cuenta desde la edad corregida. Consulta con tu pediatra cuándo empezar.");
   {const ex=Object.keys(S.al||{}).map(g=>AGL[g].toLowerCase());if(ex.length)notes.push("Fuera del plan por alergia: "+ex.join(", ")+".")}
-  if(every===1)notes.push("La AEP recomienda dejar unos días entre alimentos nuevos.");
-  if(ag&&ag.mo>=6&&ag.mo<12&&!(S.al&&S.al.gluten)&&![...GLU].some(n=>m[n]))notes.push("Gluten: la AEP recomienda introducirlo entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.");
-  if(!p.days)notes.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
-  $("pf_note").textContent=notes.join(" ");
+  if(every===1)tips.push("La AEP recomienda dejar unos días entre alimentos nuevos.");
+  if(ag&&ag.mo>=6&&ag.mo<12&&!(S.al&&S.al.gluten)&&![...GLU].some(n=>m[n]))tips.push("Gluten: la AEP recomienda introducirlo entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.");
+  if(!p.days)tips.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
+  $("pf_note").textContent=notes.join(" ");$("pf_note").classList.toggle("hide",!notes.length);
+  $("pf_tips").innerHTML=tips.map(t=>`<li>${esc(t)}</li>`).join("");$("pf_tips").classList.toggle("hide",!tips.length);$("pf_tips_h").classList.toggle("hide",!tips.length);
   if(ag&&ag.mo<ag.th){
     $("days").innerHTML=`<div class="card"><p><b>Todavía no toca empezar.</b> La AEP recomienda empezar hacia los 6 meses (26 semanas) y nunca antes de los 4. A ${esc(S.nm||"tu bebé")} le faltan ${Math.max(ag.sT,0)} días para ${ag.th===4?"las 17 semanas (4 meses)":"los 6 meses"}${ag.pre?", contando desde la edad corregida":""}. Puedes ajustarlo en Perfil si tu pediatra te ha indicado otra cosa.</p></div>`;
     return;
