@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Primeros alimentos</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#eeead8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d211e" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Primeros alimentos">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--onacc:#fff;
@@ -72,7 +81,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 24px}
 .grid h2{font-size:1.5rem;color:var(--blue);margin:0 0 2px}
 .cn{font-size:.85rem;color:var(--mute);margin:0 0 8px}
-.it{display:flex;align-items:center;gap:9px;width:100%;background:none;border:0;padding:5px 0;text-align:left}
+.it{display:flex;flex-wrap:wrap;align-items:center;gap:2px 9px;width:100%;background:none;border:0;padding:5px 0;text-align:left}
 .it svg{width:26px;height:26px;flex:none;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
 .it.done svg{fill:var(--terra);stroke:var(--terra)}
 .it[disabled]{opacity:.5;cursor:default}
@@ -87,7 +96,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .sheet>div{position:relative}.sheet h3{padding-right:40px}
 .xc{position:absolute;top:-4px;right:-6px;width:38px;height:38px;border:0;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}.xc:hover{background:var(--line)}
 .foot{margin-top:26px;font-size:.88rem;border-top:1px solid var(--line);padding-top:12px}
-input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;height:42px;text-align:left;display:block}
+input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;height:44px;text-align:left;display:block}
 .btn.on{background:var(--blue);color:var(--onacc)}
 .sec{font-size:1.05rem;margin:18px 0 8px;color:var(--mute);font-weight:600}
 .avatar{padding:0;cursor:pointer;overflow:hidden;width:96px;height:96px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:2.4rem;color:var(--green);margin:0 auto 8px}
@@ -147,7 +156,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .mr{display:flex;gap:10px;align-items:center;margin:8px 0}
 .mr svg{flex:none;width:38px;height:38px;color:var(--green)}
 .mr p{margin:0}
-.sheet{max-height:88vh;overflow-y:auto}
+.sheet{max-height:88vh;max-height:88dvh;overflow-y:auto;overscroll-behavior:contain;z-index:12}
 #v2>.card{max-width:none}
 #days{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:12px;align-items:start}
 #days>p,#days>.btns{grid-column:1/-1;margin:0}
@@ -209,6 +218,42 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .dipb{position:relative;background:var(--card);border-radius:18px;padding:12px;width:min(94vw,540px)}
 #dipc{display:block;width:100%;height:auto;border-radius:10px}
 .dipb .xc{top:14px;right:14px;background:var(--card)}
+html{-webkit-text-size-adjust:100%}
+button,summary,.it,.kc,.sl{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+input,select,textarea{font-size:16px;min-height:44px}
+input[type=checkbox]{min-height:0}
+.tabs svg{display:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ms summary{min-height:44px;display:flex;align-items:center}
+body:has(.sheet:not(.hide)){overflow:hidden}
+body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:11}
+@media (max-width:700px),(pointer:coarse){
+  .chips button{min-height:40px;padding:8px 14px}
+  .btn{min-height:46px}
+  .it{min-height:46px}
+  .vt button{min-height:44px;min-width:52px;justify-content:center;align-items:center}
+  .calh .x{min-width:44px;min-height:44px}
+  .x{padding:10px 6px;min-height:44px}
+  .aep>summary,.tk summary{min-height:44px;display:flex;align-items:center}
+  .pen{width:44px;height:44px}
+  .phe{width:38px;height:38px}.phe::after{content:"";position:absolute;inset:-6px}
+  .info{width:28px;height:28px;position:relative}.info::after{content:"";position:absolute;inset:-8px}
+  .rxg button{min-height:44px}.rxg.sm button{min-height:38px;padding:6px 12px}
+  .sl{min-height:48px}
+  .ck{min-height:46px}
+  .by-logo{min-height:44px;display:flex;align-items:center}
+  .xc{width:44px;height:44px}
+  .cd{min-height:52px}
+}
+@media (max-width:700px){
+  main{padding:8px max(14px,env(safe-area-inset-left)) calc(96px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-right))}
+  .hero .logo{width:min(300px,76%);margin-top:0}
+  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;margin:0;gap:2px;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--card) 92%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:var(--mute);border-radius:14px;padding:6px 2px;min-height:54px;font-size:.7rem;font-weight:600}
+  .tabs button svg{display:block;width:24px;height:24px}
+  .tabs button.on{background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue)}
+  .board{grid-auto-columns:minmax(78vw,1fr)}
+  .sheet{max-height:92vh;max-height:92dvh}
+}
 .rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
 .leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
 .leg span{display:inline-flex;align-items:center;gap:6px}
@@ -259,7 +304,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="t1" class="on">Tablero</button><button id="t2">Plan</button><button id="t3">Registro</button><button id="t4">Perfil</button></div>
+<div class="tabs"><button id="t1" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg><span>Tablero</span></button><button id="t2"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
 
 <section id="v1">
   <div class="tools">
@@ -296,11 +341,11 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     </ul>
     <h4>Qué ofrecer</h4>
     <ul>
-      <li>Alimentos nuevos de uno en uno, con unos días de intervalo, para ver cómo los tolera.</li>
+      <li>Un alimento nuevo cada vez, dejando unos días entre uno y otro, para ver cómo lo tolera.</li>
       <li>Prioridad a los alimentos ricos en hierro y zinc (carne roja, legumbres, huevo), y proteína cada día, de forma variada. El hierro se cubre con dos porciones diarias de alimentos proteicos o cereales enriquecidos, y la vitamina C ayuda a absorberlo.</li>
       <li>Dieta variada. Sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la vitamina B12 a los 6 a 8 meses: consúltalo con tu pediatra. En la alimentación vegana estricta, la B12 necesita suplemento.</li>
       <li>Vitamina D, 400 UI al día hasta los 12 meses. Consúltalo con tu pediatra.</li>
-      <li>No hace falta retrasar los alérgenos: se pueden introducir hacia los 6 meses, de uno en uno y en poca cantidad. El gluten, entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.</li>
+      <li>No hace falta retrasar los alérgenos: se pueden introducir hacia los 6 meses, uno cada vez y en poca cantidad. El gluten, entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.</li>
       <li>Texturas grumosas lo antes posible, nunca más tarde de los 8 o 9 meses.</li>
     </ul>
     <h4>Cómo ofrecerlo</h4>
@@ -396,7 +441,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 
 <footer class="foot">
 <p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
-<p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no molido, triturado o en crema.</p>
+<p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no, molido, triturado o en crema.</p>
 <p class="mute">Esta app se basa en las recomendaciones de la Asociación Española de Pediatría (AEP), pero no es consejo médico. Los alimentos se desbloquean según los meses del bebé como guía orientativa. Consulta siempre con tu pediatra, sobre todo los alérgenos, la edad de cada alimento y cualquier reacción.</p>
 <div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="sunsies-logo.png" alt="sunsies studio" width="130" height="75" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="disp" style="display:none;color:var(--blue);font-size:1.2rem;line-height:1.2">sunsies studio</span></a></div>
 </footer>
@@ -461,7 +506,7 @@ const PD={"Frutas":{b:["wedge","Muy madura, en tiras o cuñas que sobresalgan de
 "Verduras":{b:["stick","Bastón cocido muy blando, del largo de un dedo"],pu:"Puré espeso con grumos",q:["bits","Dados cocidos blandos"]},
 "Proteínas":{b:["stick","Tira tierna y bien cocinada"],pu:"Desmenuzado y aplastado",q:["bits","Desmenuzado en trocitos"]},
 "Cereales":{b:["balls","Bolitas o bastones blandos que se agarren"],pu:"Papilla espesa",q:["bits","Trocitos blandos"]},
-"Frutos secos":{b:["mash","Crema fina, en capa fina sobre fruta o tostada"],pu:"Molido, mezclado con yogur o papilla",q:["mash","Molido, mezclado con la comida"]},
+"Frutos secos":{b:["mash","Crema fina, extendida en capa fina sobre fruta o tostada"],pu:"Molido, mezclado con yogur o papilla",q:["mash","Molido, mezclado con la comida"]},
 "Lácteos":{b:["stick","Tira de queso tierno, pasteurizado y poco salado"],pu:"Aplastado con tenedor",q:["bits","Dados pequeños y blandos"]}};
 const PO={};const P=(names,o)=>names.split("|").forEach(n=>PO[n]=o);
 P("Plátano",{b:["peel","Pelado a medias, con un trozo de piel como asa para que no resbale"],pu:"Aplastado con tenedor",q:["bits","Rodajas gruesas o trocitos"]});
@@ -527,7 +572,7 @@ function presHtml(x,pz){const p=presOf(x);if(!p)return"";
   if(pict(p.b[0],false)==="mash")return `<div class="pres">${f("mash",p.b[1],"Puré o aplastado")}</div>`;
   return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,"Puré o aplastado")}</div>`}
 
-const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
+const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
@@ -636,6 +681,8 @@ function drawPoster(ctx,W,H,o){
   ctx.fillStyle=BLUE;ctx.textAlign="center";ctx.font='700 52px Montserrat';ctx.fillText("por probar sus primeros",W/2,1448);
   ctx.fillStyle=GREEN;ctx.font='158px "Luckiest Guy"';ctx.fillText("100 ALIMENTOS",W/2,1612);
   if(o.logo){const lw=130,lh=lw*o.logo.height/o.logo.width;ctx.drawImage(o.logo,W-lw-50,H-lh-26,lw,lh)}
+  if(o.preview){ctx.save();ctx.translate(W/2,H/2);ctx.rotate(-Math.PI/6);ctx.font='700 96px Montserrat';ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineWidth=6;ctx.strokeStyle="rgba(62,76,208,.3)";ctx.fillStyle="rgba(255,255,255,.55)";
+    for(let y=-1500,r=0;y<=1500;y+=240,r++)for(let x=-1800;x<=1800;x+=920){const xx=x+(r%2?460:0);ctx.strokeText("VISTA PREVIA",xx,y);ctx.fillText("VISTA PREVIA",xx,y)}ctx.restore()}
 }
 /*POSTER_END*/
 
@@ -737,11 +784,11 @@ function render(){
 }
 function openSheet(n,pd,rest){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
-  if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
-  if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo de uno en uno, en poca cantidad, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
+  if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo} meses.`:""}</p>`);
+  if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
   if(x&&x.lim)w.unshift('<p><b>Mejor limitarlo.</b> El arroz y los productos de arroz (tortitas, galletas) contienen arsénico inorgánico, y los bebés se exponen más que los adultos. Si lo das, que sea de vez en cuando y alternando con otros cereales. Las bebidas de arroz, mejor evitarlas. Consúltalo con tu pediatra.</p>');
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
-  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");$("how").focus()}
+  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"";$("how").value=!p?"Mezclado en papilla o yogur":k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado"}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");$("how").focus()}
 $("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
@@ -1043,17 +1090,19 @@ $("rxg").addEventListener("click",e=>{const b=e.target.closest("button[data-v]")
 $("restl").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;const g=b.parentElement,was=b.classList.contains("on");g.querySelectorAll("button").forEach(x=>x.classList.remove("on"));if(!was)b.classList.add("on")});
 function favFoods(){const m=stats();return Object.values(m).map(x=>({n:x.n,l:x.all.filter(r=>r==="love").length,i:x.idx})).filter(x=>x.l>0).sort((a,b)=>b.l-a.l||b.i-a.i).slice(0,6).map(x=>x.n)}
 const loadImg=src=>new Promise(ok=>{const i=new Image(),t=setTimeout(()=>ok(null),5000);i.onload=()=>{clearTimeout(t);ok(i)};i.onerror=()=>{clearTimeout(t);ok(null)};i.src=src});
-async function buildPoster(canvas){
+async function buildPoster(canvas,preview){
   try{await Promise.all([document.fonts.load('230px "Luckiest Guy"'),document.fonts.load('700 50px Montserrat')])}catch(e){}
-  const chars=await Promise.all(favFoods().map(async n=>{const x=info(n),pc=posterChar(n,x?x.c:"Frutas");return{img:await loadImg("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(pc.svg)),label:pc.label}}));
+  const favs=favFoods();if(preview)['Aguacate','Fresas','Zanahoria','Huevo','Calabaza','Plátano'].forEach(n=>{if(favs.length<6&&!favs.includes(n))favs.push(n)});
+  const chars=await Promise.all(favs.map(async n=>{const x=info(n),pc=posterChar(n,x?x.c:"Frutas");return{img:await loadImg("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(pc.svg)),label:pc.label}}));
   const photo=S.ph?await loadImg(S.ph):null,logo=await loadImg("sunsies-logo.png");
-  drawPoster(canvas.getContext("2d"),1240,1754,{name:S.nm||"Bebé",photo,chars:chars.filter(c=>c.img),logo});
+  drawPoster(canvas.getContext("2d"),1240,1754,{name:S.nm||"Bebé",photo,chars:chars.filter(c=>c.img),logo,preview:!!preview});
 }
 async function openDiploma(preview){
   $("dip").classList.remove("hide");
-  $("dip_p").textContent=preview?`Vista previa. El diploma se desbloquea al llegar a 100 alimentos (llevas ${Object.keys(stats()).length}).`:"¡100 alimentos! Descárgalo para imprimirlo o compartirlo.";
-  $("dip_sh").classList.toggle("hide",!(navigator.canShare&&typeof File==="function"));
-  try{await buildPoster($("dipc"))}catch(e){$("dip_p").textContent="No se pudo preparar el diploma. Prueba otra vez."}
+  $("dip_p").textContent=preview?`Vista previa. El diploma completo se desbloquea al llegar a 100 alimentos (llevas ${Object.keys(stats()).length}).`:"¡100 alimentos! Descárgalo para imprimirlo o compartirlo.";
+  $("dip_dl").classList.toggle("hide",!!preview);
+  $("dip_sh").classList.toggle("hide",!!preview||!(navigator.canShare&&typeof File==="function"));
+  try{await buildPoster($("dipc"),preview)}catch(e){$("dip_p").textContent="No se pudo preparar el diploma. Prueba otra vez."}
 }
 $("prog").addEventListener("click",e=>{if(e.target.id==="dip_open")openDiploma(Object.keys(stats()).length<100)});
 $("dip_x").onclick=()=>$("dip").classList.add("hide");
@@ -1078,7 +1127,7 @@ function procTxt(i,st){
   if(st==="sospecha")return "Sospecha de alergia: no lo vuelvas a ofrecer hasta que lo valore tu pediatra. Lleva las anotaciones de abajo.";
   if(i.anyRx)return "Hubo una reacción: no lo vuelvas a ofrecer hasta hablarlo con tu pediatra. Anota qué pasó y cuándo.";
   if(i.tried.length)return "Lo ha probado sin reacciones anotadas. Puedes seguir ofreciéndolo con normalidad.";
-  return "Aún no lo ha probado. Ofrécelo de uno en uno, en poca cantidad y a primera hora del día o a mediodía, para poder vigilar posibles reacciones.";
+  return "Aún no lo ha probado. Dalo en poca cantidad, a primera hora del día o a mediodía y sin otros alimentos nuevos ese día, para poder vigilar posibles reacciones.";
 }
 function renderTrack(){
   const gs=Object.keys(AGD),al=S.al||{},infos={};gs.forEach(g=>infos[g]=gInfo(g));
@@ -1153,6 +1202,8 @@ window.__fail=code=>{LOADED=false;$("err").textContent="No se pudo conectar con 
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
+document.addEventListener("click",e=>{if(e.target===document.body&&!$("sh").classList.contains("hide"))$("sh").classList.add("hide")});
+$("dip").addEventListener("click",e=>{if(e.target===$("dip"))$("dip").classList.add("hide")});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("sh").classList.add("hide");$("dip").classList.add("hide")}});
 </script>
 <script type="module">
