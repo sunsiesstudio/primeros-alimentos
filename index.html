@@ -132,7 +132,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .kt{display:flex;flex-direction:column;gap:3px;min-width:0}
 .ct{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;border-radius:99px;padding:1px 8px;background:var(--line);width:fit-content}
 .ct .dot{width:7px;height:7px}
-.by-logo{display:block;line-height:0}
+.by-logo{display:block;line-height:0;text-decoration:none}
 .by-logo img{display:block;width:130px;height:auto}
 .aep summary{cursor:pointer;font-weight:700;color:var(--green)}
 .aep ul{margin:8px 0 0;padding-left:18px}.aep li{margin:5px 0;font-size:.88rem}
@@ -164,6 +164,12 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .tk .rxl{margin:6px 0;padding:8px 10px;border-radius:10px;background:color-mix(in srgb,var(--line) 40%,transparent);font-size:.88rem}
 .tk .rxl p{margin:3px 0}
 .tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:8px;align-items:start}
+.info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
+.pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
+.rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.tag .dot{width:7px;height:7px;margin-right:3px}
 #sumprint{display:none}
 @media print{
   @page{margin:14mm}
@@ -210,7 +216,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="t1" class="on">Tablero</button><button id="t2">Plan</button><button id="t3">Registro</button><button id="t5">Tracking</button><button id="t4">Perfil</button></div>
+<div class="tabs"><button id="t1" class="on">Tablero</button><button id="t2">Plan</button><button id="t3">Registro</button><button id="t4">Perfil</button></div>
 
 <section id="v1">
   <div class="tools">
@@ -229,11 +235,12 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div class="card">
     <h3 class="sec" style="margin-top:0">Tu plan</h3>
     <div class="pf">
-      <label>Dieta<select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
+      <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
       <label>Duración<select id="pf_days"><option value="7">7 días</option><option value="14">14 días</option><option value="30">1 mes</option><option value="0">Indefinido</option></select></label>
       <div class="fl"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
     </div>
+    <p class="pop hide" id="dpop"></p>
     <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
   </div>
@@ -274,12 +281,13 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 </section>
 <section id="v3" class="hide"><div class="card">
   <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Lista</button></div>
+  <div class="leg"><span><i class="dot rc-love"></i>Le encantó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>Hoy no</span><span><i class="dot rc-react"></i>Reacción o alergia</span></div>
   <div id="cal"></div>
   <div id="log" class="hide"></div>
-</div></section>
-<section id="v5" class="hide tk">
+</div>
+<div class="tk" id="tkwrap">
   <div class="card">
-    <h3 class="sec" style="margin-top:0">Tracking de alérgenos</h3>
+    <h3 class="sec" style="margin-top:0">Alérgenos</h3>
     <p class="mute" id="tk_sum"></p>
     <details class="aep"><summary>Qué hacer si hay una reacción</summary>
       <ul>
@@ -293,7 +301,9 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     </details>
   </div>
   <div class="tkgrid" id="tk"></div>
+</div>
 </section>
+
 <section id="v4" class="hide">
   <div style="text-align:center;margin:6px 0 14px"><div class="avatar disp" id="av"></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec">Detalles del bebé</h3>
@@ -311,7 +321,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <div class="prow"><div><div class="lab">Empezar antes de los 6 meses</div><div class="val" id="vearly"></div><div class="mute">Solo si tu pediatra lo ha indicado. La AEP admite individualizarlo a partir de las 17 semanas.</div></div><button class="btn" id="tg_early" style="flex:none;padding:8px 14px">Cambiar</button></div>
     <div class="prow"><div><div class="lab">Agarre en pinza</div><div class="val" id="vpinza"></div><div class="mute">Cambia las imágenes de trozos grandes a trocitos. Por defecto, desde los 9 meses.</div></div><button class="btn" id="tg_pinza" style="flex:none;padding:8px 14px">Cambiar</button></div>
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
-    <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div><div class="mute">Se anotan en Tracking. Los alimentos con un alérgeno marcado no salen en el plan.</div></div><button class="btn" id="go_tk" style="flex:none;padding:8px 14px">Ver</button></div>
+    <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div><div class="mute">Se anotan en Registro, en Alérgenos. Los alimentos con un alérgeno marcado no salen en el plan.</div></div><button class="btn" id="go_tk" style="flex:none;padding:8px 14px">Ver</button></div>
     <div class="prow"><div><div class="lab">Resumen para pediatra y guardería</div><div class="mute">Alimentos probados, alérgenos y reacciones, en una hoja para imprimir o guardar en PDF.</div></div><button class="btn p" id="exp" style="flex:none;padding:8px 14px">Exportar</button></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
@@ -322,8 +332,8 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 <footer class="foot">
 <p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
 <p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no molido, triturado o en crema.</p>
-<p class="mute">Los alimentos se desbloquean según los meses del bebé con una guía orientativa. Esta app no es consejo médico: consulta con tu pediatra los alérgenos, la edad de cada alimento y cualquier reacción.</p>
-<div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="data:image/png;base64,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" alt="sunsies studio" width="130" height="75"></a></div>
+<p class="mute">Esta app se basa en las recomendaciones de la Asociación Española de Pediatría (AEP), pero no es consejo médico. Los alimentos se desbloquean según los meses del bebé como guía orientativa. Consulta siempre con tu pediatra, sobre todo los alérgenos, la edad de cada alimento y cualquier reacción.</p>
+<div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="sunsies-logo.png" alt="sunsies studio" width="130" height="75" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="disp" style="display:none;color:var(--blue);font-size:1.2rem;line-height:1.2">sunsies studio</span></a></div>
 </footer>
 </main>
 
@@ -525,7 +535,7 @@ function board(){
   const done=ALL.filter(x=>m[x.n]).length;
   $("prog").textContent=`${done} probados de ${ALL.length} alimentos`;
 }
-function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag${l.r==="react"?" w":""}">${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
   el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
   el.querySelectorAll(".x[data-i]").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
@@ -545,7 +555,7 @@ function renderCal(){
   for(let d=1;d<=dim;d++){
     const ds=`${y}-${String(mo+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
     const es=byDay[ds]||[];
-    const dots=es.slice(0,4).map(e=>{const a=info(e.f);return `<span class="dot" style="background:${a?a.col:"#999"}"></span>`}).join("");
+    const PR={react:0,no:1,meh:2,love:3},dots=[...es].sort((a,b)=>PR[a.r]-PR[b.r]).slice(0,4).map(e=>`<span class="dot rc-${e.r}"></span>`).join("");
     cells+=`<button class="cd${ds===today()?" today":""}${ds===csel?" sel":""}" data-d="${ds}" aria-label="${d}: ${es.length} alimentos"><span>${d}</span><span class="dts">${dots}</span>${es.length>4?`<span class="more">+${es.length-4}</span>`:""}</button>`;
   }
   const list=byDay[csel]||[];
@@ -597,7 +607,7 @@ function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").t
   $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("sh").classList.remove("hide");$("how").focus()}
 $("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
 $("cx").onclick=()=>$("sh").classList.add("hide");
-$("ok").onclick=()=>{const rv=$("rx").value,g=AG[cur];S.log.push({f:cur,how:$("how").value,r:rv,d:$("dt").value||today()});save();$("sh").classList.add("hide");render();if(rv==="react"&&g){tkSet.add(g);tab(5);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}};
+$("ok").onclick=()=>{const rv=$("rx").value,g=AG[cur];S.log.push({f:cur,how:$("how").value,r:rv,d:$("dt").value||today()});save();$("sh").classList.add("hide");render();if(rv==="react"&&g){tkSet.add(g);tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}};
 $("q").oninput=board;
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
@@ -636,13 +646,13 @@ function pushCloud(){
     saveLocal();render();pushCloud();
   };
 });
-$("go_tk").onclick=()=>tab(5);
+$("go_tk").onclick=()=>{tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 $("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
 $("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
 function askProfile(){if(!S.bd){editing=S.nm?"bd":"nm";tab(4);renderProfile()}}
-function tab(n){[1,2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3)renderCal();if(n===5)renderTrack()}
-[1,2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));
+function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3){renderCal();renderTrack()}}
+[1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
 const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha","Gambas","Mejillones"]);
@@ -667,14 +677,17 @@ const GOALS=[["iron","Hierro","carne, legumbres, huevo"],["fiber","Fibra","diges
 const GL=Object.fromEntries(GOALS.map(g=>[g[0],g[1]]));
 let planShown=30;
 $("pf_glist").innerHTML=GOALS.map(g=>`<label class="ck"><input type="checkbox" value="${g[0]}"><span><b>${g[1]}</b><small>${g[2]}</small></span></label>`).join("");
+const DIETTXT={veg:"Vegetariana: sin carne ni pescado, con huevo y lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses. Consúltalo con tu pediatra.",vgn:"Vegana: sin carne, pescado, huevo ni lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses, y la vitamina B12 necesita suplemento. Consúltalo con tu pediatra."};
 function renderPlanForm(){
-  const p=S.prefs;
+  const p=S.prefs,dt=DIETTXT[p.diet];
+  $("dinfo").classList.toggle("hide",!dt);$("dinfo").title=dt||"";$("dpop").textContent=dt||"";if(!dt)$("dpop").classList.add("hide");
   $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);$("pf_every").value=String(p.every||2);
   $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
   const g=p.goals.map(x=>GL[x]);
   $("pf_gsum").textContent=!g.length?"Elegir":g.length<=2?g.join(", "):g.length+" objetivos";
 }
 function setPref(k,v){S.prefs[k]=v;planShown=30;save();renderPlanForm();plan()}
+$("dinfo").onclick=e=>{e.preventDefault();$("dpop").classList.toggle("hide")};
 $("pf_diet").onchange=e=>setPref("diet",e.target.value);
 $("pf_days").onchange=e=>setPref("days",+e.target.value);
 $("pf_every").onchange=e=>setPref("every",+e.target.value);
@@ -721,9 +734,6 @@ function plan(){
   const p=S.prefs,goals=p.goals||[],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
   const notes=[];
   if(ag&&ag.pre)notes.push("Nació prematuro: la app cuenta desde la edad corregida. Consulta con tu pediatra cuándo empezar.");
-  if(p.diet==="veg")notes.push("Vegetariana: sin carne ni pescado, con huevo y lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses: consúltalo con tu pediatra.");
-  if(p.diet==="vgn")notes.push("Vegana: sin carne, pescado, huevo ni lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses, y la vitamina B12 necesita suplemento. Consúltalo con tu pediatra.");
-  if(goals.length)notes.push("Objetivos: "+goals.map(g=>GL[g].toLowerCase()).join(", ")+".");
   {const ex=Object.keys(S.al||{}).map(g=>AGL[g].toLowerCase());if(ex.length)notes.push("Fuera del plan por alergia: "+ex.join(", ")+".")}
   if(every===1)notes.push("La AEP recomienda dejar unos días entre alimentos nuevos.");
   if(ag&&ag.mo>=6&&ag.mo<12&&!(S.al&&S.al.gluten)&&![...GLU].some(n=>m[n]))notes.push("Gluten: la AEP recomienda introducirlo entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.");
