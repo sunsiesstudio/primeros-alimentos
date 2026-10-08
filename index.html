@@ -31,7 +31,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .chips button{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:5px 12px;font-size:.88rem}
 .chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
-.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
 .col{scroll-snap-align:start;background:color-mix(in srgb,var(--line) 35%,transparent);border-radius:16px;padding:10px;min-width:0}
 .ch{display:flex;align-items:center;gap:8px;margin:2px 4px 10px}
 .pill{font-weight:700;font-size:.9rem;border-radius:8px;padding:3px 10px;color:#fff}
@@ -141,11 +141,11 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .aep h4{margin:12px 0 2px;font-size:.95rem;color:var(--blue)}
 .pres{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0 6px}
 .pres figure{margin:0;display:flex;gap:8px;align-items:center;background:color-mix(in srgb,var(--line) 35%,transparent);border-radius:12px;padding:6px 8px}
-.pres svg{flex:none;width:52px;height:52px}
+.pres svg{flex:none;width:46px;height:46px;color:var(--green)}
 .pres figcaption{font-size:.78rem;line-height:1.3;color:var(--mute)}
 .pres figcaption b{display:block;color:var(--ink);font-weight:600;font-size:.8rem}
 .mr{display:flex;gap:10px;align-items:center;margin:8px 0}
-.mr svg{flex:none;width:42px;height:42px}
+.mr svg{flex:none;width:38px;height:38px;color:var(--green)}
 .mr p{margin:0}
 .sheet{max-height:88vh;overflow-y:auto}
 #v2>.card{max-width:none}
@@ -416,24 +416,13 @@ const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12}
 MIN["Kéfir"]=12;MIN["Mantequilla"]=12;
 const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],a:!!AG[n],fe:FE.has(n),min:MIN[n]||6})));
 
-const COLD={"Frutas":"#e9a23b","Verduras":"#7bb661","Proteínas":"#c98b6b","Cereales":"#dcc08a","Frutos secos":"#b98b5e","Lácteos":"#f1e7cf","Condimentos":"#8fb76a"};
-const COL={Aguacate:"#8cb04a",Albaricoque:"#f2a93b",Arándanos:"#4a4f8f",Caqui:"#ee8a2e",Cerezas:"#b3243a",Chirimoya:"#a7c47a",Ciruela:"#6b3f7a",Coco:"#f3ede0",Dátiles:"#7a4a2a",Frambuesas:"#c2284d",Fresas:"#d93a4a",Granada:"#b32a3d",Higos:"#7a4a6b",Kiwi:"#8bb43a",Mandarina:"#f39a2d",Mango:"#f4b02a","Manzana asada":"#d9a35a",Maracuyá:"#e2a42b",Melocotón:"#f1a56a",Melón:"#f2b36a","Membrillo cocido":"#d9a05b",Mora:"#4a2a5a",Naranja:"#f08a24",Nectarina:"#ef7a3a",Níspero:"#e8a032",Papaya:"#f08a3a","Pera asada":"#c9b45a",Piña:"#f1c232",Plátano:"#f3d24a",Pomelo:"#f08a6a",Sandía:"#e24a5a",Uvas:"#8a9a4a",
-Acelgas:"#5f9a4a",Alcachofa:"#8ba05a",Apio:"#a8c46a",Berenjena:"#5a3a6a",Boniato:"#e08a3c",Borraja:"#6f9a5a",Brócoli:"#4a8a3c",Calabacín:"#8bb04a",Calabaza:"#f0902c",Cebolla:"#e3c9a0",Champiñones:"#d9c8b0",Chirivía:"#eadfc0","Coles de Bruselas":"#6aa04a",Coliflor:"#efe9d2",Endibia:"#e8e6b8",Espárragos:"#8ab04a",Espinacas:"#3f7a3a",Guisantes:"#7ab648","Habas tiernas":"#8ab85a",Hinojo:"#dfe6b8","Judías verdes":"#6aa84a",Lechuga:"#9ac85a",Lombarda:"#8a3a7a","Maíz tierno":"#f1cf3a",Nabo:"#efe0e8",Patata:"#e6c27a",Pepino:"#8ab85a","Pimiento rojo":"#d93a2a","Pimiento verde":"#5a9a3a",Puerro:"#9ab85a",Rábano:"#d94a6a",Remolacha:"#a3204a",Repollo:"#a8d08a",Rúcula:"#4a8a3a",Setas:"#cdb89a",Tomate:"#e0402a",Zanahoria:"#f08a2a",
-"Alubias blancas":"#efe6cf","Alubias negras":"#4a3a3a","Alubias pintas":"#c9a08a",Bacalao:"#e8e6df",Cerdo:"#e0a090",Conejo:"#e0b09a",Cordero:"#c97b6a",Dorada:"#cfd6d8",Garbanzos:"#e3c27a",Huevo:"#f3d25a",Lenguado:"#e8dcc0",Lentejas:"#b8844a","Lentejas rojas":"#e0703a",Lubina:"#cfd6d8",Merluza:"#ece9e2",Pavo:"#e8c9a0",Pollo:"#efd2a8",Rape:"#e8e2d4",Salmón:"#f08a6a",Sardinas:"#aab8c4",Ternera:"#b8504a",Tempeh:"#c9b07a",Tofu:"#f2ead2",Trucha:"#e0a08a",Gambas:"#f08a6a",Mejillones:"#e0a05a",
-Arroz:"#f4efe0",Avena:"#e0cfa8",Pasta:"#f1d98a","Pan (tostado, sin sal)":"#d9a45a","Pan integral":"#c9954a",Quinoa:"#e3cf9a"};
-const shade=(h,f)=>{const n=parseInt(h.slice(1),16),m=v=>Math.round(f<0?v*(1+f):v+(255-v)*f);return "#"+[n>>16,n>>8&255,n&255].map(v=>m(v).toString(16).padStart(2,"0")).join("")};
-const colOf=x=>COL[x.n]||COLD[x.c]||"#cccccc";
-function fig(form,c,rind){
-  const s=shade(c,-.3),l=shade(c,.35),o=`fill="${c}" stroke="${s}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"`;let g="";
-  if(form==="stick")g=`<rect x="11" y="16" width="12" height="40" rx="6" ${o}/><rect x="26" y="8" width="12" height="48" rx="6" ${o}/><rect x="41" y="18" width="12" height="38" rx="6" ${o}/>`;
-  else if(form==="wedge")g=`<path d="M6 46 A26 26 0 0 1 58 46 Z" fill="${c}" stroke="${rind||s}" stroke-width="5" stroke-linejoin="round"/><path d="M15 42 A17 17 0 0 1 49 42" fill="none" stroke="${l}" stroke-width="3" stroke-linecap="round"/>`;
-  else if(form==="peel")g=`<g transform="rotate(28 32 34)"><rect x="24" y="24" width="16" height="34" rx="8" ${o}/><path d="M24 30 L15 14 L27 24Z" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2" stroke-linejoin="round"/><path d="M40 30 L49 14 L37 24Z" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2" stroke-linejoin="round"/><rect x="28" y="6" width="8" height="22" rx="4" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2"/></g>`;
-  else if(form==="floret")g=`<rect x="27" y="34" width="10" height="24" rx="4" fill="${shade(c,.2)}" stroke="${s}" stroke-width="2"/><circle cx="20" cy="30" r="11" ${o}/><circle cx="34" cy="21" r="12" ${o}/><circle cx="45" cy="31" r="10" ${o}/>`;
-  else if(form==="mash")g=`<path d="M6 36 H58 A26 22 0 0 1 6 36 Z" fill="#ece7da" stroke="#b9b2a0" stroke-width="2" stroke-linejoin="round"/><path d="M13 36 Q17 18 32 18 Q47 18 51 36 Z" ${o}/><path d="M44 12 L58 4" stroke="#b9b2a0" stroke-width="3" stroke-linecap="round"/><ellipse cx="42" cy="14" rx="5" ry="3" transform="rotate(-30 42 14)" fill="#ece7da" stroke="#b9b2a0" stroke-width="2"/>`;
-  else if(form==="bits")g=[[10,12],[28,8],[44,14],[16,32],[34,30],[50,34],[22,48],[42,48]].map(([x,y],i)=>`<rect x="${x}" y="${y}" width="${11+(i%3)*2}" height="${11+(i%2)*2}" rx="3" ${o}/>`).join("");
-  else if(form==="patty")g=`<ellipse cx="24" cy="40" rx="17" ry="14" ${o}/><ellipse cx="24" cy="38" rx="9" ry="6" fill="${l}" opacity=".6"/><ellipse cx="42" cy="25" rx="15" ry="12" ${o}/><ellipse cx="42" cy="23" rx="8" ry="5" fill="${l}" opacity=".6"/>`;
-  else if(form==="flake")g=`<path d="M8 38 L20 24 L36 28 L32 44 L14 48 Z" ${o}/><path d="M34 20 L50 14 L58 28 L44 36 Z" ${o}/><path d="M32 46 L48 40 L56 52 L38 56 Z" ${o}/>`;
-  else if(form==="balls")g=[[18,40,10],[36,44,10],[46,26,10],[28,22,10],[14,20,8]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" ${o}/>`).join("");
+// 3 pictogramas, todos en el verde de la marca: puré o aplastado, tiras y trozos (con pinza)
+const pict=(form,pz)=>form==="mash"?"mash":pz?"bits":(form==="bits"||form==="balls"?"mash":"strips");
+function fig(form,c,rind,pz){
+  const k=pict(form,pz);let g;
+  if(k==="mash")g='<path d="M7 35 H57 A25 21 0 0 1 7 35 Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M15 35 Q19 18 32 18 Q45 18 49 35 Z" fill="currentColor"/><path d="M44 13 L58 4" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><ellipse cx="41" cy="15" rx="6" ry="3.5" transform="rotate(-30 41 15)" fill="currentColor"/>';
+  else if(k==="bits")g=[[8,10,15],[28,6,14],[46,12,13],[12,32,14],[32,29,15],[50,34,12],[22,48,12],[42,49,12]].map(([x,y,z])=>`<rect x="${x}" y="${y}" width="${z}" height="${z}" rx="3.5" fill="currentColor"/>`).join("");
+  else g='<rect x="10" y="14" width="13" height="42" rx="6.5" fill="currentColor"/><rect x="25.5" y="6" width="13" height="50" rx="6.5" fill="currentColor"/><rect x="41" y="16" width="13" height="40" rx="6.5" fill="currentColor"/>';
   return `<svg viewBox="0 0 64 64" aria-hidden="true">${g}</svg>`}
 // Cómo ofrecer cada alimento: b = trozos grandes (BLW), pu = puré, q = trocitos con pinza
 const PD={"Frutas":{b:["wedge","Muy madura, en tiras o cuñas que sobresalgan del puño"],pu:"Aplastada con tenedor",q:["bits","Trocitos blandos"]},
@@ -447,7 +436,7 @@ P("Plátano",{b:["peel","Pelado a medias, con un trozo de piel como asa para que
 P("Aguacate",{b:["wedge","Muy maduro, en cuña con un poco de piel como asa"],pu:"Aplastado con tenedor",rind:"#3d5a22",q:["bits","Trocitos blandos o aplastado"]});
 P("Melón",{b:["wedge","En tira con un poco de corteza como asa, sin pepitas"],pu:"Aplastado con tenedor",rind:"#7a9a4a"});
 P("Sandía",{b:["wedge","En tira con un poco de corteza como asa, sin pepitas"],rind:"#3f7a3a"});
-P("Uvas",{b:["bits","En cuartos a lo largo, nunca enteras"],q:["bits","En cuartos a lo largo, nunca enteras"]});
+P("Uvas",{b:["stick","En cuartos a lo largo, nunca enteras"],q:["bits","En cuartos a lo largo, nunca enteras"]});
 P("Cerezas",{b:["bits","Sin hueso y troceadas"]});
 P("Dátiles",{b:["mash","Sin hueso y aplastados"],q:["mash","Sin hueso y aplastados"]});
 P("Coco",{b:["bits","Rallado o en copos"]});
@@ -496,11 +485,11 @@ const presOf=x=>{const d=PD[x.c];if(!d)return null;const o=PO[x.n]||{};return{b:
 const pinzaNow=()=>{if(S.pinza===true)return true;if(S.pinza===false)return false;const a=age();return !!a&&a.mo>=9};
 const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
 const offerText=(x,pz)=>{const p=presOf(x);return !p?"":pz?p.q[1]:p.b[1]+(p.b[0]==="mash"?"":". O "+lowFirst(p.pu))};
-function presHtml(x,pz){const p=presOf(x);if(!p)return"";const c=colOf(x);
-  const f=(form,t,lab)=>`<figure>${fig(form,c,p.rind)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
-  if(pz)return `<div class="pres">${f(p.q[0],p.q[1],p.q[0]==="mash"?"En crema o puré":"Trocitos (pinza)")}</div>`;
-  if(p.b[0]==="mash")return `<div class="pres">${f("mash",p.b[1],"En crema o puré")}</div>`;
-  return `<div class="pres">${f(p.b[0],p.b[1],"Trozos grandes")}${f("mash",p.pu,"Puré")}</div>`}
+function presHtml(x,pz){const p=presOf(x);if(!p)return"";
+  const f=(form,t,lab)=>`<figure>${fig(form,0,0,pz)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
+  if(pz)return `<div class="pres">${f(p.q[0],p.q[1],pict(p.q[0],true)==="mash"?"Puré o aplastado":"Trozos")}</div>`;
+  if(pict(p.b[0],false)==="mash")return `<div class="pres">${f("mash",p.b[1],"Puré o aplastado")}</div>`;
+  return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,"Puré o aplastado")}</div>`}
 
 const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
@@ -550,9 +539,9 @@ function stats(){
     const x=m[l.f]=m[l.f]||{n:l.f,c:0,all:[]};x.c++;x.last=l.r;x.idx=k;x.all.push(l.r)});
   return m;
 }
-function card(x,m){
+function card(x,m,col){
   const s=m[x.n],lk=!unlocked(x);
-  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span></span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
+  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${col==="alg"?AGL[AG[x.n]]:x.c}</span>${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
 const PM=[1,10,25,50,100];
 const SP=Array.from({length:10},(_,k)=>{const a=-Math.PI/2+k*Math.PI/5,q=k%2?13:30;return (32+q*Math.cos(a)).toFixed(1)+","+(33+q*Math.sin(a)).toFixed(1)}).join(" ");
@@ -577,11 +566,11 @@ function board(){
     $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
     return;
   }
-  const cols={todo:[],done:[],lock:[]};
+  const cols={todo:[],done:[],lock:[],alg:[]};
   ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
-    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":"todo"].push(x)});
-  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));const defs=[["todo","Por probar","p1"],["done","Probado","p3"],["lock","Más adelante","p4"]];
-  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
+    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":x.a?"alg":"todo"].push(x)});
+  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));const defs=[["todo","Por probar","p1"],["done","Probado","p3"],["lock","Más adelante","p4"],["alg","Alérgenos","p5"]];
+  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m,d[0])).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
   $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
   const done=ALL.filter(x=>m[x.n]).length;
   $("prog").innerHTML=progHtml(done);
@@ -758,7 +747,7 @@ const mealsFor=mo=>mo<6?["Comida"]:mo<7?["Comida","Merienda"]:mo<9?["Desayuno","
 const RF={pure:["mash","bits"],arroz:["balls","bits"],guiso:["mash","bits"],tortita:["patty","patty"],tortilla:["stick","bits"],burger:["stick","bits"],pescado:["flake","bits"],tofu:["stick","bits"],hummus:["mash","mash"],avena:["mash","mash"],yogur:["mash","mash"],queso:["stick","bits"],tostada:["stick","bits"],mix:["mash","bits"]};
 function recipesFor(kn,mo,pz){
   const out=[],T=(a,b)=>pz?b:a;
-  const add=(t,k,n,ing,how,meals,g)=>{const key=ing.find(x=>x.c==="Verduras")||ing.find(x=>x.c==="Frutas")||ing[0];out.push({t,k,n,ing:ing.map(low).join(", "),ings:ing.map(x=>x.n),how,meals,g:g||fig(RF[t][pz?1:0],colOf(key))})};
+  const add=(t,k,n,ing,how,meals,g)=>{const key=ing.find(x=>x.c==="Verduras")||ing.find(x=>x.c==="Frutas")||ing[0];out.push({t,k,n,ing:ing.map(low).join(", "),ings:ing.map(x=>x.n),how,meals,g:g||fig(RF[t][pz?1:0],0,0,pz)})};
   const veg=kn.filter(x=>x.c==="Verduras"&&!NOCOOK.has(x.n)),fru=kn.filter(x=>x.c==="Frutas"),
     meat=kn.filter(x=>MEAT.has(x.n)),fish=kn.filter(x=>FISH.has(x.n)&&x.n!=="Gambas"&&x.n!=="Mejillones"),
     leg=kn.filter(x=>/^(Lentejas|Alubias|Garbanzos)/.test(x.n)),egg=kn.filter(x=>x.n==="Huevo"),tofu=kn.filter(x=>x.n==="Tofu"),
@@ -776,8 +765,8 @@ function recipesFor(kn,mo,pz){
     if(g("Garbanzos"))add("hummus","Garbanzos",`Hummus con ${T("bastones","trocitos")} de ${low(v)}`,[g("Garbanzos"),v],T("Verdura muy bien cocida, en bastones","Verdura muy bien cocida, en trocitos"),["Comida","Merienda"]);
   });
   const av=g("Avena"),pl=g("Plátano"),ag=g("Aguacate"),yo=g("Yogur natural"),qf=g("Queso fresco"),pa=g("Patata"),za=g("Zanahoria");
-  [...veg,...prot].forEach(x=>{const p=presOf(x);add("solo",prot.includes(x)?x.n:null,x.n,[x],offerText(x,pz),["Comida","Cena"],fig(pz?p.q[0]:p.b[0],colOf(x),p.rind))});
-  cer.forEach(x=>{const p=presOf(x);add("solo",null,x.n,[x],offerText(x,pz),["Comida","Merienda"],fig(pz?p.q[0]:p.b[0],colOf(x),p.rind))});
+  [...veg,...prot].forEach(x=>{const p=presOf(x);add("solo",prot.includes(x)?x.n:null,x.n,[x],offerText(x,pz),["Comida","Cena"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
+  cer.forEach(x=>{const p=presOf(x);add("solo",null,x.n,[x],offerText(x,pz),["Comida","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
   if(ag)egg.forEach(e=>add("mix","Huevo","Aguacate con huevo hervido aplastado",[ag,e],T("Aguacate muy maduro y huevo hervido aplastados juntos","Aguacate y huevo hervido aplastados, con trocitos"),["Desayuno","Merienda","Cena"]));
   if(ag&&pl)add("mix",null,"Mousse de aguacate y plátano",[ag,pl],"Aplastados juntos, como una crema espesa",["Desayuno","Merienda"]);
   if(yo&&pl&&av)add("yogur",null,"Yogur con plátano y avena",[yo,pl,av],T("Plátano aplastado y avena cocida, con el yogur","Con trocitos de plátano y avena cocida"),["Desayuno","Merienda"]);
@@ -790,7 +779,7 @@ function recipesFor(kn,mo,pz){
     if(ag&&egg.length)add("tostada","Huevo","Tostada con aguacate y huevo hervido aplastado",[b,ag,egg[0]],T("En tiras, con el aguacate y el huevo aplastados","En trocitos, con el aguacate y el huevo aplastados"),["Desayuno","Merienda","Cena"])});
   if(pl&&av&&egg.length)add("tortita","Huevo","Tortitas de plátano y avena",[pl,av,egg[0]],"Tortitas pequeñas a la plancha",["Desayuno","Merienda"]);
   egg.forEach(e=>add("tortilla","Huevo","Tortilla francesa",[e],T("En tiras","En trocitos"),["Desayuno"]));
-  fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],colOf(f),p.rind))});
+  fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
   return out}
 
 function plan(){
