@@ -90,7 +90,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;height:42px;text-align:left;display:block}
 .btn.on{background:var(--blue);color:var(--onacc)}
 .sec{font-size:1.05rem;margin:18px 0 8px;color:var(--mute);font-weight:600}
-.avatar{width:96px;height:96px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:2.4rem;color:var(--green);margin:0 auto 8px}
+.avatar{padding:0;cursor:pointer;overflow:hidden;width:96px;height:96px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:2.4rem;color:var(--green);margin:0 auto 8px}
 .prow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
 .prow:first-child{border-top:0}
 .prow>div{flex:1;min-width:0}
@@ -166,6 +166,12 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:8px;align-items:start}
 .info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
 .pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.phl{display:flex;justify-content:center;gap:14px;margin:0 0 6px}
+.pbar{margin:2px 0 0}
+.pbar svg{display:block;width:100%;max-width:520px;height:auto}
+.pbar svg text{font-family:Montserrat,system-ui,sans-serif;font-weight:700;font-size:15px;text-anchor:middle;dominant-baseline:central}
+.pbar p{margin:2px 0 0;font-size:.82rem;color:var(--mute)}
 .rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
 .leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
 .leg span{display:inline-flex;align-items:center;gap:6px}
@@ -305,7 +311,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 </section>
 
 <section id="v4" class="hide">
-  <div style="text-align:center;margin:6px 0 14px"><div class="avatar disp" id="av"></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
+  <div style="text-align:center;margin:6px 0 14px"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phl"><button type="button" class="x" id="ph_add">Añadir foto</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec">Detalles del bebé</h3>
   <div class="card">
     <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
@@ -365,6 +371,7 @@ const AGD={gluten:["Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, 
 const AG={};Object.keys(AGD).forEach(g=>AGD[g].forEach(n=>AG[n]=g));
 const cleanAl=o=>{const r={};if(o&&typeof o==="object")Object.keys(AGD).forEach(g=>{if(o[g]==="alergia"||o[g]==="sospecha")r[g]=o[g]});return r};
 const cleanRx=a=>Array.isArray(a)?a.filter(r=>r&&AGD[r.g]&&typeof r.d==="string").map(r=>({id:r.id||uid(),g:r.g,d:r.d,r:String(r.r||"").slice(0,120),n:String(r.n||"").slice(0,300)})):[];
+const validPh=v=>typeof v==="string"&&v.length<400000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(v)?v:"";
 const blockedG=x=>{const g=AG[x.n];return !!g&&!!S.al&&(S.al[g]==="alergia"||S.al[g]==="sospecha")};
 const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
 const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
@@ -463,11 +470,11 @@ const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],log:[],prefs:DEFP()});
+const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],ph:"",log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;
-  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),log:Array.isArray(o.log)?o.log:[],prefs:pr}};
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),log:Array.isArray(o.log)?o.log:[],prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
   return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
 let DB=fixDB(null),S=DB.babies[DB.cur];
@@ -510,13 +517,22 @@ function card(x,m){
   const s=m[x.n],lk=!unlocked(x);
   return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span></span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
+const PM=[1,10,25,50,100],PX=[40,170,300,430,560];
+function progHtml(c){
+  let x=PX[0];if(c>=PM[4])x=PX[4];else if(c>=1){let i=0;while(i<3&&c>=PM[i+1])i++;x=PX[i]+(PX[i+1]-PX[i])*(c-PM[i])/(PM[i+1]-PM[i])}
+  const star=(cx,cy,R,r)=>Array.from({length:10},(_,k)=>{const a=-Math.PI/2+k*Math.PI/5,q=k%2?r:R;return (cx+q*Math.cos(a)).toFixed(1)+","+(cy+q*Math.sin(a)).toFixed(1)}).join(" ");
+  const line=c>=1?`<line x1="${PX[0]}" y1="35" x2="${x.toFixed(1)}" y2="35" stroke="var(--green)" stroke-width="7" stroke-linecap="round"/>`:"";
+  const stars=PM.map((m,i)=>{const on=c>=m,fill=on?(i===4?"#d0a14f":"var(--terra)"):"var(--line)";
+    return `<polygon points="${star(PX[i],35,29,12.5)}" fill="${fill}" stroke-linejoin="round"${on?"":' stroke="var(--mute)" stroke-opacity=".45" stroke-width="1.5"'}/><text x="${PX[i]}" y="37" fill="${on?"#fff":"var(--mute)"}">${m}</text>`}).join("");
+  const next=PM.find(m=>m>c);
+  return `<div class="pbar"><svg viewBox="0 0 600 70" role="img" aria-label="${c} alimentos probados"><line x1="${PX[0]}" y1="35" x2="${PX[4]}" y2="35" stroke="var(--line)" stroke-width="7" stroke-linecap="round"/>${line}${stars}</svg><p>${c} ${c===1?"alimento probado":"alimentos probados"}${next?" · siguiente meta: "+next:" · meta de 100 conseguida"}</p></div>`}
 function board(){
   const m=stats(),q=norm($("q").value.trim());
   $("chips").classList.toggle("hide",view==="list");$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
   $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
   $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
   const nd=ALL.filter(x=>m[x.n]).length;
-  $("prog").textContent=`${nd} probados de ${ALL.length} alimentos`;
+  $("prog").innerHTML=progHtml(nd);
   if(view==="list"){
     $("lst").innerHTML=C.map(c=>{
       const it=ALL.filter(x=>x.c===c[0]&&(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q)));
@@ -533,7 +549,7 @@ function board(){
   $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
   $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
   const done=ALL.filter(x=>m[x.n]).length;
-  $("prog").textContent=`${done} probados de ${ALL.length} alimentos`;
+  $("prog").innerHTML=progHtml(done);
 }
 function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
@@ -615,7 +631,8 @@ let editing=null;
 function renderProfile(){
   const a=age();
   $("pname").textContent=S.nm||"Tu bebé";
-  $("av").textContent=(S.nm||"?").trim().charAt(0).toUpperCase()||"?";
+  $("av").innerHTML=S.ph?`<img src="${S.ph}" alt="">`:esc((S.nm||"?").trim().charAt(0).toUpperCase()||"?");
+  $("ph_add").textContent=S.ph?"Cambiar foto":"Añadir foto";$("ph_del").classList.toggle("hide",!S.ph);
   $("vnm").textContent=S.nm||"Sin nombre";
   $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
   const wk=d=>d<7?`${d} día${d===1?"":"s"}`:`${Math.floor(d/7)} semana${Math.floor(d/7)===1?"":"s"}`,ra=age(true);
@@ -646,6 +663,11 @@ function pushCloud(){
     saveLocal();render();pushCloud();
   };
 });
+const resizePhoto=f=>new Promise((ok,no)=>{try{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{try{const n=320,c=document.createElement("canvas");c.width=c.height=n;const q=Math.min(im.width,im.height);c.getContext("2d").drawImage(im,(im.width-q)/2,(im.height-q)/2,q,q,0,0,n,n);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",.82))}catch(e){no(e)}};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error("img"))};im.src=u}catch(e){no(e)}});
+$("av").onclick=$("ph_add").onclick=()=>$("ph_in").click();
+$("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;
+  resizePhoto(f).then(url=>{S.ph=validPh(url);saveLocal();render();pushCloud()}).catch(()=>{$("pmsg").textContent="No se pudo leer la foto. Prueba con otra."})};
+$("ph_del").onclick=()=>{S.ph="";saveLocal();render();pushCloud()};
 $("go_tk").onclick=()=>{tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 $("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
