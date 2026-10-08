@@ -167,7 +167,10 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
 .pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.phl{display:flex;justify-content:center;gap:14px;margin:0 0 6px}
+.avw{position:relative;width:96px;margin:0 auto 8px}
+.avw .avatar{margin:0}
+.phe{position:absolute;top:-2px;right:-8px;width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--blue);display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.phm{display:flex;justify-content:center;gap:16px;margin:0 0 8px}
 #progcard{padding:10px 16px 14px}
 .pc{margin:0;font-size:.85rem;color:var(--mute)}
 .pb{position:relative;height:46px;margin:6px 22px 0}
@@ -181,7 +184,9 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ps.gold.on polygon{fill:#d0a14f}
 .ps b{position:relative;margin-top:3px;font-size:.72rem;font-weight:700;color:var(--mute)}
 .ps.on b{color:#fff}
-.sub3{max-width:440px;margin:0 0 12px}
+.subt{display:flex;gap:24px;border-bottom:1.5px solid var(--line);margin:0 2px 14px;overflow-x:auto}
+.subt .st{background:none;border:0;border-bottom:3px solid transparent;border-radius:0;padding:8px 2px 9px;margin-bottom:-1.5px;font-weight:600;font-size:.95rem;color:var(--mute);white-space:nowrap}
+.subt .st.on{color:var(--blue);border-bottom-color:var(--blue);font-weight:700}
 .shcols{column-width:250px;column-gap:28px}
 .shc{break-inside:avoid;margin-bottom:6px}
 .sh{margin:12px 0 2px;font-size:.95rem;color:var(--blue)}
@@ -256,7 +261,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div class="grid" id="lst"></div>
 </section>
 <section id="v2" class="hide">
-  <div class="btns sub3"><button class="btn on" id="p1">Menú</button><button class="btn" id="p2">Compra</button><button class="btn" id="p3">Para papis</button></div>
+  <div class="subt" role="tablist"><button class="st on" id="p1">Menú</button><button class="st" id="p2">Compra</button><button class="st" id="p3">Para papis</button></div>
   <div id="pv1">
   <div class="card">
     <h3 class="sec" style="margin-top:0">Tu plan</h3>
@@ -295,6 +300,8 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <ul>
       <li>En el primer año: acelga, espinaca y borraja (nitratos), zumos, bebidas azucaradas y grasas trans, y pescados grandes como atún, pez espada, emperador, cazón y tintorera (mercurio).</li>
       <li>Azúcares, miel, cacao, bollería, galletas y embutidos, siempre a partir de los 12 meses y cuanto más tarde mejor.</li>
+      <li>Arroz y productos de arroz (tortitas, galletas, bebida de arroz): contienen arsénico inorgánico. La bebida de arroz, evitarla. El arroz, solo de vez en cuando y alternando con otros cereales. Por eso la app no lo programa en el plan.</li>
+      <li>Cabeza de las gambas y de otros crustáceos, por el cadmio. Acelgas y espinacas, como máximo una ración al día entre 1 y 3 años.</li>
       <li>Yogur natural y queso, desde los 9 meses. Leche de vaca entera, desde los 12.</li>
     </ul>
     <h4>Seguridad</h4>
@@ -312,6 +319,8 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
       <li><b>OMS, octubre de 2023.</b> Guía sobre alimentación complementaria de 6 a 23 meses. Aporta, entre otras, la falta de hierro, zinc y B12 sin alimentos de origen animal y evitar bebidas azucaradas y grasas trans.</li>
       <li><b>Pediatría Integral, marzo de 2025</b> (SEPEAP, no es un documento de la AEP). Aporta la vitamina D, la B12 vegana, el hierro, el número de tomas y los objetivos de fibra, omega-3 y calcio.</li>
       <li><b>Guía de bolsillo de la ESPGHAN</b>, publicada en la web de la AEP. Aporta la vitamina C para absorber el hierro.</li>
+      <li><b>AESAN</b> (Agencia Española de Seguridad Alimentaria y Nutrición). Aporta los pescados grandes en menores de 3 años, la cabeza de los crustáceos, y las acelgas y espinacas.</li>
+      <li><b>Comité de Nutrición de la ESPGHAN y normativa europea sobre arsénico en el arroz.</b> Aporta lo del arroz y sus productos.</li>
     </ul>
     <p class="mute">No sustituye el consejo de tu pediatra.</p>
   </details>
@@ -320,17 +329,18 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><p class="mute">Lo que necesitas para los días del menú que tienes abierto. Marca lo que ya tienes en casa.</p><div id="shop"></div></div></div>
   <div id="pv3" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Platos para los papis</h3><p class="mute">Platos que se hacen con lo mismo que come el bebé, para cocinar una vez y no comprar de más. Primero se aparta la ración del bebé, sin sal.</p></div><div id="fam"></div></div>
 </section>
-<section id="v3" class="hide"><div class="card">
+<section id="v3" class="hide"><div class="card" id="progcard"><div id="prog"></div></div>
+<div class="card">
   <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Lista</button></div>
   <div class="leg"><span><i class="dot rc-love"></i>Le encantó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>Hoy no</span><span><i class="dot rc-react"></i>Reacción o alergia</span></div>
   <div id="cal"></div>
   <div id="log" class="hide"></div>
 </div>
-<div class="card" id="progcard"><div id="prog"></div></div>
 <div class="tk" id="tkwrap">
   <div class="card">
     <h3 class="sec" style="margin-top:0">Alérgenos</h3>
     <p class="mute" id="tk_sum"></p>
+    <p class="mute">Las reacciones se anotan al registrar el alimento con «Tuvo reacción», o aquí, tocando el alérgeno.</p>
     <details class="aep"><summary>Qué hacer si hay una reacción</summary>
       <ul>
         <li>Deja de ofrecer ese alimento y no lo repitas hasta hablarlo con tu pediatra.</li>
@@ -347,7 +357,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 </section>
 
 <section id="v4" class="hide">
-  <div style="text-align:center;margin:6px 0 14px"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phl"><button type="button" class="x" id="ph_add">Añadir foto</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
+  <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec">Detalles del bebé</h3>
   <div class="card">
     <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
@@ -388,6 +398,11 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <label>Fecha<input id="dt" type="date"></label>
   <label>Cómo lo serviste<select id="how"></select></label>
   <label>Qué tal fue<select id="rx"><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select></label>
+  <div id="rxb" class="hide">
+    <label>¿Qué reacción?<select id="rxt"></select></label>
+    <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
+    <label>Notas<input id="rxn" type="text" maxlength="300" placeholder="Qué pasó, cuánto tardó, cuánto duró"></label>
+  </div>
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
 
@@ -414,7 +429,8 @@ const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos
 const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
 ["Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"].forEach(n=>MIN[n]=9);
 MIN["Kéfir"]=12;MIN["Mantequilla"]=12;
-const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],a:!!AG[n],fe:FE.has(n),min:MIN[n]||6})));
+const LIMS=new Set(["Arroz","Tortitas de arroz"]);
+const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],a:!!AG[n],fe:FE.has(n),lim:LIMS.has(n),min:MIN[n]||6})));
 
 // 3 pictogramas, todos en el verde de la marca: puré o aplastado, tiras y trozos (con pinza)
 const pict=(form,pz)=>form==="mash"?"mash":pz?"bits":(form==="bits"||form==="balls"?"mash":"strips");
@@ -430,7 +446,7 @@ const PD={"Frutas":{b:["wedge","Muy madura, en tiras o cuñas que sobresalgan de
 "Proteínas":{b:["stick","Tira tierna y bien cocinada"],pu:"Desmenuzado y aplastado",q:["bits","Desmenuzado en trocitos"]},
 "Cereales":{b:["balls","Bolitas o bastones blandos que se agarren"],pu:"Papilla espesa",q:["bits","Trocitos blandos"]},
 "Frutos secos":{b:["mash","Crema fina, en capa fina sobre fruta o tostada"],pu:"Molido, mezclado con yogur o papilla",q:["mash","Molido, mezclado con la comida"]},
-"Lácteos":{b:["stick","Tira de queso tierno"],pu:"Aplastado con tenedor",q:["bits","Dados pequeños y blandos"]}};
+"Lácteos":{b:["stick","Tira de queso tierno, pasteurizado y poco salado"],pu:"Aplastado con tenedor",q:["bits","Dados pequeños y blandos"]}};
 const PO={};const P=(names,o)=>names.split("|").forEach(n=>PO[n]=o);
 P("Plátano",{b:["peel","Pelado a medias, con un trozo de piel como asa para que no resbale"],pu:"Aplastado con tenedor",q:["bits","Rodajas gruesas o trocitos"]});
 P("Aguacate",{b:["wedge","Muy maduro, en cuña con un poco de piel como asa"],pu:"Aplastado con tenedor",rind:"#3d5a22",q:["bits","Trocitos blandos o aplastado"]});
@@ -464,17 +480,21 @@ P("Maíz tierno",{b:["mash","Aplastado o en crema, el grano entero cuesta"],q:["
 P("Tomate",{b:["wedge","Cuña sin piel ni pepitas"]});
 P("Pimiento rojo|Pimiento verde",{b:["stick","Tira asada, sin piel"]});
 P("Berenjena",{b:["stick","Tira asada, muy blanda"]});
-P("Champiñones|Setas",{b:["bits","Cocinados y muy picados"]});
+P("Champiñones|Setas",{b:["bits","Solo cultivados, cocinados y muy picados"]});
 P("Cebolla|Puerro|Apio|Hinojo",{b:["bits","Cocinado, mezclado con otras comidas"]});
-P("Acelgas|Espinacas|Borraja|Remolacha|Rúcula",{b:["bits","Cocidas y picadas, menos del 20% del plato"],pu:"Mezcladas con otras verduras",q:["bits","Cocidas y picadas, menos del 20% del plato"]});
+P("Acelgas|Espinacas|Borraja|Remolacha|Rúcula",{b:["bits","Cocidas y picadas, menos del 20% del plato. Entre 1 y 3 años, una ración al día como máximo"],pu:"Mezcladas con otras verduras",q:["bits","Cocidas y picadas, menos del 20% del plato. Entre 1 y 3 años, una ración al día como máximo"]});
 P("Pollo",{b:["stick","Muslo cocido en tiras, sin piel"]});
 P("Alubias blancas|Alubias negras|Alubias pintas|Lentejas|Lentejas rojas",{b:["patty","Tortita, o aplastadas con las manos"],pu:"Aplastadas con un poco de agua de cocción",q:["bits","Enteras muy blandas, algo aplastadas"]});
 P("Garbanzos",{b:["mash","Hummus, o aplastados"],pu:"Aplastados con agua de cocción",q:["bits","Muy blandos, algo aplastados"]});
 P("Huevo",{b:["stick","Tortilla en tiras o huevo duro en bastones"],pu:"Huevo duro aplastado",q:["bits","Trocitos de tortilla"]});
 P("Tofu|Tempeh",{b:["stick","Palitos a la plancha"],q:["bits","Dados pequeños"]});
 P("Bacalao|Dorada|Lenguado|Lubina|Merluza|Rape|Salmón|Sardinas|Trucha",{b:["flake","Lascas grandes, sin piel ni espinas"],pu:"Desmenuzado y aplastado",q:["bits","Lascas pequeñas"]});
-P("Gambas|Mejillones",{b:["bits","Bien cocinados, pelados y desmenuzados"]});
-P("Arroz",{b:["balls","Bolitas de arroz hervido y chafado"],q:["bits","Arroz suelto, bien cocido"]});
+P("Bacalao",{b:["flake","Fresco, o muy bien desalado, en lascas sin piel ni espinas"],pu:"Desmenuzado y aplastado",q:["bits","Lascas pequeñas"]});
+P("Gambas",{b:["bits","Peladas y sin la cabeza (cadmio), bien cocinadas y desmenuzadas"]});
+P("Mejillones",{b:["bits","Bien cocinados, sin cáscara y desmenuzados"]});
+P("Quinoa",{b:["balls","Bien lavada antes de cocerla, en bolitas"],q:["bits","Bien lavada y bien cocida"]});
+P("Semillas de chía",{b:["mash","Siempre en remojo (como un gel) o molidas, nunca secas"],q:["mash","En remojo o molidas, mezcladas con la comida"]});
+P("Semillas de lino|Semillas de girasol|Semillas de calabaza",{b:["mash","Siempre molidas, mezcladas con yogur o papilla"],q:["mash","Molidas, mezcladas con la comida"]});
 P("Pasta|Fideos",{b:["stick","Pasta gruesa bien cocida (fusilli o macarrón)"],q:["bits","Pasta corta bien cocida"]});
 P("Avena",{b:["patty","Tortitas de avena"],pu:"Papilla espesa",q:["mash","Papilla con trocitos de fruta"]});
 P("Pan (tostado, sin sal)|Pan integral",{b:["stick","Tostada en tiras, sin sal"],q:["bits","Trocitos de tostada blanda"]});
@@ -526,11 +546,11 @@ function age(raw){if(!S.bd)return null;const b0=new Date(S.bd+"T00:00:00");if(is
   const th=S.early?4:6;
   const until=m=>Math.ceil((new Date(b.getFullYear(),b.getMonth()+m,b.getDate())-t)/864e5);
   return{days,mo,s6:until(6),sT:until(th),th,pre:pre>0}}
-const unlocked=x=>{const a=age();return !a||a.mo>=(x.min===6?a.th:x.min)};
+const unlocked=x=>{if(x.lim)return false;const a=age();return !a||a.mo>=(x.min===6?a.th:x.min)};
 function head(){const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=S.nm?"de "+S.nm:"";document.title=t;
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
-let cat="Todos",cur="";
+let cat="Todos",cur="",PLANNED={};
 let view="list";try{view=localStorage.getItem("primeros_view")==="board"?"board":"list"}catch(e){}
 const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6"/></svg>';
 function stats(){
@@ -539,9 +559,10 @@ function stats(){
     const x=m[l.f]=m[l.f]||{n:l.f,c:0,all:[]};x.c++;x.last=l.r;x.idx=k;x.all.push(l.r)});
   return m;
 }
+const fdShort=d=>new Date(d+"T00:00:00").toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"});
 function card(x,m,col){
   const s=m[x.n],lk=!unlocked(x);
-  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${col==="alg"?AGL[AG[x.n]]:x.c}</span>${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
+  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span>${col==="plan"?`<span class="ct">${fdShort(PLANNED[x.n])}</span>`:""}${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}${x.lim?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Limitar</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
 const PM=[1,10,25,50,100];
 const SP=Array.from({length:10},(_,k)=>{const a=-Math.PI/2+k*Math.PI/5,q=k%2?13:30;return (32+q*Math.cos(a)).toFixed(1)+","+(33+q*Math.sin(a)).toFixed(1)}).join(" ");
@@ -562,20 +583,20 @@ function board(){
       const it=ALL.filter(x=>x.c===c[0]&&(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q)));
       if(!it.length)return"";
       return `<div><h2 class="disp">${c[0]}</h2><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
-        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">No antes de ${x.min} m</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">${x.lim?"Limitar":"No antes de "+x.min+" m"}</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div>"}).join("")||'<div class="empty">Nada por aquí.</div>';
     $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
     return;
   }
-  const cols={todo:[],done:[],lock:[],alg:[]};
+  const cols={todo:[],plan:[],done:[],lock:[]};
   ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
-    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":x.a?"alg":"todo"].push(x)});
-  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));const defs=[["todo","Por probar","p1"],["done","Probado","p3"],["lock","Más adelante","p4"],["alg","Alérgenos","p5"]];
+    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":PLANNED[x.n]?"plan":"todo"].push(x)});
+  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));cols.plan.sort((a,b)=>PLANNED[a.n]<PLANNED[b.n]?-1:PLANNED[a.n]>PLANNED[b.n]?1:a.n.localeCompare(b.n,"es"));const defs=[["todo","Por probar","p1"],["plan","Programados","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
   $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m,d[0])).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
   $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
   const done=ALL.filter(x=>m[x.n]).length;
   $("prog").innerHTML=progHtml(done);
 }
-function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><div class="mute">${esc(l.how)}</div>${l.r==="react"&&(l.rt||l.rn)?`<div class="mute">${esc([l.rt,l.rn].filter(Boolean).join(". "))}</div>`:""}</div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
   el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
   el.querySelectorAll(".x[data-i]").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
@@ -629,25 +650,25 @@ $("bdel").onclick=()=>{
   $("bdel").textContent="Eliminar este perfil";save();render();
 };
 function render(){
-  head();renderProfile();renderBabies();
+  head();renderProfile();renderBabies();renderPlanForm();plan();
   $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
   $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()});
   board();
   const ents=S.log.map((l,i)=>({...l,i})).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:b.i-a.i);
   $("log").innerHTML=ents.length?ents.map(rowHtml).join(""):'<p class="mute">Toca un alimento del tablero para registrar el primero.</p>';
   bindRows($("log"));
-  renderCal();renderPlanForm();renderTrack();
-  if(!$("v2").classList.contains("hide"))plan();
+  renderCal();renderTrack();
 }
-function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":"";$("shp").innerHTML=x?presHtml(x,pinzaNow()):"";
+function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
-  if(lk)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
+  if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo de uno en uno, en poca cantidad, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
+  if(x&&x.lim)w.unshift('<p><b>Mejor limitarlo.</b> El arroz y los productos de arroz (tortitas, galletas) contienen arsénico inorgánico, y los bebés se exponen más que los adultos. Si lo das, que sea de vez en cuando y alternando con otros cereales. Las bebidas de arroz, mejor evitarlas. Consúltalo con tu pediatra.</p>');
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
-  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("sh").classList.remove("hide");$("how").focus()}
+  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("rx").value="love";$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");$("how").focus()}
 $("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
 $("cx").onclick=()=>$("sh").classList.add("hide");
-$("ok").onclick=()=>{const rv=$("rx").value,g=AG[cur];S.log.push({f:cur,how:$("how").value,r:rv,d:$("dt").value||today()});save();$("sh").classList.add("hide");render();if(rv==="react"&&g){tkSet.add(g);tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}};
+$("ok").onclick=()=>{const rv=$("rx").value,g=AG[cur];S.log.push(rv==="react"?{f:cur,how:$("how").value,r:rv,d:$("dt").value||today(),rt:$("rxt").value,rn:$("rxn").value.trim().slice(0,300)}:{f:cur,how:$("how").value,r:rv,d:$("dt").value||today()});save();$("sh").classList.add("hide");render();if(rv==="react"&&g){tkSet.add(g);tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}};
 $("q").oninput=board;
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
@@ -688,16 +709,18 @@ function pushCloud(){
   };
 });
 const resizePhoto=f=>new Promise((ok,no)=>{try{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{try{const n=320,c=document.createElement("canvas");c.width=c.height=n;const q=Math.min(im.width,im.height);c.getContext("2d").drawImage(im,(im.width-q)/2,(im.height-q)/2,q,q,0,0,n,n);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",.82))}catch(e){no(e)}};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error("img"))};im.src=u}catch(e){no(e)}});
-$("av").onclick=$("ph_add").onclick=()=>$("ph_in").click();
+$("av").onclick=$("ph_add").onclick=()=>{$("phm").classList.add("hide");$("ph_in").click()};
+$("ph_edit").onclick=e=>{e.stopPropagation();if(!S.ph)$("ph_in").click();else $("phm").classList.toggle("hide")};
+document.addEventListener("click",e=>{if(!$("phm").classList.contains("hide")&&!e.target.closest("#phm,#ph_edit"))$("phm").classList.add("hide")});
 $("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;
   resizePhoto(f).then(url=>{S.ph=validPh(url);saveLocal();render();pushCloud()}).catch(()=>{$("pmsg").textContent="No se pudo leer la foto. Prueba con otra."})};
-$("ph_del").onclick=()=>{S.ph="";saveLocal();render();pushCloud()};
+$("ph_del").onclick=()=>{$("phm").classList.add("hide");S.ph="";saveLocal();render();pushCloud()};
 $("go_tk").onclick=()=>{tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 $("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
 $("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
 function askProfile(){if(!S.bd){editing=S.nm?"bd":"nm";tab(4);renderProfile()}}
-function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3){renderCal();renderTrack()}}
+function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}}
 [1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
@@ -706,6 +729,7 @@ const GLU=new Set(AGD.gluten);
 const rng=seed=>{let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}};
 const dstr=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 function allowed(x,p){
+  if(x.lim)return false;
   if(p.diet!=="om"&&(MEAT.has(x.n)||FISH.has(x.n)))return false;
   if(p.diet==="vgn"&&(x.n==="Huevo"||x.c==="Lácteos"))return false;
   if(blockedG(x))return false;
@@ -740,7 +764,7 @@ $("pf_glist").querySelectorAll("input").forEach(i=>i.onchange=()=>setPref("goals
 document.addEventListener("click",e=>{const d=$("pf_goals");if(d.open&&!d.contains(e.target))d.open=false});
 const SLOTS=[["Hierro y proteína",x=>x.fe||x.c==="Proteínas"],["Verdura",x=>x.c==="Verduras"],["Fruta",x=>x.c==="Frutas"],["Cereal",x=>x.c==="Cereales"]];
 const NOCOOK=new Set(["Lechuga","Pepino","Rábano","Endibia"]);
-const CER=new Set(["Arroz","Pasta","Quinoa","Cuscús"]);
+const CER=new Set(["Pasta","Quinoa","Cuscús"]);
 const PANES=new Set(["Pan (tostado, sin sal)","Pan integral"]);
 const low=x=>x.n.toLowerCase();
 const mealsFor=mo=>mo<6?["Comida"]:mo<7?["Comida","Merienda"]:mo<9?["Desayuno","Comida","Merienda"]:mo<12?["Desayuno","Comida","Merienda","Cena"]:["Desayuno","Media mañana","Comida","Merienda","Cena"];
@@ -783,6 +807,7 @@ function recipesFor(kn,mo,pz){
   return out}
 
 function plan(){
+  PLANNED={};
   const p=S.prefs,goals=p.goals||[],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
   const notes=[],tips=[];
   if(ag&&ag.pre)notes.push("Nació prematuro: la app cuenta desde la edad corregida. Consulta con tu pediatra cuándo empezar.");
@@ -855,7 +880,7 @@ function plan(){
     if(!rows.length){const mn=menuFor(o);return mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:""}
     return `<div class="menu"><b>Menú del día</b> <span class="mute">${rows.length} comida${rows.length===1?"":"s"} + leche a demanda</span>`+rows.map(([meal,r])=>`<div class="mr">${r.g}<p><b>${meal}:</b> ${esc(r.n)}<br><span class="mute">${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</span></p></div>`).join("")+`</div>`;
   };
-  const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));
+  const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
   renderShop(wk);renderFam(wk,have);
@@ -899,7 +924,6 @@ const FAM=[
 {n:"Alubias blancas con verduras",base:["Alubias blancas","Zanahoria"],extra:"cebolla y laurel",baby:"Aparta su ración antes de salar, muy blandas y algo aplastadas.",adult:"Sala y añade chorizo o morcilla."},
 {n:"Hummus con bastones de verdura",base:["Garbanzos"],extra:"tahini, limón y ajo",baby:"Su ración, sin sal, ajo ni limón, con bastones de verdura bien cocida.",adult:"Hummus completo, con crudités y pan."},
 {n:"Pollo al horno con patatas y zanahorias",base:["Pollo","Patata","Zanahoria"],extra:"romero y aceite",baby:"Aparta muslo sin piel y verduras antes de salar, en tiras tiernas.",adult:"Sala y especia al gusto, con piel crujiente."},
-{n:"Arroz con pollo y verduras",base:["Arroz","Pollo","Zanahoria"],extra:"cebolla y caldo",baby:"Aparta su ración antes de salar, bien cocido y con el pollo desmenuzado.",adult:"Sazona con pimentón o azafrán."},
 {n:"Guiso de pavo con patata y zanahoria",base:["Pavo","Patata","Zanahoria"],extra:"cebolla y laurel",baby:"Aparta su ración sin sal, todo muy blando y desmenuzado.",adult:"Sala y añade vino blanco o especias."},
 {n:"Cordero estofado con patatas",base:["Cordero","Patata"],extra:"cebolla y romero",baby:"Aparta carne tierna y patata antes de salar, en tiras o desmenuzada.",adult:"Sala y añade vino o ajo."},
 {n:"Albóndigas de ternera con zanahoria",base:["Ternera","Zanahoria"],extra:"pan rallado, perejil y salsa",baby:"Sin sal, bien hechas y en forma de dedo o desmenuzadas.",adult:"Salsa de tomate y sal al gusto."},
@@ -935,6 +959,9 @@ function subtab(n){[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",i!==n);
 const AGL={gluten:"Gluten",huevo:"Huevo",pescado:"Pescado",crustaceos:"Crustáceos",moluscos:"Moluscos",cacahuete:"Cacahuete",frutoscascara:"Frutos de cáscara",sesamo:"Sésamo",soja:"Soja",apio:"Apio",lacteos:"Leche y lácteos"};
 const RXO=["Sin reacción","Enrojecimiento alrededor de la boca o en la piel","Ronchas o urticaria","Hinchazón de labios, cara o lengua","Vómitos","Diarrea o heces con sangre","Picor, eccema o piel irritada","Mocos, estornudos o tos","Dificultad para respirar o muy decaído (urgente)","Otra (la describo en notas)"];
 const URG=RXO[8];
+$("rxt").innerHTML='<option value="">Elige una opción</option>'+RXO.slice(1).map(o=>`<option>${esc(o)}</option>`).join("");
+$("rx").onchange=()=>$("rxb").classList.toggle("hide",$("rx").value!=="react");
+$("rxt").onchange=()=>$("rxu").classList.toggle("hide",$("rxt").value!==URG);
 const ALST={"":"Sin indicar",sospecha:"Sospecha de alergia",alergia:"Alergia confirmada"};
 const tkSet=new Set();
 const fd=d=>new Date(d+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});
@@ -958,7 +985,7 @@ function renderTrack(){
     const i=infos[g],st=al[g]||"";
     const chips=(st?`<span class="tag w">${ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción anotada</span>':"")+` <span class="tag">${i.tried.length?"Probado":"Sin probar"}</span>`;
     const foods=i.foods.map(n=>i.m[n]?`<b>${esc(n)}</b> (${i.m[n].c}x)`:esc(n)).join(", ");
-    const items=[...i.rxs.map(r=>({d:r.d,t:esc(r.r||"Reacción")+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,t:"Registro: "+esc(l.f)+", tuvo reacción",id:""}))].sort((a,b)=>a.d<b.d?1:-1);
+    const items=[...i.rxs.map(r=>({d:r.d,t:esc(r.r||"Reacción")+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,t:"Registro: "+esc(l.f)+(l.rt?": "+esc(l.rt):", tuvo reacción")+(l.rn?". "+esc(l.rn):""),id:""}))].sort((a,b)=>a.d<b.d?1:-1);
     const list=items.length?`<div class="rxl">${items.map(r=>`<p>${fd(r.d)}: ${r.t}${r.id?` <button class="x" data-del="${r.id}">Borrar</button>`:""}</p>`).join("")}</div>`:"";
     return `<details class="g" id="g_${g}" data-g="${g}"${tkSet.has(g)?" open":""}><summary><b>${AGL[g]}</b> ${chips}</summary><div class="gb">
       <p class="mute">${foods}</p>
@@ -971,6 +998,8 @@ function renderTrack(){
       <label>Estado en el perfil<select data-st="${g}">${Object.keys(ALST).map(k=>`<option value="${k}"${k===st?" selected":""}>${ALST[k]}</option>`).join("")}</select></label>
       <p class="mute">Si marcas sospecha o alergia, se guarda en el perfil y estos alimentos dejan de salir en el plan.</p>
     </div></details>`}).join("");
+  const oth=S.log.filter(l=>l.r==="react"&&!AG[l.f]).sort((a,b)=>a.d<b.d?1:-1);
+  if(oth.length)$("tk").innerHTML+=`<div class="card" style="grid-column:1/-1"><b>Otras reacciones</b><p class="mute">Alimentos que no son alérgenos de la lista.</p>${oth.map(l=>`<p>${fd(l.d)}: ${esc(l.f)}${l.rt?". "+esc(l.rt):""}${l.rn?". "+esc(l.rn):""}</p>`).join("")}</div>`;
 }
 $("tk").addEventListener("click",e=>{
   const b=e.target.closest("[data-save],[data-del]");if(!b)return;
@@ -989,10 +1018,11 @@ $("tk").addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.g
 function buildSummary(){
   const m=stats(),first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
   const ra=age(true),now=new Date().toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+  const othR=S.log.filter(l=>l.r==="react"&&!AG[l.f]).map(l=>`<li>${fd(l.d)}: ${esc(l.f)}${l.rt?". "+esc(l.rt):""}${l.rn?" ("+esc(l.rn)+")":""}</li>`).join("");
   const edad=ra?`${Math.floor(ra.days/7)} semanas (${ra.mo} meses)`:"sin calcular";
   const alg=Object.keys(S.al||{}).map(g=>`<li><b>${AGL[g]}</b>: ${S.al[g]==="alergia"?"alergia confirmada":"sospecha de alergia"}</li>`).join("");
   const arows=Object.keys(AGD).map(g=>{const i=gInfo(g),f=i.tried.map(n=>first[n]).sort()[0];
-    const rx=[...i.rxs.filter(r=>r.r&&r.r!==RXO[0]).map(r=>fd(r.d)+": "+r.r+(r.n?" ("+r.n+")":"")),...i.reactLog.map(l=>fd(l.d)+": reacción con "+l.f)];
+    const rx=[...i.rxs.filter(r=>r.r&&r.r!==RXO[0]).map(r=>fd(r.d)+": "+r.r+(r.n?" ("+r.n+")":"")),...i.reactLog.map(l=>fd(l.d)+": "+(l.rt||"reacción")+" con "+l.f+(l.rn?" ("+l.rn+")":""))];
     return `<tr><td>${AGL[g]}</td><td>${i.tried.length?esc(i.tried.join(", ")):"No probado"}</td><td>${f?fd(f):"-"}</td><td>${rx.length?esc(rx.join("; ")):"Sin reacciones anotadas"}</td></tr>`}).join("");
   const frows=C.map(c=>{const xs=ALL.filter(x=>x.c===c[0]&&m[x.n]);if(!xs.length)return"";
     return `<tr class="cat"><td colspan="4">${esc(c[0])}</td></tr>`+xs.map(x=>`<tr><td>${esc(x.n)}${x.a?" (alérgeno)":""}</td><td>${fd(first[x.n])}</td><td>${m[x.n].c}</td><td>${esc(RL[m[x.n].last])}</td></tr>`).join("")}).join("");
@@ -1001,6 +1031,7 @@ function buildSummary(){
   <p>Generado el ${now}.</p>
   <h2>Alergias indicadas</h2>${alg?`<ul>${alg}</ul>`:"<p>Ninguna indicada.</p>"}
   <h2>Alérgenos</h2><table><tr><th>Alérgeno</th><th>Alimentos probados</th><th>Primera vez</th><th>Reacciones</th></tr>${arows}</table>
+  ${othR?`<h2>Otras reacciones</h2><ul>${othR}</ul>`:""}
   <h2>Alimentos probados</h2>${frows?`<table><tr><th>Alimento</th><th>Primera vez</th><th>Veces</th><th>Última valoración</th></tr>${frows}</table>`:"<p>Todavía no se ha registrado ningún alimento.</p>"}
   <p class="pie">Información anotada por la familia en la app Primeros alimentos. No sustituye una valoración médica.</p>`;
 }
