@@ -164,6 +164,9 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .course .cl{display:flex;align-items:baseline;gap:8px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:700}
 .course .cl:after{content:"";flex:1;border-top:2px dotted var(--line)}
 .course .cl i{font-style:normal;color:var(--green)}
+#shp figure{cursor:pointer;border:2px solid transparent}
+#shp figure.sel{border-color:var(--green)}
+#shp .ph{font-size:.8rem;color:var(--mute);margin:0 0 -2px}
 .mr{display:flex;gap:10px;align-items:center;margin:4px 0 6px}
 .mr .dn{font-weight:700;font-size:.98rem;line-height:1.25}
 .mr em{font-style:italic;font-size:.82rem;color:var(--mute)}
@@ -485,14 +488,14 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div id="shp"></div>
   <div class="warn hide" id="warn"></div>
   <label>Fecha<input id="dt" type="date"></label>
-  <label>Cómo lo serviste<select id="how"></select></label>
+  <label id="howl">Cómo lo serviste<select id="how"></select></label>
   <div class="rxq"><b>¿Cómo ha ido?</b><div class="rxg" id="rxg"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">Hoy no</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
   <select id="rx" class="hide"><option value="">Elige</option><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select>
   <div id="rxb" class="hide">
     <label>¿Qué reacción?<select id="rxt"></select></label>
     <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
-    <label>Notas<input id="rxn" type="text" maxlength="300" placeholder="Qué pasó, cuánto tardó, cuánto duró"></label>
   </div>
+  <label>Notas (opcional)<input id="rxn" type="text" maxlength="300" placeholder="Cómo se lo diste, qué pasó, cuánto duró la reacción"></label>
   <div id="rest" class="hide"><b>¿Y el resto del menú de hoy?</b><p class="mute">Opcional. Toca lo que quieras anotar.</p><div id="restl"></div></div>
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
@@ -755,7 +758,7 @@ function board(){
   const done=ALL.filter(x=>m[x.n]).length;
   $("prog").innerHTML=progHtml(done);
 }
-function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><div class="mute">${esc(l.how)}</div>${l.r==="react"&&(l.rt||l.rn)?`<div class="mute">${esc([l.rt,l.rn].filter(Boolean).join(". "))}</div>`:""}</div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><div class="mute">${esc(l.how)}</div>${(l.r==="react"&&l.rt)||l.rn?`<div class="mute">${esc([l.r==="react"?l.rt:"",l.rn].filter(Boolean).join(". "))}</div>`:""}</div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
   el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
   el.querySelectorAll(".x[data-i]").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
@@ -824,11 +827,16 @@ function openSheet(n,pd,rest){cur=n;const x=info(n);$("shn").textContent=n;$("sh
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
   if(x&&x.lim)w.unshift('<p><b>Mejor limitarlo.</b> El arroz y los productos de arroz (tortitas, galletas) contienen arsénico inorgánico, y los bebés se exponen más que los adultos. Si lo das, que sea de vez en cuando y alternando con otros cereales. Las bebidas de arroz, mejor evitarlas. Consúltalo con tu pediatra.</p>');
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
-  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"";$("how").value=!p?"Mezclado en papilla o yogur":k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado"}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");$("how").focus()}
+  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"";$("how").value=!p?"Mezclado en papilla o yogur":k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado";
+    const fs=[...$("shp").querySelectorAll("figure")];$("howl").classList.toggle("hide",!!fs.length);
+    if(fs.length){$("shp").insertAdjacentHTML("afterbegin",'<p class="ph">Toca cómo se lo ofreciste</p>');
+      const pick=f=>{fs.forEach(g=>{g.classList.toggle("sel",g===f);g.setAttribute("aria-pressed",g===f)});$("how").value=f.querySelector("b").textContent};
+      fs.forEach(f=>{f.setAttribute("role","button");f.tabIndex=0;f.onclick=()=>pick(f);f.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(f)}}});
+      const want=$("how").value,m=fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
 $("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
-  S.log.push(rv==="react"?{f:cur,how:$("how").value,r:rv,d:d0,rt:$("rxt").value,rn:$("rxn").value.trim().slice(0,300)}:{f:cur,how:$("how").value,r:rv,d:d0});
+  {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;S.log.push(e)}
   document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
   save();$("sh").classList.add("hide");render();
   if(!S.dip&&Object.keys(stats()).length>=100){S.dip=true;save();openDiploma(false)}
