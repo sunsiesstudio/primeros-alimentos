@@ -153,7 +153,38 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .pres svg{flex:none;width:46px;height:46px;color:var(--green)}
 .pres figcaption{font-size:.78rem;line-height:1.3;color:var(--mute)}
 .pres figcaption b{display:block;color:var(--ink);font-weight:600;font-size:.8rem}
-.mr{display:flex;gap:10px;align-items:center;margin:8px 0}
+.rmenu{margin:12px 0 2px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:2px solid var(--green);outline:1px solid var(--green);outline-offset:3px;text-align:left}
+.rmenu .mh{text-align:center;margin-bottom:6px}
+.rmenu .mh .disp{display:block;font-size:1.35rem;color:var(--green);line-height:1.1}
+.rmenu .mh small{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-top:3px}
+.rmenu .orn{display:flex;align-items:center;gap:8px;color:var(--green);margin:6px 0 2px}
+.rmenu .orn:before,.rmenu .orn:after{content:"";flex:1;border-top:1px solid var(--green);opacity:.5}
+.course{padding:10px 0;border-bottom:1px dotted var(--mute)}
+.course:last-of-type{border-bottom:0}
+.course .cl{display:flex;align-items:baseline;gap:8px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:700}
+.course .cl:after{content:"";flex:1;border-top:2px dotted var(--line)}
+.course .cl i{font-style:normal;color:var(--green)}
+.mr{display:flex;gap:10px;align-items:center;margin:4px 0 6px}
+.mr .dn{font-weight:700;font-size:.98rem;line-height:1.25}
+.mr em{font-style:italic;font-size:.82rem;color:var(--mute)}
+.mk{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mt{border:1.5px solid var(--green);background:transparent;color:var(--green);border-radius:99px;padding:6px 12px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:36px}
+.mt.on{background:var(--green);color:var(--onacc)}
+.fb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;font-size:.78rem;color:var(--mute)}
+.fb button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 10px;font:600 .76rem Montserrat,sans-serif;cursor:pointer;min-height:34px;display:inline-flex;align-items:center;gap:5px}
+.fb button:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c)}
+.fb button[data-v=love]{--c:#4a8760}.fb button[data-v=meh]{--c:#e0b030}.fb button[data-v=no]{--c:#c0392b}
+.fb button.on{border-color:var(--ink);background:color-mix(in srgb,var(--line) 60%,transparent)}
+.rmenu .foot{text-align:center;font-size:.76rem;color:var(--mute);margin:6px 0 0;font-style:italic}
+details.grp{border-bottom:1px solid var(--line)}
+details.grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 2px;min-height:48px}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary .disp{margin:0;flex:1;font-size:1.15rem}
+details.grp>summary .gc{font-size:.78rem;color:var(--mute);font-weight:600}
+details.grp>summary:after{content:"";width:9px;height:9px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .15s;margin:0 4px 4px 0}
+details.grp[open]>summary:after{transform:rotate(-135deg);margin-bottom:-3px}
+details.grp .gb{padding:0 0 12px}
+#lst:has(details.grp){display:block}
 .mr svg{flex:none;width:38px;height:38px;color:var(--green)}
 .mr p{margin:0}
 .sheet{max-height:88vh;max-height:88dvh;overflow-y:auto;overscroll-behavior:contain;z-index:12}
@@ -484,6 +515,8 @@ const AG={};Object.keys(AGD).forEach(g=>AGD[g].forEach(n=>AG[n]=g));
 const cleanAl=o=>{const r={};if(o&&typeof o==="object")Object.keys(AGD).forEach(g=>{if(o[g]==="alergia"||o[g]==="sospecha")r[g]=o[g]});return r};
 const cleanRx=a=>Array.isArray(a)?a.filter(r=>r&&AGD[r.g]&&typeof r.d==="string").map(r=>({id:r.id||uid(),g:r.g,d:r.d,r:String(r.r||"").slice(0,120),n:String(r.n||"").slice(0,300)})):[];
 const validPh=v=>typeof v==="string"&&v.length<400000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(v)?v:"";
+const MEALS=["Desayuno","Media mañana","Comida","Merienda","Cena"],MR=["love","meh","no"];
+const cleanMl=o=>{const r={};if(o&&typeof o==="object")Object.keys(o).sort().slice(-120).forEach(d=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(d)||!o[d]||typeof o[d]!=="object")return;const e={};MEALS.forEach(m=>{const v=o[d][m];if(v&&v.d===true){e[m]={d:true};if(MR.includes(v.r))e[m].r=v.r}});if(Object.keys(e).length)r[d]=e});return r};
 const cleanSl=o=>{const r={};if(o&&typeof o==="object")ALL.forEach(x=>{if(o[x.n]===true)r[x.n]=true});return r};
 const blockedG=x=>{const g=AG[x.n];return !!g&&!!S.al&&(S.al[g]==="alergia"||S.al[g]==="sospecha")};
 const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
@@ -577,11 +610,11 @@ const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],ph:"",sl:{},dip:false,log:[],prefs:DEFP()});
+const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],ph:"",sl:{},ml:{},dip:false,log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;
-  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),dip:!!o.dip,log:Array.isArray(o.log)?o.log:[],prefs:pr}};
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),ml:cleanMl(o.ml),dip:!!o.dip,log:Array.isArray(o.log)?o.log:[],prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
   return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
 let DB=fixDB(null),S=DB.babies[DB.cur];
@@ -693,6 +726,7 @@ function progHtml(c){
   const next=PM.find(m=>m>c);
   const stars=PM.map((m,i)=>`<span class="ps${c>=m?" on":""}${i===4?" gold":""}" style="left:${i*25}%"><svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="${SP}"/></svg><b>${m}</b></span>`).join("");
   return `<p class="pc">${c} ${c===1?"alimento probado":"alimentos probados"}${next?" · siguiente meta: "+next:" · meta de 100 conseguida"}</p><div class="pb" role="img" aria-label="${c} alimentos probados"><div class="t"></div><div class="f" style="width:${pct.toFixed(1)}%"></div>${stars}</div><p style="margin:6px 0 0">${c>=100?'<button class="btn p" id="dip_open" style="max-width:340px">Ver diploma de los 100 alimentos</button>':'<button class="x" id="dip_open">Vista previa del diploma</button>'}</p>`}
+const OPENC=new Set();
 function board(){
   const m=stats(),q=norm($("q").value.trim());
   FIRSTD={};S.log.forEach(l=>{if(!FIRSTD[l.f]||l.d<FIRSTD[l.f])FIRSTD[l.f]=l.d});
@@ -705,8 +739,10 @@ function board(){
     $("lst").innerHTML=C.map(c=>{
       const it=ALL.filter(x=>x.c===c[0]&&(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q)));
       if(!it.length)return"";
-      return `<div><h2 class="disp">${c[0]}</h2><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
-        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">${x.lim?"Limitar":"No antes de "+x.min+" m"}</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+      const tn=it.filter(x=>m[x.n]).length,op=q||OPENC.has(c[0]);
+      return `<details class="grp" data-c="${esc(c[0])}"${op?" open":""}><summary><h2 class="disp">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb"><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
+        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">${x.lim?"Limitar":"No antes de "+x.min+" m"}</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div></details>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+    $("lst").querySelectorAll("details.grp").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)OPENC.add(d.dataset.c);else OPENC.delete(d.dataset.c)}));
     $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
     return;
   }
@@ -1007,7 +1043,11 @@ function plan(){
     return rows};
   const menuHtml=(o,rows)=>{
     if(!rows.length){const mn=menuFor(o);return mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:""}
-    return `<div class="menu"><b>Menú del día</b> <span class="mute">${rows.length} comida${rows.length===1?"":"s"} + leche a demanda</span>`+rows.map(([meal,r])=>`<div class="mr">${r.g}<p><b>${meal}:</b> ${esc(r.n)}<br><span class="mute">${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</span></p></div>`).join("")+`</div>`;
+    const MV={"Desayuno":"Ha desayunado","Media mañana":"Ha tomado la media mañana","Comida":"Ha comido","Merienda":"Ha merendado","Cena":"Ha cenado"},ML=S.ml[o.ds]||{};
+    return `<div class="rmenu"><div class="mh"><span class="disp">Menú del día</span><small>${rows.length} servicio${rows.length===1?"":"s"} · leche a demanda</small></div><div class="orn">✦</div>`+rows.map(([meal,r])=>{const st=ML[meal],rt=st&&st.r;
+      return `<div class="course"><div class="cl">${esc(meal)}</div><div class="mr">${r.g}<p><span class="dn">${esc(r.n)}</span><br><em>${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</em></p></div>`+
+      `<div class="mk"><button class="mt${st?" on":""}" data-ml="${esc(meal)}" data-d="${o.ds}" aria-pressed="${!!st}">${st?"✓ ":""}${MV[meal]||meal}</button></div>`+
+      (st?`<div class="fb"><span>¿Le ha gustado? (opcional)</span>`+[["love","Sí"],["meh","Regular"],["no","No"]].map(([v,l])=>`<button data-fb="${v}" data-ml="${esc(meal)}" data-d="${o.ds}" class="${rt===v?"on":""}" data-v="${v}" aria-pressed="${rt===v}">${l}</button>`).join("")+`</div>`:"")+`</div>`}).join("")+`<div class="orn">✦</div><p class="foot">¡Buen provecho!</p></div>`;
   };
   const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
@@ -1023,6 +1063,11 @@ function plan(){
     const mh=menuHtml(o,o.rows);
     return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${none}${mh}</div>`}).join("")+(out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver otra semana</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
+  $("days").querySelectorAll("button[data-ml]").forEach(b=>b.onclick=()=>{
+    const d=b.dataset.d,m=b.dataset.ml,e=S.ml[d]=S.ml[d]||{};
+    if(b.dataset.fb){if(e[m]){if(e[m].r===b.dataset.fb)delete e[m].r;else e[m].r=b.dataset.fb}}
+    else if(e[m]){delete e[m];if(!Object.keys(e).length)delete S.ml[d]}else e[m]={d:true};
+    save();plan()});
   if($("pmore"))$("pmore").onclick=()=>{planShown+=7;plan()};
 }
 $("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;planShown=7;save();plan()};
