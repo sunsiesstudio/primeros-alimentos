@@ -179,6 +179,21 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .fb button[data-v=love]{--c:#4a8760}.fb button[data-v=meh]{--c:#e0b030}.fb button[data-v=no]{--c:#c0392b}
 .fb button.on{border-color:var(--ink);background:color-mix(in srgb,var(--line) 60%,transparent)}
 .rmenu .foot{text-align:center;font-size:.76rem;color:var(--mute);margin:6px 0 0;font-style:italic}
+.ob{position:fixed;inset:0;z-index:40;background:var(--bg);overflow-y:auto;padding:calc(18px + env(safe-area-inset-top,0px)) 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.ob>div{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:14px}
+.ob h2{margin:6px 0 0;font-size:1.7rem;color:var(--green);line-height:1.1}
+.ob .dots{display:flex;gap:6px;justify-content:center}.ob .dots i{width:26px;height:5px;border-radius:9px;background:var(--line)}.ob .dots i.on{background:var(--green)}
+.ob input[type=text],.ob input[type=date],.ob input[type=search]{width:100%}
+.ob .big{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ob .big button,.ob .ag button{min-height:52px}
+.ob .arow{padding:10px 0;border-bottom:1px solid var(--line)}
+.ob .arow b{display:block;margin-bottom:6px}
+.ob .ag{display:flex;flex-wrap:wrap;gap:6px}
+.ob .ag button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 12px;font:600 .8rem Montserrat,sans-serif;min-height:40px;cursor:pointer}
+.ob .ag button.on{background:var(--green);color:var(--onacc);border-color:var(--green)}
+.ob .ag button.on.s{background:#e3b422;color:#222;border-color:#e3b422}.ob .ag button.on.a{background:#111;color:#fff;border-color:#111}
+.ob .foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:10px}
+.ob .skip{background:none;border:0;color:var(--mute);text-decoration:underline;font:inherit;cursor:pointer;min-height:40px}
 details.grp{border-bottom:1px solid var(--line)}
 details.grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 2px;min-height:48px}
 details.grp>summary::-webkit-details-marker{display:none}
@@ -288,7 +303,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   .board{grid-auto-columns:minmax(78vw,1fr)}
   .sheet{max-height:92vh;max-height:92dvh}
 }
-.rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
+.rc-pre{background:#9a9a8c}.rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
 .leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
 .leg span{display:inline-flex;align-items:center;gap:6px}
 .tag .dot{width:7px;height:7px;margin-right:3px}
@@ -500,6 +515,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
 
+<div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
 <div id="sumprint"></div>
 <div class="dip hide" id="dip"><div class="dipb"><button class="xc" id="dip_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><canvas id="dipc" width="1240" height="1754"></canvas><p class="mute" id="dip_p"></p><div class="btns"><button class="btn p" id="dip_dl">Descargar</button><button class="btn hide" id="dip_sh">Compartir</button></div></div></div>
 <script>
@@ -609,7 +625,8 @@ function presHtml(x,pz){const p=presOf(x);if(!p)return"";
   return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,"Puré o aplastado")}</div>`}
 
 const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
-const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
+const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción",pre:"Ya lo había probado"};
+const isPre=(f,d)=>S.log.some(l=>l.pre&&l.f===f&&l.d===d);
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
@@ -659,7 +676,7 @@ function stats(){
 const fdShort=d=>new Date(d+"T00:00:00").toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"});
 function card(x,m,col){
   const s=m[x.n],lk=!unlocked(x);
-  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span>${col==="plan"?`<span class="ct">${fdShort(PLANNED[x.n])}</span>`:col==="done"&&FIRSTD[x.n]?`<span class="ct">${fdShort(FIRSTD[x.n])}</span>`:""}${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}${x.lim?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Limitar</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
+  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span>${col==="plan"?`<span class="ct">${fdShort(PLANNED[x.n])}</span>`:col==="done"&&FIRSTD[x.n]?`<span class="ct">${isPre(x.n,FIRSTD[x.n])?"Antes":fdShort(FIRSTD[x.n])}</span>`:""}${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}${x.lim?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Limitar</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
 /*POSTER_START*/
 const PS='stroke="#3a2a22" stroke-width="3" stroke-linejoin="round"';
@@ -796,7 +813,7 @@ $("rc").onclick=()=>{rmode="cal";renderCal()};
 $("rl").onclick=()=>{rmode="list";renderCal()};
 const bname=(b,i)=>b.nm||"Bebé "+(i+1);
 function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render()}
-function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing="nm";cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render();tab(4);$("nm").focus()}
+function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing=null;cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render();obSkip=false;openOb()}
 function renderBabies(){
   const chip=(b,i)=>`<button class="${i===DB.cur?"on":""}" data-i="${i}">${esc(bname(b,i))}</button>`;
   $("bchips").innerHTML=DB.babies.map(chip).join("")+'<button class="addb" id="badd">+ Añadir bebé</button>';
@@ -827,13 +844,14 @@ function openSheet(n,pd,rest){cur=n;const x=info(n);$("shn").textContent=n;$("sh
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
   if(x&&x.lim)w.unshift('<p><b>Mejor limitarlo.</b> El arroz y los productos de arroz (tortitas, galletas) contienen arsénico inorgánico, y los bebés se exponen más que los adultos. Si lo das, que sea de vez en cuando y alternando con otros cereales. Las bebidas de arroz, mejor evitarlas. Consúltalo con tu pediatra.</p>');
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
-  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"";$("how").value=!p?"Mezclado en papilla o yogur":k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado";
+  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"",ho=howOpts(x);$("how").innerHTML=ho.map(h=>`<option>${h}</option>`).join("");const dv=!p?(ho.includes("Mezclado en papilla o yogur")?"Mezclado en papilla o yogur":ho[0]):k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado";$("how").value=ho.includes(dv)?dv:ho[0];
     const fs=[...$("shp").querySelectorAll("figure")];$("howl").classList.toggle("hide",!!fs.length);
     if(fs.length){$("shp").insertAdjacentHTML("afterbegin",'<p class="ph">Toca cómo se lo ofreciste</p>');
       const pick=f=>{fs.forEach(g=>{g.classList.toggle("sel",g===f);g.setAttribute("aria-pressed",g===f)});$("how").value=f.querySelector("b").textContent};
       fs.forEach(f=>{f.setAttribute("role","button");f.tabIndex=0;f.onclick=()=>pick(f);f.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(f)}}});
       const want=$("how").value,m=fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
-$("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
+const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","Mezclado en papilla o yogur"],"Verduras":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Mezclado en papilla o yogur"],"Proteínas":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur"],"Cereales":["Tiras","Puré o aplastado","Trozos","Mezclado en papilla o yogur"],"Lácteos":["Tal cual","Tiras","Trozos","Puré o aplastado","Mezclado en papilla o yogur"],"Frutos secos":["Molido o en crema","Mezclado en papilla o yogur"],"Condimentos":["En polvo o picado en la comida","Al cocinar"]};
+const howOpts=x=>(x&&HOWC[x.c])||HOW;
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
   {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;S.log.push(e)}
@@ -892,7 +910,39 @@ $("go_tk").onclick=()=>{tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scroll
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 $("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
 $("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
-function askProfile(){if(!S.bd){editing=S.nm?"bd":"nm";tab(4);renderProfile()}}
+let obSkip=false;
+function askProfile(){if(!S.bd&&!obSkip)openOb()}
+let OB=null;
+function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,fo:new Set(),al:{},q:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
+function obSteps(){return OB.ya?[0,1,2,3,4].filter(i=>i!==4||obGroups().length):[0,1,2]}
+function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
+function drawOb(){
+  const st=obSteps(),i=OB.s,last=i===st[st.length-1]||(i===2&&OB.ya===false),nm=(OB.nm||"").trim();
+  let h="",ok=true,title="";
+  if(i===0){title="Hola, ¿cómo se llama tu bebé?";h=`<input type="text" id="ob_nm" maxlength="40" placeholder="Nombre del bebé" value="${esc(OB.nm)}" aria-label="Nombre del bebé" autocomplete="off">`;ok=!!nm}
+  if(i===1){title=`¿Cuándo nació ${esc(nm||"tu bebé")}?`;h=`<input type="date" id="ob_bd" max="${today()}" value="${esc(OB.bd)}" aria-label="Fecha de nacimiento"><p class="mute">Con la fecha calculamos qué puede probar y cuándo. Si nació antes de las 37 semanas, lo ajustas luego en el perfil.</p>`;ok=!!OB.bd&&OB.bd<=today()}
+  if(i===2){title=`¿Ha probado ${esc(nm||"tu bebé")} algún alimento ya?`;h=`<div class="big"><button class="btn${OB.ya===true?" p":""}" data-ya="1">Sí</button><button class="btn${OB.ya===false?" p":""}" data-ya="0">Todavía no</button></div>`;ok=OB.ya!==null}
+  if(i===3){title="¿Cuáles ha probado?";const q=norm(OB.q.trim());
+    h=`<input type="search" id="ob_q" placeholder="Buscar alimento" value="${esc(OB.q)}" aria-label="Buscar alimento"><p class="mute">${OB.fo.size} marcado${OB.fo.size===1?"":"s"}. No hace falta la fecha.</p>`+C.map(c=>{const it=ALL.filter(x=>x.c===c[0]&&!x.lim&&(!q||norm(x.n).includes(q)));if(!it.length)return"";const tn=it.filter(x=>OB.fo.has(x.n)).length;
+      return `<details class="grp" data-c="${esc(c[0])}"${q||OB.open===c[0]?" open":""}><summary><h2 class="disp" style="font-size:1.15rem;color:var(--blue)">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb">`+it.map(x=>`<button type="button" class="it${OB.fo.has(x.n)?" done":""}" data-f="${esc(x.n)}" aria-pressed="${OB.fo.has(x.n)}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span></button>`).join("")+`</div></details>`}).join("")}
+  if(i===4){title="¿Ha tenido alguna alergia o reacción?";h='<p class="mute">Solo salen los alérgenos de lo que ha probado. Si no hubo nada, déjalo como está.</p>'+obGroups().map(g=>{const v=OB.al[g]||"";return `<div class="arow"><b>${AGL[g]}</b><div class="ag" data-g="${g}"><button type="button" data-v=""${!v?' class="on"':""}>Sin problema</button><button type="button" data-v="sospecha" class="${v==="sospecha"?"on s":""}">Sospecha</button><button type="button" data-v="alergia" class="${v==="alergia"?"on a":""}">Alergia</button></div></div>`}).join("")}
+  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${k<=i?"on":""}"></i>`).join("")}</div><h2 class="disp">${title}</h2>${h}<div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button>'}</div></div>`;
+  const o=$("ob");
+  if($("ob_nm"))$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};
+  if($("ob_bd"))$("ob_bd").oninput=e=>{OB.bd=e.target.value;$("ob_next").disabled=!(OB.bd&&OB.bd<=today())};
+  o.querySelectorAll("[data-ya]").forEach(b=>b.onclick=()=>{OB.ya=b.dataset.ya==="1";if(!OB.ya)OB.fo.clear();drawOb()});
+  if($("ob_q"))$("ob_q").oninput=e=>{OB.q=e.target.value;const p=e.target.selectionStart;drawOb();const n=$("ob_q");n.focus();n.setSelectionRange(p,p)};
+  o.querySelectorAll("button[data-f]").forEach(b=>b.onclick=()=>{const f=b.dataset.f;if(OB.fo.has(f))OB.fo.delete(f);else OB.fo.add(f);const sc=o.scrollTop;OB.open=b.closest("details").dataset.c;drawOb();o.scrollTop=sc});
+  o.querySelectorAll(".ag button").forEach(b=>b.onclick=()=>{const g=b.parentNode.dataset.g;if(b.dataset.v)OB.al[g]=b.dataset.v;else delete OB.al[g];const sc=o.scrollTop;drawOb();o.scrollTop=sc});
+  $("ob_next").onclick=()=>{if(last)return obFinish();OB.s=st[st.indexOf(i)+1];drawOb();o.scrollTop=0};
+  if($("ob_back"))$("ob_back").onclick=()=>{OB.s=st[st.indexOf(i)-1];drawOb();o.scrollTop=0};
+  if($("ob_skip"))$("ob_skip").onclick=()=>{obSkip=true;$("ob").classList.add("hide")};
+}
+function obFinish(){
+  S.nm=OB.nm.trim().slice(0,40);S.bd=OB.bd;
+  OB.fo.forEach(f=>{if(info(f)&&!S.log.some(l=>l.f===f))S.log.push({f,how:"Antes de empezar",r:"pre",d:OB.bd,pre:true})});
+  S.al={...S.al,...cleanAl(OB.al)};
+  $("ob").classList.add("hide");save();render();tab(1)}
 function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}}
 [1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
@@ -1230,7 +1280,7 @@ function buildSummary(){
     const rx=[...i.rxs.filter(r=>r.r&&r.r!==RXO[0]).map(r=>fd(r.d)+": "+r.r+(r.n?" ("+r.n+")":"")),...i.reactLog.map(l=>fd(l.d)+": "+(l.rt||"reacción")+" con "+l.f+(l.rn?" ("+l.rn+")":""))];
     return `<tr><td>${AGL[g]}</td><td>${i.tried.length?esc(i.tried.join(", ")):"No probado"}</td><td>${f?fd(f):"-"}</td><td>${rx.length?esc(rx.join("; ")):"Sin reacciones anotadas"}</td></tr>`}).join("");
   const frows=C.map(c=>{const xs=ALL.filter(x=>x.c===c[0]&&m[x.n]);if(!xs.length)return"";
-    return `<tr class="cat"><td colspan="4">${esc(c[0])}</td></tr>`+xs.map(x=>`<tr><td>${esc(x.n)}${x.a?" (alérgeno)":""}</td><td>${fd(first[x.n])}</td><td>${m[x.n].c}</td><td>${esc(RL[m[x.n].last])}</td></tr>`).join("")}).join("");
+    return `<tr class="cat"><td colspan="4">${esc(c[0])}</td></tr>`+xs.map(x=>`<tr><td>${esc(x.n)}${x.a?" (alérgeno)":""}</td><td>${isPre(x.n,first[x.n])?"Antes de empezar":fd(first[x.n])}</td><td>${m[x.n].c}</td><td>${esc(RL[m[x.n].last])}</td></tr>`).join("")}).join("");
   return `<h1>Resumen de alimentación complementaria</h1>
   <p><b>${esc(S.nm||"Bebé")}</b>${S.bd?`. Nacimiento: ${fd(S.bd)}. Edad: ${edad}.`:""}</p>
   <p>Generado el ${now}.</p>
