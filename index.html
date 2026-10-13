@@ -4,12 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Primeros alimentos</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#eeead8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d211e" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Primeros alimentos">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--onacc:#fff;
+:root{--red:#c0392b;--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--onacc:#fff;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}}
-:root[data-theme="dark"]{--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--red:#ec6b5e;--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}}
+:root[data-theme="dark"]{--red:#ec6b5e;--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.45 Montserrat,system-ui,sans-serif}
@@ -31,7 +40,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .chips button{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:5px 12px;font-size:.88rem}
 .chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
-.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
 .col{scroll-snap-align:start;background:color-mix(in srgb,var(--line) 35%,transparent);border-radius:16px;padding:10px;min-width:0}
 .ch{display:flex;align-items:center;gap:8px;margin:2px 4px 10px}
 .pill{font-weight:700;font-size:.9rem;border-radius:8px;padding:3px 10px;color:#fff}
@@ -59,6 +68,12 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
 .row:first-child{border-top:0}
 .row input{width:150px;padding:5px 8px}
+.row.lr{align-items:flex-start}
+.lr .lm{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.lr .lt{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.lr .lx{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.lr .lx input{width:128px;padding:4px 6px;font-size:.85rem;min-height:36px}
+.lr .lx .x{min-height:32px}
 .mute{color:var(--mute);font-size:.9rem}
 .x{background:none;border:0;color:var(--mute);text-decoration:underline;font-size:.85rem}
 .age{display:none}.acc{font-size:.8rem;color:var(--mute)}.kc[disabled]{opacity:.55;cursor:default}.p4{background:var(--ink);color:var(--bg)}
@@ -72,7 +87,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 24px}
 .grid h2{font-size:1.5rem;color:var(--blue);margin:0 0 2px}
 .cn{font-size:.85rem;color:var(--mute);margin:0 0 8px}
-.it{display:flex;align-items:center;gap:9px;width:100%;background:none;border:0;padding:5px 0;text-align:left}
+.it{display:flex;flex-wrap:wrap;align-items:center;gap:3px 9px;width:100%;background:none;border:0;padding:9px 0;text-align:left}
 .it svg{width:26px;height:26px;flex:none;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
 .it.done svg{fill:var(--terra);stroke:var(--terra)}
 .it[disabled]{opacity:.5;cursor:default}
@@ -87,10 +102,10 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .sheet>div{position:relative}.sheet h3{padding-right:40px}
 .xc{position:absolute;top:-4px;right:-6px;width:38px;height:38px;border:0;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}.xc:hover{background:var(--line)}
 .foot{margin-top:26px;font-size:.88rem;border-top:1px solid var(--line);padding-top:12px}
-input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;height:42px;text-align:left;display:block}
+input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;height:44px;text-align:left;display:block}
 .btn.on{background:var(--blue);color:var(--onacc)}
 .sec{font-size:1.05rem;margin:18px 0 8px;color:var(--mute);font-weight:600}
-.avatar{width:96px;height:96px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:2.4rem;color:var(--green);margin:0 auto 8px}
+.avatar{padding:0;cursor:pointer;overflow:hidden;width:96px;height:96px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:2.4rem;color:var(--green);margin:0 auto 8px}
 .prow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
 .prow:first-child{border-top:0}
 .prow>div{flex:1;min-width:0}
@@ -123,16 +138,19 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ck:hover{background:var(--line)}
 .ck input{width:auto;margin:3px 0 0;flex:none}
 .ck b{display:block;font-weight:600}.ck small{color:var(--mute);font-size:.78rem}
+#chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+#chips::-webkit-scrollbar{display:none}
+#chips button{flex:none;white-space:nowrap}
 .chips button.addb{border-style:dashed;color:var(--blue);border-color:var(--blue)}
 .col{background:none;padding:0}
 .ch h2{font-size:1.5rem;color:var(--blue);margin:0}
-.cl{gap:2px}
+.cl{gap:8px}
 .it.kb{align-items:flex-start}
 .it.kb svg{margin-top:1px}
 .kt{display:flex;flex-direction:column;gap:3px;min-width:0}
 .ct{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;border-radius:99px;padding:1px 8px;background:var(--line);width:fit-content}
 .ct .dot{width:7px;height:7px}
-.by-logo{display:block;line-height:0}
+.by-logo{display:block;line-height:0;text-decoration:none}
 .by-logo img{display:block;width:130px;height:auto}
 .aep summary{cursor:pointer;font-weight:700;color:var(--green)}
 .aep ul{margin:8px 0 0;padding-left:18px}.aep li{margin:5px 0;font-size:.88rem}
@@ -141,13 +159,81 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .aep h4{margin:12px 0 2px;font-size:.95rem;color:var(--blue)}
 .pres{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0 6px}
 .pres figure{margin:0;display:flex;gap:8px;align-items:center;background:color-mix(in srgb,var(--line) 35%,transparent);border-radius:12px;padding:6px 8px}
-.pres svg{flex:none;width:52px;height:52px}
+.pres svg{flex:none;width:46px;height:46px;color:var(--green)}
 .pres figcaption{font-size:.78rem;line-height:1.3;color:var(--mute)}
 .pres figcaption b{display:block;color:var(--ink);font-weight:600;font-size:.8rem}
-.mr{display:flex;gap:10px;align-items:center;margin:8px 0}
-.mr svg{flex:none;width:42px;height:42px}
+.why{margin:8px 0 4px;padding:8px 12px;border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 9%,transparent);border-radius:0 10px 10px 0}
+.why p{margin:3px 0;font-size:.86rem;line-height:1.4}
+.rmenu{margin:12px 0 2px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:2px solid var(--green);outline:1px solid var(--green);outline-offset:3px;text-align:left}
+.rmenu .mh{text-align:center;margin-bottom:6px}
+.rmenu .mh .disp{display:block;font-size:1.35rem;color:var(--green);line-height:1.1}
+.rmenu .mh small{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-top:3px}
+.rmenu .orn{display:flex;align-items:center;gap:8px;color:var(--green);margin:6px 0 2px}
+.rmenu .orn:before,.rmenu .orn:after{content:"";flex:1;border-top:1px solid var(--green);opacity:.5}
+.course{padding:10px 0;border-bottom:1px dotted var(--mute)}
+.course:last-of-type{border-bottom:0}
+.course .cl{display:flex;align-items:baseline;gap:8px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:700}
+.course .cl:after{content:"";flex:1;border-top:2px dotted var(--line)}
+.course .cl i{font-style:normal;color:var(--green)}
+#shp figure{cursor:pointer;border:2px solid transparent}
+#shp figure.sel{border-color:var(--green)}
+#shp .ph{font-size:.8rem;color:var(--mute);margin:0 0 -2px}
+.mr{display:flex;gap:10px;align-items:center;margin:4px 0 6px}
+.mr .dn{font-weight:700;font-size:.98rem;line-height:1.25}
+.mr em{font-style:italic;font-size:.82rem;color:var(--mute)}
+.mk{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mt{border:1.5px solid var(--green);background:transparent;color:var(--green);border-radius:99px;padding:6px 12px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:36px}
+.mt.on{background:var(--green);color:var(--onacc)}
+.fb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;font-size:.78rem;color:var(--mute)}
+.fb button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 10px;font:600 .76rem Montserrat,sans-serif;cursor:pointer;min-height:34px;display:inline-flex;align-items:center;gap:5px}
+.fb button:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c)}
+.fb button[data-v=love]{--c:#4a8760}.fb button[data-v=meh]{--c:#e0b030}.fb button[data-v=no]{--c:#c0392b}
+.fb button.on{border-color:var(--ink);background:color-mix(in srgb,var(--line) 60%,transparent)}
+.rmenu .foot{text-align:center;font-size:.76rem;color:var(--mute);margin:6px 0 0;font-style:italic}
+#fph{margin:10px 0 2px}#fph_pv{display:flex;align-items:center;gap:12px}#fph_img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.row .rph{width:56px;height:56px;object-fit:cover;border-radius:10px;display:block;margin-top:6px}
+.tag.ok{background:var(--green);color:var(--onacc);font-weight:600}
+.risk{margin:8px 0;padding:10px 12px 10px 14px;border-radius:12px;border:1.5px solid var(--terra);border-left-width:6px;background:color-mix(in srgb,var(--terra) 10%,transparent)}
+.risk b{display:block;color:var(--terra);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.risk p{margin:2px 0;font-size:.88rem;line-height:1.4}
+.card.danger{border:1.5px solid var(--red);padding-top:4px;padding-bottom:4px}
+.dg{border:2px solid var(--red);background:transparent;color:var(--red);border-radius:99px;padding:8px 16px;font:700 .85rem Montserrat,sans-serif;cursor:pointer;min-height:40px;flex:none}
+.sheet.danger{border-top-color:var(--red)}
+.btn.rd{background:var(--red);border-color:var(--red);color:#fff}
+.btn.rd:disabled{opacity:.4}
+.ob{position:fixed;inset:0;z-index:40;background:var(--bg);overflow-y:auto;padding:calc(18px + env(safe-area-inset-top,0px)) 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.ob>div{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:14px}
+.ob h2{margin:6px 0 0;font-size:1.7rem;color:var(--green);line-height:1.1}
+.ob .dots{display:flex;gap:6px;justify-content:center}.ob .dots i{width:26px;height:5px;border-radius:9px;background:var(--line)}.ob .dots i.on{background:var(--green)}
+.ob input[type=text],.ob input[type=date],.ob input[type=search]{width:100%}
+.ob .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:10px 0}
+.ob .mid.top{justify-content:flex-start}
+.ob .mid>h2{text-align:center}
+.ob .mid input{text-align:center}
+.ob .mid input[type=search]{text-align:left}
+.ob .mid>p{text-align:center}
+.ob .big{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ob .big button,.ob .ag button{min-height:52px}
+.ob .arow{padding:10px 0;border-bottom:1px solid var(--line)}
+.ob .arow b{display:block;margin-bottom:6px}
+.ob .ag{display:flex;flex-wrap:wrap;gap:6px}
+.ob .ag button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 12px;font:600 .8rem Montserrat,sans-serif;min-height:40px;cursor:pointer}
+.ob .ag button.on{background:var(--green);color:var(--onacc);border-color:var(--green)}
+.ob .ag button.on.s{background:#e3b422;color:#222;border-color:#e3b422}.ob .ag button.on.a{background:#111;color:#fff;border-color:#111}
+.ob .foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:10px}
+.ob .skip{background:none;border:0;color:var(--mute);text-decoration:underline;font:inherit;cursor:pointer;min-height:40px}
+details.grp{border-bottom:1px solid var(--line)}
+details.grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 2px;min-height:48px}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary .disp{margin:0;flex:1;font-size:1.15rem}
+details.grp>summary .gc{font-size:.78rem;color:var(--mute);font-weight:600}
+details.grp>summary:after{content:"";width:9px;height:9px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .15s;margin:0 4px 4px 0}
+details.grp[open]>summary:after{transform:rotate(-135deg);margin:4px 4px 0 0}
+details.grp .gb{padding:0 0 12px}
+#lst:has(details.grp){display:block}
+.mr svg{flex:none;width:38px;height:38px;color:var(--green)}
 .mr p{margin:0}
-.sheet{max-height:88vh;overflow-y:auto}
+.sheet{max-height:88vh;max-height:88dvh;overflow-y:auto;overscroll-behavior:contain;z-index:12}
 #v2>.card{max-width:none}
 #days{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:12px;align-items:start}
 #days>p,#days>.btns{grid-column:1/-1;margin:0}
@@ -163,7 +249,108 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .tk .gb .btn{margin-top:10px;max-width:220px}
 .tk .rxl{margin:6px 0;padding:8px 10px;border-radius:10px;background:color-mix(in srgb,var(--line) 40%,transparent);font-size:.88rem}
 .tk .rxl p{margin:3px 0}
+.tkc{padding-bottom:6px}
+.tkh{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.tkh h3{margin:0;font-size:1.6rem;color:var(--blue);line-height:1.1}
+.tkn{font-weight:700;font-size:.9rem;color:var(--mute)}
+.tkbar{height:7px;border-radius:9px;background:var(--line);margin:10px 0 8px;overflow:hidden}.tkbar i{display:block;height:100%;background:var(--green);border-radius:9px;width:0}
+details.rxa{margin:8px 0 10px;border:1.5px solid var(--terra);border-radius:12px;padding:0 12px;background:color-mix(in srgb,var(--terra) 8%,transparent)}
+details.rxa summary{color:var(--terra);padding:10px 0;min-height:44px;display:flex;align-items:center}
+details.rxa[open] summary{border-bottom:1px solid color-mix(in srgb,var(--terra) 30%,transparent);margin-bottom:6px}
+.tkc #tk{display:block}
+.tkc details.g{background:none;border:0;border-top:1px solid var(--line);border-radius:0;margin:0}
+.tkc details.g summary{padding:14px 2px;min-height:52px}
+.tkc details.g summary b{flex:1;font-size:1.02rem}
+.tkc details.g summary:after{content:"";width:9px;height:9px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .15s;margin:0 4px 4px 4px}
+.tkc details.g[open] summary:after{transform:rotate(-135deg);margin:4px 4px 0 4px}
+.tkc .gb{padding:0 2px 14px}
 .tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:8px;align-items:start}
+.info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
+.pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avw{position:relative;width:96px;margin:0 auto 8px}
+.avw .avatar{margin:0}
+.phe{position:absolute;top:-2px;right:-8px;width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--blue);display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.phm{display:flex;justify-content:center;gap:16px;margin:0 0 8px}
+#progcard{padding:10px 16px 14px}
+.pc{margin:0;font-size:.85rem;color:var(--mute)}
+.pb{position:relative;height:46px;margin:6px 22px 0}
+.pb .t,.pb .f{position:absolute;left:0;top:50%;height:7px;margin-top:-3.5px;border-radius:4px}
+.pb .t{right:0;background:var(--line)}
+.pb .f{background:var(--green)}
+.ps{position:absolute;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;display:flex;align-items:center;justify-content:center}
+.ps svg{position:absolute;inset:0;width:100%;height:100%}
+.ps polygon{fill:var(--line);stroke:var(--mute);stroke-opacity:.45;stroke-width:2;stroke-linejoin:round}
+.ps.on polygon{fill:var(--terra);stroke:none}
+.ps.gold.on polygon{fill:#d0a14f}
+.ps b{position:relative;margin-top:3px;font-size:.72rem;font-weight:700;color:var(--mute)}
+.ps.on b{color:#fff}
+.subt{display:flex;gap:24px;border-bottom:1.5px solid var(--line);margin:0 2px 14px;overflow-x:auto}
+.subt .st{background:none;border:0;border-bottom:3px solid transparent;border-radius:0;padding:8px 2px 9px;margin-bottom:-1.5px;font-weight:600;font-size:.95rem;color:var(--mute);white-space:nowrap}
+.subt .st.on{color:var(--blue);border-bottom-color:var(--blue);font-weight:700}
+.shcols{column-width:250px;column-gap:28px}
+.shc{break-inside:avoid;margin-bottom:6px}
+.sh{margin:12px 0 2px;font-size:.95rem;color:var(--blue)}
+.sl{display:flex;align-items:center;gap:10px;padding:7px 2px;border-top:1px solid var(--line);cursor:pointer}
+.sl input{width:20px;height:20px;margin:0;flex:none}
+.sl .mute{margin-left:auto;font-size:.8rem}
+.sl input:checked~span{text-decoration:line-through;opacity:.5}
+#fam{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:12px;align-items:start}
+#fam .card{margin:0}
+.rxq b{display:block;margin-top:10px;font-size:.95rem}
+.rxg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.rxg button{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;font-weight:600;font-size:.88rem}
+.rxg button.on{background:var(--blue);color:var(--onacc);border-color:var(--blue)}
+.rxg.sm{margin:4px 0 6px}.rxg.sm button{padding:4px 10px;font-size:.76rem}
+.rr>span{font-size:.9rem;font-weight:600}
+#rest{margin-top:10px;padding-top:6px;border-top:1px solid var(--line)}
+#rest p{margin:2px 0 4px}
+.btn:disabled{opacity:.45;cursor:default}
+.dip{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30;display:flex;justify-content:center;align-items:flex-start;overflow:auto;padding:18px}
+.dipb{position:relative;background:var(--card);border-radius:18px;padding:12px;width:min(94vw,540px)}
+#dipc{display:block;width:100%;height:auto;border-radius:10px}
+.dipb .xc{top:14px;right:14px;background:var(--card)}
+html{-webkit-text-size-adjust:100%}
+button,summary,.it,.kc,.sl{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+input,select,textarea{font-size:16px;min-height:44px}
+input[type=checkbox]{min-height:0}
+.tabs svg{display:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ms summary{min-height:44px;display:flex;align-items:center}
+body:has(.sheet:not(.hide)){overflow:hidden}
+body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:11}
+@media (max-width:700px),(pointer:coarse){
+  .chips button{min-height:40px;padding:8px 14px}
+  .btn{min-height:46px}
+  .it{min-height:48px}
+  .it.kb{padding:10px 0}
+  .vt button{min-height:44px;min-width:52px;justify-content:center;align-items:center}
+  .calh .x{min-width:44px;min-height:44px}
+  .x{padding:10px 6px;min-height:44px}
+  .aep>summary,.tk summary{min-height:44px;display:flex;align-items:center}
+  .pen{width:44px;height:44px}
+  .phe{width:38px;height:38px}.phe::after{content:"";position:absolute;inset:-6px}
+  .info{width:28px;height:28px;position:relative}.info::after{content:"";position:absolute;inset:-8px}
+  .rxg button{min-height:44px}.rxg.sm button{min-height:38px;padding:6px 12px}
+  .sl{min-height:48px}
+  .ck{min-height:46px}
+  .by-logo{min-height:44px;display:flex;align-items:center}
+  .xc{width:44px;height:44px}
+  .cd{min-height:52px}
+}
+@media (max-width:700px){
+  main{padding:8px max(14px,env(safe-area-inset-left)) calc(96px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-right))}
+  .hero .logo{width:min(300px,76%);margin-top:0}
+  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;margin:0;gap:2px;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--card) 92%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:var(--mute);border-radius:14px;padding:6px 2px;min-height:54px;font-size:.7rem;font-weight:600}
+  .tabs button svg{display:block;width:24px;height:24px}
+  .tabs button.on{background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue)}
+  .board{grid-auto-columns:min(62vw,250px);gap:4px}
+  .sheet{max-height:92vh;max-height:92dvh}
+}
+.rc-pre{background:#9a9a8c}.rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.tag .dot{width:7px;height:7px;margin-right:3px}
 #sumprint{display:none}
 @media print{
   @page{margin:14mm}
@@ -210,7 +397,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="t1" class="on">Tablero</button><button id="t2">Plan</button><button id="t3">Registro</button><button id="t5">Tracking</button><button id="t4">Perfil</button></div>
+<div class="tabs"><button id="t1" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg><span>Tablero</span></button><button id="t2"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
 
 <section id="v1">
   <div class="tools">
@@ -220,82 +407,108 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
         <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
       </div></div>
     <div class="chips" id="chips"></div>
-    <div class="mute" id="prog"></div>
   </div>
   <div class="board" id="board"></div>
   <div class="grid" id="lst"></div>
 </section>
 <section id="v2" class="hide">
+  <div class="subt" role="tablist"><button class="st on" id="p1">Menú</button><button class="st" id="p2">Compra</button><button class="st" id="p3">Para papis</button></div>
+  <div id="pv1">
   <div class="card">
     <h3 class="sec" style="margin-top:0">Tu plan</h3>
     <div class="pf">
-      <label>Dieta<select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
+      <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
-      <label>Duración<select id="pf_days"><option value="7">7 días</option><option value="14">14 días</option><option value="30">1 mes</option><option value="0">Indefinido</option></select></label>
       <div class="fl"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
     </div>
+    <p class="pop hide" id="dpop"></p>
     <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
   </div>
   <details class="card aep"><summary>Pautas de la AEP y de la OMS</summary>
-    <h4>Asociación Española de Pediatría (2018)</h4>
+    <h4>Cuándo empezar</h4>
     <ul>
-      <li>Empezar hacia los 6 meses (26 semanas), nunca antes de los 4, y no retrasarlo más allá del séptimo mes. La leche (materna o de fórmula) sigue siendo el alimento principal hasta los 12 meses y se mantiene a demanda.</li>
+      <li>Hacia los 6 meses (26 semanas), nunca antes de los 4 y sin retrasarlo más allá del séptimo mes. La lactancia puede seguir hasta los 2 años o más.</li>
       <li>Señales de que está listo: interés por la comida, ya no empuja con la lengua los alimentos no líquidos, coge comida y se la lleva a la boca, y se mantiene sentado con apoyo.</li>
-      <li>Alimentos nuevos de uno en uno, con unos días de intervalo, para ver cómo los tolera. Sin sal, azúcar ni edulcorantes.</li>
-      <li>Dar prioridad a los alimentos ricos en hierro y zinc (carne roja, legumbres, huevo) y ofrecer proteína cada día, de forma variada.</li>
-      <li>No hace falta retrasar los alérgenos: se pueden introducir hacia los 6 meses, de uno en uno y en poca cantidad. El gluten, entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.</li>
-      <li>Texturas grumosas lo antes posible, nunca más tarde de los 8 o 9 meses. Como orientación, 4 o 5 tomas al día.</li>
+      <li>La leche (materna o de fórmula) sigue siendo el alimento principal hasta los 12 meses y se mantiene a demanda. Se puede empezar con 2 tomas de comida al día y subir hasta 4 o 5 hacia los 12 meses. A los 6 a 8 meses la comida aporta entre el 20 y el 30% de la energía.</li>
+    </ul>
+    <h4>Qué ofrecer</h4>
+    <ul>
+      <li>Un alimento nuevo cada vez, dejando unos días entre uno y otro, para ver cómo lo tolera.</li>
+      <li>Prioridad a los alimentos ricos en hierro y zinc (carne roja, legumbres, huevo), y proteína cada día, de forma variada. El hierro se cubre con dos porciones diarias de alimentos proteicos o cereales enriquecidos, y la vitamina C ayuda a absorberlo.</li>
+      <li>Dieta variada. Sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la vitamina B12 a los 6 a 8 meses: consúltalo con tu pediatra. En la alimentación vegana estricta, la B12 necesita suplemento.</li>
+      <li>Vitamina D, 400 UI al día hasta los 12 meses. Consúltalo con tu pediatra.</li>
+      <li>No hace falta retrasar los alérgenos: se pueden introducir hacia los 6 meses, uno cada vez y en poca cantidad. El gluten, entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.</li>
+      <li>Texturas grumosas lo antes posible, nunca más tarde de los 8 o 9 meses.</li>
+    </ul>
+    <h4>Cómo ofrecerlo</h4>
+    <ul>
+      <li>Sin sal, azúcar ni edulcorantes.</li>
       <li>Un rechazo inicial no es definitivo: pueden hacer falta hasta 10 o 15 intentos, sin presionar.</li>
-      <li>En el primer año evitar acelga, espinaca y borraja (nitratos), sal, miel, azúcares, zumos, y pescados grandes como atún, pez espada, emperador, cazón y tintorera (mercurio). Yogur natural y queso desde los 9 meses, leche de vaca entera desde los 12. Azúcares, miel, cacao, bollería, galletas y embutidos, siempre a partir de los 12 meses y cuanto más tarde mejor.</li>
-      <li>Seguridad: sentado y erguido, nunca recostado ni solo. Nada de frutos secos enteros, palomitas, uvas enteras, salchichas en rodajas, ni manzana o zanahoria crudas. Los sólidos con riesgo de atragantamiento, por encima de los 3 años.</li>
-      <li>Prematuros: no hay pautas claras, se individualiza. Una edad corregida de 6 meses puede ser apropiada, y se prioriza el hierro. El baby-led weaning no se recomienda con fallo de medro ni dificultades neurológicas o motoras.</li>
-      <li>Los padres deciden qué, cuándo y dónde. El bebé decide cuánto. Sin pantallas ni distracciones.</li>
+      <li>Los padres deciden qué, cuándo y dónde, y el bebé decide cuánto. Atender sus señales de hambre y saciedad, sin pantallas ni distracciones.</li>
     </ul>
-    <h4>Organización Mundial de la Salud (2023)</h4>
+    <h4>Qué evitar</h4>
     <ul>
-      <li>Empezar a los 6 meses (180 días) sin dejar la lactancia, que puede seguir hasta los 2 años o más.</li>
-      <li>Dieta variada. Cuando se excluyen los alimentos de origen animal, a los 6 a 8 meses es difícil cubrir el hierro, el zinc y la vitamina B12.</li>
-      <li>Evitar alimentos y bebidas con mucho azúcar, sal, grasas trans y edulcorantes, incluidas las bebidas azucaradas.</li>
-      <li>Alimentación perceptiva: atender las señales de hambre y saciedad.</li>
-      <li>La guía no cubre a bebés prematuros ni con enfermedades graves.</li>
+      <li>En el primer año: acelga, espinaca y borraja (nitratos), zumos, bebidas azucaradas y grasas trans, y pescados grandes como atún, pez espada, emperador, cazón y tintorera (mercurio).</li>
+      <li>Azúcares, miel, cacao, bollería, galletas y embutidos, siempre a partir de los 12 meses y cuanto más tarde mejor.</li>
+      <li>Arroz y productos de arroz (tortitas, galletas, bebida de arroz): contienen arsénico inorgánico. La bebida de arroz, evitarla. El arroz, solo de vez en cuando y alternando con otros cereales. Por eso la app no lo programa en el plan.</li>
+      <li>Cabeza de las gambas y de otros crustáceos, por el cadmio. Acelgas y espinacas, como máximo una ración al día entre 1 y 3 años.</li>
+      <li>Yogur natural y queso, desde los 9 meses. Leche de vaca entera, desde los 12.</li>
     </ul>
-    <h4>Otra fuente: Pediatría Integral (2025)</h4>
+    <h4>Seguridad</h4>
     <ul>
-      <li>Vitamina D, 400 UI al día hasta los 12 meses. Vitamina B12 si la alimentación es vegana estricta. Consúltalo con tu pediatra.</li>
-      <li>El hierro se cubre con dos porciones diarias de alimentos proteicos o cereales enriquecidos.</li>
-      <li>La vitamina C favorece la absorción del hierro (guía de bolsillo de la ESPGHAN, publicada en la web de la AEP).</li>
-      <li>No retrasar los sólidos más allá del octavo mes.</li>
-      <li>Se puede empezar con 2 tomas de comida al día y subir hasta 4 o 5 hacia los 12 meses. A los 6 a 8 meses la comida aporta entre el 20 y el 30% de la energía y el resto es leche.</li>
+      <li>Sentado y erguido, nunca recostado ni solo. Nada de frutos secos enteros, palomitas, uvas enteras, salchichas en rodajas, ni manzana o zanahoria crudas. Los sólidos con riesgo de atragantamiento, por encima de los 3 años.</li>
     </ul>
-    <p class="mute">Fuentes: Recomendaciones de la AEP sobre alimentación complementaria (Comités de Nutrición y de Lactancia Materna, noviembre de 2018), Guía de la OMS sobre alimentación complementaria de 6 a 23 meses (octubre de 2023) y Pediatría Integral, marzo de 2025 (SEPEAP, no es un documento de la AEP). Los objetivos de fibra, omega-3 y calcio vienen de ese artículo de 2025. No sustituye el consejo de tu pediatra.</p>
+    <h4>Casos especiales</h4>
+    <ul>
+      <li>Prematuros: no hay pautas claras y se individualiza. Una edad corregida de 6 meses puede ser apropiada, y se prioriza el hierro. La guía de la OMS no los cubre.</li>
+      <li>El baby-led weaning no se recomienda con fallo de medro ni dificultades neurológicas o motoras.</li>
+    </ul>
+    <h4>Fuentes</h4>
+    <ul>
+      <li><b>AEP, noviembre de 2018.</b> Recomendaciones de la Asociación Española de Pediatría sobre alimentación complementaria (Comités de Nutrición y de Lactancia Materna). Es la base de casi todas estas pautas.</li>
+      <li><b>OMS, octubre de 2023.</b> Guía sobre alimentación complementaria de 6 a 23 meses. Aporta, entre otras, la falta de hierro, zinc y B12 sin alimentos de origen animal y evitar bebidas azucaradas y grasas trans.</li>
+      <li><b>Pediatría Integral, marzo de 2025</b> (SEPEAP, no es un documento de la AEP). Aporta la vitamina D, la B12 vegana, el hierro, el número de tomas y los objetivos de fibra, omega-3 y calcio.</li>
+      <li><b>Guía de bolsillo de la ESPGHAN</b>, publicada en la web de la AEP. Aporta la vitamina C para absorber el hierro.</li>
+      <li><b>AESAN</b> (Agencia Española de Seguridad Alimentaria y Nutrición). Aporta los pescados grandes en menores de 3 años, la cabeza de los crustáceos, y las acelgas y espinacas.</li>
+      <li><b>Comité de Nutrición de la ESPGHAN y normativa europea sobre arsénico en el arroz.</b> Aporta lo del arroz y sus productos.</li>
+    </ul>
+    <p class="mute">No sustituye el consejo de tu pediatra.</p>
   </details>
   <div id="days"></div>
+  </div>
+  <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><p class="mute">Lo que necesitas para los días del menú que tienes abierto. Marca lo que ya tienes en casa.</p><div id="shop"></div></div></div>
+  <div id="pv3" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Platos para los papis</h3><p class="mute">Platos que se hacen con lo mismo que come el bebé, para cocinar una vez y no comprar de más. Primero se aparta la ración del bebé, sin sal.</p></div><div id="fam"></div></div>
 </section>
-<section id="v3" class="hide"><div class="card">
+<section id="v3" class="hide"><div class="card" id="progcard"><div id="prog"></div></div>
+<div class="card">
   <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Lista</button></div>
+  <div class="leg"><span><i class="dot rc-love"></i>Le encantó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>Hoy no</span><span><i class="dot rc-react"></i>Reacción o alergia</span></div>
   <div id="cal"></div>
   <div id="log" class="hide"></div>
-</div></section>
-<section id="v5" class="hide tk">
-  <div class="card">
-    <h3 class="sec" style="margin-top:0">Tracking de alérgenos</h3>
+</div>
+<div class="tk" id="tkwrap">
+  <div class="card tkc">
+    <div class="tkh"><h3 class="disp">Alérgenos</h3><span class="tkn" id="tk_n"></span></div>
+    <div class="tkbar" aria-hidden="true"><i id="tk_b"></i></div>
     <p class="mute" id="tk_sum"></p>
-    <details class="aep"><summary>Qué hacer si hay una reacción</summary>
+    <details class="aep rxa"><summary>Qué hacer si hay una reacción</summary>
       <ul>
         <li>Deja de ofrecer ese alimento y no lo repitas hasta hablarlo con tu pediatra.</li>
-        <li>Anota qué pasó, cuánto tardó en aparecer y cuánto duró. Lo puedes guardar aquí abajo, en el alérgeno que corresponda.</li>
+        <li>Anota qué pasó, cuánto tardó en aparecer y cuánto duró, en el alérgeno que corresponda.</li>
         <li>Avisa a tu pediatra, aunque haya sido leve.</li>
         <li><b>Llama al 112 o ve a urgencias</b> si hay dificultad para respirar, hinchazón de labios, cara o lengua, vómitos repetidos, o si el bebé está muy decaído o muy pálido.</li>
         <li>Si tu pediatra confirma una alergia, márcala en el alérgeno (Estado). Se guarda en el perfil y esos alimentos dejan de salir en el plan.</li>
       </ul>
       <p class="mute">Orientación general, no sustituye la valoración de tu pediatra.</p>
     </details>
+    <div id="tk"></div>
   </div>
-  <div class="tkgrid" id="tk"></div>
+</div>
 </section>
+
 <section id="v4" class="hide">
-  <div style="text-align:center;margin:6px 0 14px"><div class="avatar disp" id="av"></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
+  <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec">Detalles del bebé</h3>
   <div class="card">
     <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
@@ -311,19 +524,21 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
     <div class="prow"><div><div class="lab">Empezar antes de los 6 meses</div><div class="val" id="vearly"></div><div class="mute">Solo si tu pediatra lo ha indicado. La AEP admite individualizarlo a partir de las 17 semanas.</div></div><button class="btn" id="tg_early" style="flex:none;padding:8px 14px">Cambiar</button></div>
     <div class="prow"><div><div class="lab">Agarre en pinza</div><div class="val" id="vpinza"></div><div class="mute">Cambia las imágenes de trozos grandes a trocitos. Por defecto, desde los 9 meses.</div></div><button class="btn" id="tg_pinza" style="flex:none;padding:8px 14px">Cambiar</button></div>
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
-    <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div><div class="mute">Se anotan en Tracking. Los alimentos con un alérgeno marcado no salen en el plan.</div></div><button class="btn" id="go_tk" style="flex:none;padding:8px 14px">Ver</button></div>
+    <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div><div class="mute">Se anotan en Registro, en Alérgenos. Los alimentos con un alérgeno marcado no salen en el plan.</div></div><button class="btn" id="go_tk" style="flex:none;padding:8px 14px">Ver</button></div>
     <div class="prow"><div><div class="lab">Resumen para pediatra y guardería</div><div class="mute">Alimentos probados, alérgenos y reacciones, en una hoja para imprimir o guardar en PDF.</div></div><button class="btn p" id="exp" style="flex:none;padding:8px 14px">Exportar</button></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
-  <p style="margin:0"><button class="x" id="bdel">Eliminar este perfil</button></p>
   <div class="btns" style="max-width:260px;margin:18px 0 0"><button class="btn" id="so">Cerrar sesión</button></div>
+  <h3 class="sec" style="color:var(--red)">Zona de peligro</h3>
+  <div class="card danger">
+    <div class="prow" style="border-top:0"><div><div class="lab">Eliminar perfil</div><div class="mute" id="bdel_t">Borra todo lo anotado de este bebé. No se puede deshacer.</div></div><button class="dg" id="bdel">Eliminar</button></div>
+    <div class="prow"><div><div class="lab">Eliminar mi cuenta</div><div class="mute">Borra tu cuenta y todos los perfiles. No se puede deshacer.</div></div><button class="dg" id="adel">Eliminar</button></div>
+  </div>
 </section>
 
 <footer class="foot">
-<p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
-<p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no molido, triturado o en crema.</p>
-<p class="mute">Los alimentos se desbloquean según los meses del bebé con una guía orientativa. Esta app no es consejo médico: consulta con tu pediatra los alérgenos, la edad de cada alimento y cualquier reacción.</p>
-<div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAACXBAMAAAABozhgAAAAGFBMVEUAAACLjtSSlNyKjNKKjdF9ffgAAAAAAACj0cqDAAAABnRSTlMA+xigXQOLizZuAAAR3UlEQVR42u2b/3MTd3rHX/uRtzIJtrSGTMwB1kcrcwMpsSQg19zlktim1/6QFjZu/FdmhnoyyfSm17gk6aW5OWLEwYEbg1lIDA7Y0mI7tozQbn/47K529Q3LKJlOJztjj/b7s8/35/08H/h5+3n7f7NZQlr/B8gQL3a79kLvdvWMZHn5J/3g2fjuQNEwDOOcjPJB1y35o3FBrwFIO9iX3w353BiyI5wJ/u11S/Rw7YVvzht/69rWor+/MeGoH96z7YBK1xsvHjq5rLs/kvIXDcM4NI2QgA5TRridUTppIc4bhmGcw/oxBKHXiorduTWb2Q/h/ELkbHEe/b05RF5dk134UXQh6wTizs+DmSnFzubWbPRMqBR52+4/CSIV+S3d1jeYRA4mntT6T0JiuN3RXJkmdvhbqjDXbxJktt2bsgug/7bdmfaEvRAJUTk0OLMGei3QwfipsttvvyCSQI6Xd6LH3q46uHhryejBwu6oA96rk4t9IEE6VlU9yPom74C4Uyk/PemELxv6Sv2+sNUgLFe/WllLAk9vKDbMLmrv396vpwpcvRSQNQzDGIEZ3/k0hYYPiurYoWkEyKJhGMYkIGdfTBf0dxwtvezaSvGB/GVlfdmyLbLD81hzYWAQZmoZ07htCzdwIeLMH4CZklkhNb9PEqZKygcYVJYBxDoAJ5bU6ZlLUe+tqNHlEsCAil+5tH9nV2/ZmQTdbXYE2bGIqc8stJqBfnw5Rn3UTdj74UIvj3muH+viJjpbhHCamdCDXl80VuMHtrb3wQVfnhE3ZM3t3Zqa76ayDxKaedmDGACZKO/19s7Zrxs7K871RAH374w0Zzz7S8CPG4fOmAC5oT/0Vi643DkkAcyzRiq9T9/4vmEYBQBhmifQe75/BkzTlKBc6+Q+LGK3CunByarjVSpl8+3FXkm4BZVKxUH+7qZRhVG754+QU4ZhTEoAS98nI3W/7sgGDO3RIop2L6lPV0qepUEr9yoIkdgBBr/qT9GZBLHTk0VY0nLfBoTdFwoSHuC+0c0w29lvzs8P+lMEFQ3DMFT6IWafJwhrcZGZ2pnsMkBm0OkLCYsHqsDu6ddIOd5Na7GrOuq84zRq9cNLfQIgtOFGBdKSvjSRYD2JBNXOStwzDdEcuzl9iQtC/yYa0PI4fSLBO1Bt7GwcK3chwc1ELk0sVvrFBb3SyLvxTsQ/rckoIwFFHBzrGy5Qu3A9svcXu5suGBExfL6v5F/vUM7myp10rMkoD4R3uCVvXx/cie7KsVcD9ieqsUcPtFHfbHqZK/vluem2d6kzlzCF9Mo2uF3ZWwyThH1SkDMOdw0FU61Ot+lVDnBfN3X2WwQOU5/sJCFdSBxgoqtrSgz3BJC0fKkY6u7RRKo1k23iguf/7dsHPS+HARL3uwrCBdg3E9TtY51Dck20sRlBXzcv7t7aq2SiKwnx3Rkr+IecFYCpz6hk0gJQO/49EkCMFUhcnoMToJBo/UTwr/GOrlzWhWEYh0QjeTFN0K3usgWhcnUsEH8vW8HA8EJdGIZxWHSzCKENKwxLbeNDNiK7ZoOZdbQ1W0xXtIOXYTzjDF1mPKWtFeawPs4vg5maB8YzTmoeEFML/hExteBjpQ2LqHQhYebSVCliVL5bF0MMrAPZUt4GMbI0VQKx/i/zkHhS072hMA3IlYF8mo+H/CN6vRkQLtothX5MNW598N9Axq/LB3zV9Z49yDjA5nYV8PStCuC9ueqA98rkzbzv+p3RDQ/g0dVvfIR+Y2es4Cdpzpv+r1OrsPlqx2Atcp9GArZ1HEgcAuoyDeAp7ZOKsk0bIP3JgA3CkEA6wMcytnquWzhTAooF4C+fqHM24G5Oo8t2XBgfewggbqndk7sOTJQGgZNfJAHx9SkHGM0bq6FAN37IVIEHRxzY2P5+ENB2ASa+BzauJUHc1KqQ2PKhjiTgrZ4esJu5IBDn19VRz9fej2w/ZoCtRcKwPWc3I4OCNOD6+b8GiM8BaCQ9rv/U99XX39mcDitlnwT3g3ygMBPvReztOzcNwv5nAFfYgFhRkkpEisT65BdAmhLA2Fhcy93f3QPGfGfwoa8G7tVzR+OCGFgJ84mbi34JNAh4Bx+89VJ98loVkI+TgNhiF2D42iCQeXN3FXj8ysEj8irFVUBqDri1JKANVoEHf3f71EiYNW8MBjlMzYeIFbn66ZC5Kfyf+kEfYgrAt/wXw4BWFilArGcdIG9rjjJcO3jKkxSQMUpA/p76MB8yVVp+PQyk2matIYhjIQXFleBnTXG6fhhLqYQ9BpDThQoGaQDbVmHP3ZQWdTt84LclQKS/VY+6FkkhPrkTStB7qyEIIX0xiMJ8GMf0ewpf9177T1EFxMPiKnB8WUsC2m4VYFWg0nOvdlWIJCB2k0HQnvj92CnlYx43PIGLfTQoste2Qy5o/pfnhuYb5lp75juIuwru1nxeKDUfEypFcV0/PXcLltewGxORS1227M/8kxtRG7rjV7jUZUjCO4oFxSsrNAzu/FnPZ1naf7atSJCNY547fnbKTwXvX1K0eQDr765fsfn4bGFTtsQB21q+esh/suULYuYrgOzEv8lGyqVr5Upt6VeryvVWgcyjQUDsYDhANV0FvKdu5cEvl5IAiW1lEN8mgdHLILx3bzm/vJEE8KrRQlt3y0/fXAU2briQAP3WIJBdWIzWWa6s4r3xuRL0gSqw8WoVENtRxZCPk/Bo+0gV0HYUbRtJYOuokxt7yYatrVoSoBpPrqxb9q9XQWwpQdQ1QCw0QQ8S+MuYAyAlgOco0qKKsZEBNPEtgKY8l1KG+lpq3RZAfVa0S87mdPkF4CrfqioLT3wYr/LtIKjEMzFtI6J0pLKNnWeW0mw30GixDPDnuqKvOYu0/0lGvGO2CplkvJBf3ExC4hcVQNzSGmz0vNEq4FWPOIBTrYL3i4lVoPDvSUBsExby/6A58FpmFVARMP6GU6twEgfhg0vpJlxQ94D6OsBxodxPDoAzjqoD0wBiogBUSkDi8jsA3qx+L6hq5jaAq6V2jYWAxY6K6yXZLt12N4PcqeRelEDiigQSd5VF8zlAZu4zGUABiRKA+/johWmVKK0QOsLXu0F3CUgbq1BtQRjdp79JOpjyj9birUevVXLPJv8riRg6pxmGYYz86tZbD8l9zcXP3zpQQZj1FU4ZhmEYD+07N44dqYjClxcWsY8dqSBMt9Tu1ZtJcKoNqFe2zflnZAzIF2YsMzZDCIsoTK6rGyxlVvEEPgauNircDiSg4pEO+GmWiCX0MgpUBjuWAEwrAqICVtsqQE8YhpFWnlNmS/1Am/VMSvUjc+VGGdBt09IqmU6Ao1Xh5O9fFNebeFiprI46iIzjvbkX5DhbhfSgE7otR+69TdCWByraphVwvRew0JJA2lYhTEuD5rzgDI5qyWVKJIYDZ/6czUDJX/i67+0V4TtvnGl7/FjheYyKV8y+p5tTWu4BbEnMPXAvscC9tk0aP5xINPYiiEtiGEj4qV7NlUB9c3q5A/WWFdi9+GgCqMMMEtClVMd1fdbPqWxcqZ4MM5zoqLzjKTsIcBqE40K5tQ6K3BjgyZWjlXcU7fTzakBM/8fz+rrj/vBR3vbVMezuivx863SaXvNr/JWaScqGxEGb8RRDlzGzTmoerBsptNIQkCi74xln5FMX4YrpTnMLYsqvKtQ0ghaW3D4jWlyUtbng1/jBVB15rQRiKFFWNYJIAeYyoJX9+n6Ogddt4gN4oe2EQUvBCBrERhVauRzgB2hPgqvOLADkr6nHRHoY3kbKT7ACxrY6ykZvwqcvAeB6vw56/d7Jpq7/hVdXIWHsAKNBLvJ0B2DQcIDE9u0GalJQyY3YEeEQYAAshPba2B+74zZqSv1OSMPmP8ZvWXwCDN9PAsnvBwHOjqoqX/5pEBDb764CxqgDVPNPqsDAtlwFzv2NA4+uxpm6ERKcvepGyloX+62HAWwXZ8NAEjipupZbSUD89a71xAGqm0mAXQfQHuwCrC4aVeD4IwBx44gDie1WpqrC7Uu/TxbECPlpEK+/a6PDN24XILGiVOIECmGwI2XVhMqTdZVsp99vILFNeOxHpbBwm52LoywOlfUjOwDeaBwJSgLea3/6zUvPyloScB/oqKJGlRJ5O+SI2HJULTG4CmRWdwEt3qUVScWCP/7g3mzBmvTa7SeFFgfvT5DeLXx6ZUVVk9KqxWpMBxC2n9qr/u5KCSDdBtm1VHX+9rystYG7asy4nwGU4mmsoujuGd7zq8mSYq4PutgOoPm1rv9MxXy7DQlzKhGei9SusTLnkn4h3VL56H7wuvvGnP/ZhWhtrenq8xV16l7Po8GZpseVgNNWZ9zRXdxKNuuwe8u3V2dXqwJi7aYP6Cj8YUdVNkoHJm8pzE0VNbIKiB9iqjAI4vbN5zUDvGgwFufP+aWCq9is1bEUN9xGMSdFtPAfcyOccVtep9V660d4C3dGrika0gH095FSAtnQXYXJJ8w56ScNYZeJCdn8tl77EZNQH7sW7f+5Krl3TadR8tb+FcBdDpMGYMznjN0Jv+9GQuQSywHSY4XIxwkfL1SOVvVTv1M4zbQykvsCYERA6M+imie6C2KgWVbpRlKmOO/lo7gReSmBegnAK80oh6Ekdhzg9NG4ibfpXzU1abxBEBGLOPk/Vdg4ehdIPFBh0NF2BiNdxcHdSOV/LQmw7Z5y4GDSgcRSvF2nDba43yYuyEnA1WfDmuyTbwFvHeB0oFfDyluJgmq33W88ZmQCQMyyAdyxgdO1aPqnz16QAcjVsU9ZtIPJymC2M5i2yy74c8jZ67XEcAjG5tM8Kfloa6Kirk3ZQVoShV2lDYh3Sy2NzLade1NL31sKWvDjmQUwU/PSJleG4rw1R64s8vPWkxLZBRB5O3u9dn4hd2UgD8C63dwPAqQ9LisqC+5eckaXG8hAUsKUMAs6/swaIJFBeS/9TlrMkjDNWFliicZShqb+WBtBBEnN9VqDg9Zfl6L8tOaQNtJGr4FeQ69xYkm4MAu1j1zQj9ogxsKnCTcyxtpdENF516ggA49hxXC52VrnekG3oielFrGCpvZYEwnZyJX+zHE/NiGic6jd2+b3ovGi0DcS3Lejrmilu2uqRSbst6pefyjQo3WuGHpnsZsgwDSpBBVkbxO33QAVJ+gdG+7ySo3uJKhLVaEz8Lg/FKjlHYmDKtg017wtJOj1RC2odPe+zGIPgIpySA3r7hysa24NEM/SgNcfCsQAwGndAuZaJ/c6DZ7q9VTflEHNA3TkaKesqTYm94QZ7ckkxwD3Aj2SQMHx/b8uTHOfyzZN0wygYMb2Aa1mDcN4I6TwxD7sIPhKPRvOM7eFCzs+wU5DzUVI03OM20uzH/ZKgm2aFW3YXlbzZHahk151noN+/zJkRwI3VZzvlQf3fURJZIe9riC31hWljsploUczeDceD/dDQvP6iPE/90RC8zKXzhOkncfyE8n4fnnU2TsBVu1uE1OedXRzWnevGqNpbc8UKMcWe0/n2bvOBZ2VbjpQn7QamaDeJk1qeI9apvnsRGd6tV6+RI08+Pm9RVS/xIW5EAtumnt+Hgc764J7MXcXMEfk7oGX1fzBKw4gLn4psmdJfbUonQi9i6ZR1CquuLhIsAxApA8cePlU0gHRrUuodXewyyxHPkvlnT6EnFuzG0uufWBb5Of1o7ZvDonfzvnJh7y9ss8BRtWhEzoIa8AwDOOwjmS8GNQD02EmzfmwRpBIhGEYxiGJBTPPX2HSlQt6LXTLCmhO2SIbUW3fZQo3st5Z5OfVrFsjVbfmujYH9rqwVaXhorgeE2r+MqC/dz1mcbn014BY3+tisz2vrbXutdEosQ56rWWx2nMcQY9ATwRJaGc1hyU18Xq7yyf2nO7sfZ11229FZFNt45dILfefhEjnQxRhvVkuuTRe2e5dDr2suQ/ZoOL2eKzkFCNLRLtOQzb91wWOqU6/OLegg+T2+ehjhpYshHA/9QeWXl/hx+CCXju/ALk1O8CAIkseGkCAyNtxeKWvm4JOIu5uqgHJNK7BNGWfsv8OUpuJ7k/FQaE20Gr/N70pTc8VDePQdNPCNIufdBOm+RN8eVf1sPh5+3n7eevr9r+gxhDQ/b444wAAAABJRU5ErkJggg==" alt="sunsies studio" width="130" height="75"></a></div>
+<p class="mute">Basada en las recomendaciones de la AEP. No es consejo médico: consulta con tu pediatra.</p>
+<div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="sunsies-logo.png" alt="sunsies studio" width="130" height="75" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="disp" style="display:none;color:var(--blue);font-size:1.2rem;line-height:1.2">sunsies studio</span></a></div>
 </footer>
 </main>
 
@@ -331,69 +546,82 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
   <button class="xc" id="shx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="shn"></h3>
   <div class="mute" id="sht"></div>
-  <div id="shp"></div>
   <div class="warn hide" id="warn"></div>
+  <div class="risk hide" id="risk"></div>
   <label>Fecha<input id="dt" type="date"></label>
-  <label>Cómo lo serviste<select id="how"></select></label>
-  <label>Qué tal fue<select id="rx"><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select></label>
+  <div id="shp"></div>
+  <label id="howl">Cómo lo serviste<select id="how"></select></label>
+  <div class="rxq"><div class="rxg" id="rxg" role="group" aria-label="¿Cómo ha ido?"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">Hoy no</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
+  <select id="rx" class="hide"><option value="">Elige</option><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select>
+  <div id="rxb" class="hide">
+    <label>¿Qué reacción?<select id="rxt"></select></label>
+    <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
+  </div>
+  <input id="rxn" type="text" maxlength="300" placeholder="Notas (opcional)" aria-label="Notas">
+  <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" class="x" id="fph_rm">Quitar foto</button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
+  <div id="rest" class="hide"><b>¿Y el resto del menú de hoy?</b><p class="mute">Opcional. Toca lo que quieras anotar.</p><div id="restl"></div></div>
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
 
+<div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
+<div class="sheet danger hide" id="cf" role="alertdialog" aria-labelledby="cft"><div>
+  <h3 class="disp" id="cft" style="color:var(--red)"></h3>
+  <p id="cfp"></p>
+  <label id="cfl" class="hide">Para confirmar, escribe ELIMINAR<input id="cfi" type="text" autocomplete="off" autocapitalize="characters"></label>
+  <p class="mute" id="cfe" style="color:var(--red)"></p>
+  <div class="btns"><button class="btn" id="cfx">Cancelar</button><button class="btn rd" id="cfok">Eliminar</button></div>
+</div></div>
 <div id="sumprint"></div>
+<div class="dip hide" id="dip"><div class="dipb"><button class="xc" id="dip_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><canvas id="dipc" width="1240" height="1754"></canvas><p class="mute" id="dip_p"></p><div class="btns"><button class="btn p" id="dip_dl">Descargar</button><button class="btn hide" id="dip_sh">Compartir</button></div></div></div>
 <script>
 // categoría, color, consejo de preparación, alimentos separados por |
 const C=[
-["Frutas","#c96a47","Muy maduras, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Mandarina|Mango|Manzana asada|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera asada|Piña|Plátano|Pomelo|Sandía|Uvas"],
+["Frutas","#c96a47","Muy maduras, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Mandarina|Mango|Manzana|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera|Piña|Plátano|Pomelo|Sandía|Uvas"],
 ["Verduras","#4a8760","Al vapor o asadas, muy blandas","Acelgas|Alcachofa|Apio|Berenjena|Boniato|Borraja|Brócoli|Calabacín|Calabaza|Cebolla|Champiñones|Chirivía|Coles de Bruselas|Coliflor|Endibia|Espárragos|Espinacas|Guisantes|Habas tiernas|Hinojo|Judías verdes|Lechuga|Lombarda|Maíz tierno|Nabo|Patata|Pepino|Pimiento rojo|Pimiento verde|Puerro|Rábano|Remolacha|Repollo|Rúcula|Setas|Tomate|Zanahoria"],
-["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Gambas|Garbanzos|Huevo|Lenguado|Lentejas|Lentejas rojas|Lubina|Mejillones|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
-["Cereales","#c9962f","Cocidos blandos, mejor integrales","Amaranto|Arroz|Avena|Cebada|Cuscús|Espelta|Fideos|Harina de maíz|Mijo|Pan (tostado, sin sal)|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
+["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Gambas|Garbanzos|Huevo|Lenguado|Lentejas|Lubina|Mejillones|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
+["Cereales","#c9962f","Cocidos blandos, mejor integrales","Amaranto|Arroz|Avena|Cebada|Centeno|Cuscús|Espelta|Fideos|Harina de maíz|Mijo|Pan|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
 ["Frutos secos","#8a5ac8","Siempre molidos o en crema, nunca enteros","Almendra|Anacardo|Avellana|Cacahuete|Castaña|Macadamia|Nuez|Nuez de Brasil|Nuez pecana|Piñones|Pistacho|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino|Sésamo (tahini)"],
 ["Lácteos","#d46a9a","Yogur y queso desde los 9 meses, leche de vaca desde los 12","Kéfir|Mantequilla|Mozzarella|Queso fresco|Queso tierno|Requesón|Ricotta|Yogur natural"],
 ["Condimentos","#2f9aa0","Una pizca al cocinar","AOVE|Ajo|Albahaca|Canela|Cebollino|Cilantro|Comino|Cúrcuma|Eneldo|Hierbabuena|Jengibre|Laurel|Limón (ralladura)|Orégano|Perejil|Pimentón dulce|Romero|Tomillo|Vainilla"]];
 // Grupos de alérgenos y alimentos de la lista que contienen cada uno
-const AGD={gluten:["Avena","Cebada","Cuscús","Espelta","Fideos","Pan (tostado, sin sal)","Pan integral","Pasta","Sémola de trigo"],huevo:["Huevo"],pescado:["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"],crustaceos:["Gambas"],moluscos:["Mejillones"],cacahuete:["Cacahuete"],frutoscascara:["Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho"],sesamo:["Sésamo (tahini)"],soja:["Tofu","Tempeh"],apio:["Apio"],lacteos:["Kéfir","Mantequilla","Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"]};
+const AGD={gluten:["Avena","Cebada","Centeno","Cuscús","Espelta","Fideos","Pan","Pan integral","Pasta","Sémola de trigo"],huevo:["Huevo"],pescado:["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"],crustaceos:["Gambas"],moluscos:["Mejillones"],cacahuete:["Cacahuete"],frutoscascara:["Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho"],sesamo:["Sésamo (tahini)"],soja:["Tofu","Tempeh"],apio:["Apio"],lacteos:["Kéfir","Mantequilla","Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"]};
 const AG={};Object.keys(AGD).forEach(g=>AGD[g].forEach(n=>AG[n]=g));
 const cleanAl=o=>{const r={};if(o&&typeof o==="object")Object.keys(AGD).forEach(g=>{if(o[g]==="alergia"||o[g]==="sospecha")r[g]=o[g]});return r};
 const cleanRx=a=>Array.isArray(a)?a.filter(r=>r&&AGD[r.g]&&typeof r.d==="string").map(r=>({id:r.id||uid(),g:r.g,d:r.d,r:String(r.r||"").slice(0,120),n:String(r.n||"").slice(0,300)})):[];
+const validPh=v=>typeof v==="string"&&v.length<400000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(v)?v:"";
+const MEALS=["Desayuno","Media mañana","Comida","Merienda","Cena"],MR=["love","meh","no"];
+const cleanMl=o=>{const r={};if(o&&typeof o==="object")Object.keys(o).sort().slice(-120).forEach(d=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(d)||!o[d]||typeof o[d]!=="object")return;const e={};MEALS.forEach(m=>{const v=o[d][m];if(v&&v.d===true){e[m]={d:true};if(MR.includes(v.r))e[m].r=v.r}});if(Object.keys(e).length)r[d]=e});return r};
+const FMAP={"Lentejas rojas":"Lentejas","Manzana asada":"Manzana","Pera asada":"Pera","Pan (tostado, sin sal)":"Pan"};
+const cleanSl=o=>{const r={};if(o&&typeof o==="object")ALL.forEach(x=>{if(o[x.n]===true)r[x.n]=true});return r};
 const blockedG=x=>{const g=AG[x.n];return !!g&&!!S.al&&(S.al[g]==="alergia"||S.al[g]==="sospecha")};
 const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
 const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
 ["Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"].forEach(n=>MIN[n]=9);
 MIN["Kéfir"]=12;MIN["Mantequilla"]=12;
-const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],a:!!AG[n],fe:FE.has(n),min:MIN[n]||6})));
+const LIMS=new Set(["Arroz","Tortitas de arroz"]);
+const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],a:!!AG[n],fe:FE.has(n),lim:LIMS.has(n),min:MIN[n]||6})));
 
-const COLD={"Frutas":"#e9a23b","Verduras":"#7bb661","Proteínas":"#c98b6b","Cereales":"#dcc08a","Frutos secos":"#b98b5e","Lácteos":"#f1e7cf","Condimentos":"#8fb76a"};
-const COL={Aguacate:"#8cb04a",Albaricoque:"#f2a93b",Arándanos:"#4a4f8f",Caqui:"#ee8a2e",Cerezas:"#b3243a",Chirimoya:"#a7c47a",Ciruela:"#6b3f7a",Coco:"#f3ede0",Dátiles:"#7a4a2a",Frambuesas:"#c2284d",Fresas:"#d93a4a",Granada:"#b32a3d",Higos:"#7a4a6b",Kiwi:"#8bb43a",Mandarina:"#f39a2d",Mango:"#f4b02a","Manzana asada":"#d9a35a",Maracuyá:"#e2a42b",Melocotón:"#f1a56a",Melón:"#f2b36a","Membrillo cocido":"#d9a05b",Mora:"#4a2a5a",Naranja:"#f08a24",Nectarina:"#ef7a3a",Níspero:"#e8a032",Papaya:"#f08a3a","Pera asada":"#c9b45a",Piña:"#f1c232",Plátano:"#f3d24a",Pomelo:"#f08a6a",Sandía:"#e24a5a",Uvas:"#8a9a4a",
-Acelgas:"#5f9a4a",Alcachofa:"#8ba05a",Apio:"#a8c46a",Berenjena:"#5a3a6a",Boniato:"#e08a3c",Borraja:"#6f9a5a",Brócoli:"#4a8a3c",Calabacín:"#8bb04a",Calabaza:"#f0902c",Cebolla:"#e3c9a0",Champiñones:"#d9c8b0",Chirivía:"#eadfc0","Coles de Bruselas":"#6aa04a",Coliflor:"#efe9d2",Endibia:"#e8e6b8",Espárragos:"#8ab04a",Espinacas:"#3f7a3a",Guisantes:"#7ab648","Habas tiernas":"#8ab85a",Hinojo:"#dfe6b8","Judías verdes":"#6aa84a",Lechuga:"#9ac85a",Lombarda:"#8a3a7a","Maíz tierno":"#f1cf3a",Nabo:"#efe0e8",Patata:"#e6c27a",Pepino:"#8ab85a","Pimiento rojo":"#d93a2a","Pimiento verde":"#5a9a3a",Puerro:"#9ab85a",Rábano:"#d94a6a",Remolacha:"#a3204a",Repollo:"#a8d08a",Rúcula:"#4a8a3a",Setas:"#cdb89a",Tomate:"#e0402a",Zanahoria:"#f08a2a",
-"Alubias blancas":"#efe6cf","Alubias negras":"#4a3a3a","Alubias pintas":"#c9a08a",Bacalao:"#e8e6df",Cerdo:"#e0a090",Conejo:"#e0b09a",Cordero:"#c97b6a",Dorada:"#cfd6d8",Garbanzos:"#e3c27a",Huevo:"#f3d25a",Lenguado:"#e8dcc0",Lentejas:"#b8844a","Lentejas rojas":"#e0703a",Lubina:"#cfd6d8",Merluza:"#ece9e2",Pavo:"#e8c9a0",Pollo:"#efd2a8",Rape:"#e8e2d4",Salmón:"#f08a6a",Sardinas:"#aab8c4",Ternera:"#b8504a",Tempeh:"#c9b07a",Tofu:"#f2ead2",Trucha:"#e0a08a",Gambas:"#f08a6a",Mejillones:"#e0a05a",
-Arroz:"#f4efe0",Avena:"#e0cfa8",Pasta:"#f1d98a","Pan (tostado, sin sal)":"#d9a45a","Pan integral":"#c9954a",Quinoa:"#e3cf9a"};
-const shade=(h,f)=>{const n=parseInt(h.slice(1),16),m=v=>Math.round(f<0?v*(1+f):v+(255-v)*f);return "#"+[n>>16,n>>8&255,n&255].map(v=>m(v).toString(16).padStart(2,"0")).join("")};
-const colOf=x=>COL[x.n]||COLD[x.c]||"#cccccc";
-function fig(form,c,rind){
-  const s=shade(c,-.3),l=shade(c,.35),o=`fill="${c}" stroke="${s}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"`;let g="";
-  if(form==="stick")g=`<rect x="11" y="16" width="12" height="40" rx="6" ${o}/><rect x="26" y="8" width="12" height="48" rx="6" ${o}/><rect x="41" y="18" width="12" height="38" rx="6" ${o}/>`;
-  else if(form==="wedge")g=`<path d="M6 46 A26 26 0 0 1 58 46 Z" fill="${c}" stroke="${rind||s}" stroke-width="5" stroke-linejoin="round"/><path d="M15 42 A17 17 0 0 1 49 42" fill="none" stroke="${l}" stroke-width="3" stroke-linecap="round"/>`;
-  else if(form==="peel")g=`<g transform="rotate(28 32 34)"><rect x="24" y="24" width="16" height="34" rx="8" ${o}/><path d="M24 30 L15 14 L27 24Z" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2" stroke-linejoin="round"/><path d="M40 30 L49 14 L37 24Z" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2" stroke-linejoin="round"/><rect x="28" y="6" width="8" height="22" rx="4" fill="#cdbd5a" stroke="#9c8f3a" stroke-width="2"/></g>`;
-  else if(form==="floret")g=`<rect x="27" y="34" width="10" height="24" rx="4" fill="${shade(c,.2)}" stroke="${s}" stroke-width="2"/><circle cx="20" cy="30" r="11" ${o}/><circle cx="34" cy="21" r="12" ${o}/><circle cx="45" cy="31" r="10" ${o}/>`;
-  else if(form==="mash")g=`<path d="M6 36 H58 A26 22 0 0 1 6 36 Z" fill="#ece7da" stroke="#b9b2a0" stroke-width="2" stroke-linejoin="round"/><path d="M13 36 Q17 18 32 18 Q47 18 51 36 Z" ${o}/><path d="M44 12 L58 4" stroke="#b9b2a0" stroke-width="3" stroke-linecap="round"/><ellipse cx="42" cy="14" rx="5" ry="3" transform="rotate(-30 42 14)" fill="#ece7da" stroke="#b9b2a0" stroke-width="2"/>`;
-  else if(form==="bits")g=[[10,12],[28,8],[44,14],[16,32],[34,30],[50,34],[22,48],[42,48]].map(([x,y],i)=>`<rect x="${x}" y="${y}" width="${11+(i%3)*2}" height="${11+(i%2)*2}" rx="3" ${o}/>`).join("");
-  else if(form==="patty")g=`<ellipse cx="24" cy="40" rx="17" ry="14" ${o}/><ellipse cx="24" cy="38" rx="9" ry="6" fill="${l}" opacity=".6"/><ellipse cx="42" cy="25" rx="15" ry="12" ${o}/><ellipse cx="42" cy="23" rx="8" ry="5" fill="${l}" opacity=".6"/>`;
-  else if(form==="flake")g=`<path d="M8 38 L20 24 L36 28 L32 44 L14 48 Z" ${o}/><path d="M34 20 L50 14 L58 28 L44 36 Z" ${o}/><path d="M32 46 L48 40 L56 52 L38 56 Z" ${o}/>`;
-  else if(form==="balls")g=[[18,40,10],[36,44,10],[46,26,10],[28,22,10],[14,20,8]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" ${o}/>`).join("");
+// 3 pictogramas, todos en el verde de la marca: puré o aplastado, tiras y trozos (con pinza)
+const pict=(form,pz)=>form==="mash"?"mash":pz?"bits":(form==="bits"||form==="balls"?"mash":"strips");
+function fig(form,c,rind,pz){
+  const k=pict(form,pz);let g;
+  if(k==="mash")g='<path d="M7 35 H57 A25 21 0 0 1 7 35 Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M15 35 Q19 18 32 18 Q45 18 49 35 Z" fill="currentColor"/><path d="M44 13 L58 4" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><ellipse cx="41" cy="15" rx="6" ry="3.5" transform="rotate(-30 41 15)" fill="currentColor"/>';
+  else if(k==="bits")g=[[8,10,15],[28,6,14],[46,12,13],[12,32,14],[32,29,15],[50,34,12],[22,48,12],[42,49,12]].map(([x,y,z])=>`<rect x="${x}" y="${y}" width="${z}" height="${z}" rx="3.5" fill="currentColor"/>`).join("");
+  else g='<rect x="10" y="14" width="13" height="42" rx="6.5" fill="currentColor"/><rect x="25.5" y="6" width="13" height="50" rx="6.5" fill="currentColor"/><rect x="41" y="16" width="13" height="40" rx="6.5" fill="currentColor"/>';
   return `<svg viewBox="0 0 64 64" aria-hidden="true">${g}</svg>`}
 // Cómo ofrecer cada alimento: b = trozos grandes (BLW), pu = puré, q = trocitos con pinza
 const PD={"Frutas":{b:["wedge","Muy madura, en tiras o cuñas que sobresalgan del puño"],pu:"Aplastada con tenedor",q:["bits","Trocitos blandos"]},
 "Verduras":{b:["stick","Bastón cocido muy blando, del largo de un dedo"],pu:"Puré espeso con grumos",q:["bits","Dados cocidos blandos"]},
 "Proteínas":{b:["stick","Tira tierna y bien cocinada"],pu:"Desmenuzado y aplastado",q:["bits","Desmenuzado en trocitos"]},
 "Cereales":{b:["balls","Bolitas o bastones blandos que se agarren"],pu:"Papilla espesa",q:["bits","Trocitos blandos"]},
-"Frutos secos":{b:["mash","Crema fina, en capa fina sobre fruta o tostada"],pu:"Molido, mezclado con yogur o papilla",q:["mash","Molido, mezclado con la comida"]},
-"Lácteos":{b:["stick","Tira de queso tierno"],pu:"Aplastado con tenedor",q:["bits","Dados pequeños y blandos"]}};
+"Frutos secos":{b:["mash","Crema fina, extendida en capa fina sobre fruta o tostada"],pu:"Molido, mezclado con yogur o papilla",q:["mash","Molido, mezclado con la comida"]},
+"Lácteos":{b:["stick","Tira de queso tierno, pasteurizado y poco salado"],pu:"Aplastado con tenedor",q:["bits","Dados pequeños y blandos"]}};
 const PO={};const P=(names,o)=>names.split("|").forEach(n=>PO[n]=o);
 P("Plátano",{b:["peel","Pelado a medias, con un trozo de piel como asa para que no resbale"],pu:"Aplastado con tenedor",q:["bits","Rodajas gruesas o trocitos"]});
 P("Aguacate",{b:["wedge","Muy maduro, en cuña con un poco de piel como asa"],pu:"Aplastado con tenedor",rind:"#3d5a22",q:["bits","Trocitos blandos o aplastado"]});
 P("Melón",{b:["wedge","En tira con un poco de corteza como asa, sin pepitas"],pu:"Aplastado con tenedor",rind:"#7a9a4a"});
 P("Sandía",{b:["wedge","En tira con un poco de corteza como asa, sin pepitas"],rind:"#3f7a3a"});
-P("Uvas",{b:["bits","En cuartos a lo largo, nunca enteras"],q:["bits","En cuartos a lo largo, nunca enteras"]});
+P("Uvas",{b:["stick","En cuartos a lo largo, nunca enteras"],q:["bits","En cuartos a lo largo, nunca enteras"]});
 P("Cerezas",{b:["bits","Sin hueso y troceadas"]});
 P("Dátiles",{b:["mash","Sin hueso y aplastados"],q:["mash","Sin hueso y aplastados"]});
 P("Coco",{b:["bits","Rallado o en copos"]});
@@ -408,7 +636,8 @@ P("Albaricoque|Caqui|Melocotón|Níspero",{b:["wedge","Muy maduro, en tiras o cu
 P("Higos",{b:["wedge","Muy maduros, en mitades o cuñas"],pu:"Aplastados con tenedor"});
 P("Piña",{b:["stick","Tira blanda y madura, sin el centro duro"]});
 P("Chirimoya",{b:["mash","Sin pepitas, a cucharadas"]});
-P("Manzana asada|Pera asada|Membrillo cocido",{b:["wedge","Cuña asada muy blanda"],pu:"Aplastada con tenedor"});
+P("Membrillo cocido",{b:["wedge","Cuña asada muy blanda"],pu:"Aplastada con tenedor"});
+P("Manzana|Pera",{b:["wedge","Asada o cocida, en cuña muy blanda"],pu:"Asada y aplastada con tenedor"});
 P("Brócoli|Coliflor",{b:["floret","Ramillete al vapor, con el tallo como asa"],q:["bits","Ramilletes pequeños"]});
 P("Coles de Bruselas",{b:["floret","Cocidas y partidas por la mitad"]});
 P("Zanahoria",{b:["stick","Bastón cocido muy blando (nunca crudo)"]});
@@ -421,43 +650,57 @@ P("Maíz tierno",{b:["mash","Aplastado o en crema, el grano entero cuesta"],q:["
 P("Tomate",{b:["wedge","Cuña sin piel ni pepitas"]});
 P("Pimiento rojo|Pimiento verde",{b:["stick","Tira asada, sin piel"]});
 P("Berenjena",{b:["stick","Tira asada, muy blanda"]});
-P("Champiñones|Setas",{b:["bits","Cocinados y muy picados"]});
+P("Champiñones|Setas",{b:["bits","Solo cultivados, cocinados y muy picados"]});
 P("Cebolla|Puerro|Apio|Hinojo",{b:["bits","Cocinado, mezclado con otras comidas"]});
-P("Acelgas|Espinacas|Borraja|Remolacha|Rúcula",{b:["bits","Cocidas y picadas, menos del 20% del plato"],pu:"Mezcladas con otras verduras",q:["bits","Cocidas y picadas, menos del 20% del plato"]});
+P("Acelgas|Espinacas|Borraja|Remolacha|Rúcula",{b:["bits","Cocidas y picadas, menos del 20% del plato. Entre 1 y 3 años, una ración al día como máximo"],pu:"Mezcladas con otras verduras",q:["bits","Cocidas y picadas, menos del 20% del plato. Entre 1 y 3 años, una ración al día como máximo"]});
 P("Pollo",{b:["stick","Muslo cocido en tiras, sin piel"]});
 P("Alubias blancas|Alubias negras|Alubias pintas|Lentejas|Lentejas rojas",{b:["patty","Tortita, o aplastadas con las manos"],pu:"Aplastadas con un poco de agua de cocción",q:["bits","Enteras muy blandas, algo aplastadas"]});
 P("Garbanzos",{b:["mash","Hummus, o aplastados"],pu:"Aplastados con agua de cocción",q:["bits","Muy blandos, algo aplastados"]});
 P("Huevo",{b:["stick","Tortilla en tiras o huevo duro en bastones"],pu:"Huevo duro aplastado",q:["bits","Trocitos de tortilla"]});
 P("Tofu|Tempeh",{b:["stick","Palitos a la plancha"],q:["bits","Dados pequeños"]});
 P("Bacalao|Dorada|Lenguado|Lubina|Merluza|Rape|Salmón|Sardinas|Trucha",{b:["flake","Lascas grandes, sin piel ni espinas"],pu:"Desmenuzado y aplastado",q:["bits","Lascas pequeñas"]});
-P("Gambas|Mejillones",{b:["bits","Bien cocinados, pelados y desmenuzados"]});
-P("Arroz",{b:["balls","Bolitas de arroz hervido y chafado"],q:["bits","Arroz suelto, bien cocido"]});
+P("Bacalao",{b:["flake","Fresco, o muy bien desalado, en lascas sin piel ni espinas"],pu:"Desmenuzado y aplastado",q:["bits","Lascas pequeñas"]});
+P("Gambas",{b:["bits","Peladas y sin la cabeza (cadmio), bien cocinadas y desmenuzadas"]});
+P("Mejillones",{b:["bits","Bien cocinados, sin cáscara y desmenuzados"]});
+P("Quinoa",{b:["balls","Bien lavada antes de cocerla, en bolitas"],q:["bits","Bien lavada y bien cocida"]});
+P("Semillas de chía",{b:["mash","Siempre en remojo (como un gel) o molidas, nunca secas"],q:["mash","En remojo o molidas, mezcladas con la comida"]});
+P("Semillas de lino|Semillas de girasol|Semillas de calabaza",{b:["mash","Siempre molidas, mezcladas con yogur o papilla"],q:["mash","Molidas, mezcladas con la comida"]});
 P("Pasta|Fideos",{b:["stick","Pasta gruesa bien cocida (fusilli o macarrón)"],q:["bits","Pasta corta bien cocida"]});
 P("Avena",{b:["patty","Tortitas de avena"],pu:"Papilla espesa",q:["mash","Papilla con trocitos de fruta"]});
-P("Pan (tostado, sin sal)|Pan integral",{b:["stick","Tostada en tiras, sin sal"],q:["bits","Trocitos de tostada blanda"]});
+P("Pan|Pan integral",{b:["stick","Tostado en tiras, sin sal"],q:["bits","Trocitos de tostada blanda"]});
 P("Polenta",{b:["stick","Bastones de polenta fría"]});
 P("Yogur natural|Kéfir",{b:["mash","En cuchara cargada, para que la lleve a la boca"],pu:"Natural, sin azúcar",q:["mash","Con trocitos de fruta"]});
 P("Mantequilla",{b:["mash","En capa fina sobre tostada"]});
 const presOf=x=>{const d=PD[x.c];if(!d)return null;const o=PO[x.n]||{};return{b:o.b||d.b,pu:o.pu||d.pu,q:o.q||d.q,rind:o.rind}};
+const texLevel=()=>{const a=age(),mo=a?a.mo:8;let L=mo<7?1:mo<9?2:mo<11?3:4;if(S.pinza===true)L=Math.max(L,3);if(S.pinza===false)L=Math.min(L,2);return L};
+const TXL={
+1:mo=>`A los ${mo} meses: tiras blandas que pueda agarrar con el puño y puré espeso. Aún no hace falta trocear.`,
+2:mo=>`A los ${mo} meses ya agarra mejor: tiras y puré con grumos, y algún trozo blando grande para practicar.`,
+3:mo=>`${S.pinza===true&&mo<9?"Has indicado que ya hace pinza":"A los "+mo+" meses suele aparecer la pinza"}: menos aplastado y más trocitos blandos que pueda pellizcar.`,
+4:mo=>`A los ${mo} meses ya debería manejar trocitos pequeños y blandos, casi como la familia y sin sal. El puré pasa a ser la excepción.`};
 const pinzaNow=()=>{if(S.pinza===true)return true;if(S.pinza===false)return false;const a=age();return !!a&&a.mo>=9};
 const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
+const RISK={"Manzana":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pera":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pan":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."],"Pan integral":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."]};
 const offerText=(x,pz)=>{const p=presOf(x);return !p?"":pz?p.q[1]:p.b[1]+(p.b[0]==="mash"?"":". O "+lowFirst(p.pu))};
-function presHtml(x,pz){const p=presOf(x);if(!p)return"";const c=colOf(x);
-  const f=(form,t,lab)=>`<figure>${fig(form,c,p.rind)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
-  if(pz)return `<div class="pres">${f(p.q[0],p.q[1],p.q[0]==="mash"?"En crema o puré":"Trocitos (pinza)")}</div>`;
-  if(p.b[0]==="mash")return `<div class="pres">${f("mash",p.b[1],"En crema o puré")}</div>`;
-  return `<div class="pres">${f(p.b[0],p.b[1],"Trozos grandes")}${f("mash",p.pu,"Puré")}</div>`}
+function presHtml(x,pz){const p=presOf(x);if(!p)return"";
+  const f=(form,t,lab)=>`<figure>${fig(form,0,0,pz)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
+  if(pz){const L=texLevel(),qm=pict(p.q[0],true)==="mash";
+    if(L===3&&!qm)return `<div class="pres">${f(p.q[0],p.q[1],"Trozos")}${f("mash",p.pu,"Puré o aplastado")}</div>`;
+    return `<div class="pres">${f(p.q[0],p.q[1],qm?"Puré o aplastado":"Trozos")}</div>`}
+  if(pict(p.b[0],false)==="mash")return `<div class="pres">${f("mash",p.b[1],"Puré o aplastado")}</div>`;
+  return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,"Puré o aplastado")}</div>`}
 
-const HOW=["Bastón o tira","Cuña blanda","Aplastado en cuchara","Al vapor","Asado","Entero y blando","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
-const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción"};
+const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
+const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción",pre:"Ya lo había probado"};
+const isPre=(f,d)=>S.log.some(l=>l.pre&&l.f===f&&l.d===d);
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],log:[],prefs:DEFP()});
+const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],ph:"",sl:{},ml:{},dip:false,log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;
-  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),log:Array.isArray(o.log)?o.log:[],prefs:pr}};
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),ml:cleanMl(o.ml),dip:!!o.dip,log:(Array.isArray(o.log)?o.log:[]).map(l=>l&&FMAP[l.f]?{...l,f:FMAP[l.f]}:l),prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
   return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
 let DB=fixDB(null),S=DB.babies[DB.cur];
@@ -483,11 +726,13 @@ function age(raw){if(!S.bd)return null;const b0=new Date(S.bd+"T00:00:00");if(is
   const th=S.early?4:6;
   const until=m=>Math.ceil((new Date(b.getFullYear(),b.getMonth()+m,b.getDate())-t)/864e5);
   return{days,mo,s6:until(6),sT:until(th),th,pre:pre>0}}
-const unlocked=x=>{const a=age();return !a||a.mo>=(x.min===6?a.th:x.min)};
-function head(){const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=S.nm?"de "+S.nm:"";document.title=t;
+const unlocked=x=>{if(x.lim)return false;const a=age();return !a||a.mo>=(x.min===6?a.th:x.min)};
+function sizeTtl(){const l=document.querySelector(".hero .logo");if(!l)return;const w=l.getBoundingClientRect().width;if(w>0)$("ttl").style.fontSize=(56*w/640).toFixed(1)+"px"}
+window.addEventListener("resize",sizeTtl);
+function head(){sizeTtl();const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=S.nm?"de "+S.nm:"";document.title=t;
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
-let cat="Todos",cur="";
+let cat="Todos",cur="",PLANNED={},FIRSTD={};
 let view="list";try{view=localStorage.getItem("primeros_view")==="board"?"board":"list"}catch(e){}
 const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6"/></svg>';
 function stats(){
@@ -496,36 +741,110 @@ function stats(){
     const x=m[l.f]=m[l.f]||{n:l.f,c:0,all:[]};x.c++;x.last=l.r;x.idx=k;x.all.push(l.r)});
   return m;
 }
-function card(x,m){
+const fdShort=d=>new Date(d+"T00:00:00").toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"});
+function card(x,m,col){
   const s=m[x.n],lk=!unlocked(x);
-  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span></span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
+  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span>${col==="plan"?`<span class="ct">${fdShort(PLANNED[x.n])}</span>`:col==="done"&&FIRSTD[x.n]?`<span class="ct">${isPre(x.n,FIRSTD[x.n])?"Antes":fdShort(FIRSTD[x.n])}</span>`:""}${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}${x.lim?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Limitar</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
+/*POSTER_START*/
+const PS='stroke="#3a2a22" stroke-width="3" stroke-linejoin="round"';
+const PF=(cx,cy,k=1)=>`<circle cx="${cx-9*k}" cy="${cy}" r="${3.4*k}" fill="#3a2a22"/><circle cx="${cx+9*k}" cy="${cy}" r="${3.4*k}" fill="#3a2a22"/><path d="M${cx-6*k} ${cy+8*k}Q${cx} ${cy+14*k} ${cx+6*k} ${cy+8*k}" fill="none" stroke="#3a2a22" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="${cx-16*k}" cy="${cy+7*k}" rx="${4.5*k}" ry="${3*k}" fill="#f29a9a" opacity=".75"/><ellipse cx="${cx+16*k}" cy="${cy+7*k}" rx="${4.5*k}" ry="${3*k}" fill="#f29a9a" opacity=".75"/>`;
+const PC={
+avocado:()=>`<path d="M50 6C68 6 88 40 88 72C88 94 72 106 50 106C28 106 12 94 12 72C12 40 32 6 50 6Z" fill="#8cb04a" ${PS}/><path d="M50 20C62 20 78 46 78 72C78 88 66 97 50 97C34 97 22 88 22 72C22 46 38 20 50 20Z" fill="#e3e79a"/><circle cx="50" cy="74" r="20" fill="#b7793f" ${PS}/>${PF(50,72)}`,
+strawberry:()=>`<path d="M50 104C22 86 10 58 20 42C30 28 70 28 80 42C90 58 78 86 50 104Z" fill="#e24a4a" ${PS}/><path d="M30 34L42 22L50 32L58 22L70 34L50 40Z" fill="#6aa04a" ${PS}/><path d="M50 22L50 10" stroke="#3a2a22" stroke-width="3" stroke-linecap="round"/><ellipse cx="32" cy="58" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="68" cy="58" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="40" cy="84" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="60" cy="84" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="50" cy="94" rx="2" ry="3" fill="#f6d46a"/>${PF(50,62,.9)}`,
+carrot:()=>`<path d="M32 30C42 24 58 24 68 30L54 102C52 108 48 108 46 102Z" fill="#f08a2a" ${PS}/><path d="M50 26C40 20 34 10 40 4C46 8 50 16 50 26Z" fill="#6aa04a" ${PS}/><path d="M50 26C50 14 56 6 62 4C64 12 58 20 50 26Z" fill="#6aa04a" ${PS}/><path d="M45 70h8M48 88h6" stroke="#b85a10" stroke-width="2.5" stroke-linecap="round"/>${PF(50,48,.7)}`,
+egg:()=>`<path d="M18 52C8 30 30 8 56 12C86 14 98 42 88 66C80 88 54 100 34 92C14 84 28 70 18 52Z" fill="#ffffff" ${PS}/><circle cx="54" cy="54" r="24" fill="#f7c93a" ${PS}/>${PF(54,52)}`,
+pumpkin:()=>`<ellipse cx="50" cy="64" rx="42" ry="34" fill="#f08a2a" ${PS}/><path d="M34 32C22 46 22 82 34 96M66 32C78 46 78 82 66 96" fill="none" stroke="#b85a10" stroke-width="3"/><path d="M50 30C50 22 50 18 54 12" stroke="#3a2a22" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M54 18C62 12 70 14 72 20C66 24 58 24 54 18Z" fill="#6aa04a" ${PS}/>${PF(50,62)}`,
+banana:()=>`<path d="M26 12C14 48 20 86 56 98C74 104 90 96 94 84C70 90 48 78 42 46C40 32 42 18 42 12Z" fill="#f3d24a" ${PS}/><path d="M26 12L42 12L42 4L28 4Z" fill="#8a6a2a" ${PS}/>${PF(50,74,.7)}`,
+broccoli:()=>`<rect x="40" y="62" width="20" height="42" rx="8" fill="#a8cf7a" ${PS}/><circle cx="28" cy="52" r="20" fill="#4a8a3c" ${PS}/><circle cx="72" cy="52" r="20" fill="#4a8a3c" ${PS}/><circle cx="50" cy="38" r="26" fill="#58a047" ${PS}/>${PF(50,50)}`,
+tomato:()=>`<circle cx="50" cy="62" r="40" fill="#e0402a" ${PS}/><path d="M30 28L42 24L50 14L58 24L70 28L58 34L50 30L42 34Z" fill="#6aa04a" ${PS}/>${PF(50,66)}`,
+pear:c=>`<path d="M50 12C58 12 62 22 62 32C80 42 90 62 84 82C78 100 62 106 50 106C38 106 22 100 16 82C10 62 20 42 38 32C38 22 42 12 50 12Z" fill="${c||"#c9d36a"}" ${PS}/><path d="M50 12C50 6 54 4 58 4" stroke="#3a2a22" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M54 14C62 8 72 10 74 16C68 22 58 22 54 14Z" fill="#6aa04a" ${PS}/>${PF(50,74)}`,
+orange:()=>`<circle cx="50" cy="62" r="40" fill="#f08a24" ${PS}/><path d="M50 22C54 12 64 10 70 14C66 22 56 26 50 22Z" fill="#6aa04a" ${PS}/><path d="M24 46C28 38 36 33 44 32" fill="none" stroke="#ffd29a" stroke-width="4" stroke-linecap="round"/>${PF(50,66)}`,
+potato:()=>`<path d="M14 62C10 36 40 18 66 22C90 28 98 56 90 78C82 98 52 104 34 96C16 90 16 74 14 62Z" fill="#e6c27a" ${PS}/><circle cx="30" cy="44" r="3" fill="#b8944a"/><circle cx="76" cy="40" r="3" fill="#b8944a"/><circle cx="72" cy="92" r="3" fill="#b8944a"/>${PF(52,64)}`,
+nut:()=>`<path d="M50 12C72 30 88 52 82 78C78 98 60 106 50 106C40 106 22 98 18 78C12 52 28 30 50 12Z" fill="#8a5a30" ${PS}/><path d="M50 12C60 22 70 32 76 42C62 36 38 36 24 42C30 32 40 22 50 12Z" fill="#c99a62" ${PS}/>${PF(50,78,.85)}`,
+grapes:()=>`<path d="M50 24C50 12 56 6 64 6" stroke="#3a2a22" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M54 16C62 6 74 8 76 14C70 22 60 22 54 16Z" fill="#6aa04a" ${PS}/>${[[34,40],[66,40],[24,64],[76,64],[50,86],[50,62]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="17" fill="#8a5aa0" ${PS}/>`).join("")}${PF(50,60,.7)}`,
+drum:()=>`<path d="M62 68L88 94" stroke="#3a2a22" stroke-width="14" stroke-linecap="round"/><path d="M62 68L88 94" stroke="#f4efe0" stroke-width="8" stroke-linecap="round"/><circle cx="92" cy="98" r="7" fill="#f4efe0" ${PS}/><path d="M10 40C10 18 36 6 58 18C80 30 76 58 56 72C36 86 10 62 10 40Z" fill="#c97b4a" ${PS}/>${PF(40,42,.9)}`,
+bean:()=>`<circle cx="50" cy="62" r="38" fill="#e3c27a" ${PS}/><path d="M50 24L58 12" stroke="#3a2a22" stroke-width="4" stroke-linecap="round"/>${PF(50,64)}`,
+generic:c=>`<path d="M50 10C76 10 94 32 94 60C94 88 76 104 50 104C24 104 6 88 6 60C6 32 24 10 50 10Z" fill="${c}" ${PS}/>${PF(50,62)}`
+};
+const PK=[[/^Aguacate$/,"avocado"],[/^(Fresas|Frambuesas|Cerezas|Granada)$/,"strawberry"],[/^(Zanahoria|Chirivía)$/,"carrot"],[/^Huevo$/,"egg"],[/^(Calabaza|Boniato|Calabacín)$/,"pumpkin"],[/^Plátano$/,"banana"],[/^(Brócoli|Coliflor|Coles de Bruselas)$/,"broccoli"],[/^(Tomate|Pimiento rojo)$/,"tomato"],[/^(Pera|Manzana|Membrillo cocido|Melocotón|Nectarina|Albaricoque|Caqui|Mango|Papaya|Kiwi|Chirimoya|Níspero|Piña|Melón|Sandía|Higos|Dátiles)$/,"pear"],[/^(Naranja|Mandarina|Pomelo|Maracuyá)$/,"orange"],[/^(Patata|Nabo)$/,"potato"],[/^(Castaña|Avellana|Nuez|Nuez de Brasil|Nuez pecana|Almendra|Anacardo|Pistacho|Macadamia|Cacahuete|Piñones|Sésamo \(tahini\))$/,"nut"],[/^(Uvas|Arándanos|Ciruela|Mora)$/,"grapes"],[/^(Pollo|Pavo|Cerdo|Cordero|Ternera|Conejo)$/,"drum"],[/^(Garbanzos|Lentejas|Lentejas rojas|Alubias .*|Guisantes|Habas tiernas)$/,"bean"]];
+const PEARC={Melocotón:"#f1a56a",Nectarina:"#ef7a3a",Albaricoque:"#f2a93b",Caqui:"#ee8a2e",Mango:"#f4b02a",Papaya:"#f08a3a",Kiwi:"#a8c43a",Piña:"#f1c232",Melón:"#f2b36a",Sandía:"#e24a5a",Higos:"#a06a8a",Dátiles:"#8a5a30",Chirimoya:"#a7c47a",Níspero:"#e8a032"};
+const GENC={"Frutas":"#f0a050","Verduras":"#7bb661","Proteínas":"#e0a090","Cereales":"#e0c48a","Frutos secos":"#b98b5e","Lácteos":"#f1e7cf","Condimentos":"#8fb76a"};
+function posterChar(n,cat){
+  const k=PK.find(([re])=>re.test(n));let body,label=null;
+  if(k)body=PC[k[1]](k[1]==="pear"?PEARC[n]:undefined);else{body=PC.generic(GENC[cat]||"#e0c48a");label=n}
+  return{svg:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 112" width="300" height="336">${body}</svg>`,label}}
+function stadiumP(ctx,x,y,w,h){const r=w/2;ctx.beginPath();ctx.arc(x+r,y+r,r,Math.PI,0);ctx.lineTo(x+w,y+h-r);ctx.arc(x+r,y+h-r,r,0,Math.PI);ctx.closePath()}
+function starP(ctx,cx,cy,R,r,rot){ctx.beginPath();for(let k=0;k<10;k++){const a=rot-Math.PI/2+k*Math.PI/5,q=k%2?r:R,x=cx+q*Math.cos(a),y=cy+q*Math.sin(a);k?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath()}
+function arcTextP(ctx,txt,cx,topY,R,px){
+  ctx.font=`${px}px "Luckiest Guy"`;const ls=px*.03,chars=[...txt],ws=chars.map(ch=>ctx.measureText(ch).width+ls),tw=ws.reduce((a,b)=>a+b,0);
+  let a=-tw/(2*R);const cy=topY+R;ctx.textAlign="center";ctx.textBaseline="alphabetic";
+  chars.forEach((ch,i)=>{const aa=a+ws[i]/(2*R);ctx.save();ctx.translate(cx+R*Math.sin(aa),cy-R*Math.cos(aa));ctx.rotate(aa);ctx.fillText(ch,0,0);ctx.restore();a+=ws[i]/R})}
+function drawPoster(ctx,W,H,o){
+  const GREEN="#4a8760",BLUE="#3e4cd0",GOLD="#d0a14f";
+  ctx.fillStyle="#eeead8";ctx.fillRect(0,0,W,H);
+  const spots=[[115,215,-.12],[1120,1390,.12],[1125,235,.14],[120,1390,-.14],[105,790,.1],[1135,830,-.1]];
+  o.chars.slice(0,6).forEach((c,i)=>{const [x,y,rot]=spots[i],s=190;ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.drawImage(c.img,-s/2,-s*1.12/2,s,s*1.12);ctx.restore();
+    if(c.label){ctx.save();ctx.fillStyle="#6b6a5c";ctx.font='700 34px Montserrat';ctx.textAlign="center";ctx.fillText(c.label,x,y+s*.56+30);ctx.restore()}});
+  ctx.fillStyle=BLUE;ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.font='700 50px Montserrat';ctx.fillText("Otorgamos este diploma a",W/2,130);
+  const name=(o.name||"Bebé").toUpperCase();let px=230;ctx.font=`${px}px "Luckiest Guy"`;
+  while(ctx.measureText(name).width*1.04>800&&px>90){px-=6;ctx.font=`${px}px "Luckiest Guy"`}
+  ctx.fillStyle=GREEN;arcTextP(ctx,name,W/2,330,1900,px);
+  const fx=260,fy=440,fw=720,fh=860;
+  ctx.fillStyle=GOLD;stadiumP(ctx,fx-46,fy-46,fw+92,fh+92);ctx.fill();
+  ctx.save();stadiumP(ctx,fx,fy,fw,fh);ctx.clip();
+  if(o.photo){const s=Math.max(fw/o.photo.width,fh/o.photo.height),w=o.photo.width*s,h=o.photo.height*s;ctx.drawImage(o.photo,fx+(fw-w)/2,fy+(fh-h)/2,w,h)}
+  else{ctx.fillStyle="#f7f4e8";ctx.fillRect(fx,fy,fw,fh);ctx.fillStyle=GREEN;ctx.font='360px "Luckiest Guy"';ctx.textAlign="center";ctx.fillText((o.name||"B").trim().charAt(0).toUpperCase(),fx+fw/2,fy+fh/2+130)}
+  ctx.restore();
+  ctx.fillStyle=GOLD;ctx.strokeStyle=GOLD;ctx.lineJoin="round";ctx.lineWidth=16;
+  starP(ctx,262,720,92,44,-.22);ctx.fill();ctx.stroke();
+  starP(ctx,980,1270,102,48,.26);ctx.fill();ctx.stroke();
+  ctx.fillStyle=BLUE;ctx.textAlign="center";ctx.font='700 52px Montserrat';ctx.fillText("por probar sus primeros",W/2,1448);
+  ctx.fillStyle=GREEN;ctx.font='158px "Luckiest Guy"';ctx.fillText("100 ALIMENTOS",W/2,1612);
+  if(o.logo){const lw=130,lh=lw*o.logo.height/o.logo.width;ctx.drawImage(o.logo,W-lw-50,H-lh-26,lw,lh)}
+  if(o.preview){ctx.save();ctx.translate(W/2,H/2);ctx.rotate(-Math.PI/6);ctx.font='700 96px Montserrat';ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineWidth=6;ctx.strokeStyle="rgba(62,76,208,.3)";ctx.fillStyle="rgba(255,255,255,.55)";
+    for(let y=-1500,r=0;y<=1500;y+=240,r++)for(let x=-1800;x<=1800;x+=920){const xx=x+(r%2?460:0);ctx.strokeText("VISTA PREVIA",xx,y);ctx.fillText("VISTA PREVIA",xx,y)}ctx.restore()}
+}
+/*POSTER_END*/
+
+const PM=[1,10,25,50,100];
+const SP=Array.from({length:10},(_,k)=>{const a=-Math.PI/2+k*Math.PI/5,q=k%2?13:30;return (32+q*Math.cos(a)).toFixed(1)+","+(33+q*Math.sin(a)).toFixed(1)}).join(" ");
+function progHtml(c){
+  let pct=0;if(c>=PM[4])pct=100;else if(c>=1){let i=0;while(i<3&&c>=PM[i+1])i++;pct=25*i+25*(c-PM[i])/(PM[i+1]-PM[i])}
+  const next=PM.find(m=>m>c);
+  const stars=PM.map((m,i)=>`<span class="ps${c>=m?" on":""}${i===4?" gold":""}" style="left:${i*25}%"><svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="${SP}"/></svg><b>${m}</b></span>`).join("");
+  return `<p class="pc">${c} ${c===1?"alimento probado":"alimentos probados"}${next?" · siguiente meta: "+next:" · meta de 100 conseguida"}</p><div class="pb" role="img" aria-label="${c} alimentos probados"><div class="t"></div><div class="f" style="width:${pct.toFixed(1)}%"></div>${stars}</div><p style="margin:6px 0 0">${c>=100?'<button class="btn p" id="dip_open" style="max-width:340px">Ver diploma de los 100 alimentos</button>':'<button class="x" id="dip_open">Vista previa del diploma</button>'}</p>`}
+const OPENC=new Set();
 function board(){
   const m=stats(),q=norm($("q").value.trim());
+  FIRSTD={};S.log.forEach(l=>{if(!FIRSTD[l.f]||l.d<FIRSTD[l.f])FIRSTD[l.f]=l.d});
   $("chips").classList.toggle("hide",view==="list");$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
   $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
   $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
   const nd=ALL.filter(x=>m[x.n]).length;
-  $("prog").textContent=`${nd} probados de ${ALL.length} alimentos`;
+  $("prog").innerHTML=progHtml(nd);
   if(view==="list"){
     $("lst").innerHTML=C.map(c=>{
       const it=ALL.filter(x=>x.c===c[0]&&(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q)));
       if(!it.length)return"";
-      return `<div><h2 class="disp">${c[0]}</h2><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
-        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">No antes de ${x.min} m</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+      const tn=it.filter(x=>m[x.n]).length,op=q||OPENC.has(c[0]);
+      return `<details class="grp" data-c="${esc(c[0])}"${op?" open":""}><summary><h2 class="disp">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb"><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
+        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">${x.lim?"Limitar":"No antes de "+x.min+" m"}</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div></details>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+    $("lst").querySelectorAll("details.grp").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)OPENC.add(d.dataset.c);else OPENC.delete(d.dataset.c)}));
     $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
     return;
   }
-  const cols={todo:[],done:[],lock:[]};
+  const cols={todo:[],plan:[],done:[],lock:[]};
   ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
-    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":"todo"].push(x)});
-  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));const defs=[["todo","Por probar","p1"],["done","Probado","p3"],["lock","Más adelante","p4"]];
-  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m)).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
+    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":PLANNED[x.n]?"plan":"todo"].push(x)});
+  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));cols.plan.sort((a,b)=>PLANNED[a.n]<PLANNED[b.n]?-1:PLANNED[a.n]>PLANNED[b.n]?1:a.n.localeCompare(b.n,"es"));cols.done.sort((a,b)=>(FIRSTD[b.n]||"")<(FIRSTD[a.n]||"")?-1:(FIRSTD[b.n]||"")>(FIRSTD[a.n]||"")?1:a.n.localeCompare(b.n,"es"));const defs=[["todo","Por probar","p1"],["plan","Programados","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
+  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m,d[0])).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
   $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
   const done=ALL.filter(x=>m[x.n]).length;
-  $("prog").textContent=`${done} probados de ${ALL.length} alimentos`;
+  $("prog").innerHTML=progHtml(done);
 }
-function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag${l.r==="react"?" w":""}">${RL[l.r]}</span><div class="mute">${esc(l.how)}</div></div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+function rowHtml(l){const x=info(l.f),nt=(l.r==="react"&&l.rt)||l.rn?esc([l.r==="react"?l.rt:"",l.rn].filter(Boolean).join(". ")):"";
+  return `<div class="row lr"><div class="lm"><b class="${x&&x.a?"al":""}">${esc(l.f)}</b><div class="lt"><span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><span class="mute">${esc(l.how)}</span></div>${nt?`<div class="mute">${nt}</div>`:""}${validPh(l.ph)?`<img class="rph" src="${l.ph}" alt="Foto de ${esc(l.f)}">`:""}</div><div class="lx"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
   el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
   el.querySelectorAll(".x[data-i]").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
@@ -545,7 +864,7 @@ function renderCal(){
   for(let d=1;d<=dim;d++){
     const ds=`${y}-${String(mo+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
     const es=byDay[ds]||[];
-    const dots=es.slice(0,4).map(e=>{const a=info(e.f);return `<span class="dot" style="background:${a?a.col:"#999"}"></span>`}).join("");
+    const PR={react:0,no:1,meh:2,love:3},dots=[...es].sort((a,b)=>PR[a.r]-PR[b.r]).slice(0,4).map(e=>`<span class="dot rc-${e.r}"></span>`).join("");
     cells+=`<button class="cd${ds===today()?" today":""}${ds===csel?" sel":""}" data-d="${ds}" aria-label="${d}: ${es.length} alimentos"><span>${d}</span><span class="dts">${dots}</span>${es.length>4?`<span class="more">+${es.length-4}</span>`:""}</button>`;
   }
   const list=byDay[csel]||[];
@@ -562,42 +881,61 @@ function renderCal(){
 $("rc").onclick=()=>{rmode="cal";renderCal()};
 $("rl").onclick=()=>{rmode="list";renderCal()};
 const bname=(b,i)=>b.nm||"Bebé "+(i+1);
-function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=30;$("pmsg").textContent="";save();render()}
-function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing="nm";cat="Todos";csel=today();planShown=30;$("pmsg").textContent="";save();render();tab(4);$("nm").focus()}
+function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render()}
+function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing=null;cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render();obSkip=false;openOb()}
 function renderBabies(){
   const chip=(b,i)=>`<button class="${i===DB.cur?"on":""}" data-i="${i}">${esc(bname(b,i))}</button>`;
   $("bchips").innerHTML=DB.babies.map(chip).join("")+'<button class="addb" id="badd">+ Añadir bebé</button>';
   $("bsw").innerHTML=DB.babies.length>1?DB.babies.map(chip).join(""):"";
   document.querySelectorAll("#bchips button[data-i],#bsw button[data-i]").forEach(b=>b.onclick=()=>switchBaby(+b.dataset.i));
   $("badd").onclick=addBaby;
-  $("bdel").classList.toggle("hide",DB.babies.length<2);
+  $("bdel_t").textContent="Borra todo lo anotado de "+(S.nm||"este bebé")+". No se puede deshacer.";
 }
-let delArm=0;
-$("bdel").onclick=()=>{
-  if(!delArm){delArm=1;$("bdel").textContent="Pulsa otra vez para eliminar";setTimeout(()=>{delArm=0;$("bdel").textContent="Eliminar este perfil"},4000);return}
-  DB.babies.splice(DB.cur,1);DB.cur=Math.max(0,DB.cur-1);S=DB.babies[DB.cur];delArm=0;editing=null;
-  $("bdel").textContent="Eliminar este perfil";save();render();
-};
+let cfAct=null;
+function cfOpen(t,pp,word,label,fn){cfAct=fn;$("cft").textContent=t;$("cfp").textContent=pp;$("cfe").textContent="";$("cfi").value="";$("cfl").classList.toggle("hide",!word);$("cfok").textContent=label;$("cfok").disabled=!!word;$("cfok").dataset.w=word||"";$("cf").classList.remove("hide")}
+$("cfi").oninput=()=>{$("cfok").disabled=$("cfi").value.trim().toUpperCase()!==$("cfok").dataset.w};
+$("cfx").onclick=()=>$("cf").classList.add("hide");
+$("cfok").onclick=async()=>{if($("cfok").disabled||!cfAct)return;$("cfok").disabled=true;try{await cfAct();$("cf").classList.add("hide")}catch(e){$("cfe").textContent=(e&&e.code==="auth/requires-recent-login")?"Por seguridad, cierra sesión, vuelve a entrar y repítelo.":"No se pudo eliminar ("+((e&&(e.code||e.message))||"error")+").";$("cfok").disabled=false}};
+$("bdel").onclick=()=>{const n=S.nm||"este bebé";
+  cfOpen("¿Eliminar el perfil de "+n+"?","Se borran sus alimentos, alergias, reacciones y la foto. No se puede deshacer.","","Eliminar perfil",()=>{
+    DB.babies.splice(DB.cur,1);const empty=!DB.babies.length;if(empty)DB.babies.push(newBaby());DB.cur=Math.max(0,Math.min(DB.cur,DB.babies.length-1));S=DB.babies[DB.cur];editing=null;save();render();if(empty){obSkip=false;openOb()}})};
+$("adel").onclick=()=>cfOpen("¿Eliminar tu cuenta?","Se borran tu cuenta y todos los perfiles de bebé con sus datos. No se puede deshacer.","ELIMINAR","Eliminar cuenta",async()=>{
+  const k=LKEY();clearTimeout(ST);
+  if(window.cloud&&window.cloud.deleteAccount)await window.cloud.deleteAccount(snap());
+  try{localStorage.removeItem(k)}catch(e){}
+  if(!(window.cloud&&window.cloud.deleteAccount)){setDB(null);USER=null;$("gate").classList.remove("hide");render()}});
 function render(){
-  head();renderProfile();renderBabies();
+  head();renderProfile();renderBabies();renderPlanForm();plan();
   $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
   $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()});
   board();
   const ents=S.log.map((l,i)=>({...l,i})).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:b.i-a.i);
   $("log").innerHTML=ents.length?ents.map(rowHtml).join(""):'<p class="mute">Toca un alimento del tablero para registrar el primero.</p>';
   bindRows($("log"));
-  renderCal();renderPlanForm();renderTrack();
-  if(!$("v2").classList.contains("hide"))plan();
+  renderCal();renderTrack();
 }
-function openSheet(n,pd){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":"";$("shp").innerHTML=x?presHtml(x,pinzaNow()):"";
+function openSheet(n,pd,rest){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
-  if(lk)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo}.`:""}</p>`);
-  if(x&&x.a)w.push('<p><b>Alérgeno.</b> Ofrécelo de uno en uno, en poca cantidad, y vigila posibles reacciones. Ante cualquier duda, consulta con tu pediatra.</p>');
+  if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo} meses.`:""}</p>`);
+  if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
+  if(x&&x.lim)w.unshift('<p><b>Mejor limitarlo.</b> El arroz y los productos de arroz (tortitas, galletas) contienen arsénico inorgánico, y los bebés se exponen más que los adultos. Si lo das, que sea de vez en cuando y alternando con otros cereales. Las bebidas de arroz, mejor evitarlas. Consúltalo con tu pediatra.</p>');
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
-  $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("sh").classList.remove("hide");$("how").focus()}
-$("how").innerHTML=HOW.map(h=>`<option>${h}</option>`).join("");
+  {const rk=RISK[n];$("risk").classList.toggle("hide",!rk);$("risk").innerHTML=rk?`<b>${rk[0]}</b><p>${rk[1]}</p>`:""}$("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"",ho=howOpts(x);$("how").innerHTML=ho.map(h=>`<option>${h}</option>`).join("");const dv=!p?(ho.includes("Mezclado en papilla o yogur")?"Mezclado en papilla o yogur":ho[0]):k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado";$("how").value=ho.includes(dv)?dv:ho[0];
+    const fs=[...$("shp").querySelectorAll("figure")];$("howl").classList.toggle("hide",!!fs.length);
+    if(fs.length){
+      const pick=f=>{fs.forEach(g=>{g.classList.toggle("sel",g===f);g.setAttribute("aria-pressed",g===f)});$("how").value=f.querySelector("b").textContent};
+      fs.forEach(f=>{f.setAttribute("role","button");f.tabIndex=0;f.onclick=()=>pick(f);f.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(f)}}});
+      const want=$("how").value,m=fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}curPh="";$("fph_e").textContent="";fphUi();$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
+const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","Mezclado en papilla o yogur"],"Verduras":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Mezclado en papilla o yogur"],"Proteínas":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur"],"Cereales":["Tiras","Puré o aplastado","Trozos","Mezclado en papilla o yogur"],"Lácteos":["Tal cual","Tiras","Trozos","Puré o aplastado","Mezclado en papilla o yogur"],"Frutos secos":["Molido o en crema","Mezclado en papilla o yogur"],"Condimentos":["En polvo o picado en la comida","Al cocinar"]};
+const howOpts=x=>(x&&HOWC[x.c])||HOW;
 $("cx").onclick=()=>$("sh").classList.add("hide");
-$("ok").onclick=()=>{const rv=$("rx").value,g=AG[cur];S.log.push({f:cur,how:$("how").value,r:rv,d:$("dt").value||today()});save();$("sh").classList.add("hide");render();if(rv==="react"&&g){tkSet.add(g);tab(5);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}};
+$("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
+  {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;S.log.push(e)}
+  document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
+  save();$("sh").classList.add("hide");render();
+  if(!S.dip&&Object.keys(stats()).length>=100){S.dip=true;save();openDiploma(false)}
+  else if(rv==="react"&&g){tkSet.add(g);tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}
+};
 $("q").oninput=board;
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
@@ -605,7 +943,8 @@ let editing=null;
 function renderProfile(){
   const a=age();
   $("pname").textContent=S.nm||"Tu bebé";
-  $("av").textContent=(S.nm||"?").trim().charAt(0).toUpperCase()||"?";
+  $("av").innerHTML=S.ph?`<img src="${S.ph}" alt="">`:esc((S.nm||"?").trim().charAt(0).toUpperCase()||"?");
+  $("ph_add").textContent=S.ph?"Cambiar foto":"Añadir foto";$("ph_del").classList.toggle("hide",!S.ph);
   $("vnm").textContent=S.nm||"Sin nombre";
   $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
   const wk=d=>d<7?`${d} día${d===1?"":"s"}`:`${Math.floor(d/7)} semana${Math.floor(d/7)===1?"":"s"}`,ra=age(true);
@@ -636,13 +975,65 @@ function pushCloud(){
     saveLocal();render();pushCloud();
   };
 });
-$("go_tk").onclick=()=>tab(5);
+const resizePhoto=f=>new Promise((ok,no)=>{try{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{try{const n=640,c=document.createElement("canvas");c.width=c.height=n;const q=Math.min(im.width,im.height);c.getContext("2d").drawImage(im,(im.width-q)/2,(im.height-q)/2,q,q,0,0,n,n);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",.82))}catch(e){no(e)}};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error("img"))};im.src=u}catch(e){no(e)}});
+const resizeFit=(f,max,q)=>new Promise((ok,no)=>{try{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{try{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",q))}catch(e){no(e)}};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error("img"))};im.src=u}catch(e){no(e)}});
+let curPh="";
+function fphUi(){$("fph_add").classList.toggle("hide",!!curPh);$("fph_pv").classList.toggle("hide",!curPh);if(curPh)$("fph_img").src=curPh}
+$("fph_add").onclick=()=>$("fph_in").click();
+$("fph_rm").onclick=()=>{curPh="";$("fph_e").textContent="";fphUi()};
+$("fph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;$("fph_e").textContent="";
+  resizeFit(f,480,.62).then(url=>{const v=validPh(url);if(!v)throw 0;let tot=0;try{tot=JSON.stringify(DB).length}catch(_){}
+    if(tot+v.length>900000){$("fph_e").textContent="Ya hay muchas fotos guardadas. Borra alguna del Registro para añadir más.";return}
+    curPh=v;fphUi()}).catch(()=>{$("fph_e").textContent="No se pudo leer la foto. Prueba con otra."})};
+$("av").onclick=$("ph_add").onclick=()=>{$("phm").classList.add("hide");$("ph_in").click()};
+$("ph_edit").onclick=e=>{e.stopPropagation();if(!S.ph)$("ph_in").click();else $("phm").classList.toggle("hide")};
+document.addEventListener("click",e=>{if(!$("phm").classList.contains("hide")&&!e.target.closest("#phm,#ph_edit"))$("phm").classList.add("hide")});
+$("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;
+  resizePhoto(f).then(url=>{S.ph=validPh(url);saveLocal();render();pushCloud()}).catch(()=>{$("pmsg").textContent="No se pudo leer la foto. Prueba con otra."})};
+$("ph_del").onclick=()=>{$("phm").classList.add("hide");S.ph="";saveLocal();render();pushCloud()};
+$("go_tk").onclick=()=>{tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 $("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
 $("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
-function askProfile(){if(!S.bd){editing=S.nm?"bd":"nm";tab(4);renderProfile()}}
-function tab(n){[1,2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3)renderCal();if(n===5)renderTrack()}
-[1,2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));
+let obSkip=false;
+function askProfile(){if(!S.bd&&!obSkip)openOb()}
+let OB=null;
+function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,fo:new Set(),al:{},q:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
+function obSteps(){return OB.ya?[0,1,2,3,4].filter(i=>i!==4||obGroups().length):[0,1,2]}
+function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
+function drawOb(){
+  const st=obSteps(),i=OB.s,last=i===st[st.length-1]||(i===2&&OB.ya===false),nm=(OB.nm||"").trim();
+  let h="",ok=true,title="";
+  if(i===0){title="Hola, ¿cómo se llama tu bebé?";h=`<input type="text" id="ob_nm" maxlength="40" placeholder="Nombre del bebé" value="${esc(OB.nm)}" aria-label="Nombre del bebé" autocomplete="off">`;ok=!!nm}
+  if(i===1){title=`¿Cuándo nació ${esc(nm||"tu bebé")}?`;h=`<input type="date" id="ob_bd" max="${today()}" value="${esc(OB.bd)}" aria-label="Fecha de nacimiento"><p class="mute">Con la fecha calculamos qué puede probar y cuándo. Si nació antes de las 37 semanas, lo ajustas luego en el perfil.</p>`;ok=!!OB.bd&&OB.bd<=today()}
+  if(i===2){title=`¿Ha probado ${esc(nm||"tu bebé")} algún alimento ya?`;h=`<div class="big"><button class="btn${OB.ya===true?" p":""}" data-ya="1">Sí</button><button class="btn${OB.ya===false?" p":""}" data-ya="0">Todavía no</button></div>`;ok=OB.ya!==null}
+  if(i===3){title="¿Cuáles ha probado?";const q=norm(OB.q.trim());
+    h=`<input type="search" id="ob_q" placeholder="Buscar alimento" value="${esc(OB.q)}" aria-label="Buscar alimento"><p class="mute" id="ob_cnt">${OB.fo.size} marcado${OB.fo.size===1?"":"s"}. No hace falta la fecha.</p>`+C.map(c=>{const it=ALL.filter(x=>x.c===c[0]&&!x.lim&&(!q||norm(x.n).includes(q)));if(!it.length)return"";const tn=it.filter(x=>OB.fo.has(x.n)).length;
+      return `<details class="grp" data-c="${esc(c[0])}"${q||(OB.opn&&OB.opn.has(c[0]))?" open":""}><summary><h2 class="disp" style="font-size:1.15rem;color:var(--blue)">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb">`+it.map(x=>`<button type="button" class="it${OB.fo.has(x.n)?" done":""}" data-f="${esc(x.n)}" aria-pressed="${OB.fo.has(x.n)}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${x.min>6?`<span class="tag w">No antes de ${x.min} m</span>`:""}</button>`).join("")+`</div></details>`}).join("")}
+  if(i===4){title="¿Ha tenido alguna alergia o reacción?";h='<p class="mute">Solo salen los alérgenos de lo que ha probado. Si no hubo nada, déjalo como está.</p>'+obGroups().map(g=>{const v=OB.al[g]||"";return `<div class="arow"><b>${AGL[g]}</b><div class="ag" data-g="${g}"><button type="button" data-v=""${!v?' class="on"':""}>Sin problema</button><button type="button" data-v="sospecha" class="${v==="sospecha"?"on s":""}">Sospecha</button><button type="button" data-v="alergia" class="${v==="alergia"?"on a":""}">Alergia</button></div></div>`}).join("")}
+  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${k<=i?"on":""}"></i>`).join("")}</div><div class="mid${i>=3?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button>'}</div></div>`;
+  const o=$("ob");
+  if($("ob_nm"))$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};
+  if($("ob_bd"))$("ob_bd").oninput=e=>{OB.bd=e.target.value;$("ob_next").disabled=!(OB.bd&&OB.bd<=today())};
+  o.querySelectorAll("[data-ya]").forEach(b=>b.onclick=()=>{OB.ya=b.dataset.ya==="1";if(!OB.ya)OB.fo.clear();drawOb()});
+  if($("ob_q"))$("ob_q").oninput=e=>{OB.q=e.target.value;const p=e.target.selectionStart;drawOb();const n=$("ob_q");n.focus();n.setSelectionRange(p,p)};
+  o.querySelectorAll("button[data-f]").forEach(b=>b.onclick=()=>{const f=b.dataset.f,on=!OB.fo.has(f);if(on)OB.fo.add(f);else OB.fo.delete(f);
+    b.classList.toggle("done",on);b.setAttribute("aria-pressed",on);const d=b.closest("details"),all=d.querySelectorAll("button[data-f]");
+    d.querySelector(".gc").textContent=d.querySelectorAll("button[data-f].done").length+"/"+all.length;
+    const m=o.querySelector("#ob_cnt");if(m)m.textContent=OB.fo.size+" marcado"+(OB.fo.size===1?"":"s")+". No hace falta la fecha."});
+  o.querySelectorAll("details.grp").forEach(d=>d.addEventListener("toggle",()=>{OB.opn=OB.opn||new Set();if(d.open)OB.opn.add(d.dataset.c);else OB.opn.delete(d.dataset.c)}));
+  o.querySelectorAll(".ag button").forEach(b=>b.onclick=()=>{const g=b.parentNode.dataset.g;if(b.dataset.v)OB.al[g]=b.dataset.v;else delete OB.al[g];const sc=o.scrollTop;drawOb();o.scrollTop=sc});
+  $("ob_next").onclick=()=>{if(last)return obFinish();OB.s=st[st.indexOf(i)+1];drawOb();o.scrollTop=0};
+  if($("ob_back"))$("ob_back").onclick=()=>{OB.s=st[st.indexOf(i)-1];drawOb();o.scrollTop=0};
+  if($("ob_skip"))$("ob_skip").onclick=()=>{obSkip=true;$("ob").classList.add("hide")};
+}
+function obFinish(){
+  S.nm=OB.nm.trim().slice(0,40);S.bd=OB.bd;
+  OB.fo.forEach(f=>{if(info(f)&&!S.log.some(l=>l.f===f))S.log.push({f,how:"Antes de empezar",r:"pre",d:OB.bd,pre:true})});
+  S.al={...S.al,...cleanAl(OB.al)};
+  $("ob").classList.add("hide");save();render();tab(1)}
+function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}}
+[1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
 const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha","Gambas","Mejillones"]);
@@ -650,13 +1041,14 @@ const GLU=new Set(AGD.gluten);
 const rng=seed=>{let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}};
 const dstr=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 function allowed(x,p){
+  if(x.lim)return false;
   if(p.diet!=="om"&&(MEAT.has(x.n)||FISH.has(x.n)))return false;
   if(p.diet==="vgn"&&(x.n==="Huevo"||x.c==="Lácteos"))return false;
   if(blockedG(x))return false;
   return true;
 }
 const CSV=t=>new Set(t.split("|"));
-const FIB=CSV("Alubias blancas|Alubias negras|Alubias pintas|Garbanzos|Lentejas|Lentejas rojas|Avena|Quinoa|Pan integral|Amaranto|Trigo sarraceno|Cebada|Espelta|Pera asada|Ciruela|Kiwi|Frambuesas|Mora|Higos|Dátiles|Arándanos|Granada|Alcachofa|Brócoli|Coles de Bruselas|Guisantes|Coliflor|Zanahoria|Boniato|Espárragos|Semillas de chía|Semillas de lino|Semillas de girasol|Semillas de calabaza");
+const FIB=CSV("Alubias blancas|Alubias negras|Alubias pintas|Garbanzos|Lentejas|Lentejas rojas|Avena|Quinoa|Pan integral|Amaranto|Trigo sarraceno|Cebada|Espelta|Pera|Ciruela|Kiwi|Frambuesas|Mora|Higos|Dátiles|Arándanos|Granada|Alcachofa|Brócoli|Coles de Bruselas|Guisantes|Coliflor|Zanahoria|Boniato|Espárragos|Semillas de chía|Semillas de lino|Semillas de girasol|Semillas de calabaza");
 const O3=CSV("Salmón|Sardinas|Trucha|Semillas de chía|Semillas de lino|Nuez");
 const CAL=CSV("Yogur natural|Queso fresco|Queso tierno|Mozzarella|Ricotta|Requesón|Kéfir|Tofu|Sardinas|Almendra|Sésamo (tahini)|Brócoli|Semillas de chía|Alubias blancas|Higos");
 const VC=CSV("Naranja|Mandarina|Kiwi|Fresas|Pomelo|Piña|Mango|Papaya|Maracuyá|Frambuesas|Mora|Pimiento rojo|Pimiento verde|Brócoli|Coliflor|Coles de Bruselas|Tomate|Perejil|Limón (ralladura)");
@@ -665,38 +1057,40 @@ const FAT=CSV("Aguacate|Salmón|Sardinas|Trucha|AOVE|Huevo|Yogur natural|Coco");
 const GS={iron:x=>x.fe,fiber:x=>FIB.has(x.n),omega3:x=>O3.has(x.n),calcium:x=>CAL.has(x.n),vitc:x=>VC.has(x.n),protein:x=>x.c==="Proteínas"||x.c==="Lácteos",zinc:x=>ZN.has(x.n),fats:x=>FAT.has(x.n)||x.c==="Frutos secos",alg:x=>x.a,verd:x=>x.c==="Verduras"};
 const GOALS=[["iron","Hierro","carne, legumbres, huevo"],["fiber","Fibra","digestión"],["omega3","Omega-3","cerebro y vista"],["calcium","Calcio","huesos"],["protein","Proteína","crecimiento"],["zinc","Zinc","defensas"],["alg","Alérgenos","no hace falta retrasarlos"],["verd","Más verduras","sabores y fibra"]];
 const GL=Object.fromEntries(GOALS.map(g=>[g[0],g[1]]));
-let planShown=30;
+let planShown=7;
 $("pf_glist").innerHTML=GOALS.map(g=>`<label class="ck"><input type="checkbox" value="${g[0]}"><span><b>${g[1]}</b><small>${g[2]}</small></span></label>`).join("");
+const DIETTXT={veg:"Vegetariana: sin carne ni pescado, con huevo y lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses. Consúltalo con tu pediatra.",vgn:"Vegana: sin carne, pescado, huevo ni lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses, y la vitamina B12 necesita suplemento. Consúltalo con tu pediatra."};
 function renderPlanForm(){
-  const p=S.prefs;
-  $("pf_diet").value=p.diet;$("pf_days").value=String(p.days);$("pf_every").value=String(p.every||2);
+  const p=S.prefs,dt=DIETTXT[p.diet];
+  $("dinfo").classList.toggle("hide",!dt);$("dinfo").title=dt||"";$("dpop").textContent=dt||"";if(!dt)$("dpop").classList.add("hide");
+  $("pf_diet").value=p.diet;$("pf_every").value=String(p.every||2);
   $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
   const g=p.goals.map(x=>GL[x]);
   $("pf_gsum").textContent=!g.length?"Elegir":g.length<=2?g.join(", "):g.length+" objetivos";
 }
-function setPref(k,v){S.prefs[k]=v;planShown=30;save();renderPlanForm();plan()}
+function setPref(k,v){S.prefs[k]=v;planShown=7;save();renderPlanForm();plan()}
+$("dinfo").onclick=e=>{e.preventDefault();$("dpop").classList.toggle("hide")};
 $("pf_diet").onchange=e=>setPref("diet",e.target.value);
-$("pf_days").onchange=e=>setPref("days",+e.target.value);
 $("pf_every").onchange=e=>setPref("every",+e.target.value);
 $("pf_glist").querySelectorAll("input").forEach(i=>i.onchange=()=>setPref("goals",[...$("pf_glist").querySelectorAll("input:checked")].map(x=>x.value)));
 document.addEventListener("click",e=>{const d=$("pf_goals");if(d.open&&!d.contains(e.target))d.open=false});
 const SLOTS=[["Hierro y proteína",x=>x.fe||x.c==="Proteínas"],["Verdura",x=>x.c==="Verduras"],["Fruta",x=>x.c==="Frutas"],["Cereal",x=>x.c==="Cereales"]];
 const NOCOOK=new Set(["Lechuga","Pepino","Rábano","Endibia"]);
-const CER=new Set(["Arroz","Pasta","Quinoa","Cuscús"]);
-const PANES=new Set(["Pan (tostado, sin sal)","Pan integral"]);
+const CER=new Set(["Pasta","Quinoa","Cuscús"]);
+const PANES=new Set(["Pan","Pan integral"]);
 const low=x=>x.n.toLowerCase();
 const mealsFor=mo=>mo<6?["Comida"]:mo<7?["Comida","Merienda"]:mo<9?["Desayuno","Comida","Merienda"]:mo<12?["Desayuno","Comida","Merienda","Cena"]:["Desayuno","Media mañana","Comida","Merienda","Cena"];
-const RF={pure:["mash","bits"],arroz:["balls","bits"],guiso:["mash","bits"],tortita:["patty","patty"],tortilla:["stick","bits"],burger:["stick","bits"],pescado:["flake","bits"],tofu:["stick","bits"],hummus:["mash","mash"],avena:["mash","mash"],yogur:["mash","mash"],queso:["stick","bits"],tostada:["stick","bits"]};
+const RF={pure:["mash","bits"],arroz:["balls","bits"],guiso:["mash","bits"],tortita:["patty","patty"],tortilla:["stick","bits"],burger:["stick","bits"],pescado:["flake","bits"],tofu:["stick","bits"],hummus:["mash","mash"],avena:["mash","mash"],yogur:["mash","mash"],queso:["stick","bits"],tostada:["stick","bits"],mix:["mash","bits"]};
 function recipesFor(kn,mo,pz){
   const out=[],T=(a,b)=>pz?b:a;
-  const add=(t,k,n,ing,how,meals,g)=>{const key=ing.find(x=>x.c==="Verduras")||ing.find(x=>x.c==="Frutas")||ing[0];out.push({t,k,n,ing:ing.map(low).join(", "),how,meals,g:g||fig(RF[t][pz?1:0],colOf(key))})};
+  const add=(t,k,n,ing,how,meals,g)=>{const key=ing.find(x=>x.c==="Verduras")||ing.find(x=>x.c==="Frutas")||ing[0];out.push({t,k,n,ing:ing.map(low).join(", "),ings:ing.map(x=>x.n),how,meals,g:g||fig(RF[t][pz?1:0],0,0,pz)})};
   const veg=kn.filter(x=>x.c==="Verduras"&&!NOCOOK.has(x.n)),fru=kn.filter(x=>x.c==="Frutas"),
     meat=kn.filter(x=>MEAT.has(x.n)),fish=kn.filter(x=>FISH.has(x.n)&&x.n!=="Gambas"&&x.n!=="Mejillones"),
     leg=kn.filter(x=>/^(Lentejas|Alubias|Garbanzos)/.test(x.n)),egg=kn.filter(x=>x.n==="Huevo"),tofu=kn.filter(x=>x.n==="Tofu"),
     cer=kn.filter(x=>CER.has(x.n)),pan=kn.filter(x=>PANES.has(x.n)),
     g=n=>kn.find(x=>x.n===n),prot=[...meat,...fish,...leg,...egg,...tofu],mainM=["Comida","Cena"];
   veg.forEach(v=>{
-    prot.forEach(p=>add("pure",p.n,`Puré de ${low(v)} con ${low(p)}`,[v,p],T("Puré espeso con grumos","Aplastado con tenedor, con trocitos blandos"),mainM));
+    prot.forEach(p=>add("pure",p.n,`Puré de ${low(v)} con ${p.n==="Huevo"?"huevo hervido aplastado":low(p)}`,[v,p],T("Puré espeso con grumos","Aplastado con tenedor, con trocitos blandos"),mainM));
     cer.forEach(c=>[...meat,...fish,...leg].forEach(p=>add("arroz",p.n,`${c.n} con ${low(v)} y ${low(p)}`,[c,v,p],"Bien cocido, con la verdura y la proteína desmenuzadas",mainM)));
     leg.forEach(l=>add("guiso",l.n,`Guiso suave de ${low(l)} con ${low(v)}`,[l,v],T("Muy blando, aplastado con tenedor","Muy blando, algo aplastado"),mainM));
     leg.filter(l=>/^(Lentejas|Alubias)/.test(l.n)).forEach(l=>add("tortita",l.n,`Tortitas de ${low(l)} con ${low(v)}`,[l,v],"Tortitas pequeñas a la plancha",mainM));
@@ -706,40 +1100,44 @@ function recipesFor(kn,mo,pz){
     tofu.forEach(t=>add("tofu",t.n,`Palitos de tofu con ${low(v)}`,[t,v],T("En palitos","En dados pequeños"),mainM));
     if(g("Garbanzos"))add("hummus","Garbanzos",`Hummus con ${T("bastones","trocitos")} de ${low(v)}`,[g("Garbanzos"),v],T("Verdura muy bien cocida, en bastones","Verdura muy bien cocida, en trocitos"),["Comida","Merienda"]);
   });
-  const av=g("Avena"),pl=g("Plátano"),ag=g("Aguacate"),yo=g("Yogur natural"),qf=g("Queso fresco");
+  const av=g("Avena"),pl=g("Plátano"),ag=g("Aguacate"),yo=g("Yogur natural"),qf=g("Queso fresco"),pa=g("Patata"),za=g("Zanahoria");
+  [...veg,...prot].forEach(x=>{const p=presOf(x);add("solo",prot.includes(x)?x.n:null,x.n,[x],offerText(x,pz),["Comida","Cena"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
+  cer.forEach(x=>{const p=presOf(x);add("solo",null,x.n,[x],offerText(x,pz),["Comida","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
+  if(ag)egg.forEach(e=>add("mix","Huevo","Aguacate con huevo hervido aplastado",[ag,e],T("Aguacate muy maduro y huevo hervido aplastados juntos","Aguacate y huevo hervido aplastados, con trocitos"),["Desayuno","Merienda","Cena"]));
+  if(ag&&pl)add("mix",null,"Mousse de aguacate y plátano",[ag,pl],"Aplastados juntos, como una crema espesa",["Desayuno","Merienda"]);
+  if(yo&&pl&&av)add("yogur",null,"Yogur con plátano y avena",[yo,pl,av],T("Plátano aplastado y avena cocida, con el yogur","Con trocitos de plátano y avena cocida"),["Desayuno","Merienda"]);
+  if(pa&&za&&egg.length)add("mix","Huevo","Ensaladilla suave de patata, zanahoria y huevo",[pa,za,egg[0]],"Todo cocido y aplastado con tenedor, con un chorrito de aceite de oliva",["Comida","Cena"]);
   if(av)fru.forEach(f=>add("avena",null,`Papilla de avena con ${low(f)}`,[av,f],"Papilla espesa, con la fruta aplastada",["Desayuno"]));
   if(yo)fru.forEach(f=>add("yogur",null,`Yogur natural con ${low(f)}`,[yo,f],T("Con la fruta aplastada","Con trocitos blandos de fruta"),["Desayuno","Merienda"]));
   if(qf)fru.forEach(f=>add("queso",null,`Queso fresco con ${low(f)}`,[qf,f],T("Con la fruta aplastada","Con trocitos blandos de fruta"),["Merienda"]));
   pan.forEach(b=>{if(ag)add("tostada",null,"Tostada con aguacate",[b,ag],T("En tiras, con el aguacate aplastado","En trocitos, con el aguacate aplastado"),["Desayuno","Merienda"]);
-    if(qf)add("tostada",null,"Tostada con queso fresco",[b,qf],T("En tiras","En trocitos"),["Desayuno","Merienda"])});
+    if(qf)add("tostada",null,"Tostada con queso fresco",[b,qf],T("En tiras","En trocitos"),["Desayuno","Merienda"]);
+    if(ag&&egg.length)add("tostada","Huevo","Tostada con aguacate y huevo hervido aplastado",[b,ag,egg[0]],T("En tiras, con el aguacate y el huevo aplastados","En trocitos, con el aguacate y el huevo aplastados"),["Desayuno","Merienda","Cena"])});
   if(pl&&av&&egg.length)add("tortita","Huevo","Tortitas de plátano y avena",[pl,av,egg[0]],"Tortitas pequeñas a la plancha",["Desayuno","Merienda"]);
   egg.forEach(e=>add("tortilla","Huevo","Tortilla francesa",[e],T("En tiras","En trocitos"),["Desayuno"]));
-  fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],colOf(f),p.rind))});
+  fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
   return out}
 
 function plan(){
+  PLANNED={};
   const p=S.prefs,goals=p.goals||[],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
-  const notes=[];
+  const notes=[],tips=[];
   if(ag&&ag.pre)notes.push("Nació prematuro: la app cuenta desde la edad corregida. Consulta con tu pediatra cuándo empezar.");
-  if(p.diet==="veg")notes.push("Vegetariana: sin carne ni pescado, con huevo y lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses: consúltalo con tu pediatra.");
-  if(p.diet==="vgn")notes.push("Vegana: sin carne, pescado, huevo ni lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses, y la vitamina B12 necesita suplemento. Consúltalo con tu pediatra.");
-  if(goals.length)notes.push("Objetivos: "+goals.map(g=>GL[g].toLowerCase()).join(", ")+".");
   {const ex=Object.keys(S.al||{}).map(g=>AGL[g].toLowerCase());if(ex.length)notes.push("Fuera del plan por alergia: "+ex.join(", ")+".")}
-  if(every===1)notes.push("La AEP recomienda dejar unos días entre alimentos nuevos.");
-  if(ag&&ag.mo>=6&&ag.mo<12&&!(S.al&&S.al.gluten)&&![...GLU].some(n=>m[n]))notes.push("Gluten: la AEP recomienda introducirlo entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.");
-  if(!p.days)notes.push("Plan indefinido: sigue hasta que hayan probado todo lo que encaja.");
-  $("pf_note").textContent=notes.join(" ");
+  $("pf_note").textContent=notes.join(" ");$("pf_note").classList.toggle("hide",!notes.length);
+
   if(ag&&ag.mo<ag.th){
     $("days").innerHTML=`<div class="card"><p><b>Todavía no toca empezar.</b> La AEP recomienda empezar hacia los 6 meses (26 semanas) y nunca antes de los 4. A ${esc(S.nm||"tu bebé")} le faltan ${Math.max(ag.sT,0)} días para ${ag.th===4?"las 17 semanas (4 meses)":"los 6 meses"}${ag.pre?", contando desde la edad corregida":""}. Puedes ajustarlo en Perfil si tu pediatra te ha indicado otra cosa.</p></div>`;
+    $("shop").innerHTML="";$("fam").innerHTML="";
     return;
   }
-  const cc={};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
+  const cc={},TGT={"Proteínas":2,"Verduras":3,"Cereales":1,"Frutas":3},SH={"Proteínas":.3,"Verduras":.3,"Frutas":.25,"Cereales":.15};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
   let pool=ALL.filter(x=>!m[x.n]&&unlocked(x)&&allowed(x,p));
   const first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
   const t0=today(),lastFirst=Object.values(first).sort().pop();
   let lastNew=lastFirst?-Math.max(0,Math.round((new Date(t0+"T00:00:00")-new Date(lastFirst+"T00:00:00"))/864e5)):-99;
   const start=new Date();start.setHours(0,0,0,0);
-  const total=p.days||ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="";
+  const total=ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="";
   const known=Object.keys(m).filter(k=>!m[k].all.includes("react")).map(info).filter(a=>a&&allowed(a,p));
   for(let d=0;d<total;d++){
     const dt=new Date(start);dt.setDate(start.getDate()+d);const ds=dstr(dt);
@@ -749,60 +1147,182 @@ function plan(){
     if(doneNew.length)lastNew=d;
     const items=[];
     if(!doneNew.length&&d-lastNew>=every){
-      let best=null,bs=-1e9;
+      let best=null,bs=-1e9;const T0=Object.values(cc).reduce((a,b)=>a+b,0);
       pool.forEach(x=>{
-        let s=rnd()*1.5+(4-Math.min(4,cc[x.c]||0));
-        s+=(x.fe?3:0)+(ZN.has(x.n)?2:0);
+        const extra=x.c==="Frutos secos"||x.c==="Condimentos";
+        const des=Math.max(TGT[x.c]||0,(SH[x.c]||0)*(T0+1)),cnt=cc[x.c]||0;
+        let s=rnd()*1.5+Math.min(Math.max(0,des-cnt),3)*2.5;
+        if(!extra)s+=((x.fe?3:0)+(ZN.has(x.n)?2:0))*(cnt>=des?.3:1);
         s+=Math.min(goals.filter(g=>GS[g](x)).length,2)*5;
-        if(x.fe&&goals.includes("iron"))s+=3;
+        if(x.fe&&goals.includes("iron")&&!extra)s+=3;
         if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
         if(x.c===prev)s-=2;
-        if(x.c==="Condimentos")s-=4;
+        if(extra)s-=(T0<12?9:3);
         if(s>bs){bs=s;best=x}});
       if(best){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a)lastA=d;lastNew=d;known.push(best);items.push(best)}
     }
     out.push({dt,ds,done,items,di:d,kn:[...known]});
   }
-  if(!p.days){let k=out.length;while(k>0&&!out[k-1].items.length&&!out[k-1].done.length)k--;out.length=k}
+  {let k=out.length;while(k>0&&!out[k-1].items.length&&!out[k-1].done.length)k--;out.length=k}
   const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&!x.all.includes("react")&&x.c<15}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
   const fmt=dt=>{const s=dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});return s.charAt(0).toUpperCase()+s.slice(1)};
-  const show=p.days?out.length:Math.min(out.length,planShown);
+  const show=Math.min(out.length,planShown);
   const menuFor=o=>{const used=new Set();return SLOTS.map(([lab,fn],i)=>{
     let c=o.kn.filter(x=>fn(x)&&!used.has(x.n));if(i===0){const ir=c.filter(x=>x.fe);if(ir.length)c=ir}
     if(!c.length)return"";
     const nw=o.items.find(x=>fn(x)&&!used.has(x.n));
     const pick=nw||c[(o.di+i*2+(p.seed||1))%c.length];used.add(pick.n);
     return `<p><b>${lab}:</b> <span class="${pick.a?"al":""}">${esc(pick.n)}</span></p>`}).join("")};
-  const mo=ag?ag.mo:8,pz=pinzaNow();
-  const menuHtml=o=>{
-    const kd=o.kn.filter(x=>!o.items.includes(x)),R=recipesFor(kd,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[];
+  const mo=ag?ag.mo:8,pz=pinzaNow(),tx=texLevel();
+  const menuRows=o=>{
+    const R=recipesFor(o.kn,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[],nn=o.items.map(x=>x.n);
+    const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
+    const newSlot=nn.length?ms.find(m=>R.some(r=>ok(r,m)&&hasNew(r))):null;
     ms.forEach((meal,si)=>{
-      const L=R.filter(r=>r.meals.includes(meal)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k)));
+      let L=R.filter(r=>ok(r,meal)&&(meal===newSlot?hasNew(r):!hasNew(r)));
+      {const dr=tx>=4?["pure"]:tx===3&&(o.di+si)%2===0?["pure"]:[];const L3=L.filter(r=>!dr.includes(r.t));if(L3.length)L=L3}
+      const mixes=L.filter(r=>r.t!=="solo");if(mixes.length)L=mixes;
+      if(!L.length)L=R.filter(r=>r.t==="fruta"&&!usedN.has(r.n)&&!hasNew(r));
+      if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
       if(!L.length)return;
       const ts=[...new Set(L.map(r=>r.t))],t=ts[(o.di+si+(p.seed||1))%ts.length],L2=L.filter(r=>r.t===t),r=L2[(o.di*2+si+(p.seed||1))%L2.length];
       usedN.add(r.n);if(r.k)usedK.add(r.k);rows.push([meal,r]);
     });
+    return rows};
+  const menuHtml=(o,rows)=>{
     if(!rows.length){const mn=menuFor(o);return mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:""}
-    return `<div class="menu"><b>Menú del día</b> <span class="mute">${ms.length} comida${ms.length===1?"":"s"} + leche a demanda</span>`+rows.map(([meal,r])=>`<div class="mr">${r.g}<p><b>${meal}:</b> ${esc(r.n)}<br><span class="mute">${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</span></p></div>`).join("")+`</div>`;
+    const MV={"Desayuno":"Ha desayunado","Media mañana":"Ha tomado la media mañana","Comida":"Ha comido","Merienda":"Ha merendado","Cena":"Ha cenado"},ML=S.ml[o.ds]||{};
+    return `<div class="rmenu"><div class="mh"><span class="disp">Menú del día</span><small>${rows.length} servicio${rows.length===1?"":"s"} · leche a demanda</small></div><div class="orn">✦</div>`+rows.map(([meal,r])=>{const st=ML[meal],rt=st&&st.r;
+      return `<div class="course"><div class="cl">${esc(meal)}</div><div class="mr">${r.g}<p><span class="dn">${esc(r.n)}</span><br><em>${r.ing.includes(",")?"Con "+esc(r.ing)+". ":""}${esc(r.how)}</em></p></div>`+
+      `<div class="mk"><button class="mt${st?" on":""}" data-ml="${esc(meal)}" data-d="${o.ds}" aria-pressed="${!!st}">${st?"✓ ":""}${MV[meal]||meal}</button></div>`+
+      (st?`<div class="fb"><span>¿Le ha gustado? (opcional)</span>`+[["love","Sí"],["meh","Regular"],["no","No"]].map(([v,l])=>`<button data-fb="${v}" data-ml="${esc(meal)}" data-d="${o.ds}" class="${rt===v?"on":""}" data-v="${v}" aria-pressed="${rt===v}">${l}</button>`).join("")+`</div>`:"")+`</div>`}).join("")+`<div class="orn">✦</div><p class="foot">¡Buen provecho!</p></div>`;
   };
+  const CW={"Frutas":"ninguna fruta","Verduras":"ninguna verdura","Proteínas":"ninguna proteína","Cereales":"ningún cereal","Lácteos":"ningún lácteo","Frutos secos":"ningún fruto seco","Condimentos":"ninguna hierba ni especia"};
+  const CW1={"Frutas":["fruta","frutas"],"Verduras":["verdura","verduras"],"Proteínas":["proteína","proteínas"],"Cereales":["cereal","cereales"]};
+  const whyHtml=o=>{
+    const nm=esc(S.nm||"tu bebé"),tl=`<b>Textura:</b> ${esc(TXL[tx](mo))}`;let head="";
+    const x=o.items[0];
+    if(x){const cnt=o.kn.filter(k=>k.c===x.c&&k!==x).length,R=[],extra=x.c==="Frutos secos"||x.c==="Condimentos";
+      if(x.a)R.push(`es un alérgeno (${AGL[AG[x.n]]||"alérgeno"}): conviene introducirlo pronto, en poca cantidad y sin otros nuevos ese día, para poder vigilar`);
+      const gl=goals.find(g=>GS[g](x)&&g!=="alg");if(gl)R.push(`encaja con tu objetivo de ${String(GL[gl]).toLowerCase()}`);
+      if(x.fe&&!extra)R.push("aporta hierro, que ahora le hace falta");
+      if(cnt===0)R.push(`todavía no ha probado ${CW[x.c]||"nada de este grupo"}`);else if(cnt<(TGT[x.c]||0)){const nn=(CW1[x.c]||["alimento","alimentos"])[cnt===1?0:1];R.push(`aún solo ha probado ${cnt} ${nn} y queremos más variedad`)}
+      if(ZN.has(x.n)&&!R.some(r=>/hierro/.test(r)))R.push("aporta zinc");
+      if(!R.length)R.push("suma variedad al menú sin repetir lo que ya conoce");
+      head=`Hoy introducimos <b>${esc(x.n)}</b> porque ${R.slice(0,2).join(". Además, ")}.`}
+    else if(o.done.length)head=`Hoy ${nm} ya ha probado algo nuevo: repetimos lo que conoce para afianzarlo.`;
+    else head=`Hoy no hay alimento nuevo: ofrecemos lo que ya conoce para afianzarlo. Dejamos ${every>1?"un par de días":"un día"} entre novedades para vigilar cómo le sienta.`;
+    return `<div class="why"><p>${head}</p><p class="mute">${tl}</p></div>`};
+  const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
+  const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
+  const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
+  renderShop(wk);renderFam(wk,have);
   const useful=out.some(o=>o.items.length||o.done.length||o.kn.length);
-  $("days").innerHTML=useful?'<p class="mute" style="margin:0 0 8px">Cantidad: la decide el bebé. Empieza con poca y ofrece más si pide.</p>'+out.slice(0,show).map((o,i)=>{
+  $("days").innerHTML=useful?'<p class="mute" style="margin:0 0 8px">Cantidad: la decide el bebé. Empieza con poca y ofrece más si pide.</p>'+shown.map((o,i)=>{
     const r=re.length?re[i%re.length]:null,ri=r&&info(r.n);
     const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
     const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
-      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.a?'<span class="tag w">alérgeno</span> ':""}${tg}</p>${presHtml(n,pz)}<button class="btn" style="margin:2px 0 6px;max-width:200px" data-n="${esc(n.n)}" data-d="${o.ds}">Lo probamos</button>`}).join("");
-    const none=(!o.items.length&&!o.done.length)?'<p class="mute">Hoy sin alimento nuevo.</p>':"";
-    const mh=menuHtml(o);
-    const rep=r?`<p><b>Repetir:</b> ${esc(r.n)} <span class="mute">${r.last==="love"?"Le gustó.":"Última vez: "+RL[r.last].toLowerCase()+". Prueba otra forma."}</span></p>`:"";
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${none}${mh}${rep}</div>`}).join("")+(!p.days&&out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver más días</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
-  $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d));
-  if($("pmore"))$("pmore").onclick=()=>{planShown+=30;plan()};
+      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.a?'<span class="tag w">alérgeno</span> ':""}${tg}</p>${presHtml(n,pz)}<button class="btn" style="margin:2px 0 6px;max-width:200px" data-n="${esc(n.n)}" data-d="${o.ds}" data-m="${esc([...new Set(o.rows.flatMap(([mm,r])=>r.ings))].filter(f=>f!==n.n&&info(f)&&!blockedG(info(f))&&!S.log.some(l=>l.d===o.ds&&l.f===f)).join("|"))}">Lo probamos</button>`}).join("");
+    const none="";
+    const mh=menuHtml(o,o.rows);
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${whyHtml(o)}${doneH}${itemsH}${none}${mh}</div>`}).join("")+(out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver otra semana</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
+  $("days").querySelectorAll("button[data-ml]").forEach(b=>b.onclick=()=>{
+    const d=b.dataset.d,m=b.dataset.ml,e=S.ml[d]=S.ml[d]||{};
+    if(b.dataset.fb){if(e[m]){if(e[m].r===b.dataset.fb)delete e[m].r;else e[m].r=b.dataset.fb}}
+    else if(e[m]){delete e[m];if(!Object.keys(e).length)delete S.ml[d]}else e[m]={d:true};
+    save();plan()});
+  if($("pmore"))$("pmore").onclick=()=>{planShown+=7;plan()};
 }
-$("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;planShown=30;save();plan()};
+$("mk").onclick=()=>{S.prefs.seed=(S.prefs.seed||1)+1;planShown=7;save();plan()};
 
+const SHOPORD=["Frutas","Verduras","Proteínas","Cereales","Lácteos","Frutos secos","Condimentos"];
+let shopCur={};
+function renderShop(wk){
+  shopCur=wk;const names=Object.keys(wk);
+  if(!names.length){$("shop").innerHTML='<p class="mute">Cuando haya menú, aquí sale lo que hay que comprar.</p>';return}
+  const by={};names.forEach(n=>{const x=info(n);if(x)(by[x.c]=by[x.c]||[]).push(x)});
+  $("shop").innerHTML='<div class="shcols">'+SHOPORD.filter(c=>by[c]).map(c=>`<div class="shc"><h4 class="sh">${c}</h4>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(x=>`<label class="sl"><input type="checkbox" data-sl="${esc(x.n)}"${S.sl[x.n]?" checked":""}><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="mute">${wk[x.n]} ${wk[x.n]===1?"día":"días"}</span></label>`).join("")+"</div>").join("")+'</div><div class="btns" style="max-width:420px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Aceite de oliva virgen extra para cocinar. Sin sal ni azúcar.</p>';
+}
+$("shop").addEventListener("change",e=>{const n=e.target.dataset&&e.target.dataset.sl;if(!n)return;if(e.target.checked)S.sl[n]=true;else delete S.sl[n];save()});
+$("shop").addEventListener("click",e=>{
+  if(e.target.id==="sl_reset"){S.sl={};save();renderShop(shopCur);return}
+  if(e.target.id==="sl_copy"){
+    const by={};Object.keys(shopCur).filter(n=>!S.sl[n]).forEach(n=>{const x=info(n);if(x)(by[x.c]=by[x.c]||[]).push(n)});
+    const txt="Lista de la compra del bebé\n"+SHOPORD.filter(c=>by[c]).map(c=>c+": "+by[c].sort((a,b)=>a.localeCompare(b,"es")).join(", ")).join("\n");
+    const b=e.target,done=()=>{b.textContent="Copiada";setTimeout(()=>{b.textContent="Copiar lista"},1600)};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done).catch(()=>prompt("Copia la lista:",txt));else prompt("Copia la lista:",txt)}
+});
+const FAM=[
+{n:"Crema de calabaza y zanahoria",base:["Calabaza","Zanahoria"],extra:"cebolla y caldo",baby:"Aparta su ración antes de salar, con grumos o con trozos blandos.",adult:"Sala, y añade jengibre o un chorrito de nata."},
+{n:"Crema de calabacín y patata",base:["Calabacín","Patata"],extra:"puerro",baby:"Aparta su ración antes de salar, espesa y con grumos.",adult:"Sala y termina con queso o picatostes."},
+{n:"Crema de brócoli y patata",base:["Brócoli","Patata"],extra:"cebolla",baby:"Aparta su ración sin sal. Ramilletes al vapor aparte si quiere agarrarlos.",adult:"Sala y añade queso rallado."},
+{n:"Lentejas estofadas con zanahoria",base:["Lentejas","Zanahoria"],extra:"cebolla y pimentón",baby:"Aparta lentejas y zanahoria antes del pimentón y la sal, aplastadas.",adult:"Sazona y añade chorizo o jamón si os gusta."},
+{n:"Garbanzos con calabaza",base:["Garbanzos","Calabaza"],extra:"cebolla y comino",baby:"Aparta su ración sin sal, garbanzos aplastados o en hummus.",adult:"Sala y añade comino o espinacas."},
+{n:"Alubias blancas con verduras",base:["Alubias blancas","Zanahoria"],extra:"cebolla y laurel",baby:"Aparta su ración antes de salar, muy blandas y algo aplastadas.",adult:"Sala y añade chorizo o morcilla."},
+{n:"Hummus con bastones de verdura",base:["Garbanzos"],extra:"tahini, limón y ajo",baby:"Su ración, sin sal, ajo ni limón, con bastones de verdura bien cocida.",adult:"Hummus completo, con crudités y pan."},
+{n:"Pollo al horno con patatas y zanahorias",base:["Pollo","Patata","Zanahoria"],extra:"romero y aceite",baby:"Aparta muslo sin piel y verduras antes de salar, en tiras tiernas.",adult:"Sala y especia al gusto, con piel crujiente."},
+{n:"Guiso de pavo con patata y zanahoria",base:["Pavo","Patata","Zanahoria"],extra:"cebolla y laurel",baby:"Aparta su ración sin sal, todo muy blando y desmenuzado.",adult:"Sala y añade vino blanco o especias."},
+{n:"Cordero estofado con patatas",base:["Cordero","Patata"],extra:"cebolla y romero",baby:"Aparta carne tierna y patata antes de salar, en tiras o desmenuzada.",adult:"Sala y añade vino o ajo."},
+{n:"Albóndigas de ternera con zanahoria",base:["Ternera","Zanahoria"],extra:"pan rallado, perejil y salsa",baby:"Sin sal, bien hechas y en forma de dedo o desmenuzadas.",adult:"Salsa de tomate y sal al gusto."},
+{n:"Hamburguesas caseras con boniato asado",base:["Ternera","Boniato"],extra:"pan y cebolla",baby:"Hamburguesita sin sal, bien hecha, y bastones de boniato asado.",adult:"Con pan, sal y vuestros extras."},
+{n:"Merluza al horno con patata y calabacín",base:["Merluza","Patata","Calabacín"],extra:"limón y aceite",baby:"Aparta lascas sin piel ni espinas antes de salar.",adult:"Sala y añade limón y ajo."},
+{n:"Salmón al horno con brócoli",base:["Salmón","Brócoli"],extra:"limón y eneldo",baby:"Lascas sin piel ni espinas, sin sal, y ramilletes al vapor.",adult:"Sala y termina con limón y eneldo."},
+{n:"Sopa de pescado con verduras",base:["Merluza","Zanahoria","Patata"],extra:"cebolla y caldo",baby:"Aparta su ración antes de salar, con el pescado desmenuzado.",adult:"Sala y añade fideos o un toque de pimentón."},
+{n:"Tortilla de patata",base:["Huevo","Patata"],extra:"cebolla",baby:"Aparta su ración bien cuajada y sin sal, en tiras.",adult:"Sala y sirve con pan."},
+{n:"Tortilla de calabacín",base:["Huevo","Calabacín"],extra:"cebolla",baby:"Aparta su ración bien cuajada y sin sal, en tiras.",adult:"Sala y añade queso."},
+{n:"Ensaladilla suave de patata, zanahoria y huevo",base:["Patata","Zanahoria","Huevo"],extra:"atún y mayonesa",baby:"Su ración antes de añadir atún, sal y mayonesa, todo aplastado.",adult:"Con atún, aceitunas y mayonesa."},
+{n:"Boniato asado con huevo duro",base:["Boniato","Huevo"],extra:"yogur y especias",baby:"Boniato blando en bastones y huevo duro aplastado, sin sal.",adult:"Con sal, yogur y especias."},
+{n:"Tostadas de aguacate con huevo duro",base:["Aguacate","Huevo","Pan integral"],extra:"limón y pimienta",baby:"Tostada en tiras con aguacate y huevo duro aplastados, sin sal.",adult:"Con sal, limón y pimienta."},
+{n:"Pasta con verduras y pollo",base:["Pasta","Calabacín","Pollo"],extra:"tomate y albahaca",baby:"Aparta su ración antes de salar, pasta gruesa y pollo desmenuzado.",adult:"Con salsa, sal y queso."},
+{n:"Pasta con brócoli",base:["Pasta","Brócoli"],extra:"ajo y queso",baby:"Aparta su ración sin sal ni ajo, con el brócoli aplastado.",adult:"Con ajo, sal y queso."},
+{n:"Cuscús con verduras",base:["Cuscús","Calabacín","Zanahoria"],extra:"especias",baby:"Aparta su ración antes de las especias y la sal.",adult:"Con comino, sal y garbanzos."},
+{n:"Quinoa con verduras",base:["Quinoa","Brócoli"],extra:"limón",baby:"Aparta su ración sin sal, bien cocida y en bolitas.",adult:"Con sal, limón y hierbas."},
+{n:"Menestra de verduras",base:["Judías verdes","Zanahoria","Guisantes"],extra:"cebolla y jamón",baby:"Aparta su ración sin sal ni jamón, aplastando los guisantes.",adult:"Con jamón, sal y un huevo."},
+{n:"Salteado de tofu con verduras",base:["Tofu","Brócoli","Zanahoria"],extra:"salsa de soja",baby:"Aparta su ración antes de la salsa de soja, que lleva sal.",adult:"Con salsa de soja y jengibre."},
+{n:"Hamburguesas de lentejas",base:["Lentejas","Zanahoria"],extra:"avena y especias",baby:"Tortitas sin sal ni especias, en la plancha, blandas por dentro.",adult:"Con sal y especias, con yogur."},
+{n:"Gachas de avena con plátano",base:["Avena","Plátano"],extra:"canela y frutos secos",baby:"Su ración sin azúcar ni miel, con el plátano aplastado.",adult:"Con canela, miel y frutos secos."},
+{n:"Tortitas de plátano y avena",base:["Plátano","Avena","Huevo"],extra:"yogur",baby:"Tortitas pequeñas sin azúcar, en trocitos.",adult:"Con miel o sirope y fruta."},
+{n:"Yogur con plátano y avena",base:["Yogur natural","Plátano","Avena"],extra:"frutos secos",baby:"Yogur natural sin azúcar, con plátano aplastado.",adult:"Con miel y frutos secos."},
+{n:"Pera asada con canela",base:["Pera"],extra:"canela",baby:"Cuña muy blanda, sin azúcar ni miel.",adult:"Con miel, nueces y yogur."}
+];
+function renderFam(wk,have){
+  const list=FAM.filter(d=>d.base.every(n=>{const x=info(n);return have.has(n)&&x&&allowed(x,S.prefs)})).map(d=>({d,sc:d.base.filter(n=>wk[n]).length,k:(d.n.length*31+(S.prefs.seed||1)*17)%97})).sort((a,b)=>b.sc-a.sc||a.k-b.k).slice(0,8);
+  if(!list.length){$("fam").innerHTML='<div class="card"><p class="mute">Cuando haya probado más verduras, proteínas o cereales, aquí salen platos para los papis con lo mismo.</p></div>';return}
+  $("fam").innerHTML=list.map(({d,sc})=>`<div class="card"><b>${esc(d.n)}</b><p class="mute">Con lo del bebé: ${d.base.map(esc).join(", ")}. Para vosotros además: ${esc(d.extra)}.</p>${sc===d.base.length?'<p><span class="tag">Usa lo que ya compras esta semana</span></p>':""}<p><b>Para el bebé:</b> ${esc(d.baby)}</p><p><b>Para vosotros:</b> ${esc(d.adult)}</p></div>`).join("");
+}
+function subtab(n){[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",i!==n);$("p"+i).classList.toggle("on",i===n)})}
+[1,2,3].forEach(i=>$("p"+i).onclick=()=>subtab(i));
+
+const RCH3=["love","meh","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
+$("rxg").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;document.querySelectorAll("#rxg button").forEach(x=>x.classList.toggle("on",x===b));$("rx").value=b.dataset.v;$("rx").dispatchEvent(new Event("change"));$("ok").disabled=false});
+$("restl").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;const g=b.parentElement,was=b.classList.contains("on");g.querySelectorAll("button").forEach(x=>x.classList.remove("on"));if(!was)b.classList.add("on")});
+function favFoods(){const m=stats();return Object.values(m).map(x=>({n:x.n,l:x.all.filter(r=>r==="love").length,i:x.idx})).filter(x=>x.l>0).sort((a,b)=>b.l-a.l||b.i-a.i).slice(0,6).map(x=>x.n)}
+const loadImg=src=>new Promise(ok=>{const i=new Image(),t=setTimeout(()=>ok(null),5000);i.onload=()=>{clearTimeout(t);ok(i)};i.onerror=()=>{clearTimeout(t);ok(null)};i.src=src});
+async function buildPoster(canvas,preview){
+  try{await Promise.all([document.fonts.load('230px "Luckiest Guy"'),document.fonts.load('700 50px Montserrat')])}catch(e){}
+  const favs=favFoods();if(preview)['Aguacate','Fresas','Zanahoria','Huevo','Calabaza','Plátano'].forEach(n=>{if(favs.length<6&&!favs.includes(n))favs.push(n)});
+  const chars=await Promise.all(favs.map(async n=>{const x=info(n),pc=posterChar(n,x?x.c:"Frutas");return{img:await loadImg("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(pc.svg)),label:pc.label}}));
+  const photo=S.ph?await loadImg(S.ph):null,logo=await loadImg("sunsies-logo.png");
+  drawPoster(canvas.getContext("2d"),1240,1754,{name:S.nm||"Bebé",photo,chars:chars.filter(c=>c.img),logo,preview:!!preview});
+}
+async function openDiploma(preview){
+  $("dip").classList.remove("hide");
+  $("dip_p").textContent=preview?`Vista previa. El diploma completo se desbloquea al llegar a 100 alimentos (llevas ${Object.keys(stats()).length}).`:"¡100 alimentos! Descárgalo para imprimirlo o compartirlo.";
+  $("dip_dl").classList.toggle("hide",!!preview);
+  $("dip_sh").classList.toggle("hide",!!preview||!(navigator.canShare&&typeof File==="function"));
+  try{await buildPoster($("dipc"),preview)}catch(e){$("dip_p").textContent="No se pudo preparar el diploma. Prueba otra vez."}
+}
+$("prog").addEventListener("click",e=>{if(e.target.id==="dip_open")openDiploma(Object.keys(stats()).length<100)});
+$("dip_x").onclick=()=>$("dip").classList.add("hide");
+$("dip_dl").onclick=()=>{try{$("dipc").toBlob(b=>{if(!b)return;const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="diploma-"+(S.nm||"bebe").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000)},"image/png")}catch(e){$("dip_p").textContent="No se pudo descargar. Mantén pulsada la imagen para guardarla."}};
+$("dip_sh").onclick=()=>$("dipc").toBlob(b=>{if(!b)return;const f=new File([b],"diploma.png",{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f],title:"Diploma de los 100 alimentos"}).catch(()=>{})},"image/png");
 const AGL={gluten:"Gluten",huevo:"Huevo",pescado:"Pescado",crustaceos:"Crustáceos",moluscos:"Moluscos",cacahuete:"Cacahuete",frutoscascara:"Frutos de cáscara",sesamo:"Sésamo",soja:"Soja",apio:"Apio",lacteos:"Leche y lácteos"};
 const RXO=["Sin reacción","Enrojecimiento alrededor de la boca o en la piel","Ronchas o urticaria","Hinchazón de labios, cara o lengua","Vómitos","Diarrea o heces con sangre","Picor, eccema o piel irritada","Mocos, estornudos o tos","Dificultad para respirar o muy decaído (urgente)","Otra (la describo en notas)"];
 const URG=RXO[8];
+$("rxt").innerHTML='<option value="">Elige una opción</option>'+RXO.slice(1).map(o=>`<option>${esc(o)}</option>`).join("");
+$("rx").onchange=()=>$("rxb").classList.toggle("hide",$("rx").value!=="react");
+$("rxt").onchange=()=>$("rxu").classList.toggle("hide",$("rxt").value!==URG);
 const ALST={"":"Sin indicar",sospecha:"Sospecha de alergia",alergia:"Alergia confirmada"};
 const tkSet=new Set();
 const fd=d=>new Date(d+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});
@@ -816,29 +1336,32 @@ function procTxt(i,st){
   if(st==="sospecha")return "Sospecha de alergia: no lo vuelvas a ofrecer hasta que lo valore tu pediatra. Lleva las anotaciones de abajo.";
   if(i.anyRx)return "Hubo una reacción: no lo vuelvas a ofrecer hasta hablarlo con tu pediatra. Anota qué pasó y cuándo.";
   if(i.tried.length)return "Lo ha probado sin reacciones anotadas. Puedes seguir ofreciéndolo con normalidad.";
-  return "Aún no lo ha probado. Ofrécelo de uno en uno, en poca cantidad y a primera hora del día o a mediodía, para poder vigilar posibles reacciones.";
+  return "Aún no lo ha probado. Dalo en poca cantidad, a primera hora del día o a mediodía y sin otros alimentos nuevos ese día, para poder vigilar posibles reacciones.";
 }
 function renderTrack(){
   const gs=Object.keys(AGD),al=S.al||{},infos={};gs.forEach(g=>infos[g]=gInfo(g));
   const tr=gs.filter(g=>infos[g].tried.length).length,alt=Object.keys(al).map(g=>AGL[g]+(al[g]==="alergia"?" (confirmada)":" (sospecha)"));
-  $("tk_sum").textContent=`Alérgenos probados: ${tr} de ${gs.length}. Alergias indicadas: ${alt.length?alt.join(", "):"ninguna"}.`;
+  $("tk_n").textContent=tr+" de "+gs.length+" probados";$("tk_b").style.width=(100*tr/gs.length)+"%";
+  $("tk_sum").textContent=alt.length?"Alergias indicadas: "+alt.join(", ")+".":"Toca un alérgeno para anotar una reacción.";
   $("tk").innerHTML=gs.map(g=>{
     const i=infos[g],st=al[g]||"";
-    const chips=(st?`<span class="tag w">${ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción anotada</span>':"")+` <span class="tag">${i.tried.length?"Probado":"Sin probar"}</span>`;
+    const chips=(st?`<span class="tag w">${ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción anotada</span>':"")+` <span class="tag${i.tried.length?" ok":""}">${i.tried.length?"Probado":"Sin probar"}</span>`;
     const foods=i.foods.map(n=>i.m[n]?`<b>${esc(n)}</b> (${i.m[n].c}x)`:esc(n)).join(", ");
-    const items=[...i.rxs.map(r=>({d:r.d,t:esc(r.r||"Reacción")+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,t:"Registro: "+esc(l.f)+", tuvo reacción",id:""}))].sort((a,b)=>a.d<b.d?1:-1);
+    const items=[...i.rxs.map(r=>({d:r.d,t:esc(r.r||"Reacción")+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,t:"Registro: "+esc(l.f)+(l.rt?": "+esc(l.rt):", tuvo reacción")+(l.rn?". "+esc(l.rn):""),id:""}))].sort((a,b)=>a.d<b.d?1:-1);
     const list=items.length?`<div class="rxl">${items.map(r=>`<p>${fd(r.d)}: ${r.t}${r.id?` <button class="x" data-del="${r.id}">Borrar</button>`:""}</p>`).join("")}</div>`:"";
     return `<details class="g" id="g_${g}" data-g="${g}"${tkSet.has(g)?" open":""}><summary><b>${AGL[g]}</b> ${chips}</summary><div class="gb">
       <p class="mute">${foods}</p>
       <p>${procTxt(i,st)}</p>${list}
+      <label>Fecha<input type="date" data-d="${g}" value="${today()}"></label>
       <label>Reacción<select data-sel="${g}"><option value="">Elige una opción</option>${RXO.map(o=>`<option>${esc(o)}</option>`).join("")}</select></label>
       <div class="warn hide" data-urg><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
-      <label>Fecha<input type="date" data-d="${g}" value="${today()}"></label>
       <label>Notas<input type="text" data-n="${g}" maxlength="300" placeholder="Qué pasó, cuánto tardó, cuánto duró"></label>
       <button class="btn" data-save="${g}">Guardar reacción</button>
       <label>Estado en el perfil<select data-st="${g}">${Object.keys(ALST).map(k=>`<option value="${k}"${k===st?" selected":""}>${ALST[k]}</option>`).join("")}</select></label>
       <p class="mute">Si marcas sospecha o alergia, se guarda en el perfil y estos alimentos dejan de salir en el plan.</p>
     </div></details>`}).join("");
+  const oth=S.log.filter(l=>l.r==="react"&&!AG[l.f]).sort((a,b)=>a.d<b.d?1:-1);
+  if(oth.length)$("tk").innerHTML+=`<div class="card" style="grid-column:1/-1"><b>Otras reacciones</b><p class="mute">Alimentos que no son alérgenos de la lista.</p>${oth.map(l=>`<p>${fd(l.d)}: ${esc(l.f)}${l.rt?". "+esc(l.rt):""}${l.rn?". "+esc(l.rn):""}</p>`).join("")}</div>`;
 }
 $("tk").addEventListener("click",e=>{
   const b=e.target.closest("[data-save],[data-del]");if(!b)return;
@@ -857,18 +1380,20 @@ $("tk").addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.g
 function buildSummary(){
   const m=stats(),first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
   const ra=age(true),now=new Date().toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+  const othR=S.log.filter(l=>l.r==="react"&&!AG[l.f]).map(l=>`<li>${fd(l.d)}: ${esc(l.f)}${l.rt?". "+esc(l.rt):""}${l.rn?" ("+esc(l.rn)+")":""}</li>`).join("");
   const edad=ra?`${Math.floor(ra.days/7)} semanas (${ra.mo} meses)`:"sin calcular";
   const alg=Object.keys(S.al||{}).map(g=>`<li><b>${AGL[g]}</b>: ${S.al[g]==="alergia"?"alergia confirmada":"sospecha de alergia"}</li>`).join("");
   const arows=Object.keys(AGD).map(g=>{const i=gInfo(g),f=i.tried.map(n=>first[n]).sort()[0];
-    const rx=[...i.rxs.filter(r=>r.r&&r.r!==RXO[0]).map(r=>fd(r.d)+": "+r.r+(r.n?" ("+r.n+")":"")),...i.reactLog.map(l=>fd(l.d)+": reacción con "+l.f)];
+    const rx=[...i.rxs.filter(r=>r.r&&r.r!==RXO[0]).map(r=>fd(r.d)+": "+r.r+(r.n?" ("+r.n+")":"")),...i.reactLog.map(l=>fd(l.d)+": "+(l.rt||"reacción")+" con "+l.f+(l.rn?" ("+l.rn+")":""))];
     return `<tr><td>${AGL[g]}</td><td>${i.tried.length?esc(i.tried.join(", ")):"No probado"}</td><td>${f?fd(f):"-"}</td><td>${rx.length?esc(rx.join("; ")):"Sin reacciones anotadas"}</td></tr>`}).join("");
   const frows=C.map(c=>{const xs=ALL.filter(x=>x.c===c[0]&&m[x.n]);if(!xs.length)return"";
-    return `<tr class="cat"><td colspan="4">${esc(c[0])}</td></tr>`+xs.map(x=>`<tr><td>${esc(x.n)}${x.a?" (alérgeno)":""}</td><td>${fd(first[x.n])}</td><td>${m[x.n].c}</td><td>${esc(RL[m[x.n].last])}</td></tr>`).join("")}).join("");
+    return `<tr class="cat"><td colspan="4">${esc(c[0])}</td></tr>`+xs.map(x=>`<tr><td>${esc(x.n)}${x.a?" (alérgeno)":""}</td><td>${isPre(x.n,first[x.n])?"Antes de empezar":fd(first[x.n])}</td><td>${m[x.n].c}</td><td>${esc(RL[m[x.n].last])}</td></tr>`).join("")}).join("");
   return `<h1>Resumen de alimentación complementaria</h1>
   <p><b>${esc(S.nm||"Bebé")}</b>${S.bd?`. Nacimiento: ${fd(S.bd)}. Edad: ${edad}.`:""}</p>
   <p>Generado el ${now}.</p>
   <h2>Alergias indicadas</h2>${alg?`<ul>${alg}</ul>`:"<p>Ninguna indicada.</p>"}
   <h2>Alérgenos</h2><table><tr><th>Alérgeno</th><th>Alimentos probados</th><th>Primera vez</th><th>Reacciones</th></tr>${arows}</table>
+  ${othR?`<h2>Otras reacciones</h2><ul>${othR}</ul>`:""}
   <h2>Alimentos probados</h2>${frows?`<table><tr><th>Alimento</th><th>Primera vez</th><th>Veces</th><th>Última valoración</th></tr>${frows}</table>`:"<p>Todavía no se ha registrado ningún alimento.</p>"}
   <p class="pie">Información anotada por la familia en la app Primeros alimentos. No sustituye una valoración médica.</p>`;
 }
@@ -887,7 +1412,9 @@ window.__fail=code=>{LOADED=false;$("err").textContent="No se pudo conectar con 
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
-document.addEventListener("keydown",e=>{if(e.key==="Escape")$("sh").classList.add("hide")});
+document.addEventListener("click",e=>{if(e.target===document.body&&!$("sh").classList.contains("hide"))$("sh").classList.add("hide")});
+$("dip").addEventListener("click",e=>{if(e.target===$("dip"))$("dip").classList.add("hide")});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("cf").classList.add("hide");$("sh").classList.add("hide");$("dip").classList.add("hide")}});
 </script>
 <script type="module">
 const gm=document.getElementById("gm");
@@ -895,18 +1422,19 @@ const fail=m=>{gm.textContent=m};
 window.addEventListener("error",e=>fail("Error: "+(e.message||"desconocido")));
 window.addEventListener("unhandledrejection",e=>fail("Error: "+((e.reason&&(e.reason.code||e.reason.message))||"desconocido")));
 gm.textContent="Cargando...";
-let initializeApp,getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,getFirestore,doc,getDoc,setDoc;
+let initializeApp,getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,getFirestore,doc,getDoc,setDoc,deleteDoc;
 try{
   ({initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"));
-  ({getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
-  ({getFirestore,doc,getDoc,setDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
+  ({getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
+  ({getFirestore,doc,getDoc,setDoc,deleteDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
 }catch(e){fail("No se pudo cargar Firebase: "+(e&&e.message));throw e}
 const CFG={apiKey:"AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ",authDomain:"primeros-alimentos.firebaseapp.com",projectId:"primeros-alimentos",appId:"1:210048481917:web:f7a4e8f31d067a7152cf14"};
 const CLIENT_ID="210048481917-ul8kftm5f33lsfc3f5lskj4au5mvm9tk.apps.googleusercontent.com";
 const app=initializeApp(CFG),auth=getAuth(app),db=getFirestore(app);
 window.cloud={
   logout:()=>{try{google.accounts.id.disableAutoSelect()}catch(e){}return signOut(auth)},
-  save:d=>setDoc(doc(db,"users",auth.currentUser.uid),d)
+  save:d=>setDoc(doc(db,"users",auth.currentUser.uid),d),
+  deleteAccount:async d=>{const u=auth.currentUser,r=doc(db,"users",u.uid);await deleteDoc(r);try{await deleteUser(u)}catch(e){try{await setDoc(r,d)}catch(_){}throw e}try{google.accounts.id.disableAutoSelect()}catch(e){}}
 };
 const MSG={"auth/invalid-credential":"Email o contraseña incorrectos.","auth/wrong-password":"Email o contraseña incorrectos.","auth/user-not-found":"No hay cuenta con ese email. Pulsa Crear cuenta.","auth/email-already-in-use":"Ese email ya tiene cuenta. Pulsa Entrar.","auth/weak-password":"La contraseña necesita al menos 6 caracteres.","auth/invalid-email":"Revisa el email, no parece válido.","auth/missing-password":"Escribe tu contraseña.","auth/too-many-requests":"Demasiados intentos. Espera un momento y vuelve a probar.","auth/operation-not-allowed":"El acceso con email no está activado en Firebase."};
 const errm=e=>MSG[e&&e.code]||("No se pudo: "+(e&&e.code));
