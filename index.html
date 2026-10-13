@@ -496,9 +496,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 </section>
 
 <footer class="foot">
-<p><b>Leyenda:</b> <b>Alérgeno</b> en negrita.</p>
-<p><b>Recuerda:</b> siempre sin sal y que se pueda aplastar con los dedos fácilmente, si no, molido, triturado o en crema.</p>
-<p class="mute">Esta app se basa en las recomendaciones de la Asociación Española de Pediatría (AEP), pero no es consejo médico. Los alimentos se desbloquean según los meses del bebé como guía orientativa. Consulta siempre con tu pediatra, sobre todo los alérgenos, la edad de cada alimento y cualquier reacción.</p>
+<p class="mute">Basada en las recomendaciones de la AEP. No es consejo médico: consulta con tu pediatra.</p>
 <div class="byrow"><span class="mute">Hecho por</span><a class="by-logo" href="https://www.instagram.com/p/DM460JjC8cW/" target="_blank" rel="noopener" aria-label="Hecho por sunsies studio"><img src="sunsies-logo.png" alt="sunsies studio" width="130" height="75" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="disp" style="display:none;color:var(--blue);font-size:1.2rem;line-height:1.2">sunsies studio</span></a></div>
 </footer>
 </main>
@@ -958,7 +956,7 @@ function obFinish(){
   OB.fo.forEach(f=>{if(info(f)&&!S.log.some(l=>l.f===f))S.log.push({f,how:"Antes de empezar",r:"pre",d:OB.bd,pre:true})});
   S.al={...S.al,...cleanAl(OB.al)};
   $("ob").classList.add("hide");save();render();tab(1)}
-function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}}
+function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}}
 [1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
