@@ -281,6 +281,7 @@ details.rxa[open] summary{border-bottom:1px solid color-mix(in srgb,var(--terra)
 .tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:8px;align-items:start}
 .info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
 .pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
+#cr_v{position:relative;width:260px;height:260px;margin:0 auto;border-radius:50%;overflow:hidden;background:var(--line);touch-action:none;cursor:grab;border:3px solid var(--card);box-shadow:0 0 0 2px var(--line)}#cr_v img{position:absolute;left:0;top:0;max-width:none;user-select:none;-webkit-user-select:none;pointer-events:none}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .avw{position:relative;width:96px;margin:0 auto 8px}
 .avw .avatar{margin:0}
@@ -522,7 +523,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 </section>
 
 <section id="v4" class="hide">
-  <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
+  <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_fr">Encuadrar</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec">Detalles del bebé</h3>
   <div class="card">
     <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
@@ -535,8 +536,6 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
       <div class="ed hide" id="ed_ga"><input id="ga" type="number" inputmode="numeric" min="22" max="42" placeholder="Por ejemplo 40" aria-label="Semanas de embarazo al nacer"><div class="mute" style="margin-top:4px">Si nació antes de las 37 semanas, la app cuenta desde la edad corregida.</div><div class="btns"><button class="btn" id="x_ga">Cancelar</button><button class="btn p" id="ok_ga">Guardar</button></div></div></div>
       <button class="pen" id="pen_ga" aria-label="Editar semanas de embarazo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
     <div class="prow"><div><div class="lab">Edad</div><div class="val" id="vage"></div></div></div>
-    <div class="prow"><div><div class="lab">Empezar antes de los 6 meses</div><div class="val" id="vearly"></div><div class="mute">Solo si tu pediatra lo ha indicado. La AEP admite individualizarlo a partir de las 17 semanas.</div></div><button class="btn" id="tg_early" style="flex:none;padding:8px 14px">Cambiar</button></div>
-    <div class="prow"><div><div class="lab">Agarre en pinza</div><div class="val" id="vpinza"></div><div class="mute">Cambia las imágenes de trozos grandes a trocitos. Por defecto, desde los 9 meses.</div></div><button class="btn" id="tg_pinza" style="flex:none;padding:8px 14px">Cambiar</button></div>
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
     <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div><div class="mute">Se anotan en Registro, en Alérgenos. Los alimentos con un alérgeno marcado no salen en el plan.</div></div><button class="btn" id="go_tk" style="flex:none;padding:8px 14px">Ver</button></div>
     <div class="prow"><div><div class="lab">Resumen para pediatra y guardería</div><div class="mute">Alimentos probados, alérgenos y reacciones, en una hoja para imprimir o guardar en PDF.</div></div><button class="btn p" id="exp" style="flex:none;padding:8px 14px">Exportar</button></div>
@@ -578,6 +577,13 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 </div></div>
 
 <div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
+<div class="sheet hide" id="cr" role="dialog" aria-label="Encuadrar foto" style="z-index:14"><div>
+  <h3 class="disp">Encuadrar foto</h3>
+  <p class="mute" style="margin:4px 0 10px">Arrastra para mover y usa el control para acercar.</p>
+  <div id="cr_v"><img id="cr_img" alt="" draggable="false"></div>
+  <input type="range" id="cr_z" min="1" max="4" step="0.01" value="1" aria-label="Zoom" style="width:100%;margin:12px 0 0">
+  <div class="btns" style="margin-top:12px"><button class="btn" id="cr_x">Cancelar</button><button class="btn p" id="cr_ok">Guardar</button></div>
+</div></div>
 <div class="sheet danger hide" id="cf" role="alertdialog" aria-labelledby="cft"><div>
   <h3 class="disp" id="cft" style="color:var(--red)"></h3>
   <p id="cfp"></p>
@@ -686,13 +692,13 @@ P("Polenta",{b:["stick","Bastones de polenta fría"]});
 P("Yogur natural|Kéfir",{b:["mash","En cuchara cargada, para que la lleve a la boca"],pu:"Natural, sin azúcar",q:["mash","Con trocitos de fruta"]});
 P("Mantequilla",{b:["mash","En capa fina sobre tostada"]});
 const presOf=x=>{const d=PD[x.c];if(!d)return null;const o=PO[x.n]||{};return{b:o.b||d.b,pu:o.pu||d.pu,q:o.q||d.q,rind:o.rind}};
-const texLevel=()=>{const a=age(),mo=a?a.mo:8;let L=mo<7?1:mo<9?2:mo<11?3:4;if(S.pinza===true)L=Math.max(L,3);if(S.pinza===false)L=Math.min(L,2);return L};
+const texLevel=()=>{const a=age(),mo=a?a.mo:8;let L=mo<7?1:mo<9?2:mo<11?3:4;return L};
 const TXL={
 1:mo=>`A los ${mo} meses: tiras blandas que pueda agarrar con el puño y puré espeso. Aún no hace falta trocear.`,
 2:mo=>`A los ${mo} meses ya agarra mejor: tiras y puré con grumos, y algún trozo blando grande para practicar.`,
-3:mo=>`${S.pinza===true&&mo<9?"Has indicado que ya hace pinza":"A los "+mo+" meses suele aparecer la pinza"}: menos aplastado y más trocitos blandos que pueda pellizcar.`,
+3:mo=>`A los ${mo} meses suele aparecer la pinza: menos aplastado y más trocitos blandos que pueda pellizcar.`,
 4:mo=>`A los ${mo} meses ya debería manejar trocitos pequeños y blandos, casi como la familia y sin sal. El puré pasa a ser la excepción.`};
-const pinzaNow=()=>{if(S.pinza===true)return true;if(S.pinza===false)return false;const a=age();return !!a&&a.mo>=9};
+const pinzaNow=()=>{const a=age();return !!a&&a.mo>=9};
 const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
 const RISK={"Manzana":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pera":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pan":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."],"Pan integral":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."]};
 const offerText=(x,pz)=>{const p=presOf(x);return !p?"":pz?p.q[1]:p.b[1]+(p.b[0]==="mash"?"":". O "+lowFirst(p.pu))};
@@ -738,7 +744,7 @@ function age(raw){if(!S.bd)return null;const b0=new Date(S.bd+"T00:00:00");if(is
   const n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
   const days=Math.floor((t-b)/864e5);if(days<0&&!pre)return null;
   let mo=(t.getFullYear()-b.getFullYear())*12+t.getMonth()-b.getMonth();if(t.getDate()<b.getDate())mo--;
-  const th=S.early?4:6;
+  const th=6;
   const until=m=>Math.ceil((new Date(b.getFullYear(),b.getMonth()+m,b.getDate())-t)/864e5);
   return{days,mo,s6:until(6),sT:until(th),th,pre:pre>0}}
 const unlocked=x=>{if(x.lim)return false;const a=age();return !a||a.mo>=(x.min===6?a.th:x.min)};
@@ -1054,15 +1060,13 @@ function renderProfile(){
   const a=age();
   $("pname").textContent=S.nm||"Tu bebé";
   $("av").innerHTML=S.ph?`<img src="${S.ph}" alt="">`:esc((S.nm||"?").trim().charAt(0).toUpperCase()||"?");
-  $("ph_add").textContent=S.ph?"Cambiar foto":"Añadir foto";$("ph_del").classList.toggle("hide",!S.ph);
+  $("ph_add").textContent=S.ph?"Cambiar foto":"Añadir foto";$("ph_del").classList.toggle("hide",!S.ph);$("ph_fr").classList.toggle("hide",!S.ph);
   $("vnm").textContent=S.nm||"Sin nombre";
   $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
   const wk=d=>d<7?`${d} día${d===1?"":"s"}`:`${Math.floor(d/7)} semana${Math.floor(d/7)===1?"":"s"}`,ra=age(true);
   $("vage").textContent=ra?wk(ra.days)+(a&&a.pre?` · corregida: ${a.days>=0?wk(a.days)+" ("+a.mo+" m)":"aún antes de la fecha prevista"}`:` (${ra.mo} mes${ra.mo===1?"":"es"})`):"Sin calcular";
   $("vga").textContent=S.ga?S.ga+" semanas"+(S.ga<37?" (prematuro)":""):"No indicado";
-  $("vearly").textContent=S.early?"Sí, desde las 17 semanas":"No";
   $("valg").textContent=Object.keys(S.al||{}).map(g=>AGL[g]+" ("+(S.al[g]==="alergia"?"confirmada":"sospecha")+")").join(", ")||"Ninguna indicada";
-  $("vpinza").textContent=S.pinza===true?"Sí":S.pinza===false?"Todavía no":"Automático (desde los 9 meses)";
   $("vcnt").textContent=Object.keys(stats()).length+" alimentos";
   ["nm","bd","ga"].forEach(k=>{
     $("ed_"+k).classList.toggle("hide",editing!==k);$("vw_"+k).classList.toggle("hide",editing===k);$("pen_"+k).classList.toggle("hide",editing===k);
@@ -1098,13 +1102,25 @@ $("fph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.valu
 $("av").onclick=$("ph_add").onclick=()=>{$("phm").classList.add("hide");$("ph_in").click()};
 $("ph_edit").onclick=e=>{e.stopPropagation();if(!S.ph)$("ph_in").click();else $("phm").classList.toggle("hide")};
 document.addEventListener("click",e=>{if(!$("phm").classList.contains("hide")&&!e.target.closest("#phm,#ph_edit"))$("phm").classList.add("hide")});
-$("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;
-  resizePhoto(f).then(url=>{S.ph=validPh(url);saveLocal();render();pushCloud()}).catch(()=>{$("pmsg").textContent="No se pudo leer la foto. Prueba con otra."})};
+let CR=null;
+const crV=260;
+function crDraw(){const w=CR.im.naturalWidth*CR.s,h=CR.im.naturalHeight*CR.s;CR.ox=Math.min(0,Math.max(crV-w,CR.ox));CR.oy=Math.min(0,Math.max(crV-h,CR.oy));const i=$("cr_img");i.style.width=w+"px";i.style.height=h+"px";i.style.transform=`translate(${CR.ox}px,${CR.oy}px)`}
+function crZoom(z,cx,cy){z=Math.min(4,Math.max(1,z));const ns=CR.base*z,k=ns/CR.s;cx=cx===undefined?crV/2:cx;cy=cy===undefined?crV/2:cy;CR.ox=cx-(cx-CR.ox)*k;CR.oy=cy-(cy-CR.oy)*k;CR.s=ns;CR.z=z;$("cr_z").value=z;crDraw()}
+function openCrop(src,rev){const im=new Image();im.onload=()=>{CR={im,rev,base:Math.max(crV/im.naturalWidth,crV/im.naturalHeight),z:1};CR.s=CR.base;CR.ox=(crV-im.naturalWidth*CR.s)/2;CR.oy=(crV-im.naturalHeight*CR.s)/2;$("cr_img").src=src;$("cr_z").value=1;crDraw();$("cr").classList.remove("hide")};im.onerror=()=>{if(rev)URL.revokeObjectURL(src);$("pmsg").textContent="No se pudo leer la foto. Prueba con otra."};im.src=src}
+function crClose(){$("cr").classList.add("hide");if(CR&&CR.rev)URL.revokeObjectURL(CR.im.src);CR=null}
+{const v=$("cr_v"),pts=new Map();let d0=0,z0=1;
+ v.addEventListener("pointerdown",e=>{if(!CR)return;v.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);if(pts.size===2){const a=[...pts.values()];d0=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]);z0=CR.z}});
+ v.addEventListener("pointermove",e=>{if(!CR||!pts.has(e.pointerId))return;const o=pts.get(e.pointerId);if(pts.size===1){CR.ox+=e.clientX-o[0];CR.oy+=e.clientY-o[1];crDraw()}pts.set(e.pointerId,[e.clientX,e.clientY]);if(pts.size===2&&d0){const a=[...pts.values()];crZoom(z0*Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1])/d0)}});
+ const up=e=>{pts.delete(e.pointerId);d0=0};v.addEventListener("pointerup",up);v.addEventListener("pointercancel",up);
+ v.addEventListener("wheel",e=>{if(!CR)return;e.preventDefault();const r=v.getBoundingClientRect();crZoom(CR.z*(e.deltaY<0?1.08:.93),e.clientX-r.left,e.clientY-r.top)},{passive:false})}
+$("cr_z").oninput=e=>{if(CR)crZoom(+e.target.value)};
+$("cr_x").onclick=crClose;
+$("cr_ok").onclick=()=>{if(!CR)return;try{const n=640,c=document.createElement("canvas");c.width=c.height=n;const k=crV/CR.s;c.getContext("2d").drawImage(CR.im,-CR.ox/CR.s,-CR.oy/CR.s,k,k,0,0,n,n);const u=validPh(c.toDataURL("image/jpeg",.82));if(!u)throw 0;S.ph=u;crClose();saveLocal();render();pushCloud()}catch(_){crClose();$("pmsg").textContent="No se pudo guardar la foto. Prueba con otra."}};
+$("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;openCrop(URL.createObjectURL(f),true)};
+$("ph_fr").onclick=()=>{$("phm").classList.add("hide");if(S.ph)openCrop(S.ph,false)};
 $("ph_del").onclick=()=>{$("phm").classList.add("hide");S.ph="";saveLocal();render();pushCloud()};
 $("go_tk").onclick=()=>{tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
-$("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
-$("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
 let obSkip=false;
 const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
