@@ -150,6 +150,8 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ptag{--c:var(--mute);display:inline-flex;align-items:center;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:99px;border:1.5px solid var(--c);color:var(--ink);background:color-mix(in srgb,var(--c) 16%,transparent)}
 .plh .ple{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--blue);text-decoration:none;flex:none}
 .remind{border:2px solid #e3b422;background:color-mix(in srgb,#e3b422 14%,transparent);border-radius:14px;padding:10px 14px;margin:0 0 14px;font-size:.88rem;display:flex;flex-direction:column;gap:6px}
+.snk{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:13;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:.88rem}.snk span{flex:1}.snk .x{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 50%,transparent);white-space:nowrap}
+.reto{border:2px solid var(--green);border-radius:14px;padding:10px 12px;margin:10px 0;background:color-mix(in srgb,var(--green) 8%,transparent)}.reto p{margin:4px 0}.reto .btn{margin-top:4px;max-width:240px}
 details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remind b{font-weight:700}
 .dcard{padding:14px}.dcard h4.dd{margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .pvm{padding:8px 0;border-top:1px solid var(--line)}.pvm:first-of-type{border-top:0}
@@ -595,6 +597,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 </div></div>
 
 <div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
+<div class="snk hide" id="snk" role="status"></div>
 <div class="sheet hide" id="cr" role="dialog" aria-label="Encuadrar foto" style="z-index:14"><div>
   <h3 class="disp">Encuadrar foto</h3>
   <p class="mute" style="margin:4px 0 10px">Arrastra para mover y usa el control para acercar.</p>
@@ -1052,7 +1055,16 @@ function render(){
   bindRows($("log"));
   renderCal();renderTrack();
 }
-function openSheet(n,pd,rest){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
+const MASHH=new Set(["Puré o aplastado","Mezclado en papilla o yogur"]),PCSH=new Set(["Tiras","Trozos"]);
+function canPieces(x){const p=presOf(x);
+  const ok=x.c==="Frutas"||x.c==="Verduras"||(x.c==="Proteínas"&&!/^(Lentejas|Alubias|Garbanzos)/.test(x.n))||(x.c==="Cereales"&&/^(Pan|Pan integral|Pasta|Fideos)$/.test(x.n))||/^(Queso fresco|Queso tierno|Mozzarella)$/.test(x.n);
+  return !!p&&ok&&!x.lim&&(pict(p.b[0],false)!=="mash"||pict(p.q[0],true)!=="mash")}
+function mashOnly(){const by={};S.log.forEach(l=>{if(l.r==="pre")return;(by[l.f]=by[l.f]||[]).push(l.how)});
+  return Object.keys(by).map(info).filter(x=>x&&canPieces(x)&&!blockedG(x)&&by[x.n].some(h=>MASHH.has(h))&&!by[x.n].some(h=>PCSH.has(h)))}
+let snkT=0;
+function snack(html,label,fn){const e=$("snk");e.innerHTML=`<span>${html}</span>${label?`<button type="button" class="x">${label}</button>`:""}<button type="button" class="x" aria-label="Cerrar">✕</button>`;e.classList.remove("hide");
+  const bs=e.querySelectorAll("button");if(label)bs[0].onclick=()=>{e.classList.add("hide");fn()};bs[bs.length-1].onclick=()=>e.classList.add("hide");clearTimeout(snkT);snkT=setTimeout(()=>e.classList.add("hide"),12000)}
+function openSheet(n,pd,rest,pieces){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
   if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo} meses.`:""}</p>`);
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
@@ -1063,14 +1075,16 @@ function openSheet(n,pd,rest){cur=n;const x=info(n);$("shn").textContent=n;$("sh
     if(fs.length){
       const pick=f=>{fs.forEach(g=>{g.classList.toggle("sel",g===f);g.setAttribute("aria-pressed",g===f)});$("how").value=f.querySelector("b").textContent};
       fs.forEach(f=>{f.setAttribute("role","button");f.tabIndex=0;f.onclick=()=>pick(f);f.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(f)}}});
-      const want=$("how").value,m=fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}curPh="";$("fph_e").textContent="";fphUi();$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
+      const want=pieces?"":$("how").value,pf=pieces&&fs.find(f=>PCSH.has(f.querySelector("b").textContent)),m=pf||fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}else if(pieces&&[...$("how").options].some(o=>o.value==="Tiras"))$("how").value="Tiras"}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}curPh="";$("fph_e").textContent="";fphUi();$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
 const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","Mezclado en papilla o yogur"],"Verduras":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Mezclado en papilla o yogur"],"Proteínas":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur"],"Cereales":["Tiras","Puré o aplastado","Trozos","Mezclado en papilla o yogur"],"Lácteos":["Tal cual","Tiras","Trozos","Puré o aplastado","Mezclado en papilla o yogur"],"Frutos secos":["Molido o en crema","Mezclado en papilla o yogur"],"Condimentos":["En polvo o picado en la comida","Al cocinar"]};
 const howOpts=x=>(x&&HOWC[x.c])||HOW;
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
   {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;S.log.push(e)}
   document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
-  save();$("sh").classList.add("hide");render();
+  {const x=info(cur),h=$("how").value,had=S.log.filter(l=>l.f===cur).some(l=>PCSH.has(l.how));const nm=cur;
+   save();$("sh").classList.add("hide");render();
+   if(x&&MASHH.has(h)&&!had&&canPieces(x)&&!blockedG(x))snack(`¡Muy bien! La próxima vez anímate a ofrecer <b>${esc(nm)}</b> en ${pinzaNow()?"trocitos":"tiras"}.`,"Probar ya",()=>openSheet(nm,today(),undefined,true))}
   if(!S.dip&&Object.keys(stats()).length>=100){S.dip=true;save();openDiploma(false)}
   else if(rv==="react"&&g){tkSet.add(g);tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}
 };
@@ -1433,9 +1447,10 @@ function plan(){
     const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
     const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
       return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.a?'<span class="tag w">alérgeno</span> ':""}${tg}</p>${presHtml(n,pz)}<button class="btn" style="margin:2px 0 6px;max-width:200px" data-n="${esc(n.n)}" data-d="${o.ds}" data-m="${esc([...new Set(o.rows.flatMap(([mm,r])=>r.ings))].filter(f=>f!==n.n&&info(f)&&!blockedG(info(f))&&!S.log.some(l=>l.d===o.ds&&l.f===f)).join("|"))}">Lo probamos</button>`}).join("");
-    const mh=menuHtml(o,o.rows);
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${whyHtml(o)}${doneH}${itemsH}${mh}</div>`}).join(""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
-  $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
+    const mh=menuHtml(o,o.rows),ro=o.ds===t0?mashOnly().filter(x=>!o.items.includes(x)).slice(0,2):[],w=pz?"trocitos":"tiras";
+    const retoH=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Hoy ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${whyHtml(o)}${doneH}${itemsH}${retoH}${mh}</div>`}).join(""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>b.dataset.pc?openSheet(b.dataset.n,b.dataset.d,undefined,true):openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
   $("days").querySelectorAll("button[data-ml]").forEach(b=>b.onclick=()=>{
     const d=b.dataset.d,m=b.dataset.ml,e=S.ml[d]=S.ml[d]||{};
     if(b.dataset.fb){if(e[m]){if(e[m].r===b.dataset.fb)delete e[m].r;else e[m].r=b.dataset.fb}}
