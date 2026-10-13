@@ -97,7 +97,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .it .tag{font-size:.7rem;white-space:nowrap}
 .warn{background:color-mix(in srgb,var(--terra) 18%,transparent);border:1px solid var(--terra);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.85rem}.warn p{margin:3px 0}
 .foot p{margin:0 0 10px}
-.gate{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.gate{position:fixed;inset:0;background:var(--bg);z-index:60;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
 .gbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f1f1f;border:1px solid #747775;border-radius:999px;padding:11px 20px;font-weight:600}.gbtn svg{width:20px;height:20px}
 .sheet>div{position:relative}.sheet h3{padding-right:40px}
 .xc{position:absolute;top:-4px;right:-6px;width:38px;height:38px;border:0;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}.xc:hover{background:var(--line)}
@@ -996,7 +996,7 @@ $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 $("tg_pinza").onclick=()=>{S.pinza=S.pinza==null?true:S.pinza===true?false:null;saveLocal();render();pushCloud()};
 $("tg_early").onclick=()=>{S.early=!S.early;saveLocal();render();pushCloud()};
 let obSkip=false;
-function askProfile(){if(!S.bd&&!obSkip)openOb()}
+function askProfile(){if(!S.bd&&!obSkip&&USER&&LOADED&&$("gate").classList.contains("hide"))openOb()}
 let OB=null;
 function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,fo:new Set(),al:{},q:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
 function obSteps(){return OB.ya?[0,1,2,3,4].filter(i=>i!==4||obGroups().length):[0,1,2]}
@@ -1400,7 +1400,7 @@ function buildSummary(){
 render();
 
 
-window.__auth=(u,d,pending)=>{USER=u;LOADED=!!u&&!pending;
+window.__auth=(u,d,pending)=>{USER=u;LOADED=!!u&&!pending;$("ob").classList.add("hide");obSkip=false;
   setDB(null);
   if(u){try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l)setDB(l)}catch(e){}
     $("err").textContent="Cargando tu progreso...";$("gate").classList.add("hide")}
