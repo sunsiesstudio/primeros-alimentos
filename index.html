@@ -15,10 +15,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--onacc:#fff;
+:root{--red:#c0392b;--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--onacc:#fff;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}}
-:root[data-theme="dark"]{--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--red:#ec6b5e;--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}}
+:root[data-theme="dark"]{--red:#ec6b5e;--bg:#1d211e;--card:#272c28;--ink:#f0ecdc;--mute:#a7a692;--line:#3b413c;--green:#78b98e;--terra:#e08460;--blue:#8c97ff;--onacc:#1d211e}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.45 Montserrat,system-ui,sans-serif}
@@ -68,6 +68,12 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
 .row:first-child{border-top:0}
 .row input{width:150px;padding:5px 8px}
+.row.lr{align-items:flex-start}
+.lr .lm{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.lr .lt{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.lr .lx{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.lr .lx input{width:128px;padding:4px 6px;font-size:.85rem;min-height:36px}
+.lr .lx .x{min-height:32px}
 .mute{color:var(--mute);font-size:.9rem}
 .x{background:none;border:0;color:var(--mute);text-decoration:underline;font-size:.85rem}
 .age{display:none}.acc{font-size:.8rem;color:var(--mute)}.kc[disabled]{opacity:.55;cursor:default}.p4{background:var(--ink);color:var(--bg)}
@@ -81,7 +87,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 24px}
 .grid h2{font-size:1.5rem;color:var(--blue);margin:0 0 2px}
 .cn{font-size:.85rem;color:var(--mute);margin:0 0 8px}
-.it{display:flex;flex-wrap:wrap;align-items:center;gap:2px 9px;width:100%;background:none;border:0;padding:5px 0;text-align:left}
+.it{display:flex;flex-wrap:wrap;align-items:center;gap:3px 9px;width:100%;background:none;border:0;padding:9px 0;text-align:left}
 .it svg{width:26px;height:26px;flex:none;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
 .it.done svg{fill:var(--terra);stroke:var(--terra)}
 .it[disabled]{opacity:.5;cursor:default}
@@ -132,10 +138,13 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ck:hover{background:var(--line)}
 .ck input{width:auto;margin:3px 0 0;flex:none}
 .ck b{display:block;font-weight:600}.ck small{color:var(--mute);font-size:.78rem}
+#chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+#chips::-webkit-scrollbar{display:none}
+#chips button{flex:none;white-space:nowrap}
 .chips button.addb{border-style:dashed;color:var(--blue);border-color:var(--blue)}
 .col{background:none;padding:0}
 .ch h2{font-size:1.5rem;color:var(--blue);margin:0}
-.cl{gap:2px}
+.cl{gap:8px}
 .it.kb{align-items:flex-start}
 .it.kb svg{margin-top:1px}
 .kt{display:flex;flex-direction:column;gap:3px;min-width:0}
@@ -181,6 +190,14 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .fb button[data-v=love]{--c:#4a8760}.fb button[data-v=meh]{--c:#e0b030}.fb button[data-v=no]{--c:#c0392b}
 .fb button.on{border-color:var(--ink);background:color-mix(in srgb,var(--line) 60%,transparent)}
 .rmenu .foot{text-align:center;font-size:.76rem;color:var(--mute);margin:6px 0 0;font-style:italic}
+#fph{margin:10px 0 2px}#fph_pv{display:flex;align-items:center;gap:12px}#fph_img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.row .rph{width:56px;height:56px;object-fit:cover;border-radius:10px;display:block;margin-top:6px}
+.tag.ok{background:var(--green);color:var(--onacc);font-weight:600}
+.card.danger{border:1.5px solid var(--red);padding-top:4px;padding-bottom:4px}
+.dg{border:2px solid var(--red);background:transparent;color:var(--red);border-radius:99px;padding:8px 16px;font:700 .85rem Montserrat,sans-serif;cursor:pointer;min-height:40px;flex:none}
+.sheet.danger{border-top-color:var(--red)}
+.btn.rd{background:var(--red);border-color:var(--red);color:#fff}
+.btn.rd:disabled{opacity:.4}
 .ob{position:fixed;inset:0;z-index:40;background:var(--bg);overflow-y:auto;padding:calc(18px + env(safe-area-inset-top,0px)) 18px calc(18px + env(safe-area-inset-bottom,0px))}
 .ob>div{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:14px}
 .ob h2{margin:6px 0 0;font-size:1.7rem;color:var(--green);line-height:1.1}
@@ -228,6 +245,21 @@ details.grp .gb{padding:0 0 12px}
 .tk .gb .btn{margin-top:10px;max-width:220px}
 .tk .rxl{margin:6px 0;padding:8px 10px;border-radius:10px;background:color-mix(in srgb,var(--line) 40%,transparent);font-size:.88rem}
 .tk .rxl p{margin:3px 0}
+.tkc{padding-bottom:6px}
+.tkh{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.tkh h3{margin:0;font-size:1.6rem;color:var(--blue);line-height:1.1}
+.tkn{font-weight:700;font-size:.9rem;color:var(--mute)}
+.tkbar{height:7px;border-radius:9px;background:var(--line);margin:10px 0 8px;overflow:hidden}.tkbar i{display:block;height:100%;background:var(--green);border-radius:9px;width:0}
+details.rxa{margin:8px 0 10px;border:1.5px solid var(--terra);border-radius:12px;padding:0 12px;background:color-mix(in srgb,var(--terra) 8%,transparent)}
+details.rxa summary{color:var(--terra);padding:10px 0;min-height:44px;display:flex;align-items:center}
+details.rxa[open] summary{border-bottom:1px solid color-mix(in srgb,var(--terra) 30%,transparent);margin-bottom:6px}
+.tkc #tk{display:block}
+.tkc details.g{background:none;border:0;border-top:1px solid var(--line);border-radius:0;margin:0}
+.tkc details.g summary{padding:14px 2px;min-height:52px}
+.tkc details.g summary b{flex:1;font-size:1.02rem}
+.tkc details.g summary:after{content:"";width:9px;height:9px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .15s;margin:0 4px 4px 4px}
+.tkc details.g[open] summary:after{transform:rotate(-135deg);margin:4px 4px 0 4px}
+.tkc .gb{padding:0 2px 14px}
 .tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:8px;align-items:start}
 .info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
 .pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
@@ -285,7 +317,8 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 @media (max-width:700px),(pointer:coarse){
   .chips button{min-height:40px;padding:8px 14px}
   .btn{min-height:46px}
-  .it{min-height:46px}
+  .it{min-height:48px}
+  .it.kb{padding:10px 0}
   .vt button{min-height:44px;min-width:52px;justify-content:center;align-items:center}
   .calh .x{min-width:44px;min-height:44px}
   .x{padding:10px 6px;min-height:44px}
@@ -307,7 +340,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:var(--mute);border-radius:14px;padding:6px 2px;min-height:54px;font-size:.7rem;font-weight:600}
   .tabs button svg{display:block;width:24px;height:24px}
   .tabs button.on{background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue)}
-  .board{grid-auto-columns:minmax(78vw,1fr)}
+  .board{grid-auto-columns:min(62vw,250px);gap:4px}
   .sheet{max-height:92vh;max-height:92dvh}
 }
 .rc-pre{background:#9a9a8c}.rc-love{background:#3f9a5a}.rc-meh{background:#e3b422}.rc-no{background:#d6453d}.rc-react{background:#111;box-shadow:0 0 0 1.5px var(--ink)}
@@ -451,22 +484,22 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div id="log" class="hide"></div>
 </div>
 <div class="tk" id="tkwrap">
-  <div class="card">
-    <h3 class="sec" style="margin-top:0">Alérgenos</h3>
+  <div class="card tkc">
+    <div class="tkh"><h3 class="disp">Alérgenos</h3><span class="tkn" id="tk_n"></span></div>
+    <div class="tkbar" aria-hidden="true"><i id="tk_b"></i></div>
     <p class="mute" id="tk_sum"></p>
-    <p class="mute">Las reacciones se anotan al registrar el alimento con «Tuvo reacción», o aquí, tocando el alérgeno.</p>
-    <details class="aep"><summary>Qué hacer si hay una reacción</summary>
+    <details class="aep rxa"><summary>Qué hacer si hay una reacción</summary>
       <ul>
         <li>Deja de ofrecer ese alimento y no lo repitas hasta hablarlo con tu pediatra.</li>
-        <li>Anota qué pasó, cuánto tardó en aparecer y cuánto duró. Lo puedes guardar aquí abajo, en el alérgeno que corresponda.</li>
+        <li>Anota qué pasó, cuánto tardó en aparecer y cuánto duró, en el alérgeno que corresponda.</li>
         <li>Avisa a tu pediatra, aunque haya sido leve.</li>
         <li><b>Llama al 112 o ve a urgencias</b> si hay dificultad para respirar, hinchazón de labios, cara o lengua, vómitos repetidos, o si el bebé está muy decaído o muy pálido.</li>
         <li>Si tu pediatra confirma una alergia, márcala en el alérgeno (Estado). Se guarda en el perfil y esos alimentos dejan de salir en el plan.</li>
       </ul>
       <p class="mute">Orientación general, no sustituye la valoración de tu pediatra.</p>
     </details>
+    <div id="tk"></div>
   </div>
-  <div class="tkgrid" id="tk"></div>
 </div>
 </section>
 
@@ -491,8 +524,12 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
     <div class="prow"><div><div class="lab">Resumen para pediatra y guardería</div><div class="mute">Alimentos probados, alérgenos y reacciones, en una hoja para imprimir o guardar en PDF.</div></div><button class="btn p" id="exp" style="flex:none;padding:8px 14px">Exportar</button></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
-  <p style="margin:0"><button class="x" id="bdel">Eliminar este perfil</button></p>
   <div class="btns" style="max-width:260px;margin:18px 0 0"><button class="btn" id="so">Cerrar sesión</button></div>
+  <h3 class="sec" style="color:var(--red)">Zona de peligro</h3>
+  <div class="card danger">
+    <div class="prow" style="border-top:0"><div><div class="lab">Eliminar perfil</div><div class="mute" id="bdel_t">Borra todo lo anotado de este bebé. No se puede deshacer.</div></div><button class="dg" id="bdel">Eliminar</button></div>
+    <div class="prow"><div><div class="lab">Eliminar mi cuenta</div><div class="mute">Borra tu cuenta y todos los perfiles. No se puede deshacer.</div></div><button class="dg" id="adel">Eliminar</button></div>
+  </div>
 </section>
 
 <footer class="foot">
@@ -505,22 +542,30 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <button class="xc" id="shx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="shn"></h3>
   <div class="mute" id="sht"></div>
-  <div id="shp"></div>
   <div class="warn hide" id="warn"></div>
   <label>Fecha<input id="dt" type="date"></label>
+  <div id="shp"></div>
   <label id="howl">Cómo lo serviste<select id="how"></select></label>
-  <div class="rxq"><b>¿Cómo ha ido?</b><div class="rxg" id="rxg"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">Hoy no</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
+  <div class="rxq"><div class="rxg" id="rxg" role="group" aria-label="¿Cómo ha ido?"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">Hoy no</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
   <select id="rx" class="hide"><option value="">Elige</option><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select>
   <div id="rxb" class="hide">
     <label>¿Qué reacción?<select id="rxt"></select></label>
     <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
   </div>
-  <label>Notas (opcional)<input id="rxn" type="text" maxlength="300" placeholder="Cómo se lo diste, qué pasó, cuánto duró la reacción"></label>
+  <input id="rxn" type="text" maxlength="300" placeholder="Notas (opcional)" aria-label="Notas">
+  <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" class="x" id="fph_rm">Quitar foto</button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
   <div id="rest" class="hide"><b>¿Y el resto del menú de hoy?</b><p class="mute">Opcional. Toca lo que quieras anotar.</p><div id="restl"></div></div>
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
 
 <div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
+<div class="sheet danger hide" id="cf" role="alertdialog" aria-labelledby="cft"><div>
+  <h3 class="disp" id="cft" style="color:var(--red)"></h3>
+  <p id="cfp"></p>
+  <label id="cfl" class="hide">Para confirmar, escribe ELIMINAR<input id="cfi" type="text" autocomplete="off" autocapitalize="characters"></label>
+  <p class="mute" id="cfe" style="color:var(--red)"></p>
+  <div class="btns"><button class="btn" id="cfx">Cancelar</button><button class="btn rd" id="cfok">Eliminar</button></div>
+</div></div>
 <div id="sumprint"></div>
 <div class="dip hide" id="dip"><div class="dipb"><button class="xc" id="dip_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><canvas id="dipc" width="1240" height="1754"></canvas><p class="mute" id="dip_p"></p><div class="btns"><button class="btn p" id="dip_dl">Descargar</button><button class="btn hide" id="dip_sh">Compartir</button></div></div></div>
 <script>
@@ -674,7 +719,9 @@ function age(raw){if(!S.bd)return null;const b0=new Date(S.bd+"T00:00:00");if(is
   const until=m=>Math.ceil((new Date(b.getFullYear(),b.getMonth()+m,b.getDate())-t)/864e5);
   return{days,mo,s6:until(6),sT:until(th),th,pre:pre>0}}
 const unlocked=x=>{if(x.lim)return false;const a=age();return !a||a.mo>=(x.min===6?a.th:x.min)};
-function head(){const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=S.nm?"de "+S.nm:"";document.title=t;
+function sizeTtl(){const l=document.querySelector(".hero .logo");if(!l)return;const w=l.getBoundingClientRect().width;if(w>0)$("ttl").style.fontSize=(56*w/640).toFixed(1)+"px"}
+window.addEventListener("resize",sizeTtl);
+function head(){sizeTtl();const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros alimentos";$("ttl").textContent=S.nm?"de "+S.nm:"";document.title=t;
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
 let cat="Todos",cur="",PLANNED={},FIRSTD={};
@@ -788,7 +835,8 @@ function board(){
   const done=ALL.filter(x=>m[x.n]).length;
   $("prog").innerHTML=progHtml(done);
 }
-function rowHtml(l){const x=info(l.f);return `<div class="row"><div><b class="${x&&x.a?"al":""}">${esc(l.f)}</b> <span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><div class="mute">${esc(l.how)}</div>${(l.r==="react"&&l.rt)||l.rn?`<div class="mute">${esc([l.r==="react"?l.rt:"",l.rn].filter(Boolean).join(". "))}</div>`:""}</div><div style="text-align:right"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><br><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+function rowHtml(l){const x=info(l.f),nt=(l.r==="react"&&l.rt)||l.rn?esc([l.r==="react"?l.rt:"",l.rn].filter(Boolean).join(". ")):"";
+  return `<div class="row lr"><div class="lm"><b class="${x&&x.a?"al":""}">${esc(l.f)}</b><div class="lt"><span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><span class="mute">${esc(l.how)}</span></div>${nt?`<div class="mute">${nt}</div>`:""}${validPh(l.ph)?`<img class="rph" src="${l.ph}" alt="Foto de ${esc(l.f)}">`:""}</div><div class="lx"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
   el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
   el.querySelectorAll(".x[data-i]").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
@@ -833,14 +881,21 @@ function renderBabies(){
   $("bsw").innerHTML=DB.babies.length>1?DB.babies.map(chip).join(""):"";
   document.querySelectorAll("#bchips button[data-i],#bsw button[data-i]").forEach(b=>b.onclick=()=>switchBaby(+b.dataset.i));
   $("badd").onclick=addBaby;
-  $("bdel").classList.toggle("hide",DB.babies.length<2);
+  $("bdel_t").textContent="Borra todo lo anotado de "+(S.nm||"este bebé")+". No se puede deshacer.";
 }
-let delArm=0;
-$("bdel").onclick=()=>{
-  if(!delArm){delArm=1;$("bdel").textContent="Pulsa otra vez para eliminar";setTimeout(()=>{delArm=0;$("bdel").textContent="Eliminar este perfil"},4000);return}
-  DB.babies.splice(DB.cur,1);DB.cur=Math.max(0,DB.cur-1);S=DB.babies[DB.cur];delArm=0;editing=null;
-  $("bdel").textContent="Eliminar este perfil";save();render();
-};
+let cfAct=null;
+function cfOpen(t,pp,word,label,fn){cfAct=fn;$("cft").textContent=t;$("cfp").textContent=pp;$("cfe").textContent="";$("cfi").value="";$("cfl").classList.toggle("hide",!word);$("cfok").textContent=label;$("cfok").disabled=!!word;$("cfok").dataset.w=word||"";$("cf").classList.remove("hide")}
+$("cfi").oninput=()=>{$("cfok").disabled=$("cfi").value.trim().toUpperCase()!==$("cfok").dataset.w};
+$("cfx").onclick=()=>$("cf").classList.add("hide");
+$("cfok").onclick=async()=>{if($("cfok").disabled||!cfAct)return;$("cfok").disabled=true;try{await cfAct();$("cf").classList.add("hide")}catch(e){$("cfe").textContent=(e&&e.code==="auth/requires-recent-login")?"Por seguridad, cierra sesión, vuelve a entrar y repítelo.":"No se pudo eliminar ("+((e&&(e.code||e.message))||"error")+").";$("cfok").disabled=false}};
+$("bdel").onclick=()=>{const n=S.nm||"este bebé";
+  cfOpen("¿Eliminar el perfil de "+n+"?","Se borran sus alimentos, alergias, reacciones y la foto. No se puede deshacer.","","Eliminar perfil",()=>{
+    DB.babies.splice(DB.cur,1);const empty=!DB.babies.length;if(empty)DB.babies.push(newBaby());DB.cur=Math.max(0,Math.min(DB.cur,DB.babies.length-1));S=DB.babies[DB.cur];editing=null;save();render();if(empty){obSkip=false;openOb()}})};
+$("adel").onclick=()=>cfOpen("¿Eliminar tu cuenta?","Se borran tu cuenta y todos los perfiles de bebé con sus datos. No se puede deshacer.","ELIMINAR","Eliminar cuenta",async()=>{
+  const k=LKEY();clearTimeout(ST);
+  if(window.cloud&&window.cloud.deleteAccount)await window.cloud.deleteAccount(snap());
+  try{localStorage.removeItem(k)}catch(e){}
+  if(!(window.cloud&&window.cloud.deleteAccount)){setDB(null);USER=null;$("gate").classList.remove("hide");render()}});
 function render(){
   head();renderProfile();renderBabies();renderPlanForm();plan();
   $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
@@ -859,15 +914,15 @@ function openSheet(n,pd,rest){cur=n;const x=info(n);$("shn").textContent=n;$("sh
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
   $("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"",ho=howOpts(x);$("how").innerHTML=ho.map(h=>`<option>${h}</option>`).join("");const dv=!p?(ho.includes("Mezclado en papilla o yogur")?"Mezclado en papilla o yogur":ho[0]):k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado";$("how").value=ho.includes(dv)?dv:ho[0];
     const fs=[...$("shp").querySelectorAll("figure")];$("howl").classList.toggle("hide",!!fs.length);
-    if(fs.length){$("shp").insertAdjacentHTML("afterbegin",'<p class="ph">Toca cómo se lo ofreciste</p>');
+    if(fs.length){
       const pick=f=>{fs.forEach(g=>{g.classList.toggle("sel",g===f);g.setAttribute("aria-pressed",g===f)});$("how").value=f.querySelector("b").textContent};
       fs.forEach(f=>{f.setAttribute("role","button");f.tabIndex=0;f.onclick=()=>pick(f);f.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(f)}}});
-      const want=$("how").value,m=fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
+      const want=$("how").value,m=fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}curPh="";$("fph_e").textContent="";fphUi();$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
 const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","Mezclado en papilla o yogur"],"Verduras":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Mezclado en papilla o yogur"],"Proteínas":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur"],"Cereales":["Tiras","Puré o aplastado","Trozos","Mezclado en papilla o yogur"],"Lácteos":["Tal cual","Tiras","Trozos","Puré o aplastado","Mezclado en papilla o yogur"],"Frutos secos":["Molido o en crema","Mezclado en papilla o yogur"],"Condimentos":["En polvo o picado en la comida","Al cocinar"]};
 const howOpts=x=>(x&&HOWC[x.c])||HOW;
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
-  {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;S.log.push(e)}
+  {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;S.log.push(e)}
   document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
   save();$("sh").classList.add("hide");render();
   if(!S.dip&&Object.keys(stats()).length>=100){S.dip=true;save();openDiploma(false)}
@@ -913,6 +968,15 @@ function pushCloud(){
   };
 });
 const resizePhoto=f=>new Promise((ok,no)=>{try{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{try{const n=640,c=document.createElement("canvas");c.width=c.height=n;const q=Math.min(im.width,im.height);c.getContext("2d").drawImage(im,(im.width-q)/2,(im.height-q)/2,q,q,0,0,n,n);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",.82))}catch(e){no(e)}};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error("img"))};im.src=u}catch(e){no(e)}});
+const resizeFit=(f,max,q)=>new Promise((ok,no)=>{try{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{try{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",q))}catch(e){no(e)}};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error("img"))};im.src=u}catch(e){no(e)}});
+let curPh="";
+function fphUi(){$("fph_add").classList.toggle("hide",!!curPh);$("fph_pv").classList.toggle("hide",!curPh);if(curPh)$("fph_img").src=curPh}
+$("fph_add").onclick=()=>$("fph_in").click();
+$("fph_rm").onclick=()=>{curPh="";$("fph_e").textContent="";fphUi()};
+$("fph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;$("fph_e").textContent="";
+  resizeFit(f,480,.62).then(url=>{const v=validPh(url);if(!v)throw 0;let tot=0;try{tot=JSON.stringify(DB).length}catch(_){}
+    if(tot+v.length>900000){$("fph_e").textContent="Ya hay muchas fotos guardadas. Borra alguna del Registro para añadir más.";return}
+    curPh=v;fphUi()}).catch(()=>{$("fph_e").textContent="No se pudo leer la foto. Prueba con otra."})};
 $("av").onclick=$("ph_add").onclick=()=>{$("phm").classList.add("hide");$("ph_in").click()};
 $("ph_edit").onclick=e=>{e.stopPropagation();if(!S.ph)$("ph_in").click();else $("phm").classList.toggle("hide")};
 document.addEventListener("click",e=>{if(!$("phm").classList.contains("hide")&&!e.target.closest("#phm,#ph_edit"))$("phm").classList.add("hide")});
@@ -1265,19 +1329,20 @@ function procTxt(i,st){
 function renderTrack(){
   const gs=Object.keys(AGD),al=S.al||{},infos={};gs.forEach(g=>infos[g]=gInfo(g));
   const tr=gs.filter(g=>infos[g].tried.length).length,alt=Object.keys(al).map(g=>AGL[g]+(al[g]==="alergia"?" (confirmada)":" (sospecha)"));
-  $("tk_sum").textContent=`Alérgenos probados: ${tr} de ${gs.length}. Alergias indicadas: ${alt.length?alt.join(", "):"ninguna"}.`;
+  $("tk_n").textContent=tr+" de "+gs.length+" probados";$("tk_b").style.width=(100*tr/gs.length)+"%";
+  $("tk_sum").textContent=alt.length?"Alergias indicadas: "+alt.join(", ")+".":"Toca un alérgeno para anotar una reacción.";
   $("tk").innerHTML=gs.map(g=>{
     const i=infos[g],st=al[g]||"";
-    const chips=(st?`<span class="tag w">${ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción anotada</span>':"")+` <span class="tag">${i.tried.length?"Probado":"Sin probar"}</span>`;
+    const chips=(st?`<span class="tag w">${ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción anotada</span>':"")+` <span class="tag${i.tried.length?" ok":""}">${i.tried.length?"Probado":"Sin probar"}</span>`;
     const foods=i.foods.map(n=>i.m[n]?`<b>${esc(n)}</b> (${i.m[n].c}x)`:esc(n)).join(", ");
     const items=[...i.rxs.map(r=>({d:r.d,t:esc(r.r||"Reacción")+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,t:"Registro: "+esc(l.f)+(l.rt?": "+esc(l.rt):", tuvo reacción")+(l.rn?". "+esc(l.rn):""),id:""}))].sort((a,b)=>a.d<b.d?1:-1);
     const list=items.length?`<div class="rxl">${items.map(r=>`<p>${fd(r.d)}: ${r.t}${r.id?` <button class="x" data-del="${r.id}">Borrar</button>`:""}</p>`).join("")}</div>`:"";
     return `<details class="g" id="g_${g}" data-g="${g}"${tkSet.has(g)?" open":""}><summary><b>${AGL[g]}</b> ${chips}</summary><div class="gb">
       <p class="mute">${foods}</p>
       <p>${procTxt(i,st)}</p>${list}
+      <label>Fecha<input type="date" data-d="${g}" value="${today()}"></label>
       <label>Reacción<select data-sel="${g}"><option value="">Elige una opción</option>${RXO.map(o=>`<option>${esc(o)}</option>`).join("")}</select></label>
       <div class="warn hide" data-urg><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
-      <label>Fecha<input type="date" data-d="${g}" value="${today()}"></label>
       <label>Notas<input type="text" data-n="${g}" maxlength="300" placeholder="Qué pasó, cuánto tardó, cuánto duró"></label>
       <button class="btn" data-save="${g}">Guardar reacción</button>
       <label>Estado en el perfil<select data-st="${g}">${Object.keys(ALST).map(k=>`<option value="${k}"${k===st?" selected":""}>${ALST[k]}</option>`).join("")}</select></label>
@@ -1337,7 +1402,7 @@ $("so").onclick=()=>window.cloud&&window.cloud.logout();
 $("shx").onclick=()=>$("sh").classList.add("hide");
 document.addEventListener("click",e=>{if(e.target===document.body&&!$("sh").classList.contains("hide"))$("sh").classList.add("hide")});
 $("dip").addEventListener("click",e=>{if(e.target===$("dip"))$("dip").classList.add("hide")});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("sh").classList.add("hide");$("dip").classList.add("hide")}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("cf").classList.add("hide");$("sh").classList.add("hide");$("dip").classList.add("hide")}});
 </script>
 <script type="module">
 const gm=document.getElementById("gm");
@@ -1345,18 +1410,19 @@ const fail=m=>{gm.textContent=m};
 window.addEventListener("error",e=>fail("Error: "+(e.message||"desconocido")));
 window.addEventListener("unhandledrejection",e=>fail("Error: "+((e.reason&&(e.reason.code||e.reason.message))||"desconocido")));
 gm.textContent="Cargando...";
-let initializeApp,getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,getFirestore,doc,getDoc,setDoc;
+let initializeApp,getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,getFirestore,doc,getDoc,setDoc,deleteDoc;
 try{
   ({initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"));
-  ({getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
-  ({getFirestore,doc,getDoc,setDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
+  ({getAuth,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
+  ({getFirestore,doc,getDoc,setDoc,deleteDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
 }catch(e){fail("No se pudo cargar Firebase: "+(e&&e.message));throw e}
 const CFG={apiKey:"AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ",authDomain:"primeros-alimentos.firebaseapp.com",projectId:"primeros-alimentos",appId:"1:210048481917:web:f7a4e8f31d067a7152cf14"};
 const CLIENT_ID="210048481917-ul8kftm5f33lsfc3f5lskj4au5mvm9tk.apps.googleusercontent.com";
 const app=initializeApp(CFG),auth=getAuth(app),db=getFirestore(app);
 window.cloud={
   logout:()=>{try{google.accounts.id.disableAutoSelect()}catch(e){}return signOut(auth)},
-  save:d=>setDoc(doc(db,"users",auth.currentUser.uid),d)
+  save:d=>setDoc(doc(db,"users",auth.currentUser.uid),d),
+  deleteAccount:async d=>{const u=auth.currentUser,r=doc(db,"users",u.uid);await deleteDoc(r);try{await deleteUser(u)}catch(e){try{await setDoc(r,d)}catch(_){}throw e}try{google.accounts.id.disableAutoSelect()}catch(e){}}
 };
 const MSG={"auth/invalid-credential":"Email o contraseña incorrectos.","auth/wrong-password":"Email o contraseña incorrectos.","auth/user-not-found":"No hay cuenta con ese email. Pulsa Crear cuenta.","auth/email-already-in-use":"Ese email ya tiene cuenta. Pulsa Entrar.","auth/weak-password":"La contraseña necesita al menos 6 caracteres.","auth/invalid-email":"Revisa el email, no parece válido.","auth/missing-password":"Escribe tu contraseña.","auth/too-many-requests":"Demasiados intentos. Espera un momento y vuelve a probar.","auth/operation-not-allowed":"El acceso con email no está activado en Firebase."};
 const errm=e=>MSG[e&&e.code]||("No se pudo: "+(e&&e.code));
