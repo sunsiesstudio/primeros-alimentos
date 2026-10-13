@@ -93,7 +93,10 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .it.done svg:not(.fd){fill:var(--terra);stroke:var(--terra)}
 .it.done{border-color:color-mix(in srgb,var(--terra) 45%,var(--line))}
 svg.fd{width:44px;height:44px;flex:none;fill:none}
-.fd .o{stroke:var(--ink);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.fd .o{stroke:none}
+.fd .o[fill="none"]{stroke:rgba(0,0,0,.4);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.fd .o.w{stroke:#fff!important}
+svg.fd{overflow:visible;filter:drop-shadow(0 0 .7px rgba(0,0,0,.4))}
 .it .kt{flex:1;min-width:0}.it .kt .tag{width:fit-content}
 .it .cnt{order:8;margin:0}
 .it[disabled]{opacity:.5;cursor:default}
@@ -139,6 +142,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ms summary{list-style:none;cursor:pointer;margin-top:3px;padding:9px 30px 9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--card);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative}
 .ms summary::-webkit-details-marker{display:none}
 .ms summary::after{content:"\25BE";position:absolute;right:11px;top:50%;transform:translateY(-50%)}
+.plh{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px}.plh::-webkit-details-marker{display:none}.plh #pf_head{flex:1;min-width:0}.plh b{display:block}.plh small{display:block;color:var(--mute);margin-top:2px;font-size:.82rem;line-height:1.35}.plh .ple{color:var(--blue);font-weight:700;text-decoration:underline;flex:none}
 .gcard{display:flex;align-items:center;gap:12px;background:color-mix(in srgb,var(--ink) 3%,var(--card));border:1px solid var(--line);border-radius:14px;padding:8px 12px 8px 8px;margin:0 0 8px;cursor:pointer;min-height:60px}
 .gcard:has(input:checked){border-color:color-mix(in srgb,var(--terra) 55%,var(--line))}
 .gcard input{order:9;width:22px;height:22px;margin:0;flex:none;accent-color:var(--terra)}
@@ -407,9 +411,9 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="t1" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg><span>Tablero</span></button><button id="t2"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
+<div class="tabs"><button id="t2" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg><span>Tablero</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
 
-<section id="v1">
+<section id="v1" class="hide">
   <div class="tools">
     <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
       <div class="vt" role="group" aria-label="Cambiar vista">
@@ -421,12 +425,12 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="board" id="board"></div>
   <div class="grid" id="lst"></div>
 </section>
-<section id="v2" class="hide">
+<section id="v2">
   <div class="subt" role="tablist"><button class="st on" id="p1">Menú</button><button class="st" id="p2">Compra</button><button class="st" id="p3">Para papis</button></div>
   <div id="pv1">
-  <div class="card">
-    <h3 class="sec" style="margin-top:0">Tu plan</h3>
-    <div class="pf">
+  <details class="card" id="pfcard">
+    <summary class="plh"><span id="pf_head"></span><span class="ple">Editar</span></summary>
+    <div class="pf" style="margin-top:10px">
       <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
       <div class="fl"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
@@ -434,7 +438,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
     <p class="pop hide" id="dpop"></p>
     <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
-  </div>
+  </details>
   <details class="card aep"><summary>Pautas de la AEP y de la OMS</summary>
     <h4>Cuándo empezar</h4>
     <ul>
@@ -586,13 +590,13 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 <script>
 // categoría, color, consejo de preparación, alimentos separados por |
 const C=[
-["Frutas","#c96a47","Muy maduras, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Mandarina|Mango|Manzana|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera|Piña|Plátano|Pomelo|Sandía|Uvas"],
+["Frutas","#c96a47","Muy maduras, en tiras o aplastadas","Aguacate|Albaricoque|Arándanos|Caqui|Cerezas|Chirimoya|Ciruela|Coco|Dátiles|Frambuesas|Fresas|Granada|Higos|Kiwi|Limón|Mandarina|Mango|Manzana|Maracuyá|Melocotón|Melón|Membrillo cocido|Mora|Naranja|Nectarina|Níspero|Papaya|Pera|Piña|Plátano|Pomelo|Sandía|Uvas"],
 ["Verduras","#4a8760","Al vapor o asadas, muy blandas","Acelgas|Alcachofa|Apio|Berenjena|Boniato|Borraja|Brócoli|Calabacín|Calabaza|Cebolla|Champiñones|Chirivía|Coles de Bruselas|Coliflor|Endibia|Espárragos|Espinacas|Guisantes|Habas tiernas|Hinojo|Judías verdes|Lechuga|Lombarda|Maíz tierno|Nabo|Patata|Pepino|Pimiento rojo|Pimiento verde|Puerro|Rábano|Remolacha|Repollo|Rúcula|Setas|Tomate|Zanahoria"],
 ["Proteínas","#3e4cd0","Bien cocinadas, sin piel ni espinas","Alubias blancas|Alubias negras|Alubias pintas|Bacalao|Cerdo|Conejo|Cordero|Dorada|Gambas|Garbanzos|Huevo|Lenguado|Lentejas|Lubina|Mejillones|Merluza|Pavo|Pollo|Rape|Salmón|Sardinas|Ternera|Tempeh|Tofu|Trucha"],
-["Cereales","#c9962f","Cocidos blandos, mejor integrales","Amaranto|Arroz|Avena|Cebada|Centeno|Cuscús|Espelta|Fideos|Harina de maíz|Mijo|Pan|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
+["Cereales","#c9962f","Cocidos blandos, mejor integrales","Arroz|Avena|Cebada|Centeno|Cuscús|Espelta|Fideos|Harina de arroz|Harina de maíz|Mijo|Pan|Pan integral|Pasta|Polenta|Quinoa|Sémola de trigo|Tapioca|Tortitas de arroz|Trigo sarraceno"],
 ["Frutos secos","#8a5ac8","Siempre molidos o en crema, nunca enteros","Almendra|Anacardo|Avellana|Cacahuete|Castaña|Macadamia|Nuez|Nuez de Brasil|Nuez pecana|Piñones|Pistacho|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino|Sésamo (tahini)"],
 ["Lácteos","#d46a9a","Yogur y queso desde los 9 meses, leche de vaca desde los 12","Kéfir|Mantequilla|Mozzarella|Queso fresco|Queso tierno|Requesón|Ricotta|Yogur natural"],
-["Condimentos","#2f9aa0","Una pizca al cocinar","AOVE|Ajo|Albahaca|Canela|Cebollino|Cilantro|Comino|Cúrcuma|Eneldo|Hierbabuena|Jengibre|Laurel|Limón (ralladura)|Orégano|Perejil|Pimentón dulce|Romero|Tomillo|Vainilla"]];
+["Condimentos","#2f9aa0","Una pizca al cocinar","AOVE|Ajo|Albahaca|Canela|Cebollino|Cilantro|Comino|Cúrcuma|Eneldo|Hierbabuena|Jengibre|Laurel|Orégano|Perejil|Pimentón dulce|Romero|Tomillo|Vainilla"]];
 // Grupos de alérgenos y alimentos de la lista que contienen cada uno
 const AGD={gluten:["Avena","Cebada","Centeno","Cuscús","Espelta","Fideos","Pan","Pan integral","Pasta","Sémola de trigo"],huevo:["Huevo"],pescado:["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"],crustaceos:["Gambas"],moluscos:["Mejillones"],cacahuete:["Cacahuete"],frutoscascara:["Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho"],sesamo:["Sésamo (tahini)"],soja:["Tofu","Tempeh"],apio:["Apio"],lacteos:["Kéfir","Mantequilla","Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"]};
 const AG={};Object.keys(AGD).forEach(g=>AGD[g].forEach(n=>AG[n]=g));
@@ -601,14 +605,14 @@ const cleanRx=a=>Array.isArray(a)?a.filter(r=>r&&AGD[r.g]&&typeof r.d==="string"
 const validPh=v=>typeof v==="string"&&v.length<400000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(v)?v:"";
 const MEALS=["Desayuno","Media mañana","Comida","Merienda","Cena"],MR=["love","meh","no"];
 const cleanMl=o=>{const r={};if(o&&typeof o==="object")Object.keys(o).sort().slice(-120).forEach(d=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(d)||!o[d]||typeof o[d]!=="object")return;const e={};MEALS.forEach(m=>{const v=o[d][m];if(v&&v.d===true){e[m]={d:true};if(MR.includes(v.r))e[m].r=v.r}});if(Object.keys(e).length)r[d]=e});return r};
-const FMAP={"Lentejas rojas":"Lentejas","Manzana asada":"Manzana","Pera asada":"Pera","Pan (tostado, sin sal)":"Pan"};
+const FMAP={"Limón (ralladura)":"Limón","Lentejas rojas":"Lentejas","Manzana asada":"Manzana","Pera asada":"Pera","Pan (tostado, sin sal)":"Pan"};
 const cleanSl=o=>{const r={};if(o&&typeof o==="object")ALL.forEach(x=>{if(o[x.n]===true)r[x.n]=true});return r};
 const blockedG=x=>{const g=AG[x.n];return !!g&&!!S.al&&(S.al[g]==="alergia"||S.al[g]==="sospecha")};
 const FE=new Set(["Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
 const MIN={"Acelgas":12,"Espinacas":12,"Borraja":12,"Remolacha":12,"Rúcula":12};// meses mínimos, por defecto 6
 ["Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"].forEach(n=>MIN[n]=9);
 MIN["Kéfir"]=12;MIN["Mantequilla"]=12;
-const LIMS=new Set(["Arroz","Tortitas de arroz"]);
+const LIMS=new Set(["Arroz","Harina de arroz","Tortitas de arroz"]);
 const ALL=[];C.forEach(c=>c[3].split("|").forEach(n=>ALL.push({n,c:c[0],col:c[1],a:!!AG[n],fe:FE.has(n),lim:LIMS.has(n),min:MIN[n]||6})));
 
 // 3 pictogramas, todos en el verde de la marca: puré o aplastado, tiras y trozos (con pinza)
@@ -704,7 +708,7 @@ const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado"
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción",pre:"Ya lo había probado"};
 const isPre=(f,d)=>S.log.some(l=>l.pre&&l.f===f&&l.d===d);
 const K="primeros_v2";
-const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:2,seed:1,gen:false});
+const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:1,seed:1,gen:false});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,al:{},rx:[],ph:"",sl:{},ml:{},dip:false,log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
@@ -825,14 +829,14 @@ const ICOS={
 "Aguacate":["avo"],"Albaricoque":["apple","#f4a640"],"Arándanos":["berry","#4a5ab0",3],"Caqui":["tom","#f08a2e"],"Cerezas":["cherry"],"Chirimoya":["apple","#9ac47a"],"Ciruela":["apple","#7a4a9a"],"Coco":["coco"],"Dátiles":["nutche"],"Frambuesas":["berry","#d9366a",3],"Fresas":["straw"],"Granada":["tom","#b8283a"],"Higos":["pear","#7a4a7a"],"Kiwi":["cit","#8bbf4a","#d9e08a"],"Mandarina":["cit","#f59a2e"],"Mango":["mango"],"Manzana":["apple","#d9473f"],"Maracuyá":["cit","#8a4a8a","#e8c14a"],"Melocotón":["apple","#f6a56a"],"Melón":["slice","#9ac47a","#f6c98a","#f6ecc8"],"Membrillo cocido":["pear","#e0a040"],"Mora":["berry","#4a2a5a",3],"Naranja":["cit","#f08a2e"],"Nectarina":["apple","#e8683a"],"Níspero":["apple","#f0a838"],"Papaya":["papaya"],"Pera":["pear","#b9d05a"],"Piña":["pine"],"Plátano":["banana"],"Pomelo":["cit","#f0846a"],"Sandía":["slice","#4a9a5a","#e2493f"],"Uvas":["grape","#8a5ac8"],
 "Acelgas":["leaf","#5fa36f"],"Alcachofa":["bulb","#8aa860",1],"Apio":["blade","#9ac47a"],"Berenjena":["egp"],"Boniato":["spud","#c97a4a"],"Borraja":["leaf","#7ab07a"],"Brócoli":["broc","#4a8a4a"],"Calabacín":["zuc","#6aa84a"],"Calabaza":["pump"],"Cebolla":["bulb","#d9a0c0"],"Champiñones":["mush"],"Chirivía":["carrot"],"Coles de Bruselas":["cit","#6aa84a","#9ac47a"],"Coliflor":["broc","#f3ecd6","#8bbf7a"],"Endibia":["leaf","#e8e8a0"],"Espárragos":["blade","#6aa84a"],"Espinacas":["leaf","#3f7d52"],"Guisantes":["pod","#6aa84a"],"Habas tiernas":["pod","#8bbf5a"],"Hinojo":["bulb","#e8f0c0",1],"Judías verdes":["pod","#5fa36f"],"Lechuga":["leaf","#8bc860"],"Lombarda":["tom","#8a3a8a"],"Maíz tierno":["corn"],"Nabo":["beet","#f3ecd6"],"Patata":["spud","#d9b070"],"Pepino":["zuc","#5a9a4a"],"Pimiento rojo":["pep","#d9362f"],"Pimiento verde":["pep","#5a9a3a"],"Puerro":["blade","#9ac47a"],"Rábano":["beet","#d9366a"],"Remolacha":["beet","#9a1f4a"],"Repollo":["tom","#8bc860"],"Rúcula":["leaf","#4a8a3a"],"Setas":["mush"],"Tomate":["tom","#e2493f"],"Zanahoria":["carrot"],
 "Alubias blancas":["legume","#f3ecd6","k"],"Alubias negras":["legume","#3a3a44","k"],"Alubias pintas":["legume","#c98a6a","k"],"Bacalao":["fish","#d8cbb0"],"Cerdo":["steak","#f0a0a0"],"Conejo":["drum","#c99a6a"],"Cordero":["steak","#b8503a"],"Dorada":["fish","#c8d0d8","#e8c14a"],"Gambas":["shrimp"],"Garbanzos":["legume","#e8c88a","r"],"Huevo":["egg"],"Lenguado":["fish","#d9c8a0"],"Lentejas":["legume","#b8803a","d"],"Lubina":["fish","#aab8c8"],"Mejillones":["mus"],"Merluza":["fish","#cfd8e0"],"Pavo":["drum","#d9a05b"],"Pollo":["drum","#e8b04a"],"Rape":["fish","#9a8a7a"],"Salmón":["fish","#f08a6a","#f6b8a0"],"Sardinas":["fish","#8aa0b8","#d0dce8"],"Ternera":["steak","#d9605a"],"Tempeh":["legume","#d9b878","d"],"Tofu":["tofu"],"Trucha":["fish","#a8b87a","#d9e0a0"],
-"Amaranto":["bowl","#a83a5a","#f0d0d0"],"Arroz":["bowl","#4a8a9a"],"Avena":["wheat","#e8d8a8"],"Cebada":["wheat","#d9b878"],"Centeno":["wheat","#a8884a"],"Cuscús":["bowl","#c9962f","#f0d890"],"Espelta":["wheat","#d9a85a"],"Fideos":["fid","#f2d27a"],"Harina de maíz":["bowl","#f2c94c","#f8e08a"],"Mijo":["bowl","#c9962f","#f2c94c"],"Pan":["bread","#e0a860"],"Pan integral":["bread","#a8744a"],"Pasta":["pasta","#f2d27a"],"Polenta":["bowl","#e8b830","#f6d870"],"Quinoa":["bowl","#8a5ac8","#e8d8a8"],"Sémola de trigo":["bowl","#c9962f","#f0e0b0"],"Tapioca":["bowl","#4a8760","#fbf6ea"],"Tortitas de arroz":["tort"],"Trigo sarraceno":["bowl","#6a5a4a","#b8a888"],
+"Arroz":["bowl","#4a8a9a"],"Avena":["wheat","#e8d8a8"],"Cebada":["wheat","#d9b878"],"Centeno":["wheat","#a8884a"],"Cuscús":["bowl","#c9962f","#f0d890"],"Espelta":["wheat","#d9a85a"],"Fideos":["fid","#f2d27a"],"Harina de arroz":["pile","#fbf6ea"],"Harina de maíz":["bowl","#f2c94c","#f8e08a"],"Mijo":["bowl","#c9962f","#f2c94c"],"Pan":["bread","#e0a860"],"Pan integral":["bread","#a8744a"],"Pasta":["pasta","#f2d27a"],"Polenta":["bowl","#e8b830","#f6d870"],"Quinoa":["bowl","#8a5ac8","#e8d8a8"],"Sémola de trigo":["bowl","#c9962f","#f0e0b0"],"Tapioca":["bowl","#4a8760","#fbf6ea"],"Tortitas de arroz":["tort"],"Trigo sarraceno":["bowl","#6a5a4a","#b8a888"],
 "Almendra":["nutalm","#d9aa6a"],"Anacardo":["nutalm","#e8d09a"],"Avellana":["nuthaz","#c98a4a"],"Cacahuete":["nutpea"],"Castaña":["nutche"],"Macadamia":["nuthaz","#f0e0b8"],"Nuez":["nutwal","#c9985a"],"Nuez de Brasil":["nutalm","#a8784a"],"Nuez pecana":["nutalm","#8a5a3a"],"Piñones":["seed","#f0e0b8"],"Pistacho":["nutpis"],"Semillas de calabaza":["seed","#7a9a3c"],"Semillas de chía":["chia"],"Semillas de girasol":["seed","#7a7a7a"],"Semillas de lino":["seed","#8a5a3a"],"Sésamo (tahini)":["jar","#c9a35a","#e8d8a8"],
 "Kéfir":["bottle","#7ab0d9"],"Mantequilla":["butter"],"Mozzarella":["mozz"],"Queso fresco":["mozz"],"Queso tierno":["cheese"],"Requesón":["bowl","#7ab0d9","#fbf6ea"],"Ricotta":["bowl","#d9a05b","#f3ecd6"],"Yogur natural":["jar","#d46a9a","#f3b8d0"],
-"AOVE":["oil"],"Ajo":["bulb","#f3ecd6",1],"Albahaca":["sprig","#4a9a4a"],"Canela":["cinn"],"Cebollino":["blade","#6aa84a"],"Cilantro":["sprig","#6aa84a"],"Comino":["pile","#a8784a"],"Cúrcuma":["pile","#e8a82e"],"Eneldo":["sprig","#8bbf5a"],"Hierbabuena":["sprig","#3f9a5a"],"Jengibre":["ginger"],"Laurel":["leaf","#5a7a3a"],"Limón (ralladura)":["cit","#f2d23a"],"Orégano":["sprig","#7a9a4a"],"Perejil":["sprig","#3f8a3a"],"Pimentón dulce":["pile","#c9362f"],"Romero":["sprig","#5a8a5a"],"Tomillo":["sprig","#7a9a6a"],"Vainilla":["pod2"]};
+"AOVE":["oil"],"Ajo":["bulb","#f3ecd6",1],"Albahaca":["sprig","#4a9a4a"],"Canela":["cinn"],"Cebollino":["blade","#6aa84a"],"Cilantro":["sprig","#6aa84a"],"Comino":["pile","#a8784a"],"Cúrcuma":["pile","#e8a82e"],"Eneldo":["sprig","#8bbf5a"],"Hierbabuena":["sprig","#3f9a5a"],"Jengibre":["ginger"],"Laurel":["leaf","#5a7a3a"],"Limón":["cit","#f2d23a"],"Orégano":["sprig","#7a9a4a"],"Perejil":["sprig","#3f8a3a"],"Pimentón dulce":["pile","#c9362f"],"Romero":["sprig","#5a8a5a"],"Tomillo":["sprig","#7a9a6a"],"Vainilla":["pod2"]};
 const icoCache={};
 function ico(n){if(icoCache[n])return icoCache[n];const sp=ICOS[n],x=ALL.find(a=>a.n===n);let b;
   try{b=sp?SH[sp[0]](...sp.slice(1)):SH.gen(x?x.col:"#999")}catch(e){b=SH.gen("#999")}
-  return icoCache[n]=`<svg class="fd" viewBox="0 0 48 48" aria-hidden="true">${b}</svg>`}
+  return icoCache[n]=`<svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true">${b}</svg>`}
 /*ICO_END*/
 
 const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6"/></svg>';
@@ -1106,7 +1110,7 @@ const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
 function askProfile(){if(!S.bd&&!obSkip&&USER&&LOADED&&$("gate").classList.contains("hide"))openOb()}
 let OB=null;
-function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,fo:new Set(),al:{},q:"",diet:"om",every:2,goals:[]};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
+function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,fo:new Set(),al:{},q:"",diet:"om",every:1,goals:[]};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
 function obSteps(){return (OB.ya?[0,1,2,3,4].filter(i=>i!==4||obGroups().length):[0,1,2]).concat([5,6])}
 function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
 function drawOb(){
@@ -1116,12 +1120,12 @@ function drawOb(){
   if(i===1){title=`¿Cuándo nació ${esc(nm||"tu bebé")}?`;h=`<input type="date" id="ob_bd" max="${today()}" value="${esc(OB.bd)}" aria-label="Fecha de nacimiento"><p class="mute">Con la fecha calculamos qué puede probar y cuándo. Si nació antes de las 37 semanas, lo ajustas luego en el perfil.</p>`;ok=!!OB.bd&&OB.bd<=today()}
   if(i===2){title=`¿Ha probado ${esc(nm||"tu bebé")} algún alimento ya?`;h=`<div class="big"><button class="btn${OB.ya===true?" p":""}" data-ya="1">Sí</button><button class="btn${OB.ya===false?" p":""}" data-ya="0">Todavía no</button></div>`;ok=OB.ya!==null}
   if(i===3){title="¿Cuáles ha probado?";const q=norm(OB.q.trim());
-    h=`<input type="search" id="ob_q" placeholder="Buscar alimento" value="${esc(OB.q)}" aria-label="Buscar alimento"><p class="mute" id="ob_cnt">${OB.fo.size} marcado${OB.fo.size===1?"":"s"}. No hace falta la fecha.</p>`+C.map(c=>{const it=ALL.filter(x=>x.c===c[0]&&!x.lim&&(!q||norm(x.n).includes(q)));if(!it.length)return"";const tn=it.filter(x=>OB.fo.has(x.n)).length;
+    h=`<input type="search" id="ob_q" placeholder="Buscar alimento" value="${esc(OB.q)}" aria-label="Buscar alimento">`+C.map(c=>{const it=ALL.filter(x=>x.c===c[0]&&!x.lim&&(!q||norm(x.n).includes(q)));if(!it.length)return"";const tn=it.filter(x=>OB.fo.has(x.n)).length;
       return `<details class="grp" data-c="${esc(c[0])}"${q||(OB.opn&&OB.opn.has(c[0]))?" open":""}><summary><h2 class="disp" style="font-size:1.15rem;color:var(--blue)">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb">`+it.map(x=>`<button type="button" class="it${OB.fo.has(x.n)?" done":""}" data-f="${esc(x.n)}" aria-pressed="${OB.fo.has(x.n)}">${ico(x.n)}${STAR}<span class="kt"><span>${esc(x.n)}</span></span></button>`).join("")+`</div></details>`}).join("")}
   if(i===4){title="¿Ha tenido alguna alergia o reacción?";h='<p class="mute">Solo salen los alérgenos de lo que ha probado. Si no hubo nada, déjalo como está.</p>'+obGroups().map(g=>{const v=OB.al[g]||"";return `<div class="arow"><b>${AGL[g]}</b><div class="ag" data-g="${g}"><button type="button" data-v=""${!v?' class="on"':""}>Sin problema</button><button type="button" data-v="sospecha" class="${v==="sospecha"?"on s":""}">Sospecha</button><button type="button" data-v="alergia" class="${v==="alergia"?"on a":""}">Alergia</button></div></div>`}).join("")}
-  if(i===5){title="¿Cómo lo planificamos?";h=`<div class="fl"><span class="flab">Dieta</span><div class="ag" data-k="diet">${[["om","De todo"],["veg","Vegetariana"],["vgn","Vegana"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.diet===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>${DIETTXT[OB.diet]?`<p class="mute" style="text-align:left">${DIETTXT[OB.diet]}</p>`:""}<div class="fl"><span class="flab">Alimento nuevo</span><div class="ag" data-k="every">${[[1,"Cada día"],[2,"Cada 2 días"],[3,"Cada 3 días"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.every===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>`}
+  if(i===5){title="¿Cómo lo planificamos?";h=`<div class="fl"><span class="flab">Dieta</span><div class="ag" data-k="diet">${[["om","De todo"],["veg","Vegetariana"],["vgn","Vegana"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.diet===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Alimento nuevo</span><div class="ag" data-k="every">${[[1,"Cada día (recomendado)"],[2,"Cada 2 días"],[3,"Cada 3 días"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.every===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>`}
   if(i===6){title="¿Qué objetivos quieres cubrir?";h='<p class="mute">Elige los que quieras. Con esto generamos el plan, y puedes cambiarlo cuando quieras.</p><div class="ocl">'+GOALS.map(g=>goalCard(g,OB.goals.includes(g[0]))).join("")+"</div>"}
-  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${k<=i?"on":""}"></i>`).join("")}</div><div class="mid${[3,4,6].includes(i)?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button><button class="skip" id="ob_out">Cerrar sesión</button>'}</div></div>`;
+  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${k<=i?"on":""}"></i>`).join("")}</div><div class="mid${[3,4,6].includes(i)?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${i===3||i===4?'<button class="skip" id="ob_pass">Saltar este paso</button>':""}${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button><button class="skip" id="ob_out">Cerrar sesión</button>'}</div></div>`;
   const o=$("ob");
   if($("ob_nm"))$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};
   if($("ob_bd"))$("ob_bd").oninput=e=>{OB.bd=e.target.value;$("ob_next").disabled=!(OB.bd&&OB.bd<=today())};
@@ -1129,13 +1133,13 @@ function drawOb(){
   if($("ob_q"))$("ob_q").oninput=e=>{OB.q=e.target.value;const p=e.target.selectionStart;drawOb();const n=$("ob_q");n.focus();n.setSelectionRange(p,p)};
   o.querySelectorAll("button[data-f]").forEach(b=>b.onclick=()=>{const f=b.dataset.f,on=!OB.fo.has(f);if(on)OB.fo.add(f);else OB.fo.delete(f);
     b.classList.toggle("done",on);b.setAttribute("aria-pressed",on);const d=b.closest("details"),all=d.querySelectorAll("button[data-f]");
-    d.querySelector(".gc").textContent=d.querySelectorAll("button[data-f].done").length+"/"+all.length;
-    const m=o.querySelector("#ob_cnt");if(m)m.textContent=OB.fo.size+" marcado"+(OB.fo.size===1?"":"s")+". No hace falta la fecha."});
+    d.querySelector(".gc").textContent=d.querySelectorAll("button[data-f].done").length+"/"+all.length;});
   o.querySelectorAll("details.grp").forEach(d=>d.addEventListener("toggle",()=>{OB.opn=OB.opn||new Set();if(d.open)OB.opn.add(d.dataset.c);else OB.opn.delete(d.dataset.c)}));
   o.querySelectorAll(".ag[data-k] button").forEach(b=>b.onclick=()=>{const k=b.parentNode.dataset.k;OB[k]=k==="every"?+b.dataset.v:b.dataset.v;drawOb()});
   o.querySelectorAll(".ocl input").forEach(c=>c.onchange=()=>{OB.goals=[...o.querySelectorAll(".ocl input:checked")].map(x=>x.value)});
   o.querySelectorAll(".ag:not([data-k]) button").forEach(b=>b.onclick=()=>{const g=b.parentNode.dataset.g;if(b.dataset.v)OB.al[g]=b.dataset.v;else delete OB.al[g];const sc=o.scrollTop;drawOb();o.scrollTop=sc});
   $("ob_next").onclick=()=>{if(last)return obFinish();OB.s=st[st.indexOf(i)+1];drawOb();o.scrollTop=0};
+  if($("ob_pass"))$("ob_pass").onclick=()=>{if(i===3)OB.fo.clear();else OB.al={};const n=obSteps();OB.s=n.find(k=>k>i);drawOb();o.scrollTop=0};
   if($("ob_back"))$("ob_back").onclick=()=>{OB.s=st[st.indexOf(i)-1];drawOb();o.scrollTop=0};
   if($("ob_skip"))$("ob_skip").onclick=()=>{obSkip=true;try{localStorage.setItem(SKK(),"1")}catch(e){}$("ob").classList.add("hide")};
   if($("ob_out"))$("ob_out").onclick=()=>{$("ob").classList.add("hide");if(window.cloud)window.cloud.logout();else{window.__auth(null)}};
@@ -1162,27 +1166,33 @@ function allowed(x,p){
   return true;
 }
 const CSV=t=>new Set(t.split("|"));
-const FIB=CSV("Alubias blancas|Alubias negras|Alubias pintas|Garbanzos|Lentejas|Lentejas rojas|Avena|Quinoa|Pan integral|Amaranto|Trigo sarraceno|Cebada|Espelta|Pera|Ciruela|Kiwi|Frambuesas|Mora|Higos|Dátiles|Arándanos|Granada|Alcachofa|Brócoli|Coles de Bruselas|Guisantes|Coliflor|Zanahoria|Boniato|Espárragos|Semillas de chía|Semillas de lino|Semillas de girasol|Semillas de calabaza");
+const FIB=CSV("Alubias blancas|Alubias negras|Alubias pintas|Garbanzos|Lentejas|Lentejas rojas|Avena|Quinoa|Pan integral|Trigo sarraceno|Cebada|Espelta|Pera|Ciruela|Kiwi|Frambuesas|Mora|Higos|Dátiles|Arándanos|Granada|Alcachofa|Brócoli|Coles de Bruselas|Guisantes|Coliflor|Zanahoria|Boniato|Espárragos|Semillas de chía|Semillas de lino|Semillas de girasol|Semillas de calabaza");
 const O3=CSV("Salmón|Sardinas|Trucha|Semillas de chía|Semillas de lino|Nuez");
 const CAL=CSV("Yogur natural|Queso fresco|Queso tierno|Mozzarella|Ricotta|Requesón|Kéfir|Tofu|Sardinas|Almendra|Sésamo (tahini)|Brócoli|Semillas de chía|Alubias blancas|Higos");
-const VC=CSV("Naranja|Mandarina|Kiwi|Fresas|Pomelo|Piña|Mango|Papaya|Maracuyá|Frambuesas|Mora|Pimiento rojo|Pimiento verde|Brócoli|Coliflor|Coles de Bruselas|Tomate|Perejil|Limón (ralladura)");
+const VC=CSV("Naranja|Mandarina|Kiwi|Fresas|Pomelo|Piña|Mango|Papaya|Maracuyá|Frambuesas|Mora|Pimiento rojo|Pimiento verde|Brócoli|Coliflor|Coles de Bruselas|Tomate|Perejil|Limón");
 const ZN=CSV("Ternera|Cordero|Cerdo|Pavo|Pollo|Huevo|Lentejas|Garbanzos|Semillas de calabaza|Yogur natural|Queso fresco|Avena|Quinoa|Anacardo");
 const FAT=CSV("Aguacate|Salmón|Sardinas|Trucha|AOVE|Huevo|Yogur natural|Coco");
 const GS={iron:x=>x.fe,fiber:x=>FIB.has(x.n),omega3:x=>O3.has(x.n),calcium:x=>CAL.has(x.n),vitc:x=>VC.has(x.n),protein:x=>x.c==="Proteínas"||x.c==="Lácteos",zinc:x=>ZN.has(x.n),fats:x=>FAT.has(x.n)||x.c==="Frutos secos",alg:x=>x.a,verd:x=>x.c==="Verduras"};
 const GOALS=[["iron","Hierro","Mucha energía","Hierro"],["fiber","Fibra","Buena digestión","Fibra"],["omega3","Omega-3","Cerebro y vista","Omega-3"],["calcium","Calcio","Huesos fuertes","Calcio"],["protein","Proteína","Crecer fuerte","Proteína"],["zinc","Zinc","Defensas altas","Zinc"],["alg","Alérgenos","Alérgenos a tiempo","Sin retrasarlos"],["verd","Más verduras","Más verduras","Sabores y fibra"]];
-const GICO={iron:'<path class="o" d="M6 8Q6 5 9 5H16Q19 5 19 8V21C22 10 40 10 43 26V37Q43 42 38 42H12Q6 42 6 36z" fill="#f2c07a"/><path class="o" d="M19 21c0 5 3 9 8 9" fill="none"/><path d="M9 9v6M26 17c4-2 8-1 11 3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>',
-fiber:SH.wheat("#d9b878"),
+const GICO={iron:'<circle cx="31" cy="8" r="5.5" fill="#e2703a"/><g fill="none" stroke="#e2703a" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M28 17L22 30"/><path d="M22 30L33 35L32 45"/><path d="M22 30L14 38L5 36"/><path d="M27 19L36 24L41 17"/><path d="M27 19L19 23L13 17"/></g><path d="M4 22h6M2 29h6" stroke="#e2703a" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>',
+fiber:SH.wheat("#c9962f"),
 omega3:'<path class="o" d="M24 8c-5-4-13-2-15 5-4 1-5 8-1 11-2 6 3 12 9 11 3 4 8 4 7 0 1 4 4 4 7 0 6 1 11-5 9-11 4-3 3-10-1-11-2-7-10-9-15-5z" fill="#f0a8b8"/><path class="o" d="M24 8v30M16 18c3 0 5 2 5 5M32 18c-3 0-5 2-5 5M15 30c3 0 5-1 6-3M33 30c-3 0-5-1-6-3" fill="none"/>',
-calcium:'<g transform="rotate(-40 24 24)"><rect class="o" x="12" y="19" width="24" height="10" rx="4" fill="#f6efdc"/><circle class="o" cx="10" cy="18" r="5.5" fill="#f6efdc"/><circle class="o" cx="10" cy="30" r="5.5" fill="#f6efdc"/><circle class="o" cx="38" cy="18" r="5.5" fill="#f6efdc"/><circle class="o" cx="38" cy="30" r="5.5" fill="#f6efdc"/><rect x="13" y="20" width="22" height="8" rx="3" fill="#f6efdc"/></g>',
-protein:SH.egg(),
-zinc:'<path class="o" d="M24 4l16 6v12c0 12-8 19-16 22C16 41 8 34 8 22V10z" fill="#7ab0d9"/><path class="o" d="M16 24l6 6 11-12" fill="none" stroke-width="3"/>',
+calcium:'<g transform="rotate(-40 24 24)"><rect class="o" x="12" y="19" width="24" height="10" rx="4" fill="#e8cf98"/><circle class="o" cx="10" cy="18" r="5.5" fill="#e8cf98"/><circle class="o" cx="10" cy="30" r="5.5" fill="#e8cf98"/><circle class="o" cx="38" cy="18" r="5.5" fill="#e8cf98"/><circle class="o" cx="38" cy="30" r="5.5" fill="#e8cf98"/><rect x="13" y="20" width="22" height="8" rx="3" fill="#e8cf98"/></g>',
+protein:'<path class="o" d="M6 8Q6 5 9 5H16Q19 5 19 8V21C22 10 40 10 43 26V37Q43 42 38 42H12Q6 42 6 36z" fill="#f2c07a"/><path class="o" d="M19 21c0 5 3 9 8 9" fill="none"/><path d="M9 9v6M26 17c4-2 8-1 11 3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>',
+zinc:'<path class="o" d="M24 4l16 6v12c0 12-8 19-16 22C16 41 8 34 8 22V10z" fill="#7ab0d9"/><path class="o w" d="M16 24l6 6 11-12" fill="none" stroke-width="3"/>',
 alg:SH.nutpea(),verd:SH.broc("#4a8a4a")};
-const gicoSvg=id=>`<svg class="fd" viewBox="0 0 48 48" aria-hidden="true">${GICO[id]}</svg>`;
+const gicoSvg=id=>`<svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true">${GICO[id]}</svg>`;
 const goalCard=(g,on)=>`<label class="gcard"><input type="checkbox" value="${g[0]}"${on?" checked":""}>${gicoSvg(g[0])}<span class="kt"><b>${g[2]}</b><small>${g[3]}</small></span></label>`;
 const GL=Object.fromEntries(GOALS.map(g=>[g[0],g[1]]));
 let planShown=7;
 $("pf_glist").innerHTML=GOALS.map(g=>goalCard(g,false)).join("");
 const DIETTXT={veg:"Vegetariana: sin carne ni pescado, con huevo y lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses. Consúltalo con tu pediatra.",vgn:"Vegana: sin carne, pescado, huevo ni lácteos. La OMS señala que sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la B12 a los 6 a 8 meses, y la vitamina B12 necesita suplemento. Consúltalo con tu pediatra."};
+let pfSeen="";
+function planHead(){
+  const p=S.prefs,a=age(),nm=esc(S.nm||"tu bebé"),gt=Object.fromEntries(GOALS.map(g=>[g[0],g[2]]));
+  const dt={om:"De todo",veg:"Vegetariana",vgn:"Vegana"}[p.diet]||"De todo",ev=(p.every||1)===1?"Nuevo cada día":"Nuevo cada "+p.every+" días";
+  const gs=(p.goals||[]).map(g=>gt[g]).filter(Boolean);
+  $("pf_head").innerHTML=`<b>Plan personalizado para ${nm}${a?`, de ${a.mo} meses`:""}${gs.length?" y tus objetivos":""}</b><small>${dt} · ${ev}${gs.length?" · "+gs.map(esc).join(", "):""}</small>`}
 function renderPlanForm(){
   const p=S.prefs,dt=DIETTXT[p.diet];
   $("dinfo").classList.toggle("hide",!dt);$("dinfo").title=dt||"";$("dpop").textContent=dt||"";if(!dt)$("dpop").classList.add("hide");
@@ -1254,6 +1264,8 @@ function plan(){
     $("shop").innerHTML="";$("fam").innerHTML="";
     return;
   }
+  planHead();
+  if(pfSeen!==S.id+p.gen){pfSeen=S.id+p.gen;$("pfcard").open=!p.gen}
   if(!p.gen){
     $("days").innerHTML=`<div class="card"><p><b>Aún no hay plan.</b> Revisa dieta, frecuencia y objetivos, y pulsa Generar plan.</p></div>`;
     $("shop").innerHTML="";$("fam").innerHTML="";
@@ -1265,16 +1277,17 @@ function plan(){
   const t0=today(),lastFirst=Object.values(first).sort().pop();
   let lastNew=lastFirst?-Math.max(0,Math.round((new Date(t0+"T00:00:00")-new Date(lastFirst+"T00:00:00"))/864e5)):-99;
   const start=new Date();start.setHours(0,0,0,0);
-  const total=ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="";
+  const total=ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="",rp=null;
   const known=Object.keys(m).filter(k=>!m[k].all.includes("react")).map(info).filter(a=>a&&allowed(a,p));
   for(let d=0;d<total;d++){
     const dt=new Date(start);dt.setDate(start.getDate()+d);const ds=dstr(dt);
     const done=[...new Set(S.log.filter(l=>l.d===ds).map(l=>l.f))];
     const doneNew=done.filter(f=>first[f]===ds);
-    done.forEach(n=>{const a=info(n);if(a&&a.a)lastA=d});
+    done.forEach(n=>{const a=info(n);if(a&&a.a){lastA=d;if(first[n]===ds)rp={x:a,left:2,n:1}}});
     if(doneNew.length)lastNew=d;
-    const items=[];
-    if(!doneNew.length&&d-lastNew>=every){
+    const items=[];let rep=null;
+    if(!doneNew.length&&rp&&rp.left>0){rp.left--;rp.n++;rep={x:rp.x,n:rp.n};lastA=d;lastNew=d}
+    else if(!doneNew.length&&d-lastNew>=every){
       let best=null,bs=-1e9;const T0=Object.values(cc).reduce((a,b)=>a+b,0);
       pool.forEach(x=>{
         const extra=x.c==="Frutos secos"||x.c==="Condimentos";
@@ -1287,9 +1300,9 @@ function plan(){
         if(x.c===prev)s-=2;
         if(extra)s-=(T0<12?9:3);
         if(s>bs){bs=s;best=x}});
-      if(best){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a)lastA=d;lastNew=d;known.push(best);items.push(best)}
+      if(best){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a){lastA=d;rp={x:best,left:2,n:1}}lastNew=d;known.push(best);items.push(best)}
     }
-    out.push({dt,ds,done,items,di:d,kn:[...known]});
+    out.push({dt,ds,done,items,rep,di:d,kn:[...known]});
   }
   {let k=out.length;while(k>0&&!out[k-1].items.length&&!out[k-1].done.length)k--;out.length=k}
   const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&!x.all.includes("react")&&x.c<15}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
@@ -1303,7 +1316,7 @@ function plan(){
     return `<p><b>${lab}:</b> <span class="${pick.a?"al":""}">${esc(pick.n)}</span></p>`}).join("")};
   const mo=ag?ag.mo:8,pz=pinzaNow(),tx=texLevel();
   const menuRows=o=>{
-    const R=recipesFor(o.kn,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[],nn=o.items.map(x=>x.n);
+    const R=recipesFor(o.kn,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[],nn=o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]);
     const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
     const newSlot=nn.length?ms.find(m=>R.some(r=>ok(r,m)&&hasNew(r))):null;
     ms.forEach((meal,si)=>{
@@ -1331,15 +1344,18 @@ function plan(){
     const nm=esc(S.nm||"tu bebé"),tl=`<b>Textura:</b> ${esc(TXL[tx](mo))}`;let head="";
     const x=o.items[0];
     if(x){const cnt=o.kn.filter(k=>k.c===x.c&&k!==x).length,R=[],extra=x.c==="Frutos secos"||x.c==="Condimentos";
-      if(x.a)R.push(`es un alérgeno (${AGL[AG[x.n]]||"alérgeno"}): conviene introducirlo pronto, en poca cantidad y sin otros nuevos ese día, para poder vigilar`);
+      if(x.a)R.push(`es un alérgeno (${AGL[AG[x.n]]||"alérgeno"}): lo ofrecemos 3 días seguidos, en poca cantidad y sin otros nuevos, para poder vigilar`);
       const gl=goals.find(g=>GS[g](x)&&g!=="alg");if(gl)R.push(`encaja con tu objetivo de ${String(GL[gl]).toLowerCase()}`);
       if(x.fe&&!extra)R.push("aporta hierro, que ahora le hace falta");
       if(cnt===0)R.push(`todavía no ha probado ${CW[x.c]||"nada de este grupo"}`);else if(cnt<(TGT[x.c]||0)){const nn=(CW1[x.c]||["alimento","alimentos"])[cnt===1?0:1];R.push(`aún solo ha probado ${cnt} ${nn} y queremos más variedad`)}
       if(ZN.has(x.n)&&!R.some(r=>/hierro/.test(r)))R.push("aporta zinc");
       if(!R.length)R.push("suma variedad al menú sin repetir lo que ya conoce");
       head=`Hoy introducimos <b>${esc(x.n)}</b> porque ${R.slice(0,2).join(". Además, ")}.`}
+    else if(o.rep)head=`Día ${o.rep.n} de 3 con <b>${esc(o.rep.x.n)}</b>: repetimos el alérgeno 3 días seguidos, en poca cantidad, para vigilar cómo le sienta.`;
     else if(o.done.length)head=`Hoy ${nm} ya ha probado algo nuevo: repetimos lo que conoce para afianzarlo.`;
     else head=`Hoy no hay alimento nuevo: ofrecemos lo que ya conoce para afianzarlo. Dejamos ${every>1?"un par de días":"un día"} entre novedades para vigilar cómo le sienta.`;
+    {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
+      if((x||o.rep)&&cb.length)head+=` Lo combinamos con lo que ya conoce: ${cb.map(esc).join(", ").replace(/, ([^,]*)$/," y $1")}.`}
     return `<div class="why"><p>${head}</p><p class="mute">${tl}</p></div>`};
   const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
@@ -1362,7 +1378,7 @@ function plan(){
     save();plan()});
   if($("pmore"))$("pmore").onclick=()=>{planShown+=7;plan()};
 }
-$("mk").onclick=()=>{if(S.prefs.gen)S.prefs.seed=(S.prefs.seed||1)+1;S.prefs.gen=true;planShown=7;save();plan()};
+$("mk").onclick=()=>{$("pfcard").open=false;if(S.prefs.gen)S.prefs.seed=(S.prefs.seed||1)+1;S.prefs.gen=true;planShown=7;save();plan()};
 
 const SHOPORD=["Frutas","Verduras","Proteínas","Cereales","Lácteos","Frutos secos","Condimentos"];
 let shopCur={};
