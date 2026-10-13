@@ -428,20 +428,8 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="t2" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg><span>Tablero</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
+<div class="tabs"><button id="t2" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5M9 7h6M9 11h6"/></svg><span>Guía</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
 
-<section id="v1" class="hide">
-  <div class="tools">
-    <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
-      <div class="vt" role="group" aria-label="Cambiar vista">
-        <button id="vb" aria-label="Vista tablero" title="Tablero"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg></button>
-        <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
-      </div></div>
-    <div class="chips" id="chips"></div>
-  </div>
-  <div class="board" id="board"></div>
-  <div class="grid" id="lst"></div>
-</section>
 <section id="v2">
   <div class="subt" role="tablist"><button class="st on" id="p1">Menú</button><button class="st" id="p2">Compra</button><button class="st" id="p3">Para papis</button></div>
   <div id="pv1">
@@ -461,6 +449,114 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   </details>
   <div class="remind" id="rem"></div>
   <div id="days"></div>
+  </div>
+  <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><p class="mute">Lo que necesitas para los días del menú que tienes abierto. Marca lo que ya tienes en casa.</p><div id="shop"></div></div></div>
+  <div id="pv3" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Platos para los papis</h3><p class="mute">Platos que se hacen con lo mismo que come el bebé, para cocinar una vez y no comprar de más. Primero se aparta la ración del bebé, sin sal.</p></div><div id="fam"></div></div>
+</section>
+<section id="v3" class="hide"><div class="card" id="progcard"><div id="prog"></div></div>
+<div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Kanban</button></div>
+<div id="kview" class="hide">
+  <div class="tools">
+    <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+      <div class="vt hide" role="group" aria-label="Cambiar vista">
+        <button id="vb" aria-label="Vista tablero" title="Tablero"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg></button>
+        <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
+      </div></div>
+    <div class="chips" id="chips"></div>
+  </div>
+  <div class="board" id="board"></div>
+  <div class="grid" id="lst"></div>
+</div>
+<div class="card" id="calcard">
+  <div class="leg"><span><i class="dot rc-love"></i>Le encantó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>Hoy no</span><span><i class="dot rc-react"></i>Reacción o alergia</span></div>
+  <div id="cal"></div>
+</div>
+<div class="tk" id="tkwrap">
+  <div class="card tkc">
+    <div class="tkh"><h3 class="disp">Alérgenos</h3><span class="tkn" id="tk_n"></span></div>
+    <div class="tkbar" aria-hidden="true"><i id="tk_b"></i></div>
+    <p class="mute" id="tk_sum"></p>
+    <details class="aep rxa"><summary>Qué hacer si hay una reacción</summary>
+      <ul>
+        <li>Deja de ofrecer ese alimento y no lo repitas hasta hablarlo con tu pediatra.</li>
+        <li>Anota qué pasó, cuánto tardó en aparecer y cuánto duró, en el alérgeno que corresponda.</li>
+        <li>Avisa a tu pediatra, aunque haya sido leve.</li>
+        <li><b>Llama al 112 o ve a urgencias</b> si hay dificultad para respirar, hinchazón de labios, cara o lengua, vómitos repetidos, o si el bebé está muy decaído o muy pálido.</li>
+        <li>Si tu pediatra confirma una alergia, márcala en el alérgeno (Estado). Se guarda en el perfil y esos alimentos dejan de salir en el plan.</li>
+      </ul>
+      <p class="mute">Orientación general, no sustituye la valoración de tu pediatra.</p>
+    </details>
+    <div id="tk"></div>
+  </div>
+</div>
+</section>
+
+<section id="v5" class="hide">
+<div class="card"><h3 class="sec" style="margin-top:0">Guía</h3><p class="mute" style="margin:0">Lo básico para empezar con tranquilidad. No sustituye el consejo de tu pediatra.</p></div>
+<details class="card aep" open><summary>Cómo introducir alimentos</summary>
+  <ul>
+    <li><b>Un alimento nuevo cada vez.</b> Puede ser uno al día, como en el plan, siempre que repitas también lo que ya conoce y lo mezcles con lo nuevo.</li>
+    <li><b>Alérgenos:</b> se ofrecen hacia los 6 meses, de uno en uno, en poca cantidad y 3 días seguidos. Los días de un alérgeno no se añade otro alimento nuevo.</li>
+    <li><b>Repetir es parte del plan.</b> Un rechazo no es definitivo: pueden hacer falta 10 o 15 intentos, sin presionar.</li>
+    <li><b>Texturas:</b> puré espeso, puré con grumos, tiras blandas que agarre con el puño y, con la pinza (hacia los 9 meses), trocitos pequeños. Si solo ha tomado puré, ve subiendo poco a poco. La AEP aconseja texturas grumosas como tarde a los 8 o 9 meses.</li>
+    <li><b>Si prueba algo aplastado,</b> anímate a ofrecérselo otro día en tiras o trocitos para que lo agarre con las manos.</li>
+    <li><b>Cantidad:</b> la decide el bebé. Empieza con poca y ofrece más si pide. La leche sigue siendo la base hasta los 12 meses.</li>
+    <li><b>Agua:</b> en sorbos con las comidas, en vaso abierto o con pajita. Como referencia, hasta unos 120 ml al día a los 6 a 8 meses y hasta unos 240 ml de los 9 a los 11 (AAP).</li>
+  </ul>
+</details>
+<details class="card aep"><summary>Buenos hábitos</summary>
+  <ul>
+    <li>Sentado y erguido, nunca recostado ni solo mientras come.</li>
+    <li>Sin pantallas ni distracciones. Mejor en familia, a la mesa.</li>
+    <li>Sin sal, azúcar ni edulcorantes. Aceite de oliva en poca cantidad.</li>
+    <li>Los padres deciden qué, cuándo y dónde. El bebé decide cuánto.</li>
+    <li>Respeta sus señales: tiene hambre si abre la boca y se inclina hacia la comida. Está lleno si gira la cabeza, aparta la comida, cierra la boca o solo juega.</li>
+    <li>Déjale tocar y mancharse: explorar también es aprender a comer.</li>
+    <li>Lávale las manos antes de comer y ofrece el agua en vaso abierto desde el principio.</li>
+    <li>Come siempre acompañado por un adulto.</li>
+  </ul>
+</details>
+<details class="card aep"><summary>Alimentos seguros: cómo prepararlos</summary>
+  <ul>
+    <li>Uvas, tomates cherry y aceitunas, siempre cortados en cuartos a lo largo.</li>
+    <li>Frutos secos, siempre molidos o en crema. Nunca enteros ni en trozos.</li>
+    <li>Manzana y zanahoria, cocidas o ralladas finas. Nunca crudas en trozos duros.</li>
+    <li>Salchichas, embutidos, palomitas, caramelos y chicles, mejor evitarlos.</li>
+    <li>Carne y pescado bien cocinados, sin piel, espinas ni huesos. Huevo siempre cocinado.</li>
+    <li>Tiras del largo de un dedo y del grosor de un puño al principio. Más pequeño cuando aparece la pinza.</li>
+  </ul>
+</details>
+<details class="card aep"><summary>Arcada o atragantamiento</summary>
+  <ul>
+    <li><b>Arcada:</b> es normal y le protege. Tose, hace ruido, se le ponen los ojos llorosos y echa la comida hacia delante. Mantén la calma y no metas los dedos en su boca.</li>
+    <li><b>Atragantamiento:</b> no puede toser, llorar ni respirar, o hace un ruido agudo. Se pone morado. Actúa ya.</li>
+  </ul>
+  <h4>Qué hacer si se atraganta (menores de 1 año)</h4>
+  <ul>
+    <li>Llama al <b>112</b> o pide que lo hagan, sin dejar de atenderle.</li>
+    <li>Ponlo boca abajo sobre tu antebrazo, apoyado en tu muslo, con la cabeza más baja que el cuerpo y sujetándole la mandíbula.</li>
+    <li>Dale 5 golpes secos en la espalda, entre los omóplatos, con la palma de la mano.</li>
+    <li>Si no sale, dale la vuelta, boca arriba, con la cabeza más baja. Haz 5 compresiones en el centro del pecho con dos dedos, justo debajo de la línea de los pezones.</li>
+    <li>Repite 5 golpes y 5 compresiones hasta que expulse el objeto o pierda el conocimiento. Si lo pierde, empieza la reanimación (RCP) y sigue las instrucciones del 112.</li>
+    <li>Si tose con fuerza, no hagas nada: déjale toser.</li>
+  </ul>
+  <p class="mute">Lo ideal es hacer un curso de primeros auxilios pediátricos. Esta guía no lo sustituye.</p>
+</details>
+<details class="card aep"><summary>Reacción alérgica</summary>
+  <h4>Reacción leve</h4>
+  <ul>
+    <li>Ronchas, enrojecimiento de la piel, picor o algún vómito aislado, normalmente en las 2 horas siguientes.</li>
+    <li>Deja de darle ese alimento, anótalo en la app y consúltalo con tu pediatra antes de volver a ofrecerlo.</li>
+  </ul>
+  <h4>Reacción grave: llama al 112</h4>
+  <ul>
+    <li>Hinchazón de labios, lengua o cara.</li>
+    <li>Dificultad para respirar, tos persistente o pitos en el pecho.</li>
+    <li>Vómitos repetidos, palidez, mucha flojedad o decaimiento.</li>
+    <li>Mantenlo tumbado y vigílalo hasta que llegue la ayuda.</li>
+  </ul>
+  <p class="mute">Ante cualquier duda, llama al 112 o a tu pediatra.</p>
+</details>
   <details class="card aep"><summary>Pautas de la AEP y de la OMS</summary>
     <h4>Cuándo empezar</h4>
     <ul>
@@ -511,37 +607,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
     </ul>
     <p class="mute">No sustituye el consejo de tu pediatra.</p>
   </details>
-  </div>
-  <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><p class="mute">Lo que necesitas para los días del menú que tienes abierto. Marca lo que ya tienes en casa.</p><div id="shop"></div></div></div>
-  <div id="pv3" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Platos para los papis</h3><p class="mute">Platos que se hacen con lo mismo que come el bebé, para cocinar una vez y no comprar de más. Primero se aparta la ración del bebé, sin sal.</p></div><div id="fam"></div></div>
 </section>
-<section id="v3" class="hide"><div class="card" id="progcard"><div id="prog"></div></div>
-<div class="card">
-  <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Lista</button></div>
-  <div class="leg"><span><i class="dot rc-love"></i>Le encantó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>Hoy no</span><span><i class="dot rc-react"></i>Reacción o alergia</span></div>
-  <div id="cal"></div>
-  <div id="log" class="hide"></div>
-</div>
-<div class="tk" id="tkwrap">
-  <div class="card tkc">
-    <div class="tkh"><h3 class="disp">Alérgenos</h3><span class="tkn" id="tk_n"></span></div>
-    <div class="tkbar" aria-hidden="true"><i id="tk_b"></i></div>
-    <p class="mute" id="tk_sum"></p>
-    <details class="aep rxa"><summary>Qué hacer si hay una reacción</summary>
-      <ul>
-        <li>Deja de ofrecer ese alimento y no lo repitas hasta hablarlo con tu pediatra.</li>
-        <li>Anota qué pasó, cuánto tardó en aparecer y cuánto duró, en el alérgeno que corresponda.</li>
-        <li>Avisa a tu pediatra, aunque haya sido leve.</li>
-        <li><b>Llama al 112 o ve a urgencias</b> si hay dificultad para respirar, hinchazón de labios, cara o lengua, vómitos repetidos, o si el bebé está muy decaído o muy pálido.</li>
-        <li>Si tu pediatra confirma una alergia, márcala en el alérgeno (Estado). Se guarda en el perfil y esos alimentos dejan de salir en el plan.</li>
-      </ul>
-      <p class="mute">Orientación general, no sustituye la valoración de tu pediatra.</p>
-    </details>
-    <div id="tk"></div>
-  </div>
-</div>
-</section>
-
 <section id="v4" class="hide">
   <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_fr">Encuadrar</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec">Detalles del bebé</h3>
@@ -779,7 +845,7 @@ function head(){sizeTtl();const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros a
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
 let cat="Todos",cur="",PLANNED={},FIRSTD={};
-let view="list";try{view=localStorage.getItem("primeros_view")==="board"?"board":"list"}catch(e){}
+let view="board";
 /*ICO_START*/
 const G="#6aa86f",GD="#3f7d52",IK='class="o"';
 const pa=(d,f,x="")=>`<path class="o" d="${d}" fill="${f}" ${x}/>`;
@@ -883,24 +949,24 @@ function card(x,m,col){
   return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${ico(x.n)}${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span>${col==="plan"?`<span class="ct">${fdShort(PLANNED[x.n])}</span>`:col==="done"&&FIRSTD[x.n]?`<span class="ct">${isPre(x.n,FIRSTD[x.n])?"Antes":fdShort(FIRSTD[x.n])}</span>`:""}${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}${x.lim?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Limitar</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
 /*POSTER_START*/
-const PS='stroke="#3a2a22" stroke-width="3" stroke-linejoin="round"';
+const PS='stroke="none"';
 const PF=(cx,cy,k=1)=>`<circle cx="${cx-9*k}" cy="${cy}" r="${3.4*k}" fill="#3a2a22"/><circle cx="${cx+9*k}" cy="${cy}" r="${3.4*k}" fill="#3a2a22"/><path d="M${cx-6*k} ${cy+8*k}Q${cx} ${cy+14*k} ${cx+6*k} ${cy+8*k}" fill="none" stroke="#3a2a22" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="${cx-16*k}" cy="${cy+7*k}" rx="${4.5*k}" ry="${3*k}" fill="#f29a9a" opacity=".75"/><ellipse cx="${cx+16*k}" cy="${cy+7*k}" rx="${4.5*k}" ry="${3*k}" fill="#f29a9a" opacity=".75"/>`;
 const PC={
 avocado:()=>`<path d="M50 6C68 6 88 40 88 72C88 94 72 106 50 106C28 106 12 94 12 72C12 40 32 6 50 6Z" fill="#8cb04a" ${PS}/><path d="M50 20C62 20 78 46 78 72C78 88 66 97 50 97C34 97 22 88 22 72C22 46 38 20 50 20Z" fill="#e3e79a"/><circle cx="50" cy="74" r="20" fill="#b7793f" ${PS}/>${PF(50,72)}`,
-strawberry:()=>`<path d="M50 104C22 86 10 58 20 42C30 28 70 28 80 42C90 58 78 86 50 104Z" fill="#e24a4a" ${PS}/><path d="M30 34L42 22L50 32L58 22L70 34L50 40Z" fill="#6aa04a" ${PS}/><path d="M50 22L50 10" stroke="#3a2a22" stroke-width="3" stroke-linecap="round"/><ellipse cx="32" cy="58" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="68" cy="58" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="40" cy="84" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="60" cy="84" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="50" cy="94" rx="2" ry="3" fill="#f6d46a"/>${PF(50,62,.9)}`,
+strawberry:()=>`<path d="M50 104C22 86 10 58 20 42C30 28 70 28 80 42C90 58 78 86 50 104Z" fill="#e24a4a" ${PS}/><path d="M30 34L42 22L50 32L58 22L70 34L50 40Z" fill="#6aa04a" ${PS}/><path d="M50 22L50 10" stroke="#7a5230" stroke-width="3" stroke-linecap="round"/><ellipse cx="32" cy="58" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="68" cy="58" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="40" cy="84" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="60" cy="84" rx="2" ry="3" fill="#f6d46a"/><ellipse cx="50" cy="94" rx="2" ry="3" fill="#f6d46a"/>${PF(50,62,.9)}`,
 carrot:()=>`<path d="M32 30C42 24 58 24 68 30L54 102C52 108 48 108 46 102Z" fill="#f08a2a" ${PS}/><path d="M50 26C40 20 34 10 40 4C46 8 50 16 50 26Z" fill="#6aa04a" ${PS}/><path d="M50 26C50 14 56 6 62 4C64 12 58 20 50 26Z" fill="#6aa04a" ${PS}/><path d="M45 70h8M48 88h6" stroke="#b85a10" stroke-width="2.5" stroke-linecap="round"/>${PF(50,48,.7)}`,
 egg:()=>`<path d="M18 52C8 30 30 8 56 12C86 14 98 42 88 66C80 88 54 100 34 92C14 84 28 70 18 52Z" fill="#ffffff" ${PS}/><circle cx="54" cy="54" r="24" fill="#f7c93a" ${PS}/>${PF(54,52)}`,
-pumpkin:()=>`<ellipse cx="50" cy="64" rx="42" ry="34" fill="#f08a2a" ${PS}/><path d="M34 32C22 46 22 82 34 96M66 32C78 46 78 82 66 96" fill="none" stroke="#b85a10" stroke-width="3"/><path d="M50 30C50 22 50 18 54 12" stroke="#3a2a22" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M54 18C62 12 70 14 72 20C66 24 58 24 54 18Z" fill="#6aa04a" ${PS}/>${PF(50,62)}`,
+pumpkin:()=>`<ellipse cx="50" cy="64" rx="42" ry="34" fill="#f08a2a" ${PS}/><path d="M34 32C22 46 22 82 34 96M66 32C78 46 78 82 66 96" fill="none" stroke="#b85a10" stroke-width="3"/><path d="M50 30C50 22 50 18 54 12" stroke="#7a5230" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M54 18C62 12 70 14 72 20C66 24 58 24 54 18Z" fill="#6aa04a" ${PS}/>${PF(50,62)}`,
 banana:()=>`<path d="M26 12C14 48 20 86 56 98C74 104 90 96 94 84C70 90 48 78 42 46C40 32 42 18 42 12Z" fill="#f3d24a" ${PS}/><path d="M26 12L42 12L42 4L28 4Z" fill="#8a6a2a" ${PS}/>${PF(50,74,.7)}`,
 broccoli:()=>`<rect x="40" y="62" width="20" height="42" rx="8" fill="#a8cf7a" ${PS}/><circle cx="28" cy="52" r="20" fill="#4a8a3c" ${PS}/><circle cx="72" cy="52" r="20" fill="#4a8a3c" ${PS}/><circle cx="50" cy="38" r="26" fill="#58a047" ${PS}/>${PF(50,50)}`,
 tomato:()=>`<circle cx="50" cy="62" r="40" fill="#e0402a" ${PS}/><path d="M30 28L42 24L50 14L58 24L70 28L58 34L50 30L42 34Z" fill="#6aa04a" ${PS}/>${PF(50,66)}`,
-pear:c=>`<path d="M50 12C58 12 62 22 62 32C80 42 90 62 84 82C78 100 62 106 50 106C38 106 22 100 16 82C10 62 20 42 38 32C38 22 42 12 50 12Z" fill="${c||"#c9d36a"}" ${PS}/><path d="M50 12C50 6 54 4 58 4" stroke="#3a2a22" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M54 14C62 8 72 10 74 16C68 22 58 22 54 14Z" fill="#6aa04a" ${PS}/>${PF(50,74)}`,
+pear:c=>`<path d="M50 12C58 12 62 22 62 32C80 42 90 62 84 82C78 100 62 106 50 106C38 106 22 100 16 82C10 62 20 42 38 32C38 22 42 12 50 12Z" fill="${c||"#c9d36a"}" ${PS}/><path d="M50 12C50 6 54 4 58 4" stroke="#7a5230" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M54 14C62 8 72 10 74 16C68 22 58 22 54 14Z" fill="#6aa04a" ${PS}/>${PF(50,74)}`,
 orange:()=>`<circle cx="50" cy="62" r="40" fill="#f08a24" ${PS}/><path d="M50 22C54 12 64 10 70 14C66 22 56 26 50 22Z" fill="#6aa04a" ${PS}/><path d="M24 46C28 38 36 33 44 32" fill="none" stroke="#ffd29a" stroke-width="4" stroke-linecap="round"/>${PF(50,66)}`,
 potato:()=>`<path d="M14 62C10 36 40 18 66 22C90 28 98 56 90 78C82 98 52 104 34 96C16 90 16 74 14 62Z" fill="#e6c27a" ${PS}/><circle cx="30" cy="44" r="3" fill="#b8944a"/><circle cx="76" cy="40" r="3" fill="#b8944a"/><circle cx="72" cy="92" r="3" fill="#b8944a"/>${PF(52,64)}`,
 nut:()=>`<path d="M50 12C72 30 88 52 82 78C78 98 60 106 50 106C40 106 22 98 18 78C12 52 28 30 50 12Z" fill="#8a5a30" ${PS}/><path d="M50 12C60 22 70 32 76 42C62 36 38 36 24 42C30 32 40 22 50 12Z" fill="#c99a62" ${PS}/>${PF(50,78,.85)}`,
-grapes:()=>`<path d="M50 24C50 12 56 6 64 6" stroke="#3a2a22" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M54 16C62 6 74 8 76 14C70 22 60 22 54 16Z" fill="#6aa04a" ${PS}/>${[[34,40],[66,40],[24,64],[76,64],[50,86],[50,62]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="17" fill="#8a5aa0" ${PS}/>`).join("")}${PF(50,60,.7)}`,
-drum:()=>`<path d="M62 68L88 94" stroke="#3a2a22" stroke-width="14" stroke-linecap="round"/><path d="M62 68L88 94" stroke="#f4efe0" stroke-width="8" stroke-linecap="round"/><circle cx="92" cy="98" r="7" fill="#f4efe0" ${PS}/><path d="M10 40C10 18 36 6 58 18C80 30 76 58 56 72C36 86 10 62 10 40Z" fill="#c97b4a" ${PS}/>${PF(40,42,.9)}`,
-bean:()=>`<circle cx="50" cy="62" r="38" fill="#e3c27a" ${PS}/><path d="M50 24L58 12" stroke="#3a2a22" stroke-width="4" stroke-linecap="round"/>${PF(50,64)}`,
+grapes:()=>`<path d="M50 24C50 12 56 6 64 6" stroke="#7a5230" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M54 16C62 6 74 8 76 14C70 22 60 22 54 16Z" fill="#6aa04a" ${PS}/>${[[34,40],[66,40],[24,64],[76,64],[50,86],[50,62]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="17" fill="#8a5aa0" ${PS}/>`).join("")}${PF(50,60,.7)}`,
+drum:()=>`<path d="M62 68L88 94" stroke="#7a5230" stroke-width="14" stroke-linecap="round"/><path d="M62 68L88 94" stroke="#f4efe0" stroke-width="8" stroke-linecap="round"/><circle cx="92" cy="98" r="7" fill="#f4efe0" ${PS}/><path d="M10 40C10 18 36 6 58 18C80 30 76 58 56 72C36 86 10 62 10 40Z" fill="#c97b4a" ${PS}/>${PF(40,42,.9)}`,
+bean:()=>`<circle cx="50" cy="62" r="38" fill="#e3c27a" ${PS}/><path d="M50 24L58 12" stroke="#7a5230" stroke-width="4" stroke-linecap="round"/>${PF(50,64)}`,
 generic:c=>`<path d="M50 10C76 10 94 32 94 60C94 88 76 104 50 104C24 104 6 88 6 60C6 32 24 10 50 10Z" fill="${c}" ${PS}/>${PF(50,62)}`
 };
 const PK=[[/^Aguacate$/,"avocado"],[/^(Fresas|Frambuesas|Cerezas|Granada)$/,"strawberry"],[/^(Zanahoria|Chirivía)$/,"carrot"],[/^Huevo$/,"egg"],[/^(Calabaza|Boniato|Calabacín)$/,"pumpkin"],[/^Plátano$/,"banana"],[/^(Brócoli|Coliflor|Coles de Bruselas)$/,"broccoli"],[/^(Tomate|Pimiento rojo)$/,"tomato"],[/^(Pera|Manzana|Membrillo cocido|Melocotón|Nectarina|Albaricoque|Caqui|Mango|Papaya|Kiwi|Chirimoya|Níspero|Piña|Melón|Sandía|Higos|Dátiles)$/,"pear"],[/^(Naranja|Mandarina|Pomelo|Maracuyá)$/,"orange"],[/^(Patata|Nabo)$/,"potato"],[/^(Castaña|Avellana|Nuez|Nuez de Brasil|Nuez pecana|Almendra|Anacardo|Pistacho|Macadamia|Cacahuete|Piñones|Sésamo \(tahini\))$/,"nut"],[/^(Uvas|Arándanos|Ciruela|Mora)$/,"grapes"],[/^(Pollo|Pavo|Cerdo|Cordero|Ternera|Conejo)$/,"drum"],[/^(Garbanzos|Lentejas|Lentejas rojas|Alubias .*|Guisantes|Habas tiernas)$/,"bean"]];
@@ -920,7 +986,7 @@ function drawPoster(ctx,W,H,o){
   const GREEN="#4a8760",BLUE="#3e4cd0",GOLD="#d0a14f";
   ctx.fillStyle="#eeead8";ctx.fillRect(0,0,W,H);
   const spots=[[115,215,-.12],[1120,1390,.12],[1125,235,.14],[120,1390,-.14],[105,790,.1],[1135,830,-.1]];
-  o.chars.slice(0,6).forEach((c,i)=>{const [x,y,rot]=spots[i],s=190;ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.drawImage(c.img,-s/2,-s*1.12/2,s,s*1.12);ctx.restore();
+  o.chars.slice(0,6).forEach((c,i)=>{const [x,y,rot]=spots[i],s=190;ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.shadowColor='rgba(60,45,30,.22)';ctx.shadowBlur=14;ctx.shadowOffsetY=6;ctx.drawImage(c.img,-s/2,-s*1.12/2,s,s*1.12);ctx.restore();
     if(c.label){ctx.save();ctx.fillStyle="#6b6a5c";ctx.font='700 34px Montserrat';ctx.textAlign="center";ctx.fillText(c.label,x,y+s*.56+30);ctx.restore()}});
   ctx.fillStyle=BLUE;ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.font='700 50px Montserrat';ctx.fillText("Otorgamos este diploma a",W/2,130);
   const name=(o.name||"Bebé").toUpperCase();let px=230;ctx.font=`${px}px "Luckiest Guy"`;
@@ -990,7 +1056,7 @@ let cpick=false;
 function renderCal(){
   const isCal=rmode==="cal";
   $("rc").classList.toggle("on",isCal);$("rl").classList.toggle("on",!isCal);
-  $("cal").classList.toggle("hide",!isCal);$("log").classList.toggle("hide",isCal);
+  $("calcard").classList.toggle("hide",!isCal);$("kview").classList.toggle("hide",isCal);
   if(!isCal)return;
   const y=cm.getFullYear(),mo=cm.getMonth();
   const lead=(new Date(y,mo,1).getDay()+6)%7,dim=new Date(y,mo+1,0).getDate();
@@ -1020,7 +1086,7 @@ function renderCal(){
     $("cq").oninput=fill;fill()}
 }
 $("rc").onclick=()=>{rmode="cal";renderCal()};
-$("rl").onclick=()=>{rmode="list";renderCal()};
+$("rl").onclick=()=>{rmode="kan";renderCal()};
 const bname=(b,i)=>b.nm||"Bebé "+(i+1);
 function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render()}
 function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing=null;cat="Todos";csel=today();planShown=7;$("pmsg").textContent="";save();render();obSkip=false;openOb()}
@@ -1050,9 +1116,6 @@ function render(){
   $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
   $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()});
   board();
-  const ents=S.log.map((l,i)=>({...l,i})).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:b.i-a.i);
-  $("log").innerHTML=ents.length?ents.map(rowHtml).join(""):'<p class="mute">Toca un alimento del tablero para registrar el primero.</p>';
-  bindRows($("log"));
   renderCal();renderTrack();
 }
 const MASHH=new Set(["Puré o aplastado","Mezclado en papilla o yogur"]),PCSH=new Set(["Tiras","Trozos"]);
@@ -1208,8 +1271,8 @@ function obFinish(){
   S.al={...S.al,...cleanAl(OB.al)};
   S.eat=OB.ya?OB.eat:"";S.meals=OB.ya?OB.meals:0;S.app=OB.ya?OB.app:"";S.prefs.diet=OB.diet;S.prefs.every=OB.every;S.prefs.goals=[...OB.goals];S.prefs.gen=true;
   $("ob").classList.add("hide");save();render();renderPlanForm();tab(2)}
-function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}}
-[1,2,3,4].forEach(i=>$("t"+i).onclick=()=>tab(i));
+function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
+[2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
 const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha","Gambas","Mejillones"]);
