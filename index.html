@@ -191,6 +191,13 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 .pres svg{flex:none;width:46px;height:46px;color:var(--green)}
 .pres figcaption{font-size:.78rem;line-height:1.3;color:var(--mute)}
 .pres figcaption b{display:block;color:var(--ink);font-weight:600;font-size:.8rem}
+.wk{display:flex;gap:6px;margin:4px 0 4px}.wd{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 6px;border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}.wd small{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}.wd b{font-size:1.05rem}.wd i{width:6px;height:6px;border-radius:50%;background:transparent}.wd i.nw,.wkl i.nw{background:var(--terra)}.wd.on{background:var(--blue);border-color:var(--blue);color:#fff}.wd.on small{color:#fff}.wd.on i.nw{background:#fff}
+.wkl{margin:0 0 10px;font-size:.74rem;color:var(--mute);display:flex;align-items:center;gap:6px}.wkl i{width:6px;height:6px;border-radius:50%;display:inline-block}
+.dday .hd{margin:8px 0;font-size:.95rem;line-height:1.45}.dday .bt{margin:6px 0}.dday .bt .btn{max-width:100%}.dday .dn1{font-size:.84rem;margin:4px 0}
+.how{margin:8px 0}.how summary{cursor:pointer;color:var(--blue);font-weight:600;font-size:.88rem;padding:4px 0}
+.mn{margin-top:12px;border-top:1px solid var(--line)}.mrow{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}.mrow:last-of-type{border-bottom:0}
+.mrow .mi svg{width:38px;height:38px;color:var(--green)}.mrow .mi svg{width:38px;height:38px;color:var(--green)}.mrow .mi{flex:none;width:40px}.mrow .mx{flex:1;min-width:0}.mrow .mx small{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);font-weight:700}.mrow .mx b{display:block;font-size:1rem;margin-top:1px}.mrow .mx span{display:block;font-size:.84rem;color:var(--mute);margin-top:2px}.mrow .mx em{display:block;font-size:.8rem;color:var(--mute);margin-top:2px}
+.mrow>.mt{flex:none;align-self:center}.lc{font-size:.78rem;margin:8px 0 0}
 .why{margin:8px 0 4px;padding:8px 12px;border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 9%,transparent);border-radius:0 10px 10px 0}
 .why p{margin:3px 0;font-size:.86rem;line-height:1.4}
 .rmenu{margin:12px 0 2px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:2px solid var(--green);outline:1px solid var(--green);outline-offset:3px;text-align:left}
@@ -721,7 +728,7 @@ const PD={"Frutas":{b:["wedge","Muy madura, en tiras o cuñas que sobresalgan de
 "Verduras":{b:["stick","Bastón cocido muy blando, del largo de un dedo"],pu:"Puré espeso con grumos",q:["bits","Dados cocidos blandos"]},
 "Proteínas":{b:["stick","Tira tierna y bien cocinada"],pu:"Desmenuzado y aplastado",q:["bits","Desmenuzado en trocitos"]},
 "Cereales":{b:["balls","Bolitas o bastones blandos que se agarren"],pu:"Papilla espesa",q:["bits","Trocitos blandos"]},
-"Frutos secos":{b:["mash","Crema fina, extendida en capa fina sobre fruta o tostada"],pu:"Molido, mezclado con yogur o papilla",q:["mash","Molido, mezclado con la comida"]},
+"Frutos secos":{b:["mash","Crema fina, extendida en capa fina sobre fruta o tostada"],pu:"Muy triturado, mezclado con yogur o papilla",q:["mash","En crema o muy triturado, mezclado con la comida"]},
 "Lácteos":{b:["stick","Tira de queso tierno, pasteurizado y poco salado"],pu:"Aplastado con tenedor",q:["bits","Dados pequeños y blandos"]}};
 const PO={};const P=(names,o)=>names.split("|").forEach(n=>PO[n]=o);
 P("Plátano",{b:["peel","Pelado a medias, con un trozo de piel como asa para que no resbale"],pu:"Aplastado con tenedor",q:["bits","Rodajas gruesas o trocitos"]});
@@ -793,15 +800,15 @@ const pinzaNow=()=>{const a=age();return !!a&&a.mo>=9&&S.eat!=="pure"};
 const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
 const RISK={"Manzana":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pera":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pan":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."],"Pan integral":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."]};
 const offerText=(x,pz)=>{const p=presOf(x);return !p?"":pz?p.q[1]:p.b[1]+(p.b[0]==="mash"?"":". O "+lowFirst(p.pu))};
-function presHtml(x,pz){const p=presOf(x);if(!p)return"";
+function presHtml(x,pz){const p=presOf(x);if(!p)return"";const ML=x&&x.c==="Frutos secos"?"En crema o muy triturado":"Puré o aplastado";
   const f=(form,t,lab)=>`<figure>${fig(form,0,0,pz)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
   if(pz){const L=texLevel(),qm=pict(p.q[0],true)==="mash";
-    if(L===3&&!qm)return `<div class="pres">${f(p.q[0],p.q[1],"Trozos")}${f("mash",p.pu,"Puré o aplastado")}</div>`;
-    return `<div class="pres">${f(p.q[0],p.q[1],qm?"Puré o aplastado":"Trozos")}</div>`}
-  if(pict(p.b[0],false)==="mash")return `<div class="pres">${f("mash",p.b[1],"Puré o aplastado")}</div>`;
-  return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,"Puré o aplastado")}</div>`}
+    if(L===3&&!qm)return `<div class="pres">${f(p.q[0],p.q[1],"Trozos")}${f("mash",p.pu,ML)}</div>`;
+    return `<div class="pres">${f(p.q[0],p.q[1],qm?ML:"Trozos")}</div>`}
+  if(pict(p.b[0],false)==="mash")return `<div class="pres">${f("mash",p.b[1],ML)}</div>`;
+  return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,ML)}</div>`}
 
-const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","Molido o en crema"];
+const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","En crema o muy triturado"];
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción",pre:"Ya lo había probado"};
 const isPre=(f,d)=>S.log.some(l=>l.pre&&l.f===f&&l.d===d);
 const K="primeros_v2";
@@ -1139,8 +1146,9 @@ function openSheet(n,pd,rest,pieces){cur=n;const x=info(n);$("shn").textContent=
       const pick=f=>{fs.forEach(g=>{g.classList.toggle("sel",g===f);g.setAttribute("aria-pressed",g===f)});$("how").value=f.querySelector("b").textContent};
       fs.forEach(f=>{f.setAttribute("role","button");f.tabIndex=0;f.onclick=()=>pick(f);f.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(f)}}});
       const want=pieces?"":$("how").value,pf=pieces&&fs.find(f=>PCSH.has(f.querySelector("b").textContent)),m=pf||fs.find(f=>f.querySelector("b").textContent===want)||fs[0];pick(m)}else if(pieces&&[...$("how").options].some(o=>o.value==="Tiras"))$("how").value="Tiras"}$("rx").value="";document.querySelectorAll("#rxg button").forEach(b=>b.classList.remove("on"));$("ok").disabled=true;{const rl=(rest||[]).filter(f=>info(f));$("rest").classList.toggle("hide",!rl.length);$("restl").innerHTML=rl.map(f=>`<div class="rr"><span>${esc(f)}</span><div class="rxg sm" data-f="${esc(f)}">${RCH3}</div></div>`).join("")}curPh="";$("fph_e").textContent="";fphUi();$("rxb").classList.add("hide");$("rxt").value="";$("rxn").value="";$("rxu").classList.add("hide");$("sh").classList.remove("hide");}
-const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","Mezclado en papilla o yogur"],"Verduras":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Mezclado en papilla o yogur"],"Proteínas":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur"],"Cereales":["Tiras","Puré o aplastado","Trozos","Mezclado en papilla o yogur"],"Lácteos":["Tal cual","Tiras","Trozos","Puré o aplastado","Mezclado en papilla o yogur"],"Frutos secos":["Molido o en crema","Mezclado en papilla o yogur"],"Condimentos":["En polvo o picado en la comida","Al cocinar"]};
-const howOpts=x=>(x&&HOWC[x.c])||HOW;
+const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","Mezclado en papilla o yogur"],"Verduras":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Mezclado en papilla o yogur"],"Proteínas":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur"],"Cereales":["Tiras","Puré o aplastado","Trozos","Mezclado en papilla o yogur"],"Lácteos":["Tal cual","Tiras","Trozos","Puré o aplastado","Mezclado en papilla o yogur"],"Frutos secos":["En crema o muy triturado","Mezclado en papilla o yogur"],"Condimentos":["En polvo o picado en la comida","Al cocinar"]};
+const HOWX={"AOVE":["Un chorrito en la comida","Al cocinar"]};
+const howOpts=x=>(x&&HOWX[x.n])||(x&&HOWC[x.c])||HOW;
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
   {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;S.log.push(e)}
@@ -1388,6 +1396,7 @@ function recipesFor(kn,mo,pz){
   fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
   return out}
 
+let pday=0;
 function plan(){
   PLANNED={};
   const p=S.prefs,goals=p.goals||[],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
@@ -1478,7 +1487,7 @@ function plan(){
   const CW={"Frutas":"ninguna fruta","Verduras":"ninguna verdura","Proteínas":"ninguna proteína","Cereales":"ningún cereal","Lácteos":"ningún lácteo","Frutos secos":"ningún fruto seco","Condimentos":"ninguna hierba ni especia"};
   const CW1={"Frutas":["fruta","frutas"],"Verduras":["verdura","verduras"],"Proteínas":["proteína","proteínas"],"Cereales":["cereal","cereales"]};
   const whyHtml=o=>{
-    const nm=esc(S.nm||"tu bebé"),tl=`<b>Textura:</b> ${esc(texText(mo,tx))}`;let head="";
+    const nm=esc(S.nm||"tu bebé"),tl=`<b>Textura:</b> ${esc(texText(mo,tx))}`,hy=o.ds===t0?"Hoy":"El "+o.dt.toLocaleDateString("es-ES",{weekday:"long"});let head="";
     const x=o.items[0];
     if(x){const cnt=o.kn.filter(k=>k.c===x.c&&k!==x).length,R=[],used=new Set(),extra=x.c==="Frutos secos"||x.c==="Condimentos",add=(k,t)=>{if(!used.has(k)){used.add(k);R.push(t)}};
       if(x.a)add("a",`es un alérgeno (${(AGL[AG[x.n]]||"alérgeno").toLowerCase()}): lo ofrecemos 3 días seguidos, en poca cantidad y sin otros nuevos`);
@@ -1488,13 +1497,13 @@ function plan(){
       if(cnt===0)add("c",`todavía no ha probado ${CW[x.c]||"nada de este grupo"}`);else if(cnt<(TGT[x.c]||0)){const nn=(CW1[x.c]||["alimento","alimentos"])[cnt===1?0:1];add("c",`aún solo ha probado ${cnt} ${nn} y queremos más variedad`)}
       if(ZN.has(x.n))add("zn","aporta zinc");
       if(!R.length)R.push("suma variedad al menú sin repetir lo que ya conoce");
-      head=`Hoy toca <b>${esc(x.n)}</b>, alimento nuevo: ${R[0]}.${R[1]?" Además, "+R[1]+".":""}`}
-    else if(o.rep)head=`Hoy toca <b>${esc(o.rep.x.n)}</b> por segunda vez, día ${o.rep.n} de 3: lo repetimos en poca cantidad para vigilar cómo le sienta.`;
-    else if(o.done.length)head=`Hoy ${nm} ya ha probado algo nuevo, así que el resto del día repetimos lo que conoce.`;
-    else head=`Hoy no hay alimento nuevo: repetimos lo que ya conoce para afianzarlo y dejamos ${every>1?"un par de días":"un día"} entre novedades.`;
+      head=`${hy} toca <b>${esc(x.n)}</b>, alimento nuevo: ${R[0]}.${R[1]?" Además, "+R[1]+".":""}`}
+    else if(o.rep)head=`${hy} toca <b>${esc(o.rep.x.n)}</b> por segunda vez, día ${o.rep.n} de 3: lo repetimos en poca cantidad para vigilar cómo le sienta.`;
+    else if(o.done.length)head=`${hy} ${nm} ya ha probado algo nuevo, así que el resto del día repetimos lo que conoce.`;
+    else head=`${hy} no hay alimento nuevo: repetimos lo que ya conoce para afianzarlo y dejamos ${every>1?"un par de días":"un día"} entre novedades.`;
     {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
       if((x||o.rep)&&cb.length)head+=` Lo mezclamos con ${cb.map(esc).join(", ").replace(/, ([^,]*)$/," y $1")}, que ya conoce.`}
-    return `<div class="why"><p>${head}</p><p class="mute">${tl}</p></div>`};
+    return {head,tl}};
   const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
@@ -1502,17 +1511,26 @@ function plan(){
   const useful=out.some(o=>o.items.length||o.done.length||o.kn.length);
   {const w=mo<9?"hasta unos 120 ml al día":mo<12?"hasta unos 240 ml al día":"ofrécela a lo largo del día, junto con la leche";
    $("rem").innerHTML=`<p>${S.app==="play"?"<b>Ahora está explorando:</b> tocar, oler y probar ya cuenta como comida. No hace falta que coma cantidad, y la leche sigue siendo su alimento principal.":"<b>Cantidad:</b> la decide el bebé. Empieza con poca y ofrece más si pide."}</p><p><b>Agua:</b> ${w}, en sorbos con las comidas y en vaso abierto o con pajita. La leche sigue siendo su bebida principal.</p>`}
-  const fmtS=dt=>{const s=dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});return s.charAt(0).toUpperCase()+s.slice(1)};
-  $("days").innerHTML=useful?shown.map((o,i)=>{
-    if(i>0){
-      const nw=o.items.map(n=>`<span class="tag${n.a?" w":""}">Nuevo: ${esc(n.n)}</span>`).join(" ")+(o.rep?` <span class="tag w">${esc(o.rep.x.n)}, día ${o.rep.n} de 3</span>`:"");
-      return `<div class="card dcard"><h4 class="dd"><span class="disp" style="color:var(--green);font-size:1.1rem">${fmtS(o.dt)}</span>${nw}</h4>`+o.rows.map(([meal,r])=>`<div class="pvm"><b class="pm">${esc(meal)}</b><span class="pn">${esc(r.n)}</span><span class="pq">${esc(r.q.join(" · "))}</span></div>`).join("")+`</div>`}
-    const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
-    const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
-      return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.a?'<span class="tag w">alérgeno</span> ':""}${tg}</p>${presHtml(n,pz)}<button class="btn" style="margin:2px 0 6px;max-width:200px" data-n="${esc(n.n)}" data-d="${o.ds}" data-m="${esc([...new Set(o.rows.flatMap(([mm,r])=>r.ings))].filter(f=>f!==n.n&&info(f)&&!blockedG(info(f))&&!S.log.some(l=>l.d===o.ds&&l.f===f)).join("|"))}">Lo probamos</button>`}).join("");
-    const mh=menuHtml(o,o.rows),ro=o.ds===t0?mashOnly().filter(x=>!o.items.includes(x)).slice(0,2):[],w=pz?"trocitos":"tiras";
-    const retoH=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Hoy ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${whyHtml(o)}${doneH}${itemsH}${retoH}${mh}</div>`}).join(""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  const sel=Math.min(pday,Math.max(shown.length-1,0));
+  const wkd=dt=>dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".","");
+  const strip=`<div class="wk" role="group" aria-label="Elegir día">`+shown.map((o,i)=>`<button class="wd${i===sel?" on":""}" data-pd="${i}" aria-pressed="${i===sel}"><small>${wkd(o.dt)}</small><b>${o.dt.getDate()}</b><i class="${o.items.length||o.rep?"nw":""}"></i></button>`).join("")+`</div><p class="wkl"><i class="nw"></i> día con alimento nuevo</p>`;
+  const dayCard=o=>{
+    const isT=o.ds===t0,y=whyHtml(o),w=pz?"trocitos":"tiras";
+    const doneH=o.done.length?`<p class="mute dn1">✓ Ya probado hoy: ${o.done.map(n=>`<b>${esc(n)}</b>`).join(", ")}</p>`:"";
+    const tg=o.items.flatMap(n=>goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`)).join(" ")+(o.items.some(n=>n.a)?' <span class="tag w">alérgeno</span>':"");
+    const mealsList=[...new Set(o.rows.flatMap(([mm,r])=>r.ings))];
+    const btns=o.items.map(n=>`<button class="btn" data-n="${esc(n.n)}" data-d="${o.ds}" data-m="${esc(mealsList.filter(f=>f!==n.n&&info(f)&&!blockedG(info(f))&&!S.log.some(l=>l.d===o.ds&&l.f===f)).join("|"))}">Registrar ${esc(n.n)}</button>`).join("");
+    const ro=isT?mashOnly().filter(x=>!o.items.includes(x)).slice(0,2):[];
+    const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
+    const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
+    const ML=S.ml[o.ds]||{},MV={"Desayuno":"Desayuno","Media mañana":"Media mañana","Comida":"Comida","Merienda":"Merienda","Cena":"Cena"};
+    const menu=o.rows.length?`<div class="mn">`+o.rows.map(([meal,r])=>{const st=ML[meal],rt=st&&st.r;
+      return `<div class="mrow"><div class="mi">${r.g}</div><div class="mx"><small>${esc(meal)}</small><b>${esc(r.n)}</b><span>${esc(r.q.join(" · "))}</span><em>${esc(r.how)}</em>`+
+      (st?`<div class="fb"><span>¿Le ha gustado?</span>`+[["love","Sí"],["meh","Regular"],["no","No"]].map(([v,l])=>`<button data-fb="${v}" data-ml="${esc(meal)}" data-d="${o.ds}" class="${rt===v?"on":""}" data-v="${v}" aria-pressed="${rt===v}">${l}</button>`).join("")+`</div>`:"")+`</div>`+
+      (isT?`<button class="mt${st?" on":""}" data-ml="${esc(meal)}" data-d="${o.ds}" aria-pressed="${!!st}">${st?"✓ Hecho":"Hecho"}</button>`:"")+`</div>`}).join("")+`<p class="mute lc">Más leche a demanda.</p></div>`:"";
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}<p class="hd">${y.head}</p>${tg?`<p>${tg}</p>`:""}${doneH}${btns?`<div class="bt">${btns}</div>`:""}${how}${reto}${menu}</div>`};
+  $("days").innerHTML=useful?strip+dayCard(shown[sel]):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  $("days").querySelectorAll("button[data-pd]").forEach(b=>b.onclick=()=>{pday=+b.dataset.pd;plan()});
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>b.dataset.pc?openSheet(b.dataset.n,b.dataset.d,undefined,true):openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
   $("days").querySelectorAll("button[data-ml]").forEach(b=>b.onclick=()=>{
     const d=b.dataset.d,m=b.dataset.ml,e=S.ml[d]=S.ml[d]||{};
