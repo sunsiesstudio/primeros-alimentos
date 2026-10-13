@@ -153,6 +153,8 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .pres svg{flex:none;width:46px;height:46px;color:var(--green)}
 .pres figcaption{font-size:.78rem;line-height:1.3;color:var(--mute)}
 .pres figcaption b{display:block;color:var(--ink);font-weight:600;font-size:.8rem}
+.why{margin:8px 0 4px;padding:8px 12px;border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 9%,transparent);border-radius:0 10px 10px 0}
+.why p{margin:3px 0;font-size:.86rem;line-height:1.4}
 .rmenu{margin:12px 0 2px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:2px solid var(--green);outline:1px solid var(--green);outline-offset:3px;text-align:left}
 .rmenu .mh{text-align:center;margin-bottom:6px}
 .rmenu .mh .disp{display:block;font-size:1.35rem;color:var(--green);line-height:1.1}
@@ -184,6 +186,11 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ob h2{margin:6px 0 0;font-size:1.7rem;color:var(--green);line-height:1.1}
 .ob .dots{display:flex;gap:6px;justify-content:center}.ob .dots i{width:26px;height:5px;border-radius:9px;background:var(--line)}.ob .dots i.on{background:var(--green)}
 .ob input[type=text],.ob input[type=date],.ob input[type=search]{width:100%}
+.ob .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:10px 0}
+.ob .mid.top{justify-content:flex-start}
+.ob .mid h2{text-align:center}
+.ob .mid input{text-align:center}
+.ob .mid>p{text-align:center}
 .ob .big{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ob .big button,.ob .ag button{min-height:52px}
 .ob .arow{padding:10px 0;border-bottom:1px solid var(--line)}
@@ -615,12 +622,20 @@ P("Polenta",{b:["stick","Bastones de polenta fría"]});
 P("Yogur natural|Kéfir",{b:["mash","En cuchara cargada, para que la lleve a la boca"],pu:"Natural, sin azúcar",q:["mash","Con trocitos de fruta"]});
 P("Mantequilla",{b:["mash","En capa fina sobre tostada"]});
 const presOf=x=>{const d=PD[x.c];if(!d)return null;const o=PO[x.n]||{};return{b:o.b||d.b,pu:o.pu||d.pu,q:o.q||d.q,rind:o.rind}};
+const texLevel=()=>{const a=age(),mo=a?a.mo:8;let L=mo<7?1:mo<9?2:mo<11?3:4;if(S.pinza===true)L=Math.max(L,3);if(S.pinza===false)L=Math.min(L,2);return L};
+const TXL={
+1:mo=>`A los ${mo} meses: tiras blandas que pueda agarrar con el puño y puré espeso. Aún no hace falta trocear.`,
+2:mo=>`A los ${mo} meses ya agarra mejor: tiras y puré con grumos, y algún trozo blando grande para practicar.`,
+3:mo=>`${S.pinza===true&&mo<9?"Has indicado que ya hace pinza":"A los "+mo+" meses suele aparecer la pinza"}: menos aplastado y más trocitos blandos que pueda pellizcar.`,
+4:mo=>`A los ${mo} meses ya debería manejar trocitos pequeños y blandos, casi como la familia y sin sal. El puré pasa a ser la excepción.`};
 const pinzaNow=()=>{if(S.pinza===true)return true;if(S.pinza===false)return false;const a=age();return !!a&&a.mo>=9};
 const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
 const offerText=(x,pz)=>{const p=presOf(x);return !p?"":pz?p.q[1]:p.b[1]+(p.b[0]==="mash"?"":". O "+lowFirst(p.pu))};
 function presHtml(x,pz){const p=presOf(x);if(!p)return"";
   const f=(form,t,lab)=>`<figure>${fig(form,0,0,pz)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
-  if(pz)return `<div class="pres">${f(p.q[0],p.q[1],pict(p.q[0],true)==="mash"?"Puré o aplastado":"Trozos")}</div>`;
+  if(pz){const L=texLevel(),qm=pict(p.q[0],true)==="mash";
+    if(L===3&&!qm)return `<div class="pres">${f(p.q[0],p.q[1],"Trozos")}${f("mash",p.pu,"Puré o aplastado")}</div>`;
+    return `<div class="pres">${f(p.q[0],p.q[1],qm?"Puré o aplastado":"Trozos")}</div>`}
   if(pict(p.b[0],false)==="mash")return `<div class="pres">${f("mash",p.b[1],"Puré o aplastado")}</div>`;
   return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,"Puré o aplastado")}</div>`}
 
@@ -926,7 +941,7 @@ function drawOb(){
     h=`<input type="search" id="ob_q" placeholder="Buscar alimento" value="${esc(OB.q)}" aria-label="Buscar alimento"><p class="mute">${OB.fo.size} marcado${OB.fo.size===1?"":"s"}. No hace falta la fecha.</p>`+C.map(c=>{const it=ALL.filter(x=>x.c===c[0]&&!x.lim&&(!q||norm(x.n).includes(q)));if(!it.length)return"";const tn=it.filter(x=>OB.fo.has(x.n)).length;
       return `<details class="grp" data-c="${esc(c[0])}"${q||OB.open===c[0]?" open":""}><summary><h2 class="disp" style="font-size:1.15rem;color:var(--blue)">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb">`+it.map(x=>`<button type="button" class="it${OB.fo.has(x.n)?" done":""}" data-f="${esc(x.n)}" aria-pressed="${OB.fo.has(x.n)}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span></button>`).join("")+`</div></details>`}).join("")}
   if(i===4){title="¿Ha tenido alguna alergia o reacción?";h='<p class="mute">Solo salen los alérgenos de lo que ha probado. Si no hubo nada, déjalo como está.</p>'+obGroups().map(g=>{const v=OB.al[g]||"";return `<div class="arow"><b>${AGL[g]}</b><div class="ag" data-g="${g}"><button type="button" data-v=""${!v?' class="on"':""}>Sin problema</button><button type="button" data-v="sospecha" class="${v==="sospecha"?"on s":""}">Sospecha</button><button type="button" data-v="alergia" class="${v==="alergia"?"on a":""}">Alergia</button></div></div>`}).join("")}
-  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${k<=i?"on":""}"></i>`).join("")}</div><h2 class="disp">${title}</h2>${h}<div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button>'}</div></div>`;
+  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${k<=i?"on":""}"></i>`).join("")}</div><div class="mid${i>=3?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button>'}</div></div>`;
   const o=$("ob");
   if($("ob_nm"))$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};
   if($("ob_bd"))$("ob_bd").oninput=e=>{OB.bd=e.target.value;$("ob_next").disabled=!(OB.bd&&OB.bd<=today())};
@@ -1084,13 +1099,14 @@ function plan(){
     const nw=o.items.find(x=>fn(x)&&!used.has(x.n));
     const pick=nw||c[(o.di+i*2+(p.seed||1))%c.length];used.add(pick.n);
     return `<p><b>${lab}:</b> <span class="${pick.a?"al":""}">${esc(pick.n)}</span></p>`}).join("")};
-  const mo=ag?ag.mo:8,pz=pinzaNow();
+  const mo=ag?ag.mo:8,pz=pinzaNow(),tx=texLevel();
   const menuRows=o=>{
     const R=recipesFor(o.kn,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[],nn=o.items.map(x=>x.n);
     const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
     const newSlot=nn.length?ms.find(m=>R.some(r=>ok(r,m)&&hasNew(r))):null;
     ms.forEach((meal,si)=>{
       let L=R.filter(r=>ok(r,meal)&&(meal===newSlot?hasNew(r):!hasNew(r)));
+      {const dr=tx>=4?["pure"]:tx===3&&(o.di+si)%2===0?["pure"]:[];const L3=L.filter(r=>!dr.includes(r.t));if(L3.length)L=L3}
       const mixes=L.filter(r=>r.t!=="solo");if(mixes.length)L=mixes;
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!usedN.has(r.n)&&!hasNew(r));
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
@@ -1107,6 +1123,22 @@ function plan(){
       `<div class="mk"><button class="mt${st?" on":""}" data-ml="${esc(meal)}" data-d="${o.ds}" aria-pressed="${!!st}">${st?"✓ ":""}${MV[meal]||meal}</button></div>`+
       (st?`<div class="fb"><span>¿Le ha gustado? (opcional)</span>`+[["love","Sí"],["meh","Regular"],["no","No"]].map(([v,l])=>`<button data-fb="${v}" data-ml="${esc(meal)}" data-d="${o.ds}" class="${rt===v?"on":""}" data-v="${v}" aria-pressed="${rt===v}">${l}</button>`).join("")+`</div>`:"")+`</div>`}).join("")+`<div class="orn">✦</div><p class="foot">¡Buen provecho!</p></div>`;
   };
+  const CW={"Frutas":"ninguna fruta","Verduras":"ninguna verdura","Proteínas":"ninguna proteína","Cereales":"ningún cereal","Lácteos":"ningún lácteo","Frutos secos":"ningún fruto seco","Condimentos":"ninguna hierba ni especia"};
+  const CW1={"Frutas":["fruta","frutas"],"Verduras":["verdura","verduras"],"Proteínas":["proteína","proteínas"],"Cereales":["cereal","cereales"]};
+  const whyHtml=o=>{
+    const nm=esc(S.nm||"tu bebé"),tl=`<b>Textura:</b> ${esc(TXL[tx](mo))}`;let head="";
+    const x=o.items[0];
+    if(x){const cnt=o.kn.filter(k=>k.c===x.c&&k!==x).length,R=[],extra=x.c==="Frutos secos"||x.c==="Condimentos";
+      if(x.a)R.push(`es un alérgeno (${AGL[AG[x.n]]||"alérgeno"}): conviene introducirlo pronto, en poca cantidad y sin otros nuevos ese día, para poder vigilar`);
+      const gl=goals.find(g=>GS[g](x)&&g!=="alg");if(gl)R.push(`encaja con tu objetivo de ${String(GL[gl]).toLowerCase()}`);
+      if(x.fe&&!extra)R.push("aporta hierro, que ahora le hace falta");
+      if(cnt===0)R.push(`todavía no ha probado ${CW[x.c]||"nada de este grupo"}`);else if(cnt<(TGT[x.c]||0)){const nn=(CW1[x.c]||["alimento","alimentos"])[cnt===1?0:1];R.push(`aún solo ha probado ${cnt} ${nn} y queremos más variedad`)}
+      if(ZN.has(x.n)&&!R.some(r=>/hierro/.test(r)))R.push("aporta zinc");
+      if(!R.length)R.push("suma variedad al menú sin repetir lo que ya conoce");
+      head=`Hoy introducimos <b>${esc(x.n)}</b> porque ${R.slice(0,2).join(". Además, ")}.`}
+    else if(o.done.length)head=`Hoy ${nm} ya ha probado algo nuevo: repetimos lo que conoce para afianzarlo.`;
+    else head=`Hoy no hay alimento nuevo: ofrecemos lo que ya conoce para afianzarlo. Dejamos ${every>1?"un par de días":"un día"} entre novedades para vigilar cómo le sienta.`;
+    return `<div class="why"><p>${head}</p><p class="mute">${tl}</p></div>`};
   const shown=out.slice(0,show);shown.forEach(o=>o.rows=menuRows(o));shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
@@ -1117,9 +1149,9 @@ function plan(){
     const doneH=o.done.map(n=>`<p>✓ <b class="${(info(n)||{}).a?"al":""}">${esc(n)}</b> <span class="mute">probado</span></p>`).join("");
     const itemsH=o.items.map(n=>{const tg=goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`).join(" ");
       return `<p><b>Nuevo:</b> <span class="${n.a?"al":""}" style="${n.a?"font-weight:700":""}">${esc(n.n)}</span> ${n.a?'<span class="tag w">alérgeno</span> ':""}${tg}</p>${presHtml(n,pz)}<button class="btn" style="margin:2px 0 6px;max-width:200px" data-n="${esc(n.n)}" data-d="${o.ds}" data-m="${esc([...new Set(o.rows.flatMap(([mm,r])=>r.ings))].filter(f=>f!==n.n&&info(f)&&!blockedG(info(f))&&!S.log.some(l=>l.d===o.ds&&l.f===f)).join("|"))}">Lo probamos</button>`}).join("");
-    const none=(!o.items.length&&!o.done.length)?'<p class="mute">Hoy sin alimento nuevo.</p>':"";
+    const none="";
     const mh=menuHtml(o,o.rows);
-    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${doneH}${itemsH}${none}${mh}</div>`}).join("")+(out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver otra semana</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+    return `<div class="card"><b class="disp" style="color:var(--green);font-size:1.2rem">${fmt(o.dt)}</b>${o.ds===t0?' <span class="tag">Hoy</span>':""}${whyHtml(o)}${doneH}${itemsH}${none}${mh}</div>`}).join("")+(out.length>show?'<div class="btns" style="max-width:260px"><button class="btn" id="pmore">Ver otra semana</button></div>':""):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
   $("days").querySelectorAll("button[data-ml]").forEach(b=>b.onclick=()=>{
     const d=b.dataset.d,m=b.dataset.ml,e=S.ml[d]=S.ml[d]||{};
