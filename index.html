@@ -1559,7 +1559,7 @@ function plan(){
       head=`${hy} toca <b>${esc(x.n)}</b>, alimento nuevo: ${R[0]}.${R[1]?" Además, "+R[1]+".":""}`}
     else if(o.rep)head=`${hy} toca <b>${esc(o.rep.x.n)}</b> por segunda vez, día ${o.rep.n} de 3: lo repetimos en poca cantidad para vigilar cómo le sienta.`;
     else if(o.drop)head=`Has cambiado el menú, así que <b>${o.drop.map(esc).join(", ")}</b> queda para otro día.`;
-    else if(o.done.length)head=`${hy} ${nm} ya ha probado algo nuevo, así que el resto del día repetimos lo que conoce.`;
+    else if(o.done.length){const nf=o.done.filter(f=>first[f]===o.ds);head=nf.length?`${hy} ${nm} ha probado por primera vez <b>${nf.map(esc).join(", ").replace(/, ([^,]*)$/," y $1")}</b>, así que el resto del día repetimos lo que conoce.`:`${hy} ${nm} ha repetido alimentos que ya conoce.`}
     else head=`${hy} no hay alimento nuevo: repetimos lo que ya conoce para afianzarlo y dejamos ${every>1?"un par de días":"un día"} entre novedades.`;
     {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
       if((x||o.rep)&&cb.length)head+=` Lo mezclamos con ${cb.map(esc).join(", ").replace(/, ([^,]*)$/," y $1")}, que ya conoce.`}
@@ -1596,7 +1596,7 @@ function plan(){
     return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(dt)}</b> <span class="tag">Pasado</span>${foods||meals?"":'<p class="mute hd">No hay nada registrado este día.</p>'}${foods?`<div class="hd">${foods}</div>`:""}${meals?`<div class="mn" style="border:0">${meals}</div>`:""}<p class="mute lc">Para añadir algo de este día, usa el calendario de Registro.</p></div>`};
   const dayCard=o=>{
     const isT=o.ds===t0,y=whyHtml(o),w=pz?"trocitos":"tiras";
-    const doneH=o.done.length?`<p class="mute dn1">✓ Ya probado hoy: ${o.done.map(n=>`<b>${esc(n)}</b>`).join(", ")}</p>`:"";
+    const doneH=o.done.length?`<p class="mute dn1">✓ Ha comido: ${o.done.map(n=>`<b>${esc(n)}</b>${first[n]===o.ds?" (nuevo)":""}`).join(", ")}</p>`:"";
     const fz0=o.famFz!==null&&o.famFz!==undefined?shown[o.famFz]:null,fzT=o.fam&&FZ?(fz0?`<p><span class="tag">Del congelador: lo cocinaste el ${esc(fz0.dt.toLocaleDateString("es-ES",{weekday:"long"}))}</span></p>`:`<p><span class="tag">Cocina ración doble y congela el resto</span></p>`):"";
     const famH=o.fam?`<div class="pap"><b class="disp">Para papis</b>${fzT}<p class="pn">${esc(o.fam.n)}</p><p class="mute">Con lo del bebé: ${o.fam.base.map(esc).join(", ")}. Para vosotros además: ${esc(o.fam.extra)}.</p><p><b>Para el bebé:</b> ${esc(o.fam.baby)}</p><p><b>Para vosotros:</b> ${esc(o.fam.adult)}</p></div>`:"";
     const tg=o.items.flatMap(n=>goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`)).join(" ")+(o.items.some(n=>n.a)?' <span class="tag w">alérgeno</span>':"");
@@ -1622,7 +1622,7 @@ function plan(){
     else if(e[m]){const v=(S.ov[d]||{})[m];dropMeal(d,m);if(v&&v.a)setOv(d,m,null)}
     else{e[m]={d:true};const o=shown.find(x=>x.ds===d),row=o&&o.rows.find(([mm])=>mm===m);
       if(row){const nn=new Set(o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]));
-        {const sm=stats();row[1].ings.filter(n=>!S.log.some(l=>l.d===d&&l.f===n)).forEach(n=>S.log.push({f:n,how:howOf(row[1]),r:nn.has(n)?"meh":((sm[n]&&sm[n].last)||"meh"),d,ml:m}))}
+        {const sm=stats();row[1].ings.filter(n=>!S.log.some(l=>l.d===d&&l.f===n)).forEach(n=>S.log.push({f:n,how:howOf(row[1]),r:nn.has(n)?"meh":(sm[n]&&MR.includes(sm[n].last)?sm[n].last:"meh"),d,ml:m}))}
         {const ex=(S.ov[d]||{})[m];if(!ex)setOv(d,m,{n:row[1].n,a:1,i:row[1].ings.slice()});else if(!ex.i&&row[1].ings.length)ex.i=row[1].ings.slice()}}}
     save();render()});
   $("days").querySelectorAll("button[data-chg]").forEach(b=>b.onclick=()=>{
@@ -1769,7 +1769,7 @@ function procTxt(i,st){
   return "Aún no lo ha probado. Dalo en poca cantidad, a primera hora del día o a mediodía y sin otros alimentos nuevos ese día, para poder vigilar posibles reacciones.";
 }
 function inferIngs(t){const q=" "+norm(String(t||"")).replace(/[^a-z0-9ñ ]/g," ").replace(/ +/g," ")+" ",out=[],add=n=>{if(!out.includes(n)&&ALL.some(x=>x.n===n))out.push(n)};
-  ALL.forEach(x=>{const w=norm(x.n);if(w.length<3)return;const sg=w.endsWith("s")?w.slice(0,-1):w;if([w,w+"s",w+"es",sg].some(v=>q.includes(" "+v+" ")))add(x.n)});
+  ALL.forEach(x=>{const w=norm(x.n);if(w.length<3||x.n==="AOVE")return;const sg=w.endsWith("s")?w.slice(0,-1):w;if([w,w+"s",w+"es",sg].some(v=>q.includes(" "+v+" ")))add(x.n)});
   if(q.includes(" tortilla "))add("Huevo");if(q.includes(" yogur "))add("Yogur natural");
   return out}
 function backfill(){const ml=S.ml||{};let ch=false,R=null,sm=null;
@@ -1778,7 +1778,7 @@ function backfill(){const ml=S.ml||{};let ch=false,R=null,sm=null;
     const r=R.find(x=>x.n===v.n),ig=r?r.ings:inferIngs(v.n);if(!ig.length)return;
     const how=!r?(pinzaNow()?"Trozos":"Tiras"):r.t==="pure"?"Puré o aplastado":["solo","tortilla","burger","pescado","tofu","tortita"].includes(r.t)?(pinzaNow()?"Trozos":"Tiras"):"Mezclado en papilla o yogur";
     v.i=ig.slice();ch=true;
-    ig.forEach(n=>{if(!S.log.some(l=>l.d===d&&l.f===n))S.log.push({f:n,how,r:e.r||(sm[n]&&sm[n].last)||"meh",d,ml:m})})}));
+    ig.forEach(n=>{if(!S.log.some(l=>l.d===d&&l.f===n))S.log.push({f:n,how,r:e.r||(sm[n]&&MR.includes(sm[n].last)?sm[n].last:"meh"),d,ml:m})})}));
   return ch}
 function eatenByDay(){const r={},add=(d,n)=>{(r[d]=r[d]||new Set()).add(n)};
   S.log.forEach(l=>{if(l.r!=="no")add(l.d,l.f)});
