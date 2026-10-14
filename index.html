@@ -1680,28 +1680,29 @@ function shopQty(x,sv){const n=x.n,s=Math.max(1,sv||1);
   return t+(/^(Lentejas|Alubias|Garbanzos)/.test(n)?" (secas)":"")}
 function renderWeek(W){
   const fz=S.prefs.fz==="freeze",cap=x=>x.charAt(0).toUpperCase()+x.slice(1),fm=d=>d.toLocaleDateString("es-ES",{day:"numeric",month:"long"});
-  shopCur=W.trips.flatMap(t=>t.items.map(i=>({...i,tl:t})));
+  {const mg={};W.trips.forEach(t=>t.items.forEach(i=>{const e=mg[i.n]=mg[i.n]||{n:i.n,s:0,dl:[],key:i.n};e.s+=i.s;i.dl.forEach(d=>{if(!e.dl.includes(d))e.dl.push(d)})}));shopCur=Object.values(mg)}
   $("wk_t").textContent="Compra del "+(W.a.getMonth()===W.b.getMonth()?W.a.getDate():fm(W.a))+" al "+fm(W.b);
   if(!W.trips.length){$("shop").innerHTML='<p class="mute">Cuando haya menú, aquí sale lo que hay que comprar.</p>';return}
   const dl=a=>a.length>=6?"toda la semana":a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
   const nm=W.trips.length;
-  const tripH=W.trips.map(t=>{const by={};t.items.forEach(i=>{const x=info(i.n);if(x)(by[x.c]=by[x.c]||[]).push({...i,x})});
-    return `<div class="trip"><div class="th"><b>${t.today?"Hoy":cap(t.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"short"}))}</b><small class="mute">${t.items.length} alimento${t.items.length===1?"":"s"}</small></div>`+SHOPORD.filter(c=>by[c]).map(c=>`<div class="cat">${c}</div>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(i=>`<label class="sl"><input type="checkbox" data-sl="${esc(i.key)}"${S.sl[i.key]?" checked":""}><span class="sn"><span class="${i.x.a?"al":""}">${esc(i.n)}</span><span class="mute">${i.s} ración${i.s===1?"":"es"} · ${esc(dl(i.dl))}</span></span><b class="qt">${esc(shopQty(i.x,i.s))}</b></label>`).join("")).join("")+"</div>"}).join("");
+  const lq=(x,q)=>{const lw=x.n.charAt(0).toLowerCase()+x.n.slice(1);return q?(/^[\d,]+ (g|kg)/.test(q)?q.replace(/^([\d,]+ (?:g|kg))/,"$1 de "+lw):q):x.n};
+  const by={};shopCur.forEach(i=>{const x=info(i.n);if(x)(by[x.c]=by[x.c]||[]).push({...i,x})});
+  const tripH=SHOPORD.filter(c=>by[c]).map(c=>`<div class="cat">${c}</div>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(i=>{const q=shopQty(i.x,i.s),m=lq(i.x,q);return `<label class="sl"><input type="checkbox" data-sl="${esc(i.key)}"${S.sl[i.key]?" checked":""}><span class="sn"><b class="${i.x.a?"al":""}">${esc(m.charAt(0).toUpperCase()+m.slice(1))}</b><span class="mute">${esc(dl(i.dl))}</span></span></label>`}).join("")).join("");
   const ckItem=c=>`<div class="ck"><b>${esc(c.n)}</b><span class="mute">${c.c} ración${c.c===1?"":"es"} · ${esc(dl(c.dl))}${!fz&&c.c>1&&c.di[c.di.length-1]-c.di[0]<=1?" · cocina doble y guarda en la nevera":""}</span></div>`;
   let cookH="";
   if(fz){cookH=`<p class="mute">Un día de cocina: cocina cada ingrediente por separado, reparte en raciones y congela. Al servir, mezcla los que toquen y saca la ración la noche antes.</p>`+W.comp.map(c=>`<div class="ck"><b>${esc(c.x.n)}</b><span class="mute">${c.s} ración${c.s===1?"":"es"} · ${esc(shopQty(c.x,c.s))}</span></div>`).join("")}
   else cookH=(W.cook.length?`<p class="mute">Cocina el mismo día. Si una receta se repite en días seguidos, cocina doble y guárdala en la nevera.</p>`+W.cook.map(ckItem).join(""):'<p class="mute">Esta semana casi todo es sencillo: fruta, verdura al vapor y cosas que no necesitan cocina.</p>');
   const daysH=W.days.map(d=>`<button class="wdy" data-go="${d.ds}"><b>${d.ds===today()?"Hoy":d.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric"})}</b>${d.rows.map(([m,r])=>`<span class="mute">${esc(m)}</span> ${esc(r.n)}<br>`).join("")}</button>`).join("");
-  $("shop").innerHTML=`<p class="mute">${fz?"Modo congelar: una compra grande.":"Modo fresco: compras en varias veces para que no se estropee nada."} Cantidades para el bebé, para las raciones de la semana.</p>`+tripH+
-   '<div class="btns" style="max-width:420px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><div class="btns" style="max-width:420px;margin-top:8px"><button class="btn" id="sl_fz">'+(fz?"Cambiar a todo fresco":"Cambiar a congelar en tandas")+'</button></div><p class="mute">Cantidades aproximadas, con margen por piel y desperdicio. Aceite de oliva virgen extra para cocinar, sin sal ni azúcar.</p>'}
+  $("shop").innerHTML=`<p class="mute">Lo que va a comer el bebé según el plan, con los días en que toca.</p><div class="trip">`+tripH+'</div>'+'<div class="btns" style="max-width:420px;margin-top:12px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Cantidades aproximadas, con margen por piel y desperdicio. Aceite de oliva virgen extra para cocinar, sin sal ni azúcar.</p>'
+}
 $("shop").addEventListener("change",e=>{const n=e.target.dataset&&e.target.dataset.sl;if(!n)return;if(e.target.checked)S.sl[n]=true;else delete S.sl[n];save()});
 $("shop").addEventListener("click",e=>{
   const go=e.target.closest("[data-go]");if(go){pdate=go.dataset.go;subtab(1);plan();window.scrollTo({top:0});return}
   if(e.target.id==="sl_fz"){setPref("fz",S.prefs.fz==="freeze"?"fresh":"freeze");return}
   if(e.target.id==="sl_reset"){S.sl={};save();plan();return}
   if(e.target.id==="sl_copy"){
-    const tr={};shopCur.filter(i=>!S.sl[i.key]).forEach(i=>{const x=info(i.n);if(!x)return;const q=shopQty(x,i.s),k=i.tl.today?"Hoy":i.tl.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"short"});(tr[k]=tr[k]||[]).push(q?i.n+" ("+q+")":i.n)});
-    const txt="Lista de la compra del bebé\n"+Object.keys(tr).map(k=>k+": "+tr[k].sort((a,b)=>a.localeCompare(b,"es")).join(", ")).join("\n");
+    const L=shopCur.filter(i=>!S.sl[i.key]).map(i=>{const x=info(i.n);if(!x)return"";const q=shopQty(x,i.s);return"- "+(q?q+" de "+i.n.toLowerCase():i.n)+" ("+i.dl.join(", ")+")"}).filter(Boolean).sort((a,b)=>a.localeCompare(b,"es"));
+    const txt="Lista de la compra del bebé\n"+L.join("\n");
     const b=e.target,done=()=>{b.textContent="Copiada";setTimeout(()=>{b.textContent="Copiar lista"},1600)};
     if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done).catch(()=>prompt("Copia la lista:",txt));else prompt("Copia la lista:",txt)}
 });
