@@ -488,7 +488,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="remind" id="rem"></div>
   <div id="days"></div>
   </div>
-  <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><p class="mute">Lo que necesitas para los días del menú que tienes abierto. Marca lo que ya tienes en casa.</p><div id="shop"></div></div></div>
+  <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><div id="shop"></div></div></div>
 </section>
 <section id="v3" class="hide"><div class="card" id="progcard"><div id="prog"></div></div>
 <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Kanban</button></div>
@@ -701,9 +701,6 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <h3 class="disp" id="chg_t"></h3>
   <p class="mute" style="margin:6px 0">Otras ideas para este servicio:</p>
   <div id="chg_l" class="chgl"></div>
-  <div class="chef"><b class="disp">Pregúntale al chef</b><p class="mute">¿Qué tienes en casa? Elige y te propone recetas con lo que ya conoce el bebé.</p>
-    <input id="chef_q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
-    <div id="chef_c" class="chefc"></div><div id="chef_r" class="chgl"></div></div>
   <label>O escribe qué ha comido<input id="chg_x" type="text" maxlength="80" placeholder="Por ejemplo: tortilla de la abuela"></label>
   <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button"></button><button class="btn" id="chg_rs" type="button">Volver al menú</button></div>
 </div></div>
@@ -1387,7 +1384,7 @@ function planHead(){
   const p=S.prefs,a=age(),nm=esc(S.nm||"tu bebé"),gt=Object.fromEntries(GOALS.map(g=>[g[0],g[2]]));
   const dt={om:"De todo",veg:"Vegetariana",vgn:"Vegana"}[p.diet]||"De todo",ev=(p.every||1)===1?"Nuevo cada día":"Nuevo cada "+p.every+" días";
   const tg=(t,c)=>`<span class="ptag"${c?` style="--c:${c}"`:""}>${esc(t)}</span>`;
-  $("pf_head").innerHTML=`<span class="ptt disp">Plan personalizado para ${nm}</span><span class="psub">${a?`${a.mo} meses · `:""}hecho a medida de tus objetivos</span><span class="ptags">${tg(dt)}${tg(ev)}${p.fz==="freeze"?tg("Congela"):""}${S.eat?tg(EATL[S.eat]):""}${S.meals?tg(S.meals+(S.meals===4?" o más comidas":S.meals===1?" comida":" comidas")):""}${S.app?tg({play:"Explora",some:"Come un poco",full:"Come bien"}[S.app]):""}${(p.goals||[]).filter(g=>gt[g]).map(g=>tg(gt[g],GCOL[g])).join("")}</span>`;
+  $("pf_head").innerHTML=`<span class="ptt disp">Plan personalizado para ${nm}</span><span class="ptags">${tg(dt)}${tg(ev)}${p.fz==="freeze"?tg("Congela"):""}${S.eat?tg(EATL[S.eat]):""}${S.meals?tg(S.meals+(S.meals===4?" o más comidas":S.meals===1?" comida":" comidas")):""}${S.app?tg({play:"Explora",some:"Come un poco",full:"Come bien"}[S.app]):""}${(p.goals||[]).filter(g=>gt[g]).map(g=>tg(gt[g],GCOL[g])).join("")}</span>`;
   {const fit=()=>{const pt=$("pf_head").querySelector(".ptags");if(!pt)return;const r=$("pf_head").getBoundingClientRect().right-2;const ts=[...pt.querySelectorAll(".ptag")];ts.forEach(t=>t.classList.remove("xh"));ts.forEach(t=>{if(t.getBoundingClientRect().right>r)t.classList.add("xh")})};requestAnimationFrame(fit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit)}
 }
 function renderPlanForm(){
@@ -1591,9 +1588,9 @@ function plan(){
       if((x||o.rep)&&cb.length)head+=` Lo mezclamos con ${cb.map(esc).join(", ").replace(/, ([^,]*)$/," y $1")}, que ya conoce.`}
     return {head,tl}};
   const shown=out.slice(0,show);shown.forEach(o=>{o.rows=menuRows(o);const ovd=(S.ov||{})[o.ds];if(ovd){const R=recipesFor(o.kn,mo,pz);o.rows=o.rows.map(([m,r])=>{const v=ovd[m];if(!v)return[m,r];const f=R.find(x=>x.n===v.n);return[m,f||{t:"solo",n:v.n,q:[],how:"Lo has cambiado tú",ings:[],g:fig("mash",0,0,false)}]})}});shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
-  const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
+  const wk={},wdy={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>{wk[n]=(wk[n]||0)+1;(wdy[n]=wdy[n]||[]).push(o.ds===t0?"hoy":o.dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".",""))})});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
-  renderShop(wk,buys);
+  renderShop(wk,buys,wdy);
   {const last={},first={},famOk=FAM.filter(d=>d.base.every(n=>{const x=info(n);return wk[n]&&x&&allowed(x,p)}));
    shown.forEach(o=>{const ing=new Set(o.rows.flatMap(([m,r])=>r.ings).concat(o.items.map(x=>x.n)));
      const c=famOk.filter(d=>last[d.n]===undefined||(FZ&&o.di-last[d.n]>=3)).map((d,k)=>({d,sc:d.base.filter(n=>ing.has(n)).length,k:(k*7+o.di*13+(p.seed||1))%11})).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc||a.k-b.k);
@@ -1646,19 +1643,6 @@ function plan(){
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
     $("chg_x").value="";$("chg_ok").textContent=isT?"Ha comido otra cosa":"Guardar";$("chg_rs").classList.toggle("hide",!hasOv);
-    {const sel=new Set(),kn=o.kn.filter(x=>x.c!=="Condimentos").sort((a,b)=>a.n.localeCompare(b.n,"es")),pick=(r)=>{dropMeal(d,m);setOv(d,m,{n:r.n});$("chg").classList.add("hide");save();render()};
-      let found=[];
-      const res=()=>{if(!sel.size){$("chef_r").innerHTML='<p class="mute">Marca lo que tengas y salen las recetas.</p>';found=[];return}
-        const seen=new Set(),all=recipesFor(kn.filter(x=>sel.has(x.n)),mo,pz).filter(r=>r.ings.every(n=>sel.has(n))&&!seen.has(r.n)&&seen.add(r.n)),
-          combos=all.filter(r=>r.ings.length>1||!["solo","fruta"].includes(r.t)).sort((a,b)=>b.ings.length-a.ings.length).slice(0,6),used=new Set(combos.flatMap(r=>r.ings)),
-          left=kn.filter(x=>sel.has(x.n)&&!used.has(x.n)).map(x=>{const pp=presOf(x);return{t:"solo",n:x.n,q:[qty(x)],how:offerText(x,pz),ings:[x.n],meals:[m],g:pp?fig(pz?pp.q[0]:pp.b[0],0,0,pz):""}});
-        found=[...combos,...left];
-        const bt=(r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}<small>${esc(r.q.join(" · "))}</small><small><i>${esc(r.how)}</i></small></button>`;
-        $("chef_r").innerHTML=(combos.length?combos.map((r,i)=>bt(r,i)).join(""):sel.size>1?'<p class="mute">Con eso no sale una receta mezclada.</p>':"")+(left.length?`<p class="mute">${combos.length?"Lo que sobra, suelto:":sel.size>1?"Cada uno, suelto:":""}</p>`+left.map((r,i)=>bt(r,combos.length+i)).join(""):"");
-        $("chef_r").querySelectorAll("button").forEach(bb=>bb.onclick=()=>pick(found[+bb.dataset.i]))};
-      const chips=()=>{const q=norm($("chef_q").value.trim());$("chef_c").innerHTML=kn.filter(x=>!q||norm(x.n).includes(q)).map(x=>`<button type="button" class="chk${sel.has(x.n)?" on":""}" data-n="${esc(x.n)}" aria-pressed="${sel.has(x.n)}">${esc(x.n)}</button>`).join("")||'<span class="mute">Nada con ese nombre.</span>';
-        $("chef_c").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const n=bb.dataset.n;if(sel.has(n))sel.delete(n);else sel.add(n);chips();res()})};
-      $("chef_q").value="";$("chef_q").oninput=chips;chips();res()}
     $("chg").classList.remove("hide");
     $("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=alts[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n});$("chg").classList.add("hide");save();render()});
     $("chg_ok").onclick=()=>{const t=$("chg_x").value.trim().slice(0,80);if(!t)return;dropMeal(d,m);setOv(d,m,{n:t});if(isT){(S.ml[d]=S.ml[d]||{})[m]={d:true}}$("chg").classList.add("hide");save();render()};
@@ -1670,11 +1654,11 @@ $("mk").onclick=()=>{$("pfcard").open=false;if(S.prefs.gen)S.prefs.seed=(S.prefs
 
 const SHOPORD=["Frutas","Verduras","Proteínas","Cereales","Lácteos","Frutos secos","Condimentos"];
 let shopCur={};
-function renderShop(wk,buys){
-  buys=buys||{};shopCur=wk;const names=Object.keys(wk);
+function renderShop(wk,buys,wdy){
+  buys=buys||{};wdy=wdy||{};const dl=n=>{const a=wdy[n]||[];if(a.length>=6)return "toda la semana";return a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||""};shopCur=wk;const names=Object.keys(wk);
   if(!names.length){$("shop").innerHTML='<p class="mute">Cuando haya menú, aquí sale lo que hay que comprar.</p>';return}
   const by={};names.forEach(n=>{const x=info(n);if(x)(by[x.c]=by[x.c]||[]).push(x)});
-  $("shop").innerHTML=`<p class="mute">${names.length} alimentos para la semana. ${S.prefs.fz==="freeze"?"Cocina en tandas y congela raciones: purés, guisos, tortitas y hamburguesitas aguantan semanas.":"Todo fresco: el menú reutiliza lo que compras antes de que se estropee. Pescado y carne, para 1 o 2 días."}</p>`+'<div class="shcols">'+SHOPORD.filter(c=>by[c]).map(c=>`<div class="shc"><h4 class="sh">${c}</h4>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(x=>`<label class="sl"><input type="checkbox" data-sl="${esc(x.n)}"${S.sl[x.n]?" checked":""}><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="mute">${wk[x.n]} ${wk[x.n]===1?"día":"días"}${buys[x.n]>1?` · ${buys[x.n]} compras`:""}</span></label>`).join("")+"</div>").join("")+'</div><div class="btns" style="max-width:420px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Aceite de oliva virgen extra para cocinar. Sin sal ni azúcar.</p>';
+  $("shop").innerHTML=`<p class="mute">${names.length} alimentos para la semana. ${S.prefs.fz==="freeze"?"Cocina en tandas y congela raciones: purés, guisos, tortitas y hamburguesitas aguantan semanas.":"Todo fresco: el menú reutiliza lo que compras antes de que se estropee. Pescado y carne, para 1 o 2 días."}</p>`+'<div class="shcols">'+SHOPORD.filter(c=>by[c]).map(c=>`<div class="shc"><h4 class="sh">${c}</h4>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(x=>`<label class="sl"><input type="checkbox" data-sl="${esc(x.n)}"${S.sl[x.n]?" checked":""}><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="mute">${esc(dl(x.n))}${buys[x.n]>1?` · ${buys[x.n]} compras`:""}</span></label>`).join("")+"</div>").join("")+'</div><div class="btns" style="max-width:420px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Aceite de oliva virgen extra para cocinar. Sin sal ni azúcar.</p>';
 }
 $("shop").addEventListener("change",e=>{const n=e.target.dataset&&e.target.dataset.sl;if(!n)return;if(e.target.checked)S.sl[n]=true;else delete S.sl[n];save()});
 $("shop").addEventListener("click",e=>{
