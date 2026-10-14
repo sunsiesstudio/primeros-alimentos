@@ -1521,7 +1521,7 @@ function plan(){
     const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
     const newSlot=nn.length?ms.find(m=>R.some(r=>ok(r,m)&&hasNew(r))):null;
     ms.forEach((meal,si)=>{
-      {const ovr=((S.ov||{})[o.ds]||{})[meal],rr=ovr&&(R.find(x=>x.n===ovr.n)||{t:"solo",n:ovr.n,q:[],how:"Lo has cambiado tú",ings:(ovr.i||[]).filter(n=>info(n)),g:fig("mash",0,0,false)});if(rr){usedN.add(rr.n);if(rr.k)usedK.add(rr.k);rr.ings.forEach(n=>buy(n,o.di));hist[o.di].add(rr.n);rows.push([meal,rr]);return}}
+      {const ovr=((S.ov||{})[o.ds]||{})[meal],rr=ovr&&(R.find(x=>x.n===ovr.n)||{t:"solo",n:ovr.n,q:[],how:"Lo has cambiado tú",ings:(ovr.i&&ovr.i.length?ovr.i:inferIngs(ovr.n)).filter(n=>info(n)),g:fig("mash",0,0,false)});if(rr){usedN.add(rr.n);if(rr.k)usedK.add(rr.k);rr.ings.forEach(n=>buy(n,o.di));hist[o.di].add(rr.n);rows.push([meal,rr]);return}}
       let L=R.filter(r=>ok(r,meal)&&(meal===newSlot?hasNew(r):!hasNew(r)));
       {const dr=tx>=4?["pure"]:tx===3&&(o.di+si)%2===0?["pure"]:[];const L3=L.filter(r=>!dr.includes(r.t));if(L3.length)L=L3}
       const mixes=L.filter(r=>r.t!=="solo");if(mixes.length)L=mixes;
@@ -1564,7 +1564,7 @@ function plan(){
     {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
       if((x||o.rep)&&cb.length)head+=` Lo mezclamos con ${cb.map(esc).join(", ").replace(/, ([^,]*)$/," y $1")}, que ya conoce.`}
     return {head,tl}};
-  const shown=out.slice(0,show);shown.forEach(o=>{o.rows=menuRows(o);const ovd=(S.ov||{})[o.ds];if(ovd){const R=recipesFor(o.kn,mo,pz);o.rows=o.rows.map(([m,r])=>{const v=ovd[m];if(!v)return[m,r];const f=R.find(x=>x.n===v.n);return[m,f||{t:"solo",n:v.n,q:[],how:"Lo has cambiado tú",ings:(v.i||[]).filter(n=>info(n)),g:fig("mash",0,0,false)}]});const inMenu=new Set(o.rows.flatMap(([m,r])=>r.ings));const dr=o.items.filter(x=>!inMenu.has(x.n)).map(x=>x.n).concat(o.rep&&!inMenu.has(o.rep.x.n)?[o.rep.x.n]:[]);o.items=o.items.filter(x=>inMenu.has(x.n));if(o.rep&&!inMenu.has(o.rep.x.n))o.rep=null;if(dr.length)o.drop=dr}if(!o.drop&&o.pre)o.drop=o.pre});shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
+  const shown=out.slice(0,show);shown.forEach(o=>{o.rows=menuRows(o);const ovd=(S.ov||{})[o.ds];if(ovd){const R=recipesFor(o.kn,mo,pz);o.rows=o.rows.map(([m,r])=>{const v=ovd[m];if(!v)return[m,r];const f=R.find(x=>x.n===v.n);return[m,f||{t:"solo",n:v.n,q:[],how:"Lo has cambiado tú",ings:(v.i&&v.i.length?v.i:inferIngs(v.n)).filter(n=>info(n)),g:fig("mash",0,0,false)}]});const inMenu=new Set(o.rows.flatMap(([m,r])=>r.ings));const dr=o.items.filter(x=>!inMenu.has(x.n)).map(x=>x.n).concat(o.rep&&!inMenu.has(o.rep.x.n)?[o.rep.x.n]:[]);o.items=o.items.filter(x=>inMenu.has(x.n));if(o.rep&&!inMenu.has(o.rep.x.n))o.rep=null;if(dr.length)o.drop=dr}if(!o.drop&&o.pre)o.drop=o.pre});shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={},wdy={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>{wk[n]=(wk[n]||0)+1;(wdy[n]=wdy[n]||[]).push(o.ds===t0?"hoy":o.dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".",""))})});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
   {const dsv=shown.map(o=>{const c={};o.rows.forEach(([m,r])=>r.ings.forEach(n=>c[n]=(c[n]||0)+1));o.items.forEach(x=>{if(!c[x.n])c[x.n]=1});return c}),sv={},trips={};
@@ -1638,7 +1638,7 @@ function plan(){
     $("chg_s").oninput=paint;paint();
     $("chg").classList.remove("hide");
     $("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=alts[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n,i:r.ings.slice()});$("chg").classList.add("hide");save();render()});
-    $("chg_ok").onclick=()=>{const ii=[...sel];let t=$("chg_x").value.trim().slice(0,80);if(!t&&ii.length){const lo=ii.map(n=>n.toLowerCase());t=(lo.length>1?lo.slice(0,-1).join(", ")+" y "+lo[lo.length-1]:lo[0]);t=t.charAt(0).toUpperCase()+t.slice(1)}if(!t)return;dropMeal(d,m);setOv(d,m,ii.length?{n:t,i:ii}:{n:t});$("chg").classList.add("hide");save();render()};});
+    $("chg_ok").onclick=()=>{const ii=[...sel];let t=$("chg_x").value.trim().slice(0,80);if(!t&&ii.length){const lo=ii.map(n=>n.toLowerCase());t=(lo.length>1?lo.slice(0,-1).join(", ")+" y "+lo[lo.length-1]:lo[0]);t=t.charAt(0).toUpperCase()+t.slice(1)}if(!t)return;dropMeal(d,m);{const i2=ii.length?ii:inferIngs(t);setOv(d,m,i2.length?{n:t,i:i2}:{n:t})}$("chg").classList.add("hide");save();render()};});
 
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&today()!==lastDay){lastDay=today();pdate=null;render()}});
@@ -1768,13 +1768,17 @@ function procTxt(i,st){
   if(i.tried.length)return "Lo ha probado sin reacciones anotadas. Puedes seguir ofreciéndolo con normalidad.";
   return "Aún no lo ha probado. Dalo en poca cantidad, a primera hora del día o a mediodía y sin otros alimentos nuevos ese día, para poder vigilar posibles reacciones.";
 }
+function inferIngs(t){const q=" "+norm(String(t||"")).replace(/[^a-z0-9ñ ]/g," ").replace(/ +/g," ")+" ",out=[],add=n=>{if(!out.includes(n)&&ALL.some(x=>x.n===n))out.push(n)};
+  ALL.forEach(x=>{const w=norm(x.n);if(w.length<3)return;const sg=w.endsWith("s")?w.slice(0,-1):w;if([w,w+"s",w+"es",sg].some(v=>q.includes(" "+v+" ")))add(x.n)});
+  if(q.includes(" tortilla "))add("Huevo");if(q.includes(" yogur "))add("Yogur natural");
+  return out}
 function backfill(){const ml=S.ml||{};let ch=false,R=null,sm=null;
   Object.keys(ml).forEach(d=>Object.keys(ml[d]).forEach(m=>{const e=ml[d][m],v=((S.ov||{})[d]||{})[m];if(!e||!e.d||!v||v.i)return;
     if(!R){sm=stats();const ag=age();R=recipesFor(ALL.filter(x=>!x.lim),ag?ag.mo:8,pinzaNow())}
-    const r=R.find(x=>x.n===v.n);if(!r||!r.ings.length)return;
-    const how=r.t==="pure"?"Puré o aplastado":["solo","tortilla","burger","pescado","tofu","tortita"].includes(r.t)?(pinzaNow()?"Trozos":"Tiras"):"Mezclado en papilla o yogur";
-    v.i=r.ings.slice();ch=true;
-    r.ings.forEach(n=>{if(!S.log.some(l=>l.d===d&&l.f===n))S.log.push({f:n,how,r:e.r||(sm[n]&&sm[n].last)||"meh",d,ml:m})})}));
+    const r=R.find(x=>x.n===v.n),ig=r?r.ings:inferIngs(v.n);if(!ig.length)return;
+    const how=!r?(pinzaNow()?"Trozos":"Tiras"):r.t==="pure"?"Puré o aplastado":["solo","tortilla","burger","pescado","tofu","tortita"].includes(r.t)?(pinzaNow()?"Trozos":"Tiras"):"Mezclado en papilla o yogur";
+    v.i=ig.slice();ch=true;
+    ig.forEach(n=>{if(!S.log.some(l=>l.d===d&&l.f===n))S.log.push({f:n,how,r:e.r||(sm[n]&&sm[n].last)||"meh",d,ml:m})})}));
   return ch}
 function eatenByDay(){const r={},add=(d,n)=>{(r[d]=r[d]||new Set()).add(n)};
   S.log.forEach(l=>{if(l.r!=="no")add(l.d,l.f)});
