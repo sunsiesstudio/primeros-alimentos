@@ -493,13 +493,14 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   </div>
   <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><div id="shop"></div></div></div>
 </section>
-<section id="v3" class="hide"><div class="card" id="progcard"><div id="prog"></div></div>
+<section id="v3" class="hide"><div class="btns rtabs" id="rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" data-rt="cal" role="tab">Calendario</button><button class="btn" data-rt="st" role="tab">Estadísticas</button><button class="btn" data-rt="al" role="tab">Alérgenos</button></div>
+<div class="card hide" id="progcard"><div id="prog"></div></div>
 <div class="card" id="calcard">
   <div class="leg"><span><i class="dot rc-love"></i>Le encantó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>Hoy no</span><span><i class="dot rc-react"></i>Reacción o alergia</span></div>
   <div id="cal"></div>
 </div>
-<div class="card" id="nutcard"></div>
-<div class="tk" id="tkwrap">
+<div class="card hide" id="nutcard"></div>
+<div class="tk hide" id="tkwrap">
   <div class="card tkc">
     <div class="tkh"><h3 class="disp">Alérgenos</h3><span class="tkn" id="tk_n"></span></div>
     <div class="tkbar" aria-hidden="true"><i id="tk_b"></i></div>
@@ -1078,13 +1079,17 @@ function board(){
   $("prog").innerHTML=progHtml(ALL.filter(x=>m[x.n]).length);
 }
 function rowHtml(l){const x=info(l.f),nt=(l.r==="react"&&l.rt)||l.rn?esc([l.r==="react"?l.rt:"",l.rn].filter(Boolean).join(". ")):"";
-  return `<div class="row lr"><div class="lm"><b class="${x&&x.a?"al":""}">${esc(l.f)}</b><div class="lt"><span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><span class="mute">${esc(l.how)}</span></div>${nt?`<div class="mute">${nt}</div>`:""}${validPh(l.ph)?`<img class="rph" src="${l.ph}" alt="Foto de ${esc(l.f)}">`:""}</div><div class="lx"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+  return `<div class="row lr"><div class="lm"><b class="${x&&x.a?"al":""}">${esc(l.f)}</b><div class="lt"><span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span><span class="mute">${esc(l.ml?l.ml+" · "+l.how:l.how)}</span></div>${nt?`<div class="mute">${nt}</div>`:""}${validPh(l.ph)?`<img class="rph" src="${l.ph}" alt="Foto de ${esc(l.f)}">`:""}</div><div class="lx"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
   el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
   el.querySelectorAll(".x[data-i]").forEach(b=>b.onclick=()=>{S.log.splice(+b.dataset.i,1);save();render()});
 }
 let cm=new Date();cm=new Date(cm.getFullYear(),cm.getMonth(),1);let csel=today();
 let cpick=false;
+let rtab="cal";
+function setRT(t){rtab=t;document.querySelectorAll("#rtabs [data-rt]").forEach(b=>{const on=b.dataset.rt===t;b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
+  $("calcard").classList.toggle("hide",t!=="cal");$("progcard").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al")}
+document.querySelectorAll("#rtabs [data-rt]").forEach(b=>b.onclick=()=>{setRT(b.dataset.rt);window.scrollTo({top:0})});
 function renderCal(){
   const y=cm.getFullYear(),mo=cm.getMonth();
   const lead=(new Date(y,mo,1).getDay()+6)%7,dim=new Date(y,mo+1,0).getDate();
@@ -1098,7 +1103,7 @@ function renderCal(){
     const PR={react:0,no:1,meh:2,love:3},dots=[...es].sort((a,b)=>PR[a.r]-PR[b.r]).slice(0,4).map(e=>`<span class="dot rc-${e.r}"></span>`).join("");
     cells+=`<button class="cd${ds===today()?" today":""}${ds===csel?" sel":""}" data-d="${ds}" aria-label="${d}: ${es.length} alimentos"><span>${d}</span><span class="dts">${dots}</span>${es.length>4?`<span class="more">+${es.length-4}</span>`:""}</button>`;
   }
-  const list=byDay[csel]||[];
+  const list=(byDay[csel]||[]).slice().sort((a,b)=>(a.ml?MEALS.indexOf(a.ml):9)-(b.ml?MEALS.indexOf(b.ml):9));
   const sel=new Date(csel+"T00:00:00").toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
   $("cal").innerHTML=`<div class="calh"><button class="x" id="cprev" aria-label="Mes anterior">‹</button><b style="text-transform:capitalize">${title}</b><button class="x" id="cnext" aria-label="Mes siguiente">›</button></div>
   <div class="cg wk">${["L","M","X","J","V","S","D"].map(w=>`<span>${w}</span>`).join("")}</div>
@@ -1140,7 +1145,7 @@ $("adel").onclick=()=>cfOpen("¿Eliminar tu cuenta?","Se borran tu cuenta y todo
 function render(){
   head();renderProfile();renderBabies();renderPlanForm();plan();
   board();
-  renderCal();renderNut();renderTrack();
+  renderCal();renderNut();renderTrack();setRT(rtab);
 }
 const MASHH=new Set(["Puré o aplastado","Mezclado en papilla o yogur"]),PCSH=new Set(["Tiras","Trozos"]);
 function canPieces(x){const p=presOf(x);
@@ -1177,7 +1182,7 @@ $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("
    save();$("sh").classList.add("hide");render();
    if(x&&MASHH.has(h)&&!had&&canPieces(x)&&!blockedG(x))snack(`¡Muy bien! La próxima vez anímate a ofrecer <b>${esc(nm)}</b> en ${pinzaNow()?"trocitos":"tiras"}.`,"Probar ya",()=>openSheet(nm,today(),undefined,true))}
   if(!S.dip&&Object.keys(stats()).length>=100){S.dip=true;save();openDiploma(false)}
-  else if(rv==="react"&&g){tkSet.add(g);tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}
+  else if(rv==="react"&&g){tkSet.add(g);setRT("al");tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}
 };
 let editing=null;
 function renderProfile(){
@@ -1243,7 +1248,7 @@ $("cr_ok").onclick=()=>{if(!CR)return;try{const n=640,c=document.createElement("
 $("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;openCrop(URL.createObjectURL(f),true)};
 $("ph_fr").onclick=()=>{$("phm").classList.add("hide");if(S.ph)openCrop(S.ph,false)};
 $("ph_del").onclick=()=>{$("phm").classList.add("hide");S.ph="";saveLocal();render();pushCloud()};
-$("go_tk").onclick=()=>{tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
+$("go_tk").onclick=()=>{setRT("al");tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 let obSkip=false;
 const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
@@ -1596,7 +1601,7 @@ function plan(){
     else if(e[m]){const v=(S.ov[d]||{})[m];dropMeal(d,m);if(v&&v.a)setOv(d,m,null)}
     else{e[m]={d:true};const o=shown.find(x=>x.ds===d),row=o&&o.rows.find(([mm])=>mm===m);
       if(row){const nn=new Set(o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]));
-        row[1].ings.filter(n=>(nn.has(n)||row[1].how==="Lo has cambiado tú")&&!S.log.some(l=>l.d===d&&l.f===n)).forEach(n=>S.log.push({f:n,how:howOf(row[1]),r:"meh",d,ml:m}));
+        {const sm=stats();row[1].ings.filter(n=>!S.log.some(l=>l.d===d&&l.f===n)).forEach(n=>S.log.push({f:n,how:howOf(row[1]),r:nn.has(n)?"meh":((sm[n]&&sm[n].last)||"meh"),d,ml:m}))}
         {const ex=(S.ov[d]||{})[m];if(!ex)setOv(d,m,{n:row[1].n,a:1,i:row[1].ings.slice()});else if(!ex.i&&row[1].ings.length)ex.i=row[1].ings.slice()}}}
     save();render()});
   $("days").querySelectorAll("button[data-chg]").forEach(b=>b.onclick=()=>{
