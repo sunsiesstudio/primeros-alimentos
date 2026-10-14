@@ -854,6 +854,7 @@ P("Yogur natural|Kéfir",{b:["mash","En cuchara cargada, para que la lleve a la 
 P("Mantequilla",{b:["mash","En capa fina sobre tostada"]});
 const presOf=x=>{const d=PD[x.c];if(!d)return null;const o=PO[x.n]||{};return{b:o.b||d.b,pu:o.pu||d.pu,q:o.q||d.q,rind:o.rind}};
 const EZ0=new Set(["Calabaza","Zanahoria","Patata","Boniato","Calabacín","Plátano","Pera","Manzana","Aguacate","Avena","Pollo","Huevo","Brócoli","Lentejas","Arroz"]),EZ1=new Set(["Merluza","Pavo","Ternera","Garbanzos","Judías verdes","Coliflor","Guisantes","Kiwi","Melocotón","Mango","Ciruela","Pasta","Quinoa","Yogur natural","Tomate","Puerro","Cebolla","Tofu","Salmón","Pan","Pan integral","Lentejas rojas","Alubias blancas"]);
+const LATE=new Set(["Cordero","Sardinas","Conejo","Cerdo","Mejillones","Gambas","Rape","Tempeh","Coles de Bruselas","Alcachofa","Hinojo","Rábano","Borraja","Nabo","Setas","Champiñones","Lombarda","Endibia","Chirivía","Membrillo cocido","Níspero","Chirimoya","Granada","Maracuyá","Caqui","Higos","Dátiles","Coco"]);
 const ease=x=>EZ0.has(x.n)?7:EZ1.has(x.n)?3:0;
 const stage=()=>{const y=S.prefs.sty;if(y==="pure")return"pure";if(y==="grad"){const w=Math.max(0,(Date.parse(today())-Date.parse(S.prefs.sty0||today()))/6048e5);return w<3?"pure":w<6?"mid":"blw"}return"blw"};
 const effEat=()=>{const g=stage(),y=S.prefs.sty;return g==="pure"&&y?"pure":g==="mid"?"mix":(y==="grad"&&g==="blw"&&S.eat!=="bits"?"bits":S.eat)};
@@ -1444,6 +1445,14 @@ function recipesFor(kn,mo,pz){
   if(pl&&av&&egg.length)add("tortita","Huevo","Tortitas de plátano y avena",[pl,av,egg[0]],"Tortitas pequeñas a la plancha",["Desayuno","Merienda"]);
   egg.forEach(e=>add("tortilla","Huevo","Tortilla francesa",[e],T("En tiras","En trocitos"),["Desayuno"]));
   fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
+  kn.filter(x=>x.c==="Frutos secos").forEach(x=>{
+    const sd=/^Semillas/.test(x.n),tah=x.n.startsWith("Sésamo"),nm=sd?low(x)+" molidas":tah?"tahini":"crema de "+low(x),cp=nm.charAt(0).toUpperCase()+nm.slice(1),
+      hw=sd?"Molidas muy finas, mezcladas con la papilla o el yogur":"Crema 100% fruto seco, diluida con agua o leche. Nunca entero ni en trozos";
+    add("mix",null,cp,[x],hw,["Desayuno","Merienda"]);
+    if(av)add("avena",null,`Papilla de avena con ${nm}`,[av,x],"Papilla espesa, con "+nm+" bien mezclada",["Desayuno"]);
+    if(yo)add("yogur",null,`Yogur natural con ${nm}`,[yo,x],"Con "+nm+" bien mezclada",["Desayuno","Merienda"]);
+    fru.slice(0,3).forEach(f=>add("mix",null,`${f.n} con ${nm}`,[f,x],"Fruta muy madura aplastada, con "+nm+" en capa fina",["Desayuno","Merienda"]));
+    pan.forEach(b=>add("tostada",null,`Tostada con ${nm}`,[b,x],"En tiras, con "+nm+" en capa fina",["Desayuno","Merienda"]))});
   const sg=stage();
   if(sg==="blw")return out;
   const PU=new Set(["pure","guiso","mix","yogur","avena","queso","fruta","hummus","arroz"]),MD=new Set([...PU,"solo","tortilla","tostada"]),isP=r=>r.k||r.ings.some(n=>prot.some(x=>x.n===n));
@@ -1498,6 +1507,7 @@ function plan(){
         s+=Math.min(goals.filter(g=>GS[g](x)).length,2)*5;
         if(x.fe&&goals.includes("iron")&&!extra)s+=3;
         s+=ease(x)*Math.max(0,1-T0/25);
+        if(LATE.has(x.n)&&T0<30)s-=99;else if(!EZ0.has(x.n)&&!EZ1.has(x.n)&&!extra&&T0<20)s-=4;
         if(x.n==="Huevo"&&kn0("Aguacate")||x.n==="Aguacate"&&kn0("Huevo"))s+=3*Math.max(0,1-T0/25);
         if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
         if(x.c===prev)s-=2;
@@ -1677,7 +1687,7 @@ function shopQty(x,sv){const n=x.n,s=Math.max(1,sv||1);
   const g=(PP[n]||PORT[x.c]||30)*s*1.2;
   if(PCS[n]){const k=Math.max(1,Math.ceil(g/PCS[n])),w=n.toLowerCase();return k+" "+(k===1?w:w.split(" ").map(plur).join(" "))}
   const r=Math.max(100,Math.ceil(g/50)*50),t=r>=1000?(r/1000).toString().replace(".",",")+" kg":r+" g";
-  return t+(/^(Lentejas|Alubias|Garbanzos)/.test(n)?" (secas)":"")}
+  return t+(/^Garbanzos/.test(n)?" (secos)":/^(Lentejas|Alubias)/.test(n)?" (secas)":"")}
 function renderWeek(W){
   const fz=S.prefs.fz==="freeze",cap=x=>x.charAt(0).toUpperCase()+x.slice(1),fm=d=>d.toLocaleDateString("es-ES",{day:"numeric",month:"long"});
   {const mg={};W.trips.forEach(t=>t.items.forEach(i=>{const e=mg[i.n]=mg[i.n]||{n:i.n,s:0,dl:[],key:i.n};e.s+=i.s;i.dl.forEach(d=>{if(!e.dl.includes(d))e.dl.push(d)})}));shopCur=Object.values(mg)}
