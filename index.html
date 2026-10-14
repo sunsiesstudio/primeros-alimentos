@@ -185,6 +185,7 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 .gsteps{list-style:none;margin:12px 0 0;padding:0;counter-reset:gs;display:flex;flex-direction:column;gap:8px}.gsteps li{counter-increment:gs;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:var(--bg);border:2px solid var(--line)}
 .gsteps li:before{content:counter(gs);flex:none;width:28px;height:28px;border-radius:50%;background:#c0392b;color:#fff;font:700 .9rem Montserrat,sans-serif;display:flex;align-items:center;justify-content:center}.gsteps b{flex:none;font-size:.9rem;min-width:96px}.gsteps span{font-size:.8rem;color:var(--mute);line-height:1.3}
 details.gfull{margin-top:14px}
+.mpick{margin-top:10px}.mpick>span{display:block;font-size:.85rem;margin-bottom:6px}.mpick div{display:flex;flex-wrap:wrap;gap:6px}.mpick button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 11px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:34px}.mpick button.on{background:var(--green);border-color:var(--green);color:#fff}
 .pfg{grid-column:1/-1}.pfg .msl{position:static;min-width:0;max-height:none;box-shadow:none;margin-top:6px;border:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .msl{position:absolute;z-index:6;left:0;min-width:250px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;margin-top:4px;box-shadow:0 8px 24px rgba(0,0,0,.18);max-height:300px;overflow:auto}
 .ck{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border-radius:8px;cursor:pointer;margin:0;font-size:.9rem}
@@ -714,6 +715,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="risk hide" id="risk"></div>
   <label>Fecha<input id="dt" type="date"></label>
   <div id="shp"></div>
+  <div class="mpick" id="mpick" role="group" aria-label="Servicio (opcional)"><span>¿En qué comida? (opcional)</span><div id="mpick_b"></div></div>
   <label id="howl">Cómo lo serviste<select id="how"></select></label>
   <div class="rxq"><div class="rxg" id="rxg" role="group" aria-label="¿Cómo ha ido?"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">Hoy no</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
   <select id="rx" class="hide"><option value="">Elige</option><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select>
@@ -1193,7 +1195,9 @@ function mashOnly(){const by={};S.log.forEach(l=>{if(l.r==="pre")return;(by[l.f]
 let snkT=0;
 function snack(html,label,fn){const e=$("snk");e.innerHTML=`<span>${html}</span>${label?`<button type="button" class="x">${label}</button>`:""}<button type="button" class="x" aria-label="Cerrar">✕</button>`;e.classList.remove("hide");
   const bs=e.querySelectorAll("button");if(label)bs[0].onclick=()=>{e.classList.add("hide");fn()};bs[bs.length-1].onclick=()=>e.classList.add("hide");clearTimeout(snkT);snkT=setTimeout(()=>e.classList.add("hide"),12000)}
-function openSheet(n,pd,rest,pieces){cur=n;const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
+let curMeal="";
+function drawMeal(){$("mpick_b").innerHTML=MEALS.map(m=>`<button type="button" data-m="${esc(m)}" class="${curMeal===m?"on":""}" aria-pressed="${curMeal===m}">${esc(m)}</button>`).join("");$("mpick_b").querySelectorAll("button").forEach(b=>b.onclick=()=>{curMeal=curMeal===b.dataset.m?"":b.dataset.m;drawMeal()})}
+function openSheet(n,pd,rest,pieces){cur=n;curMeal="";drawMeal();const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
   if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo} meses.`:""}</p>`);
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
@@ -1210,7 +1214,8 @@ const HOWX={"AOVE":["Un chorrito en la comida","Al cocinar"]};
 const howOpts=x=>(x&&HOWX[x.n])||(x&&HOWC[x.c])||HOW;
 $("cx").onclick=()=>$("sh").classList.add("hide");
 $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
-  {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;S.log.push(e)}
+  {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;if(curMeal)e.ml=curMeal;S.log.push(e);
+    if(curMeal){const dm=S.ml[d0]=S.ml[d0]||{};if(!dm[curMeal]){dm[curMeal]={d:true};if(MR.includes(rv))dm[curMeal].r=rv;S.ov=S.ov||{};const od=S.ov[d0]=S.ov[d0]||{};if(!od[curMeal])od[curMeal]={n:cur}}}}
   document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
   {const x=info(cur),h=$("how").value,had=S.log.filter(l=>l.f===cur).some(l=>PCSH.has(l.how));const nm=cur;
    save();$("sh").classList.add("hide");render();
