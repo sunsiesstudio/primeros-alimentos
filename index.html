@@ -488,6 +488,8 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
       <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
       <label>Cocina<select id="pf_fz"><option value="fresh">Todo fresco del día</option><option value="freeze">Congelo en tandas</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
+      <label>Ritmo<select id="pf_sty"><option value="pure">Puré por ahora</option><option value="grad">Poco a poco</option><option value="blw">BLW completo</option></select></label>
+      <div class="mute hide" id="pf_stn" style="grid-column:1/-1;margin:-4px 0 0"></div>
       <label>Cómo come ahora<select id="pf_eat"><option value="">Sin indicar</option><option value="pure">Solo puré</option><option value="mix">Mezclado</option><option value="bits">Trozos</option></select></label>
       <label>Comidas al día<select id="pf_meals"><option value="0">Según su edad</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4 o más</option></select></label>
       <label>Cómo come<select id="pf_app"><option value="">Sin indicar</option><option value="play">Juega y prueba</option><option value="some">Come un poco</option><option value="full">Come de verdad</option></select></label>
@@ -851,17 +853,21 @@ P("Polenta",{b:["stick","Bastones de polenta fría"]});
 P("Yogur natural|Kéfir",{b:["mash","En cuchara cargada, para que la lleve a la boca"],pu:"Natural, sin azúcar",q:["mash","Con trocitos de fruta"]});
 P("Mantequilla",{b:["mash","En capa fina sobre tostada"]});
 const presOf=x=>{const d=PD[x.c];if(!d)return null;const o=PO[x.n]||{};return{b:o.b||d.b,pu:o.pu||d.pu,q:o.q||d.q,rind:o.rind}};
-const texLevel=()=>{const a=age(),mo=a?a.mo:8;let L=mo<7?1:mo<9?2:mo<11?3:4;return S.eat==="pure"?Math.min(L,2):S.eat==="mix"?Math.min(Math.max(L,2),3):L};
+const EZ0=new Set(["Calabaza","Zanahoria","Patata","Boniato","Calabacín","Plátano","Pera","Manzana","Aguacate","Avena","Pollo","Huevo","Brócoli","Lentejas","Arroz"]),EZ1=new Set(["Merluza","Pavo","Ternera","Garbanzos","Judías verdes","Coliflor","Guisantes","Kiwi","Melocotón","Mango","Ciruela","Pasta","Quinoa","Yogur natural","Tomate","Puerro","Cebolla","Tofu","Salmón","Pan","Pan integral","Lentejas rojas","Alubias blancas"]);
+const ease=x=>EZ0.has(x.n)?7:EZ1.has(x.n)?3:0;
+const stage=()=>{const y=S.prefs.sty;if(y==="pure")return"pure";if(y==="grad"){const w=Math.max(0,(Date.parse(today())-Date.parse(S.prefs.sty0||today()))/6048e5);return w<3?"pure":w<6?"mid":"blw"}return"blw"};
+const effEat=()=>{const g=stage(),y=S.prefs.sty;return g==="pure"&&y?"pure":g==="mid"?"mix":(y==="grad"&&g==="blw"&&S.eat!=="bits"?"bits":S.eat)};
+const texLevel=()=>{const a=age(),mo=a?a.mo:8;let L=mo<7?1:mo<9?2:mo<11?3:4,e=effEat();return e==="pure"?Math.min(L,2):e==="mix"?Math.min(Math.max(L,2),3):L};
 const TXL={
 1:mo=>`A los ${mo} meses: tiras blandas que pueda agarrar con el puño y puré espeso. Aún no hace falta trocear.`,
 2:mo=>`A los ${mo} meses: tiras y puré con grumos, y algún trozo blando grande para practicar.`,
 3:mo=>`A los ${mo} meses suele aparecer la pinza: menos aplastado y más trocitos blandos que pueda pellizcar.`,
 4:mo=>`A los ${mo} meses: trocitos pequeños y blandos, casi como la familia y sin sal. El puré pasa a ser la excepción.`};
-const EATTX={pure:mo=>`Ahora toma solo puré: lo dejamos con grumos y le ofrecemos tiras blandas para que practique.${mo>=8?" La AEP aconseja pasar a texturas grumosas como tarde a los 8 o 9 meses.":""}`,
+const EATTX={pure:mo=>S.prefs.sty?`Por ahora solo puré: espeso y con grumos, sin trozos.${mo>=8?" La AEP aconseja pasar a texturas grumosas como tarde a los 8 o 9 meses.":""}`:`Ahora toma solo puré: lo dejamos con grumos y le ofrecemos tiras blandas para que practique.${mo>=8?" La AEP aconseja pasar a texturas grumosas como tarde a los 8 o 9 meses.":""}`,
 mix:mo=>`Ahora mezcla puré y trozos: vamos hacia menos aplastado y más trocitos blandos.`,
 bits:mo=>`Ya come trozos: seguimos con tiras y trocitos blandos, casi como la familia y sin sal.`};
-const texText=(mo,tx)=>S.eat&&EATTX[S.eat]?EATTX[S.eat](mo):TXL[tx](mo);
-const pinzaNow=()=>{const a=age();return !!a&&a.mo>=9&&S.eat!=="pure"};
+const texText=(mo,tx)=>effEat()&&EATTX[effEat()]?EATTX[effEat()](mo):TXL[tx](mo);
+const pinzaNow=()=>{const a=age();return !!a&&a.mo>=9&&effEat()!=="pure"};
 const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
 const RISK={"Manzana":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pera":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pan":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."],"Pan integral":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."]};
 const offerText=(x,pz)=>{const p=presOf(x);return !p?"":pz?p.q[1]:p.b[1]+(p.b[0]==="mash"?"":". O "+lowFirst(p.pu))};
@@ -882,7 +888,7 @@ const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,eat:"",meals:0,app:"",al:{},rx:[],ph:"",sl:{},ml:{},ov:{},dip:false,log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
-  delete pr.iron;delete pr.alg;delete pr.per;
+  delete pr.iron;delete pr.alg;delete pr.per;if(!["pure","grad","blw"].includes(pr.sty))pr.sty="";if(pr.sty!=="grad"||!/^\d{4}-\d{2}-\d{2}$/.test(pr.sty0||""))delete pr.sty0;
   pr.gen=o.prefs&&"gen" in o.prefs?!!o.prefs.gen:!!(o.bd||(Array.isArray(o.log)&&o.log.length));
   return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,eat:["pure","mix","bits"].includes(o.eat)?o.eat:"",meals:[1,2,3,4].includes(+o.meals)?+o.meals:0,app:["play","some","full"].includes(o.app)?o.app:"",pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),ml:cleanMl(o.ml),ov:cleanOv(o.ov),dip:!!o.dip,log:(Array.isArray(o.log)?o.log:[]).map(l=>l&&FMAP[l.f]?{...l,f:FMAP[l.f]}:l),prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
@@ -1196,7 +1202,7 @@ $("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("
   document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
   {const x=info(cur),h=$("how").value,had=S.log.filter(l=>l.f===cur).some(l=>PCSH.has(l.how));const nm=cur;
    save();$("sh").classList.add("hide");render();
-   if(x&&MASHH.has(h)&&!had&&canPieces(x)&&!blockedG(x))snack(`¡Muy bien! La próxima vez anímate a ofrecer <b>${esc(nm)}</b> en ${pinzaNow()?"trocitos":"tiras"}.`,"Probar ya",()=>openSheet(nm,today(),undefined,true))}
+   if(x&&MASHH.has(h)&&!had&&canPieces(x)&&!blockedG(x)&&stage()!=="pure")snack(`¡Muy bien! La próxima vez anímate a ofrecer <b>${esc(nm)}</b> en ${pinzaNow()?"trocitos":"tiras"}.`,"Probar ya",()=>openSheet(nm,today(),undefined,true))}
   if(!S.dip&&Object.keys(stats()).length>=100){S.dip=true;save();openDiploma(false)}
   else if(rv==="react"&&g){tkSet.add(g);setRT("al");tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}
 };
@@ -1271,8 +1277,8 @@ const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
 function askProfile(){if(!S.bd&&!obSkip&&USER&&LOADED&&$("gate").classList.contains("hide"))openOb()}
 let OB=null;
-function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:[]};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
-function obSteps(){return OB.ya?[0,1,2,3,...(obGroups().length?[4]:[]),7,8,9,5,6]:[0,1,2,5,6]}
+function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:[],sty:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
+function obSteps(){return OB.ya?[0,1,2,3,...(obGroups().length?[4]:[]),7,8,9,10,5,6]:[0,1,2,10,5,6]}
 function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
 const obOpt=(k,v,t,sm,on)=>`<button type="button" class="gcard eatc${on?" on":""}" data-ok="${k}" data-ov="${v}"><span class="kt"><b>${t}</b><small>${sm}</small></span></button>`;
 function drawOb(){
@@ -1288,9 +1294,10 @@ function drawOb(){
   if(i===7){title=`¿Cómo come ${esc(nm||"tu bebé")} hasta ahora?`;h='<div class="ocl">'+[["pure","Solo puré","Todo triturado o muy aplastado"],["mix","Mezclado","Puré y algunos trozos"],["bits","Trozos","Baby-led weaning, con las manos"]].map(o=>`<button type="button" class="gcard eatc${OB.eat===o[0]?" on":""}" data-eat="${o[0]}"><span class="kt"><b>${o[1]}</b><small>${o[2]}</small></span></button>`).join("")+"</div>";ok=!!OB.eat}
   if(i===8){title=`¿Cuántas comidas al día hace ${esc(nm||"tu bebé")}?`;h='<div class="ocl">'+[[1,"1 comida","Solo una vez al día"],[2,"2 comidas","Por ejemplo comida y merienda"],[3,"3 comidas","Desayuno, comida y merienda"],[4,"4 o más","Con cena incluida"]].map(o=>obOpt("meals",o[0],o[1],o[2],OB.meals===o[0])).join("")+"</div>";ok=!!OB.meals}
   if(i===9){title=`¿Come de verdad o solo juega?`;h='<div class="ocl">'+[["play","Juega y prueba","Toca, huele y se lo lleva a la boca, pero casi no traga"],["some","Come un poco","Traga algo, pero deja casi todo"],["full","Come de verdad","Se termina platos o raciones enteras"]].map(o=>obOpt("app",o[0],o[1],o[2],OB.app===o[0])).join("")+"</div>";ok=!!OB.app}
+  if(i===10){title="¿A qué ritmo quieres ir?";h='<div class="ocl">'+[["pure","Puré por ahora","Solo triturado o aplastado, sin trozos todavía"],["grad","Poco a poco","Empezamos con puré y vamos pasando a tiras y trozos en unas semanas"],["blw","BLW completo","Tiras y trozos blandos desde el principio"]].map(o=>obOpt("sty",o[0],o[1],o[2],OB.sty===o[0])).join("")+'</div><p class="mute">Lo puedes cambiar cuando quieras en el plan.</p>';ok=!!OB.sty}
   if(i===5){title="¿Cómo lo planificamos?";h=`<div class="fl"><span class="flab">Dieta</span><div class="ag" data-k="diet">${[["om","De todo"],["veg","Vegetariana"],["vgn","Vegana"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.diet===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Alimento nuevo</span><div class="ag" data-k="every">${[[1,"Cada día (recomendado)"],[2,"Cada 2 días"],[3,"Cada 3 días"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.every===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Cocina</span><div class="ag" data-k="fz">${[["fresh","Todo fresco del día"],["freeze","Congelo en tandas"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.fz===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>`}
   if(i===6){title="¿Qué objetivos quieres cubrir?";h='<p class="mute">Elige los que quieras. Con esto generamos el plan, y puedes cambiarlo cuando quieras.</p><div class="ocl">'+GOALS.map(g=>goalCard(g,OB.goals.includes(g[0]))).join("")+"</div>"}
-  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${st.indexOf(k)<=st.indexOf(i)?"on":""}"></i>`).join("")}</div><div class="mid${[3,4,6].includes(i)?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${[3,4,7,8,9].includes(i)?'<button class="skip" id="ob_pass">Saltar este paso</button>':""}${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button><button class="skip" id="ob_out">Cerrar sesión</button>'}</div></div>`;
+  $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${st.indexOf(k)<=st.indexOf(i)?"on":""}"></i>`).join("")}</div><div class="mid${[3,4,6].includes(i)?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${[3,4,7,8,9,10].includes(i)?'<button class="skip" id="ob_pass">Saltar este paso</button>':""}${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button><button class="skip" id="ob_out">Cerrar sesión</button>'}</div></div>`;
   const o=$("ob");
   if($("ob_nm"))$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};
   if($("ob_bd"))$("ob_bd").oninput=e=>{OB.bd=e.target.value;$("ob_next").disabled=!(OB.bd&&OB.bd<=today())};
@@ -1306,7 +1313,7 @@ function drawOb(){
   o.querySelectorAll(".ocl input").forEach(c=>c.onchange=()=>{OB.goals=[...o.querySelectorAll(".ocl input:checked")].map(x=>x.value)});
   o.querySelectorAll(".ag:not([data-k]) button").forEach(b=>b.onclick=()=>{const g=b.parentNode.dataset.g;if(b.dataset.v)OB.al[g]=b.dataset.v;else delete OB.al[g];const sc=o.scrollTop;drawOb();o.scrollTop=sc});
   $("ob_next").onclick=()=>{if(last)return obFinish();OB.s=st[st.indexOf(i)+1];drawOb();o.scrollTop=0};
-  if($("ob_pass"))$("ob_pass").onclick=()=>{if(i===3)OB.fo.clear();else if(i===4)OB.al={};else if(i===7)OB.eat="";else if(i===8)OB.meals=0;else OB.app="";const n=obSteps();OB.s=n[n.indexOf(i)+1]!==undefined?n[n.indexOf(i)+1]:n.find(k=>k>i);drawOb();o.scrollTop=0};
+  if($("ob_pass"))$("ob_pass").onclick=()=>{if(i===3)OB.fo.clear();else if(i===4)OB.al={};else if(i===7)OB.eat="";else if(i===8)OB.meals=0;else if(i===10)OB.sty="";else OB.app="";const n=obSteps();OB.s=n[n.indexOf(i)+1]!==undefined?n[n.indexOf(i)+1]:n.find(k=>k>i);drawOb();o.scrollTop=0};
   if($("ob_back"))$("ob_back").onclick=()=>{OB.s=st[st.indexOf(i)-1];drawOb();o.scrollTop=0};
   if($("ob_skip"))$("ob_skip").onclick=()=>{obSkip=true;try{localStorage.setItem(SKK(),"1")}catch(e){}$("ob").classList.add("hide")};
   if($("ob_out"))$("ob_out").onclick=()=>{$("ob").classList.add("hide");if(window.cloud)window.cloud.logout();else{window.__auth(null)}};
@@ -1315,7 +1322,7 @@ function obFinish(){
   S.nm=OB.nm.trim().slice(0,40);S.bd=OB.bd;
   OB.fo.forEach(f=>{if(info(f)&&!S.log.some(l=>l.f===f))S.log.push({f,how:"Antes de empezar",r:"pre",d:OB.bd,pre:true})});
   S.al={...S.al,...cleanAl(OB.al)};
-  S.eat=OB.ya?OB.eat:"";S.meals=OB.ya?OB.meals:0;S.app=OB.ya?OB.app:"";S.prefs.diet=OB.diet;S.prefs.every=OB.every;S.prefs.fz=OB.fz;S.prefs.goals=[...OB.goals];S.prefs.gen=true;
+  S.eat=OB.ya?OB.eat:"";S.meals=OB.ya?OB.meals:0;S.app=OB.ya?OB.app:"";S.prefs.diet=OB.diet;S.prefs.every=OB.every;S.prefs.fz=OB.fz;S.prefs.goals=[...OB.goals];S.prefs.gen=true;S.prefs.sty=OB.sty;if(OB.sty==="grad")S.prefs.sty0=today();else delete S.prefs.sty0;
   $("ob").classList.add("hide");save();render();renderPlanForm();tab(2)}
 function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
 [2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));
@@ -1361,13 +1368,13 @@ function planHead(){
   const p=S.prefs,a=age(),nm=esc(S.nm||"tu bebé"),gt=Object.fromEntries(GOALS.map(g=>[g[0],g[2]]));
   const dt={om:"De todo",veg:"Vegetariana",vgn:"Vegana"}[p.diet]||"De todo",ev=(p.every||1)===1?"Nuevo cada día":"Nuevo cada "+p.every+" días";
   const tg=(t,c)=>`<span class="ptag"${c?` style="--c:${c}"`:""}>${esc(t)}</span>`;
-  $("pf_head").innerHTML=`<span class="ptt disp">Plan personalizado para ${nm}</span><span class="ptags">${tg(dt)}${tg(ev)}${p.fz==="freeze"?tg("Congela"):""}${S.eat?tg(EATL[S.eat]):""}${S.meals?tg(S.meals+(S.meals===4?" o más comidas":S.meals===1?" comida":" comidas")):""}${S.app?tg({play:"Explora",some:"Come un poco",full:"Come bien"}[S.app]):""}${(p.goals||[]).filter(g=>gt[g]).map(g=>tg(gt[g],GCOL[g])).join("")}</span>`;
+  $("pf_head").innerHTML=`<span class="ptt disp">Plan personalizado para ${nm}</span><span class="ptags">${tg(dt)}${tg(ev)}${p.fz==="freeze"?tg("Congela"):""}${p.sty?tg({pure:"Puré por ahora",grad:"Poco a poco",blw:"BLW completo"}[p.sty]):""}${S.eat?tg(EATL[S.eat]):""}${S.meals?tg(S.meals+(S.meals===4?" o más comidas":S.meals===1?" comida":" comidas")):""}${S.app?tg({play:"Explora",some:"Come un poco",full:"Come bien"}[S.app]):""}${(p.goals||[]).filter(g=>gt[g]).map(g=>tg(gt[g],GCOL[g])).join("")}</span>`;
   {const fit=()=>{const pt=$("pf_head").querySelector(".ptags");if(!pt)return;const r=$("pf_head").getBoundingClientRect().right-2;const ts=[...pt.querySelectorAll(".ptag")];ts.forEach(t=>t.classList.remove("xh"));ts.forEach(t=>{if(t.getBoundingClientRect().right>r)t.classList.add("xh")})};requestAnimationFrame(fit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit)}
 }
 function renderPlanForm(){
   const p=S.prefs,dt=DIETTXT[p.diet];
   $("dinfo").classList.toggle("hide",!dt);$("dinfo").title=dt||"";$("dpop").textContent=dt||"";if(!dt)$("dpop").classList.add("hide");
-  $("pf_diet").value=p.diet;$("pf_eat").value=S.eat||"";$("pf_meals").value=String(S.meals||0);$("pf_app").value=S.app||"";$("pf_every").value=String(p.every||2);$("pf_fz").value=p.fz==="freeze"?"freeze":"fresh";
+  $("pf_diet").value=p.diet;$("pf_eat").value=S.eat||"";$("pf_sty").value=p.sty||"blw";{const g=stage(),n=$("pf_stn");if(p.sty==="grad"){const w=Math.floor((Date.parse(today())-Date.parse(p.sty0||today()))/6048e5)+1;n.textContent="Semana "+w+": "+(g==="pure"?"solo puré.":g==="mid"?"puré y alimentos sencillos en tiras, sin carnes ni pescado en trozos todavía.":"ya con todo en tiras y trozos.");n.classList.remove("hide")}else n.classList.add("hide")}$("pf_meals").value=String(S.meals||0);$("pf_app").value=S.app||"";$("pf_every").value=String(p.every||2);$("pf_fz").value=p.fz==="freeze"?"freeze":"fresh";
   $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
   const g=p.goals.map(x=>GL[x]);
   $("pf_gsum").textContent=!g.length?"Elegir":g.length<=2?g.join(", "):g.length+" objetivos";
@@ -1377,6 +1384,7 @@ $("dinfo").onclick=e=>{e.preventDefault();$("dpop").classList.toggle("hide")};
 $("pf_diet").onchange=e=>setPref("diet",e.target.value);
 $("pf_meals").onchange=e=>{S.meals=+e.target.value;save();renderPlanForm();plan()};
 $("pf_app").onchange=e=>{S.app=e.target.value;save();renderPlanForm();plan()};
+$("pf_sty").onchange=e=>{const v=e.target.value;S.prefs.sty=v;if(v==="grad")S.prefs.sty0=today();else delete S.prefs.sty0;planShown=7;save();renderPlanForm();plan()};
 $("pf_eat").onchange=e=>{S.eat=e.target.value;planShown=7;save();renderPlanForm();plan()};
 $("pf_fz").onchange=e=>setPref("fz",e.target.value);
 $("pf_every").onchange=e=>setPref("every",+e.target.value);
@@ -1436,7 +1444,12 @@ function recipesFor(kn,mo,pz){
   if(pl&&av&&egg.length)add("tortita","Huevo","Tortitas de plátano y avena",[pl,av,egg[0]],"Tortitas pequeñas a la plancha",["Desayuno","Merienda"]);
   egg.forEach(e=>add("tortilla","Huevo","Tortilla francesa",[e],T("En tiras","En trocitos"),["Desayuno"]));
   fru.forEach(f=>{const p=presOf(f);add("fruta",null,f.n,[f],offerText(f,pz),["Desayuno","Media mañana","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
-  return out}
+  const sg=stage();
+  if(sg==="blw")return out;
+  const PU=new Set(["pure","guiso","mix","yogur","avena","queso","fruta","hummus","arroz"]),MD=new Set([...PU,"solo","tortilla","tostada"]),isP=r=>r.k||r.ings.some(n=>prot.some(x=>x.n===n));
+  if(sg==="pure"){[...veg,...prot].forEach(x=>{if(!out.some(r=>r.t==="pure"&&r.ings.length===1&&r.ings[0]===x.n))out.push({t:"pure",k:prot.includes(x)?x.n:null,n:"Puré de "+low(x),ing:low(x),ings:[x.n],q:[qty(x),...(EXTRA.pure||[])],how:T("Puré espeso con grumos","Aplastado con tenedor, con trocitos blandos"),meals:["Comida","Cena"],g:fig("mash",0,0,pz)})});
+    return out.filter(r=>PU.has(r.t)||(r.t==="solo"&&cer.some(c=>c.n===r.ings[0])))}
+  return out.filter(r=>MD.has(r.t)&&!(r.t==="solo"&&r.ings.length===1&&prot.some(x=>x.n===r.ings[0])))}
 
 let pdate=null,lastDay=today();
 function plan(){
@@ -1476,7 +1489,7 @@ function plan(){
     const items=[];let rep=null,pre=null;
     if(!doneNew.length&&rp&&rp.left>0){rp.left--;rp.n++;rep={x:rp.x,n:rp.n};lastA=d;lastNew=d}
     else if(!doneNew.length&&d-lastNew>=every){
-      let best=null,bs=-1e9;const T0=Object.values(cc).reduce((a,b)=>a+b,0);
+      let best=null,bs=-1e9;const kn0=n=>known.some(k=>k.n===n),T0=Object.values(cc).reduce((a,b)=>a+b,0);
       pool.forEach(x=>{
         const extra=x.c==="Frutos secos"||x.c==="Condimentos";
         const des=Math.max(TGT[x.c]||0,(SH[x.c]||0)*(T0+1)),cnt=cc[x.c]||0;
@@ -1484,6 +1497,8 @@ function plan(){
         if(!extra)s+=((x.fe?3:0)+(ZN.has(x.n)?2:0))*(cnt>=des?.3:1);
         s+=Math.min(goals.filter(g=>GS[g](x)).length,2)*5;
         if(x.fe&&goals.includes("iron")&&!extra)s+=3;
+        s+=ease(x)*Math.max(0,1-T0/25);
+        if(x.n==="Huevo"&&kn0("Aguacate")||x.n==="Aguacate"&&kn0("Huevo"))s+=3*Math.max(0,1-T0/25);
         if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
         if(x.c===prev)s-=2;
         if(extra)s-=(T0<12?9:3);
@@ -1534,7 +1549,7 @@ function plan(){
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
       if(!L.length)return;
       const rec=new Set([1,2,3].flatMap(k=>[...(hist[o.di-k]||[])]));
-      const sc=r=>{let c=0,ru=0;r.ings.forEach(n=>{if(covered(n,o.di)){ru++;if(o.di-bought[n]>=lifeN(n)-2)ru+=.5}else c++});return c*10-ru*3+(r.t==="solo"?14:0)+(rec.has(r.n)?6:0)},
+      const sc=r=>{let c=0,ru=0;r.ings.forEach(n=>{if(covered(n,o.di)){ru++;if(o.di-bought[n]>=lifeN(n)-2)ru+=.5}else c++});return c*10-ru*3+(r.t==="solo"?14:0)-(r.t==="mix"&&o.kn.length<25?4:0)+(rec.has(r.n)?6:0)},
         best=Math.min(...L.map(sc)),L2=L.filter(r=>sc(r)<=best+.01),r=L2[(o.di*2+si+(p.seed||1))%L2.length];
       r.ings.forEach(n=>buy(n,o.di));hist[o.di].add(r.n);
       usedN.add(r.n);if(r.k)usedK.add(r.k);rows.push([meal,r]);
@@ -1607,7 +1622,7 @@ function plan(){
     const tg=o.items.flatMap(n=>goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`)).join(" ")+(o.items.some(n=>n.a)?' <span class="tag w">alérgeno</span>':"");
     const mealsList=[...new Set(o.rows.flatMap(([mm,r])=>r.ings))];
     const btns="";
-    const ro=isT?mashOnly().filter(x=>!o.items.includes(x)).slice(0,2):[];
+    const ro=isT&&stage()!=="pure"?mashOnly().filter(x=>!o.items.includes(x)).slice(0,2):[];
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
