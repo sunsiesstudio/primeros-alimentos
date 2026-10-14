@@ -193,6 +193,9 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 .pres figcaption b{display:block;color:var(--ink);font-weight:600;font-size:.8rem}
 .ptags{flex-wrap:nowrap!important;overflow:hidden}.ptag{white-space:nowrap;flex:none}.ptag.xh{display:none}.remind:empty{display:none}.fb{flex-wrap:nowrap}.fb.w{flex-wrap:wrap}.fb button{padding:4px 9px;min-height:32px}.fb span{white-space:nowrap}.fb button[data-v=react]{--c:#c96a47}
 .course{position:relative}.course .cl .chg{position:absolute;right:0;top:6px;background:none;border:0;color:var(--blue);font:600 .72rem Montserrat,sans-serif;text-decoration:underline;text-transform:none;letter-spacing:0;cursor:pointer;order:3;padding:4px 0 4px 4px}.course .cl:after{order:2}
+.chef{margin:14px 0 4px;padding:12px;border:2px dashed var(--green);border-radius:14px}.chef .disp{color:var(--green);font-size:1.1rem}.chef p{margin:4px 0 8px;font-size:.84rem}.chef input{width:100%;margin-bottom:8px}
+.chefc{display:flex;flex-wrap:wrap;gap:6px;max-height:150px;overflow-y:auto;margin-bottom:10px}.chk{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 10px;font:600 .78rem Montserrat,sans-serif;cursor:pointer}.chk.on{background:var(--green);border-color:var(--green);color:#fff}
+.chgo small{display:block;font-weight:500;color:var(--mute);font-size:.78rem;margin-top:2px}
 .chgl{display:flex;flex-direction:column;gap:6px}.chgo{text-align:left;border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:12px;padding:10px 12px;font:600 .88rem Montserrat,sans-serif;cursor:pointer}
 .wk{display:flex;gap:6px;margin:4px 0 4px}.wd{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 6px;border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}.wd small{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}.wd b{font-size:1.05rem}.wd i{width:6px;height:6px;border-radius:50%;background:transparent}.wd i.nw,.wkl i.nw{background:var(--terra)}.wd.on{background:var(--blue);border-color:var(--blue);color:#fff}.wd.on small{color:#fff}.wd.on i.nw{background:#fff}
 .wkl{margin:0 0 10px;font-size:.74rem;color:var(--mute);display:flex;align-items:center;gap:6px}.wkl i{width:6px;height:6px;border-radius:50%;display:inline-block}
@@ -656,6 +659,9 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <h3 class="disp" id="chg_t"></h3>
   <p class="mute" style="margin:6px 0">Otra idea para este servicio:</p>
   <div id="chg_l" class="chgl"></div>
+  <div class="chef"><b class="disp">Pregúntale al chef</b><p class="mute">¿Qué tienes en casa? Elige y te propone recetas con lo que ya conoce el bebé.</p>
+    <input id="chef_q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+    <div id="chef_c" class="chefc"></div><div id="chef_r" class="chgl"></div></div>
   <label>O escribe qué ha comido<input id="chg_x" type="text" maxlength="80" placeholder="Por ejemplo: tortilla de la abuela"></label>
   <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button"></button><button class="btn" id="chg_rs" type="button">Volver al menú</button></div>
 </div></div>
@@ -1560,6 +1566,15 @@ function plan(){
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
     $("chg_x").value="";$("chg_ok").textContent=isT?"Ha comido otra cosa":"Guardar";$("chg_rs").classList.toggle("hide",!hasOv);
+    {const sel=new Set(),kn=o.kn.filter(x=>x.c!=="Condimentos").sort((a,b)=>a.n.localeCompare(b.n,"es")),pick=(r)=>{dropMeal(d,m);setOv(d,m,{n:r.n});$("chg").classList.add("hide");save();render()};
+      let found=[];
+      const res=()=>{if(!sel.size){$("chef_r").innerHTML='<p class="mute">Marca lo que tengas y salen las recetas.</p>';return}
+        const seen=new Set();found=recipesFor(kn.filter(x=>sel.has(x.n)),mo,pz).filter(r=>r.meals.includes(m)&&r.ings.every(n=>sel.has(n))&&!seen.has(r.n)&&seen.add(r.n)).slice(0,6);
+        $("chef_r").innerHTML=found.length?found.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}<small>${esc(r.q.join(" · "))}</small><small><i>${esc(r.how)}</i></small></button>`).join(""):'<p class="mute">Con eso no sale una receta completa. Prueba a añadir una verdura y una proteína o un cereal.</p>';
+        $("chef_r").querySelectorAll("button").forEach(bb=>bb.onclick=()=>pick(found[+bb.dataset.i]))};
+      const chips=()=>{const q=norm($("chef_q").value.trim());$("chef_c").innerHTML=kn.filter(x=>!q||norm(x.n).includes(q)).map(x=>`<button type="button" class="chk${sel.has(x.n)?" on":""}" data-n="${esc(x.n)}" aria-pressed="${sel.has(x.n)}">${esc(x.n)}</button>`).join("")||'<span class="mute">Nada con ese nombre.</span>';
+        $("chef_c").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const n=bb.dataset.n;if(sel.has(n))sel.delete(n);else sel.add(n);chips();res()})};
+      $("chef_q").value="";$("chef_q").oninput=chips;chips();res()}
     $("chg").classList.remove("hide");
     $("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=alts[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n});$("chg").classList.add("hide");save();render()});
     $("chg_ok").onclick=()=>{const t=$("chg_x").value.trim().slice(0,80);if(!t)return;dropMeal(d,m);setOv(d,m,{n:t});if(isT){(S.ml[d]=S.ml[d]||{})[m]={d:true}}$("chg").classList.add("hide");save();render()};
