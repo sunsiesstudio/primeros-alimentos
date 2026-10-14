@@ -186,6 +186,7 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 .gsteps li:before{content:counter(gs);flex:none;width:28px;height:28px;border-radius:50%;background:#c0392b;color:#fff;font:700 .9rem Montserrat,sans-serif;display:flex;align-items:center;justify-content:center}.gsteps b{flex:none;font-size:.9rem;min-width:96px}.gsteps span{font-size:.8rem;color:var(--mute);line-height:1.3}
 details.gfull{margin-top:14px}
 .mpick{margin-top:10px}.mpick>span{display:block;font-size:.85rem;margin-bottom:6px}.mpick div{display:flex;flex-wrap:wrap;gap:6px}.mpick button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 11px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:34px}.mpick button.on{background:var(--green);border-color:var(--green);color:#fff}
+.mk{display:block;margin-top:8px}.mk .mt,.dday .bt .mt{display:block;width:100%;min-height:44px;font-size:.9rem}
 .pfg{grid-column:1/-1}.pfg .msl{position:static;min-width:0;max-height:none;box-shadow:none;margin-top:6px;border:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .msl{position:absolute;z-index:6;left:0;min-width:250px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;margin-top:4px;box-shadow:0 8px 24px rgba(0,0,0,.18);max-height:300px;overflow:auto}
 .ck{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border-radius:8px;cursor:pointer;margin:0;font-size:.9rem}
@@ -529,7 +530,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 </section>
 
 <section id="v5" class="hide">
-<div class="card gh0"><h3 class="disp">Guía rápida</h3><p class="mute">Lo básico en una página. No sustituye el consejo de tu pediatra.</p></div>
+<div class="card gh0"><h3 class="disp">Guía rápida</h3><p class="mute">Consejos para que la alimentación complementaria sea segura, práctica y divertida para tu peque. Pregunta siempre a tu pediatra.</p></div>
 
 <div class="card gx"><h4 class="disp gs">Antes de empezar</h4>
   <div class="gg">
@@ -702,7 +703,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <p class="mute" style="margin:6px 0">Otras ideas para este servicio:</p>
   <div id="chg_l" class="chgl"></div>
   <label>O escribe qué ha comido<input id="chg_x" type="text" maxlength="80" placeholder="Por ejemplo: tortilla de la abuela"></label>
-  <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button"></button><button class="btn" id="chg_rs" type="button">Volver al menú</button></div>
+  <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button" style="width:100%;flex:1 1 100%">Guardar</button></div>
 </div></div>
 <div class="sheet hide" id="sh" role="dialog" aria-label="Registrar alimento"><div>
   <button class="xc" id="shx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -1582,12 +1583,13 @@ function plan(){
       if(!R.length)R.push("suma variedad al menú sin repetir lo que ya conoce");
       head=`${hy} toca <b>${esc(x.n)}</b>, alimento nuevo: ${R[0]}.${R[1]?" Además, "+R[1]+".":""}`}
     else if(o.rep)head=`${hy} toca <b>${esc(o.rep.x.n)}</b> por segunda vez, día ${o.rep.n} de 3: lo repetimos en poca cantidad para vigilar cómo le sienta.`;
+    else if(o.drop)head=`Has cambiado el menú, así que <b>${o.drop.map(esc).join(", ")}</b> queda para otro día.`;
     else if(o.done.length)head=`${hy} ${nm} ya ha probado algo nuevo, así que el resto del día repetimos lo que conoce.`;
     else head=`${hy} no hay alimento nuevo: repetimos lo que ya conoce para afianzarlo y dejamos ${every>1?"un par de días":"un día"} entre novedades.`;
     {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
       if((x||o.rep)&&cb.length)head+=` Lo mezclamos con ${cb.map(esc).join(", ").replace(/, ([^,]*)$/," y $1")}, que ya conoce.`}
     return {head,tl}};
-  const shown=out.slice(0,show);shown.forEach(o=>{o.rows=menuRows(o);const ovd=(S.ov||{})[o.ds];if(ovd){const R=recipesFor(o.kn,mo,pz);o.rows=o.rows.map(([m,r])=>{const v=ovd[m];if(!v)return[m,r];const f=R.find(x=>x.n===v.n);return[m,f||{t:"solo",n:v.n,q:[],how:"Lo has cambiado tú",ings:[],g:fig("mash",0,0,false)}]})}});shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
+  const shown=out.slice(0,show);shown.forEach(o=>{o.rows=menuRows(o);const ovd=(S.ov||{})[o.ds];if(ovd){const R=recipesFor(o.kn,mo,pz);o.rows=o.rows.map(([m,r])=>{const v=ovd[m];if(!v)return[m,r];const f=R.find(x=>x.n===v.n);return[m,f||{t:"solo",n:v.n,q:[],how:"Lo has cambiado tú",ings:[],g:fig("mash",0,0,false)}]});const inMenu=new Set(o.rows.flatMap(([m,r])=>r.ings));const dr=o.items.filter(x=>!inMenu.has(x.n)).map(x=>x.n).concat(o.rep&&!inMenu.has(o.rep.x.n)?[o.rep.x.n]:[]);o.items=o.items.filter(x=>inMenu.has(x.n));if(o.rep&&!inMenu.has(o.rep.x.n))o.rep=null;if(dr.length)o.drop=dr}});shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={},wdy={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>{wk[n]=(wk[n]||0)+1;(wdy[n]=wdy[n]||[]).push(o.ds===t0?"hoy":o.dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".",""))})});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
   renderShop(wk,buys,wdy);
@@ -1614,7 +1616,7 @@ function plan(){
     const famH=o.fam?`<div class="pap"><b class="disp">Para papis</b>${fzT}<p class="pn">${esc(o.fam.n)}</p><p class="mute">Con lo del bebé: ${o.fam.base.map(esc).join(", ")}. Para vosotros además: ${esc(o.fam.extra)}.</p><p><b>Para el bebé:</b> ${esc(o.fam.baby)}</p><p><b>Para vosotros:</b> ${esc(o.fam.adult)}</p></div>`:"";
     const tg=o.items.flatMap(n=>goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`)).join(" ")+(o.items.some(n=>n.a)?' <span class="tag w">alérgeno</span>':"");
     const mealsList=[...new Set(o.rows.flatMap(([mm,r])=>r.ings))];
-    const btns=o.items.filter(n=>!mealsList.includes(n.n)).map(n=>`<button class="btn" data-n="${esc(n.n)}" data-d="${o.ds}">Registrar ${esc(n.n)}</button>`).join("");
+    const btns="";
     const ro=isT?mashOnly().filter(x=>!o.items.includes(x)).slice(0,2):[];
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
@@ -1627,6 +1629,7 @@ function plan(){
   const howOf=r=>r.t==="pure"?"Puré o aplastado":["solo","tortilla","burger","pescado","tofu","tortita"].includes(r.t)?(pz?"Trozos":"Tiras"):"Mezclado en papilla o yogur";
   const dropMeal=(d,m)=>{S.log=S.log.filter(l=>!(l.d===d&&l.ml===m));if(S.ml[d]){delete S.ml[d][m];if(!Object.keys(S.ml[d]).length)delete S.ml[d]}};
   const setOv=(d,m,v)=>{S.ov=S.ov||{};const e=S.ov[d]=S.ov[d]||{};if(v)e[m]=v;else delete e[m];if(!Object.keys(e).length)delete S.ov[d]};
+  $("days").querySelectorAll("button[data-try]").forEach(b=>b.onclick=()=>{const f=b.dataset.try,d=b.dataset.d;if(S.log.some(l=>l.d===d&&l.f===f))S.log=S.log.filter(l=>!(l.d===d&&l.f===f));else S.log.push({f,how:(()=>{const x=info(f),pp=x&&presOf(x);return pz?"Trozos":"Tiras"})(),r:"meh",d});save();render()});
   $("days").querySelectorAll("button[data-ml]").forEach(b=>b.onclick=()=>{
     const d=b.dataset.d,m=b.dataset.ml,e=S.ml[d]=S.ml[d]||{};
     if(b.dataset.fb==="react"){const lf=S.log.filter(l=>l.d===d&&l.ml===m&&(info(l.f)||{}).a)[0];if(lf){const f=lf.f;S.log=S.log.filter(l=>!(l.d===d&&l.ml===m&&l.f===f));save();render();openSheet(f,d)}return}
@@ -1642,11 +1645,11 @@ function plan(){
     const cur=row[1],seen=new Set([cur.n]),alts=recipesFor(o.kn,mo,pz).filter(r=>r.meals.includes(m)&&!seen.has(r.n)&&seen.add(r.n)).slice(0,4),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
-    $("chg_x").value="";$("chg_ok").textContent=isT?"Ha comido otra cosa":"Guardar";$("chg_rs").classList.toggle("hide",!hasOv);
+    $("chg_x").value="";
     $("chg").classList.remove("hide");
     $("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=alts[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n});$("chg").classList.add("hide");save();render()});
-    $("chg_ok").onclick=()=>{const t=$("chg_x").value.trim().slice(0,80);if(!t)return;dropMeal(d,m);setOv(d,m,{n:t});if(isT){(S.ml[d]=S.ml[d]||{})[m]={d:true}}$("chg").classList.add("hide");save();render()};
-    $("chg_rs").onclick=()=>{dropMeal(d,m);setOv(d,m,null);$("chg").classList.add("hide");save();render()}});
+    $("chg_ok").onclick=()=>{const t=$("chg_x").value.trim().slice(0,80);if(!t)return;dropMeal(d,m);setOv(d,m,{n:t});$("chg").classList.add("hide");save();render()};});
+
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&today()!==lastDay){lastDay=today();pdate=null;render()}});
 setInterval(()=>{if(today()!==lastDay){lastDay=today();pdate=null;render()}},60000);
