@@ -163,6 +163,29 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 .gcard:has(input:checked){border-color:color-mix(in srgb,var(--terra) 55%,var(--line))}
 .gcard input{order:9;width:22px;height:22px;margin:0;flex:none;accent-color:var(--terra)}
 .gcard .kt{flex:1;min-width:0}.gcard .kt b{font-weight:700}.gcard .kt small{color:var(--mute);font-size:.8rem}
+.pap{margin-top:14px;padding:14px;border-radius:14px;border:2px solid var(--terra);background:color-mix(in srgb,var(--terra) 8%,transparent)}.pap .disp{color:var(--terra);font-size:1.35rem;display:block}.pap .pn{font-weight:700;font-size:1.02rem;margin:4px 0}.pap p{margin:5px 0;font-size:.9rem;line-height:1.4}
+
+#v5 .gx{padding:16px}.gh0 h3{margin:0;color:var(--green);font-size:1.7rem}.gh0 p{margin:4px 0 0}
+.gs{margin:0 0 12px;font-size:1.35rem;color:var(--green);font-weight:400}
+.gg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.gtile{--c:var(--green);border-radius:16px;padding:12px 10px;background:color-mix(in srgb,var(--c) 14%,transparent);border:2px solid color-mix(in srgb,var(--c) 45%,transparent);display:flex;flex-direction:column;gap:3px;text-align:center;align-items:center}
+.gtile .big{font-family:"Luckiest Guy",cursive;font-weight:400;font-size:2.3rem;line-height:1;color:var(--c)}.gtile span{font-weight:700;font-size:.86rem;line-height:1.2}.gtile small{font-size:.74rem;color:var(--mute);line-height:1.25}.gtile i{color:var(--c);display:block}
+.g1{--c:#4a8760}.g2{--c:#c96a47}.g3{--c:#3e4cd0}.g4{--c:#b8890a}.gw{--c:#3e4cd0}.gm{--c:#c96a47}
+.gband{margin:12px 0 0;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--green) 14%,transparent);text-align:center;font-size:.9rem}
+.gflow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:relative}.gflow>div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;position:relative}
+.gflow>div:not(:last-child):after{content:"";position:absolute;top:20px;right:-10px;width:12px;height:12px;border-top:3px solid var(--line);border-right:3px solid var(--line);transform:rotate(45deg) scale(.7)}
+.gflow i{color:var(--green);display:block}.gflow b{font-family:"Luckiest Guy",cursive;font-weight:400;color:var(--terra);font-size:1.05rem}.gflow span{font-size:.76rem;line-height:1.2;font-weight:600}
+.gnote{margin:10px 0 0;font-size:.8rem;color:var(--mute);text-align:center}
+.gyn{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gok,.gno,.gwarn{border-radius:16px;padding:12px;border:2px solid}
+.gok{border-color:color-mix(in srgb,var(--green) 55%,transparent);background:color-mix(in srgb,var(--green) 10%,transparent)}.gno{border-color:color-mix(in srgb,#c0392b 60%,transparent);background:color-mix(in srgb,#c0392b 9%,transparent)}.gwarn{border-color:color-mix(in srgb,#e3b422 70%,transparent);background:color-mix(in srgb,#e3b422 12%,transparent)}
+.gyn h5{margin:0 0 6px;font-size:1rem;display:flex;align-items:center;gap:6px}.gok h5{color:var(--green)}.gno h5{color:#c0392b}.gyn h5 svg{width:22px;height:22px}
+.gyn ul{list-style:none;margin:0;padding:0}.gyn li{font-size:.84rem;line-height:1.3;padding:3px 0}.gyn p{margin:0 0 6px;font-size:.82rem}.gyn .gdo{margin:8px 0 0;font-weight:700}
+.gsafe{border-radius:14px;padding:12px;background:var(--bg);border:2px solid var(--line)}.gsafe b{display:block;font-size:.88rem;margin-bottom:3px}.gsafe span{font-size:.8rem;color:var(--mute);line-height:1.3;display:block}
+.gsteps{list-style:none;margin:12px 0 0;padding:0;counter-reset:gs;display:flex;flex-direction:column;gap:8px}.gsteps li{counter-increment:gs;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:var(--bg);border:2px solid var(--line)}
+.gsteps li:before{content:counter(gs);flex:none;width:28px;height:28px;border-radius:50%;background:#c0392b;color:#fff;font:700 .9rem Montserrat,sans-serif;display:flex;align-items:center;justify-content:center}.gsteps b{flex:none;font-size:.9rem;min-width:96px}.gsteps span{font-size:.8rem;color:var(--mute);line-height:1.3}
+details.gfull{margin-top:14px}
+.pfg{grid-column:1/-1}.pfg .msl{position:static;min-width:0;max-height:none;box-shadow:none;margin-top:6px;border:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .msl{position:absolute;z-index:6;left:0;min-width:250px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;margin-top:4px;box-shadow:0 8px 24px rgba(0,0,0,.18);max-height:300px;overflow:auto}
 .ck{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border-radius:8px;cursor:pointer;margin:0;font-size:.9rem}
 .ck:hover{background:var(--line)}
@@ -444,27 +467,27 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 <div class="tabs"><button id="t2" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5M9 7h6M9 11h6"/></svg><span>Guía</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
 
 <section id="v2">
-  <div class="subt" role="tablist"><button class="st on" id="p1">Menú</button><button class="st" id="p2">Compra</button><button class="st" id="p3">Para papis</button></div>
+  <div class="subt" role="tablist"><button class="st on" id="p1">Menú</button><button class="st" id="p2">Compra</button></div>
   <div id="pv1">
   <details class="card" id="pfcard">
     <summary class="plh"><span id="pf_head"></span><span class="ple" aria-label="Editar plan" role="img"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span></summary>
     <div class="pf" style="margin-top:10px">
       <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
+      <label>Cocina<select id="pf_fz"><option value="fresh">Todo fresco del día</option><option value="freeze">Congelo en tandas</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
       <label>Cómo come ahora<select id="pf_eat"><option value="">Sin indicar</option><option value="pure">Solo puré</option><option value="mix">Mezclado</option><option value="bits">Trozos</option></select></label>
       <label>Comidas al día<select id="pf_meals"><option value="0">Según su edad</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4 o más</option></select></label>
       <label>Cómo come<select id="pf_app"><option value="">Sin indicar</option><option value="play">Juega y prueba</option><option value="some">Come un poco</option><option value="full">Come de verdad</option></select></label>
-      <div class="fl"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
+      <div class="fl pfg"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
     </div>
     <p class="pop hide" id="dpop"></p>
-    <div class="btns" style="max-width:260px"><button class="btn p" id="mk">Generar plan</button></div>
+    <div class="btns" style="max-width:none"><button class="btn p" id="mk" style="width:100%;flex:1 1 100%">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
   </details>
   <div class="remind" id="rem"></div>
   <div id="days"></div>
   </div>
   <div id="pv2" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Lista de la compra del bebé</h3><p class="mute">Lo que necesitas para los días del menú que tienes abierto. Marca lo que ya tienes en casa.</p><div id="shop"></div></div></div>
-  <div id="pv3" class="hide"><div class="card"><h3 class="sec" style="margin-top:0">Platos para los papis</h3><p class="mute">Platos que se hacen con lo mismo que come el bebé, para cocinar una vez y no comprar de más. Primero se aparta la ración del bebé, sin sal.</p></div><div id="fam"></div></div>
 </section>
 <section id="v3" class="hide"><div class="card" id="progcard"><div id="prog"></div></div>
 <div class="btns" style="margin:0 0 12px;max-width:320px"><button class="btn on" id="rc">Calendario</button><button class="btn" id="rl">Kanban</button></div>
@@ -505,72 +528,90 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 </section>
 
 <section id="v5" class="hide">
-<div class="card"><h3 class="sec" style="margin-top:0">Guía</h3><p class="mute" style="margin:0">Lo básico para empezar con tranquilidad. No sustituye el consejo de tu pediatra.</p></div>
-<details class="card aep" open><summary>Cómo introducir alimentos</summary>
-  <ul>
-    <li><b>Un alimento nuevo cada vez.</b> Puede ser uno al día, como en el plan, siempre que repitas también lo que ya conoce y lo mezcles con lo nuevo.</li>
-    <li><b>Alérgenos:</b> se ofrecen hacia los 6 meses, de uno en uno, en poca cantidad y 3 días seguidos. Los días de un alérgeno no se añade otro alimento nuevo.</li>
-    <li><b>Repetir es parte del plan.</b> Un rechazo no es definitivo: pueden hacer falta 10 o 15 intentos, sin presionar.</li>
-    <li><b>Texturas:</b> puré espeso, puré con grumos, tiras blandas que agarre con el puño y, con la pinza (hacia los 9 meses), trocitos pequeños. Si solo ha tomado puré, ve subiendo poco a poco. La AEP aconseja texturas grumosas como tarde a los 8 o 9 meses.</li>
-    <li><b>Si prueba algo aplastado,</b> anímate a ofrecérselo otro día en tiras o trocitos para que lo agarre con las manos.</li>
-    <li><b>Cantidad:</b> la decide el bebé. Empieza con poca y ofrece más si pide. La leche sigue siendo la base hasta los 12 meses.</li>
-    <li><b>Agua:</b> en sorbos con las comidas, en vaso abierto o con pajita. Como referencia, hasta unos 120 ml al día a los 6 a 8 meses y hasta unos 240 ml de los 9 a los 11 (AAP).</li>
-  </ul>
-</details>
-<details class="card aep"><summary>Buenos hábitos</summary>
-  <ul>
-    <li>Sentado y erguido, nunca recostado ni solo mientras come.</li>
-    <li>Sin pantallas ni distracciones. Mejor en familia, a la mesa.</li>
-    <li>Sin sal, azúcar ni edulcorantes. Aceite de oliva en poca cantidad.</li>
-    <li>Los padres deciden qué, cuándo y dónde. El bebé decide cuánto.</li>
-    <li>Respeta sus señales: tiene hambre si abre la boca y se inclina hacia la comida. Está lleno si gira la cabeza, aparta la comida, cierra la boca o solo juega.</li>
-    <li>Déjale tocar y mancharse: explorar también es aprender a comer.</li>
-    <li>Lávale las manos antes de comer y ofrece el agua en vaso abierto desde el principio.</li>
-    <li>Come siempre acompañado por un adulto.</li>
-  </ul>
-</details>
-<details class="card aep"><summary>Alimentos seguros: cómo prepararlos</summary>
-  <ul>
-    <li>Uvas, tomates cherry y aceitunas, siempre cortados en cuartos a lo largo.</li>
-    <li>Frutos secos, siempre molidos o en crema. Nunca enteros ni en trozos.</li>
-    <li>Manzana y zanahoria, cocidas o ralladas finas. Nunca crudas en trozos duros.</li>
-    <li>Salchichas, embutidos, palomitas, caramelos y chicles, mejor evitarlos.</li>
-    <li>Carne y pescado bien cocinados, sin piel, espinas ni huesos. Huevo siempre cocinado.</li>
-    <li>Tiras del largo de un dedo y del grosor de un puño al principio. Más pequeño cuando aparece la pinza.</li>
-  </ul>
-</details>
-<details class="card aep"><summary>Arcada o atragantamiento</summary>
-  <ul>
-    <li><b>Arcada:</b> es normal y le protege. Tose, hace ruido, se le ponen los ojos llorosos y echa la comida hacia delante. Mantén la calma y no metas los dedos en su boca.</li>
-    <li><b>Atragantamiento:</b> no puede toser, llorar ni respirar, o hace un ruido agudo. Se pone morado. Actúa ya.</li>
-  </ul>
-  <h4>Qué hacer si se atraganta (menores de 1 año)</h4>
-  <ul>
-    <li>Llama al <b>112</b> o pide que lo hagan, sin dejar de atenderle.</li>
-    <li>Ponlo boca abajo sobre tu antebrazo, apoyado en tu muslo, con la cabeza más baja que el cuerpo y sujetándole la mandíbula.</li>
-    <li>Dale 5 golpes secos en la espalda, entre los omóplatos, con la palma de la mano.</li>
-    <li>Si no sale, dale la vuelta, boca arriba, con la cabeza más baja. Haz 5 compresiones en el centro del pecho con dos dedos, justo debajo de la línea de los pezones.</li>
-    <li>Repite 5 golpes y 5 compresiones hasta que expulse el objeto o pierda el conocimiento. Si lo pierde, empieza la reanimación (RCP) y sigue las instrucciones del 112.</li>
-    <li>Si tose con fuerza, no hagas nada: déjale toser.</li>
-  </ul>
-  <p class="mute">Lo ideal es hacer un curso de primeros auxilios pediátricos. Esta guía no lo sustituye.</p>
-</details>
-<details class="card aep"><summary>Reacción alérgica</summary>
-  <h4>Reacción leve</h4>
-  <ul>
-    <li>Ronchas, enrojecimiento de la piel, picor o algún vómito aislado, normalmente en las 2 horas siguientes.</li>
-    <li>Deja de darle ese alimento, anótalo en la app y consúltalo con tu pediatra antes de volver a ofrecerlo.</li>
-  </ul>
-  <h4>Reacción grave: llama al 112</h4>
-  <ul>
-    <li>Hinchazón de labios, lengua o cara.</li>
-    <li>Dificultad para respirar, tos persistente o pitos en el pecho.</li>
-    <li>Vómitos repetidos, palidez, mucha flojedad o decaimiento.</li>
-    <li>Mantenlo tumbado y vigílalo hasta que llegue la ayuda.</li>
-  </ul>
-  <p class="mute">Ante cualquier duda, llama al 112 o a tu pediatra.</p>
-</details>
-  <details class="card aep"><summary>Pautas de la AEP y de la OMS</summary>
+<div class="card gh0"><h3 class="disp">Guía rápida</h3><p class="mute">Lo básico en una página. No sustituye el consejo de tu pediatra.</p></div>
+
+<div class="card gx"><h4 class="disp gs">Antes de empezar</h4>
+  <div class="gg">
+    <div class="gtile g1"><b class="big">6</b><span>meses para empezar</span><small>Nunca antes de los 4</small></div>
+    <div class="gtile g2"><b class="big">1</b><span>alimento nuevo cada vez</span><small>Y repite lo que ya conoce</small></div>
+    <div class="gtile g3"><b class="big">3</b><span>días seguidos por alérgeno</span><small>En poca cantidad</small></div>
+    <div class="gtile g4"><b class="big">10-15</b><span>intentos</span><small>Un rechazo no es definitivo</small></div>
+  </div>
+  <p class="gband">Tú decides <b>qué, cuándo y dónde</b>. Él decide <b>cuánto</b>.</p>
+</div>
+
+<div class="card gx"><h4 class="disp gs">Texturas</h4>
+  <div class="gflow">
+    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 24h36a18 14 0 0 1-36 0z" fill="currentColor" stroke="none"/><path d="M14 22c2-8 18-8 20 0z" fill="currentColor" stroke="none" opacity=".5"/></svg></i><b>6 m</b><span>Puré espeso</span></div>
+    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 26h36a18 14 0 0 1-36 0z" fill="currentColor" stroke="none"/><circle cx="17" cy="19" r="4" fill="currentColor" stroke="none"/><circle cx="27" cy="16" r="4.5" fill="currentColor" stroke="none"/><circle cx="35" cy="20" r="3.5" fill="currentColor" stroke="none"/></svg></i><b>8-9 m</b><span>Con grumos y tiras</span></div>
+    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="9" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><rect x="25" y="7" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><rect x="12" y="27" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><rect x="29" y="25" width="12" height="12" rx="3" fill="currentColor" stroke="none"/></svg></i><b>9 m</b><span>Pinza: trocitos</span></div>
+    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="14" r="6" fill="currentColor" stroke="none"/><circle cx="33" cy="17" r="4.5" fill="currentColor" stroke="none"/><path d="M5 40c0-9 6-14 11-14s11 5 11 14zM27 40c0-6 3-10 7-10s8 4 8 10z" fill="currentColor" stroke="none"/></svg></i><b>12 m</b><span>Como la familia</span></div>
+  </div>
+  <p class="gnote">Las grumosas, como tarde a los 8-9 meses. Sin sal ni azúcar.</p>
+</div>
+
+<div class="card gx"><h4 class="disp gs">Agua y leche</h4>
+  <div class="gg3">
+    <div class="gtile gw"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6C16 17 12 23 12 29a12 12 0 0 0 24 0c0-6-4-12-12-23z" fill="currentColor" stroke="none"/></svg></i><b class="big">120</b><span>ml al día</span><small>6 a 8 meses</small></div>
+    <div class="gtile gw"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6C16 17 12 23 12 29a12 12 0 0 0 24 0c0-6-4-12-12-23z" fill="currentColor" stroke="none"/></svg></i><b class="big">240</b><span>ml al día</span><small>9 a 11 meses</small></div>
+    <div class="gtile gm"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 6h16l-2 8 5 6v22H13V20l5-6z" fill="currentColor" stroke="none"/></svg></i><b class="big">12</b><span>meses</span><small>La leche sigue siendo la base</small></div>
+  </div>
+  <p class="gnote">Agua en sorbos, en vaso abierto o con pajita.</p>
+</div>
+
+<div class="card gx"><h4 class="disp gs">Sí y no</h4>
+  <div class="gyn">
+    <div class="gok"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 25l9 9 19-21"/></svg> Sí</h5><ul><li>Sentado y erguido</li><li>Siempre con un adulto</li><li>Que toque y se manche</li><li>Sin pantallas</li><li>Aceite de oliva, poco</li></ul></div>
+    <div class="gno"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12l24 24M36 12L12 36"/></svg> No</h5><ul><li>Sal ni azúcar</li><li>Miel antes de 1 año</li><li>Zumos y bebidas azucaradas</li><li>Embutidos y bollería</li><li>Acelga, espinaca y borraja antes de 1 año</li></ul></div>
+  </div>
+</div>
+
+<div class="card gx"><h4 class="disp gs">Prepáralo seguro</h4>
+  <div class="gg">
+    <div class="gsafe"><b>Uvas, cherry y aceitunas</b><span>En cuartos, a lo largo</span></div>
+    <div class="gsafe"><b>Frutos secos</b><span>Molidos o en crema, nunca enteros</span></div>
+    <div class="gsafe"><b>Manzana y zanahoria</b><span>Cocidas o ralladas finas</span></div>
+    <div class="gsafe"><b>Carne, pescado y huevo</b><span>Bien cocinados, sin piel ni espinas</span></div>
+  </div>
+</div>
+
+<div class="card gx"><h4 class="disp gs">Arcada o atragantamiento</h4>
+  <div class="gyn">
+    <div class="gok"><h5>Arcada</h5><p>Normal, le protege.</p><ul><li>Tose y hace ruido</li><li>Ojos llorosos</li><li>Echa la comida hacia delante</li></ul><p class="gdo">Calma. No metas los dedos.</p></div>
+    <div class="gno"><h5>Atragantamiento</h5><p>No tose, no llora, no respira.</p><ul><li>Se pone morado</li><li>Ruido agudo o silencio</li></ul><p class="gdo">Actúa ya.</p></div>
+  </div>
+  <ol class="gsteps">
+    <li><b>112</b><span>Llama o pide que llamen.</span></li>
+    <li><b>5 golpes</b><span>En la espalda, boca abajo sobre tu antebrazo, cabeza más baja.</span></li>
+    <li><b>5 compresiones</b><span>En el pecho, boca arriba, con dos dedos.</span></li>
+    <li><b>Repite</b><span>Hasta que expulse el objeto. Si pierde el conocimiento, RCP.</span></li>
+  </ol>
+  <p class="gnote">Mejor hacer un curso de primeros auxilios pediátricos.</p>
+</div>
+
+<div class="card gx"><h4 class="disp gs">Reacción alérgica</h4>
+  <div class="gyn">
+    <div class="gwarn"><h5>Leve</h5><ul><li>Ronchas, picor, enrojecimiento</li><li>Algún vómito aislado</li></ul><p class="gdo">No repitas. Anótalo y consulta a tu pediatra.</p></div>
+    <div class="gno"><h5>Grave: 112</h5><ul><li>Labios, lengua o cara hinchados</li><li>Le cuesta respirar</li><li>Vómitos repetidos o muy decaído</li></ul><p class="gdo">Tumbado y vigilado hasta que llegue la ayuda.</p></div>
+  </div>
+</div>
+
+<div class="card gx"><h4 class="disp gs">Congelar</h4>
+  <p class="gband">O ración fresca cada día, o cocinas en tanda y <b>congelas todo</b>.</p>
+  <div class="gg">
+    <div class="gtile g1"><b class="big">2 h</b><span>máximo fuera de la nevera</span><small>Enfría en raciones pequeñas</small></div>
+    <div class="gtile g2"><b class="big">3</b><span>meses a -18 °C</span><small>Etiqueta con la fecha</small></div>
+    <div class="gtile g3"><b class="big">24 h</b><span>tras descongelar</span><small>Y no se vuelve a congelar</small></div>
+    <div class="gtile g4"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 5v38M7 14l34 20M41 14L7 34"/><path d="M19 8l5 4 5-4M19 40l5-4 5 4"/></svg></i><span>Descongela en la nevera</span><small>O microondas o baño maría. Nunca fuera.</small></div>
+  </div>
+  <div class="gyn" style="margin-top:12px">
+    <div class="gok"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 25l9 9 19-21"/></svg> Congela bien</h5><ul><li>Purés y guisos</li><li>Legumbres cocidas</li><li>Carne y pescado cocinados</li><li>Tortitas y hamburguesitas</li></ul></div>
+    <div class="gno"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12l24 24M36 12L12 36"/></svg> Mejor no</h5><ul><li>Patata sola</li><li>Huevo duro</li><li>Yogur y queso fresco</li><li>Fruta fresca y verdura cruda</li></ul></div>
+  </div>
+  <p class="gnote">Calienta bien, remueve y deja templar. No guardes las sobras del plato del bebé.</p>
+</div>
+
+<details class="card aep gfull"><summary>Pautas completas y fuentes (AEP, OMS)</summary>
     <h4>Cuándo empezar</h4>
     <ul>
       <li>Hacia los 6 meses (26 semanas), nunca antes de los 4 y sin retrasarlo más allá del séptimo mes. La lactancia puede seguir hasta los 2 años o más.</li>
@@ -657,7 +698,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 <div class="sheet hide" id="chg" role="dialog" aria-label="Cambiar menú"><div>
   <button class="xc" id="chg_c" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="chg_t"></h3>
-  <p class="mute" style="margin:6px 0">Otra idea para este servicio:</p>
+  <p class="mute" style="margin:6px 0">Otras ideas para este servicio:</p>
   <div id="chg_l" class="chgl"></div>
   <div class="chef"><b class="disp">Pregúntale al chef</b><p class="mute">¿Qué tienes en casa? Elige y te propone recetas con lo que ya conoce el bebé.</p>
     <input id="chef_q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
@@ -830,7 +871,7 @@ const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado"
 const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción",pre:"Ya lo había probado"};
 const isPre=(f,d)=>S.log.some(l=>l.pre&&l.f===f&&l.d===d);
 const K="primeros_v2";
-const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:1,seed:1,gen:false});
+const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:1,seed:1,gen:false,fz:"fresh"});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,eat:"",meals:0,app:"",al:{},rx:[],ph:"",sl:{},ml:{},ov:{},dip:false,log:[],prefs:DEFP()});
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
@@ -1251,7 +1292,7 @@ const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
 function askProfile(){if(!S.bd&&!obSkip&&USER&&LOADED&&$("gate").classList.contains("hide"))openOb()}
 let OB=null;
-function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,goals:[]};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
+function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:[]};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
 function obSteps(){return OB.ya?[0,1,2,3,...(obGroups().length?[4]:[]),7,8,9,5,6]:[0,1,2,5,6]}
 function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
 const obOpt=(k,v,t,sm,on)=>`<button type="button" class="gcard eatc${on?" on":""}" data-ok="${k}" data-ov="${v}"><span class="kt"><b>${t}</b><small>${sm}</small></span></button>`;
@@ -1268,7 +1309,7 @@ function drawOb(){
   if(i===7){title=`¿Cómo come ${esc(nm||"tu bebé")} hasta ahora?`;h='<div class="ocl">'+[["pure","Solo puré","Todo triturado o muy aplastado"],["mix","Mezclado","Puré y algunos trozos"],["bits","Trozos","Baby-led weaning, con las manos"]].map(o=>`<button type="button" class="gcard eatc${OB.eat===o[0]?" on":""}" data-eat="${o[0]}"><span class="kt"><b>${o[1]}</b><small>${o[2]}</small></span></button>`).join("")+"</div>";ok=!!OB.eat}
   if(i===8){title=`¿Cuántas comidas al día hace ${esc(nm||"tu bebé")}?`;h='<div class="ocl">'+[[1,"1 comida","Solo una vez al día"],[2,"2 comidas","Por ejemplo comida y merienda"],[3,"3 comidas","Desayuno, comida y merienda"],[4,"4 o más","Con cena incluida"]].map(o=>obOpt("meals",o[0],o[1],o[2],OB.meals===o[0])).join("")+"</div>";ok=!!OB.meals}
   if(i===9){title=`¿Come de verdad o solo juega?`;h='<div class="ocl">'+[["play","Juega y prueba","Toca, huele y se lo lleva a la boca, pero casi no traga"],["some","Come un poco","Traga algo, pero deja casi todo"],["full","Come de verdad","Se termina platos o raciones enteras"]].map(o=>obOpt("app",o[0],o[1],o[2],OB.app===o[0])).join("")+"</div>";ok=!!OB.app}
-  if(i===5){title="¿Cómo lo planificamos?";h=`<div class="fl"><span class="flab">Dieta</span><div class="ag" data-k="diet">${[["om","De todo"],["veg","Vegetariana"],["vgn","Vegana"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.diet===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Alimento nuevo</span><div class="ag" data-k="every">${[[1,"Cada día (recomendado)"],[2,"Cada 2 días"],[3,"Cada 3 días"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.every===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>`}
+  if(i===5){title="¿Cómo lo planificamos?";h=`<div class="fl"><span class="flab">Dieta</span><div class="ag" data-k="diet">${[["om","De todo"],["veg","Vegetariana"],["vgn","Vegana"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.diet===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Alimento nuevo</span><div class="ag" data-k="every">${[[1,"Cada día (recomendado)"],[2,"Cada 2 días"],[3,"Cada 3 días"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.every===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Cocina</span><div class="ag" data-k="fz">${[["fresh","Todo fresco del día"],["freeze","Congelo en tandas"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.fz===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>`}
   if(i===6){title="¿Qué objetivos quieres cubrir?";h='<p class="mute">Elige los que quieras. Con esto generamos el plan, y puedes cambiarlo cuando quieras.</p><div class="ocl">'+GOALS.map(g=>goalCard(g,OB.goals.includes(g[0]))).join("")+"</div>"}
   $("ob").innerHTML=`<div><div class="dots">${st.map(k=>`<i class="${st.indexOf(k)<=st.indexOf(i)?"on":""}"></i>`).join("")}</div><div class="mid${[3,4,6].includes(i)?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${[3,4,7,8,9].includes(i)?'<button class="skip" id="ob_pass">Saltar este paso</button>':""}${i>0?'<button class="skip" id="ob_back">Atrás</button>':'<button class="skip" id="ob_skip">Saltar por ahora</button><button class="skip" id="ob_out">Cerrar sesión</button>'}</div></div>`;
   const o=$("ob");
@@ -1295,7 +1336,7 @@ function obFinish(){
   S.nm=OB.nm.trim().slice(0,40);S.bd=OB.bd;
   OB.fo.forEach(f=>{if(info(f)&&!S.log.some(l=>l.f===f))S.log.push({f,how:"Antes de empezar",r:"pre",d:OB.bd,pre:true})});
   S.al={...S.al,...cleanAl(OB.al)};
-  S.eat=OB.ya?OB.eat:"";S.meals=OB.ya?OB.meals:0;S.app=OB.ya?OB.app:"";S.prefs.diet=OB.diet;S.prefs.every=OB.every;S.prefs.goals=[...OB.goals];S.prefs.gen=true;
+  S.eat=OB.ya?OB.eat:"";S.meals=OB.ya?OB.meals:0;S.app=OB.ya?OB.app:"";S.prefs.diet=OB.diet;S.prefs.every=OB.every;S.prefs.fz=OB.fz;S.prefs.goals=[...OB.goals];S.prefs.gen=true;
   $("ob").classList.add("hide");save();render();renderPlanForm();tab(2)}
 function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
 [2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));
@@ -1341,13 +1382,13 @@ function planHead(){
   const p=S.prefs,a=age(),nm=esc(S.nm||"tu bebé"),gt=Object.fromEntries(GOALS.map(g=>[g[0],g[2]]));
   const dt={om:"De todo",veg:"Vegetariana",vgn:"Vegana"}[p.diet]||"De todo",ev=(p.every||1)===1?"Nuevo cada día":"Nuevo cada "+p.every+" días";
   const tg=(t,c)=>`<span class="ptag"${c?` style="--c:${c}"`:""}>${esc(t)}</span>`;
-  $("pf_head").innerHTML=`<span class="ptt disp">Plan personalizado para ${nm}</span><span class="psub">${a?`${a.mo} meses · `:""}hecho a medida de tus objetivos</span><span class="ptags">${tg(dt)}${tg(ev)}${S.eat?tg(EATL[S.eat]):""}${S.meals?tg(S.meals+(S.meals===4?" o más comidas":S.meals===1?" comida":" comidas")):""}${S.app?tg({play:"Explora",some:"Come un poco",full:"Come bien"}[S.app]):""}${(p.goals||[]).filter(g=>gt[g]).map(g=>tg(gt[g],GCOL[g])).join("")}</span>`;
+  $("pf_head").innerHTML=`<span class="ptt disp">Plan personalizado para ${nm}</span><span class="psub">${a?`${a.mo} meses · `:""}hecho a medida de tus objetivos</span><span class="ptags">${tg(dt)}${tg(ev)}${p.fz==="freeze"?tg("Congela"):""}${S.eat?tg(EATL[S.eat]):""}${S.meals?tg(S.meals+(S.meals===4?" o más comidas":S.meals===1?" comida":" comidas")):""}${S.app?tg({play:"Explora",some:"Come un poco",full:"Come bien"}[S.app]):""}${(p.goals||[]).filter(g=>gt[g]).map(g=>tg(gt[g],GCOL[g])).join("")}</span>`;
   {const fit=()=>{const pt=$("pf_head").querySelector(".ptags");if(!pt)return;const r=$("pf_head").getBoundingClientRect().right-2;const ts=[...pt.querySelectorAll(".ptag")];ts.forEach(t=>t.classList.remove("xh"));ts.forEach(t=>{if(t.getBoundingClientRect().right>r)t.classList.add("xh")})};requestAnimationFrame(fit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit)}
 }
 function renderPlanForm(){
   const p=S.prefs,dt=DIETTXT[p.diet];
   $("dinfo").classList.toggle("hide",!dt);$("dinfo").title=dt||"";$("dpop").textContent=dt||"";if(!dt)$("dpop").classList.add("hide");
-  $("pf_diet").value=p.diet;$("pf_eat").value=S.eat||"";$("pf_meals").value=String(S.meals||0);$("pf_app").value=S.app||"";$("pf_every").value=String(p.every||2);
+  $("pf_diet").value=p.diet;$("pf_eat").value=S.eat||"";$("pf_meals").value=String(S.meals||0);$("pf_app").value=S.app||"";$("pf_every").value=String(p.every||2);$("pf_fz").value=p.fz==="freeze"?"freeze":"fresh";
   $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
   const g=p.goals.map(x=>GL[x]);
   $("pf_gsum").textContent=!g.length?"Elegir":g.length<=2?g.join(", "):g.length+" objetivos";
@@ -1358,6 +1399,7 @@ $("pf_diet").onchange=e=>setPref("diet",e.target.value);
 $("pf_meals").onchange=e=>{S.meals=+e.target.value;save();renderPlanForm();plan()};
 $("pf_app").onchange=e=>{S.app=e.target.value;save();renderPlanForm();plan()};
 $("pf_eat").onchange=e=>{S.eat=e.target.value;planShown=7;save();renderPlanForm();plan()};
+$("pf_fz").onchange=e=>setPref("fz",e.target.value);
 $("pf_every").onchange=e=>setPref("every",+e.target.value);
 $("pf_glist").querySelectorAll("input").forEach(i=>i.onchange=()=>setPref("goals",[...$("pf_glist").querySelectorAll("input:checked")].map(x=>x.value)));
 document.addEventListener("click",e=>{const d=$("pf_goals");if(d.open&&!d.contains(e.target))d.open=false});
@@ -1402,6 +1444,7 @@ function recipesFor(kn,mo,pz){
   [...veg,...prot].forEach(x=>{const p=presOf(x);add("solo",prot.includes(x)?x.n:null,x.n,[x],offerText(x,pz),["Comida","Cena"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
   cer.forEach(x=>{const p=presOf(x);add("solo",null,x.n,[x],offerText(x,pz),["Comida","Merienda"],fig(pz?p.q[0]:p.b[0],0,0,pz))});
   if(ag)egg.forEach(e=>add("mix","Huevo","Aguacate con huevo hervido aplastado",[ag,e],T("Aguacate muy maduro y huevo hervido aplastados juntos","Aguacate y huevo hervido aplastados, con trocitos"),["Desayuno","Merienda","Cena"]));
+  if(ag&&g("Garbanzos"))add("mix","Garbanzos","Hummus suave de aguacate",[ag,g("Garbanzos")],"Garbanzos y aguacate aplastados juntos, como una crema espesa",["Comida","Merienda","Cena"]);
   if(ag&&pl)add("mix",null,"Mousse de aguacate y plátano",[ag,pl],"Aplastados juntos, como una crema espesa",["Desayuno","Merienda"]);
   if(yo&&pl&&av)add("yogur",null,"Yogur con plátano y avena",[yo,pl,av],T("Plátano aplastado y avena cocida, con el yogur","Con trocitos de plátano y avena cocida"),["Desayuno","Merienda"]);
   if(pa&&za&&egg.length)add("mix","Huevo","Ensaladilla suave de patata, zanahoria y huevo",[pa,za,egg[0]],"Todo cocido y aplastado con tenedor, con un chorrito de aceite de oliva",["Comida","Cena"]);
@@ -1427,14 +1470,14 @@ function plan(){
 
   if(ag&&ag.mo<ag.th){
     $("days").innerHTML=`<div class="card"><p><b>Todavía no toca empezar.</b> La AEP recomienda empezar hacia los 6 meses (26 semanas) y nunca antes de los 4. A ${esc(S.nm||"tu bebé")} le faltan ${Math.max(ag.sT,0)} días para ${ag.th===4?"las 17 semanas (4 meses)":"los 6 meses"}${ag.pre?", contando desde la edad corregida":""}. Puedes ajustarlo en Perfil si tu pediatra te ha indicado otra cosa.</p></div>`;
-    $("shop").innerHTML="";$("fam").innerHTML="";$("rem").innerHTML="";
+    $("shop").innerHTML="";$("rem").innerHTML="";
     return;
   }
   planHead();
   if(pfSeen!==S.id+p.gen){pfSeen=S.id+p.gen;$("pfcard").open=!p.gen}
   if(!p.gen){
     $("days").innerHTML=`<div class="card"><p><b>Aún no hay plan.</b> Revisa dieta, frecuencia y objetivos, y pulsa Generar plan.</p></div>`;
-    $("shop").innerHTML="";$("fam").innerHTML="";$("rem").innerHTML="";
+    $("shop").innerHTML="";$("rem").innerHTML="";
     return;
   }
   const cc={},TGT={"Proteínas":2,"Verduras":3,"Cereales":1,"Frutas":3},SH={"Proteínas":.3,"Verduras":.3,"Frutas":.25,"Cereales":.15};Object.keys(m).forEach(k=>{const a=info(k);if(a)cc[a.c]=(cc[a.c]||0)+1});
@@ -1481,18 +1524,36 @@ function plan(){
     const pick=nw||c[(o.di+i*2+(p.seed||1))%c.length];used.add(pick.n);
     return `<p><b>${lab}:</b> <span class="${pick.a?"al":""}">${esc(pick.n)}</span></p>`}).join("")};
   const mo=ag?ag.mo:8,pz=pinzaNow(),tx=texLevel();
+  const FZ=p.fz==="freeze";
+  const LIFE=x=>{const n=x.n;if(FZ&&x.c!=="Frutas")return 99;
+    if(FISH.has(n))return 1;if(MEAT.has(n))return 2;if(n==="Huevo")return 21;
+    if(/^(Lentejas|Alubias|Garbanzos)/.test(n))return 99;
+    if(/^(Espinacas|Acelgas|Borraja|Lechuga)/.test(n))return 3;
+    if(n==="Aguacate"||n==="Plátano"||/^(Fresas|Frambuesas|Cerezas|Melocotón|Nectarina|Albaricoque|Higos|Uvas|Kiwi|Mango|Papaya|Melón|Sandía)/.test(n))return 3;
+    if(["Brócoli","Coliflor","Calabacín","Tomate","Pimiento rojo","Judías verdes","Espárragos"].includes(n))return 5;
+    if(["Queso fresco","Tofu"].includes(n))return 5;if(n==="Yogur natural"||n==="Kéfir")return 7;
+    return {Frutas:6,Verduras:8,Proteínas:4,Lácteos:7}[x.c]||99};
+  const lifeN=n=>{const x=info(n);return x?LIFE(x):99};
+  const bought={},buys={},hist={};
+  const covered=(n,di)=>bought[n]!==undefined&&di-bought[n]<lifeN(n);
+  const buy=(n,di)=>{if(!covered(n,di)){bought[n]=di;buys[n]=(buys[n]||0)+1}};
   const menuRows=o=>{
     const R=recipesFor(o.kn,mo,pz),ms=mealsFor(mo),usedN=new Set(),usedK=new Set(),rows=[],nn=o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]);
+    nn.forEach(n=>buy(n,o.di));hist[o.di]=new Set();
     const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
     const newSlot=nn.length?ms.find(m=>R.some(r=>ok(r,m)&&hasNew(r))):null;
     ms.forEach((meal,si)=>{
+      {const ovr=((S.ov||{})[o.ds]||{})[meal],rr=ovr&&R.find(x=>x.n===ovr.n);if(rr){usedN.add(rr.n);if(rr.k)usedK.add(rr.k);rr.ings.forEach(n=>buy(n,o.di));hist[o.di].add(rr.n);rows.push([meal,rr]);return}}
       let L=R.filter(r=>ok(r,meal)&&(meal===newSlot?hasNew(r):!hasNew(r)));
       {const dr=tx>=4?["pure"]:tx===3&&(o.di+si)%2===0?["pure"]:[];const L3=L.filter(r=>!dr.includes(r.t));if(L3.length)L=L3}
       const mixes=L.filter(r=>r.t!=="solo");if(mixes.length)L=mixes;
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!usedN.has(r.n)&&!hasNew(r));
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
       if(!L.length)return;
-      const ts=[...new Set(L.map(r=>r.t))],t=ts[(o.di+si+(p.seed||1))%ts.length],L2=L.filter(r=>r.t===t),r=L2[(o.di*2+si+(p.seed||1))%L2.length];
+      const rec=new Set([1,2,3].flatMap(k=>[...(hist[o.di-k]||[])]));
+      const sc=r=>{let c=0,ru=0;r.ings.forEach(n=>{if(covered(n,o.di)){ru++;if(o.di-bought[n]>=lifeN(n)-2)ru+=.5}else c++});return c*10-ru*3+(r.t==="solo"?14:0)+(rec.has(r.n)?6:0)},
+        best=Math.min(...L.map(sc)),L2=L.filter(r=>sc(r)<=best+.01),r=L2[(o.di*2+si+(p.seed||1))%L2.length];
+      r.ings.forEach(n=>buy(n,o.di));hist[o.di].add(r.n);
       usedN.add(r.n);if(r.k)usedK.add(r.k);rows.push([meal,r]);
     });
     return rows};
@@ -1527,7 +1588,12 @@ function plan(){
   const shown=out.slice(0,show);shown.forEach(o=>{o.rows=menuRows(o);const ovd=(S.ov||{})[o.ds];if(ovd){const R=recipesFor(o.kn,mo,pz);o.rows=o.rows.map(([m,r])=>{const v=ovd[m];if(!v)return[m,r];const f=R.find(x=>x.n===v.n);return[m,f||{t:"solo",n:v.n,q:[],how:"Lo has cambiado tú",ings:[],g:fig("mash",0,0,false)}]})}});shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>wk[n]=(wk[n]||0)+1)});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
-  renderShop(wk);renderFam(wk,have);
+  renderShop(wk,buys);
+  {const last={},first={},famOk=FAM.filter(d=>d.base.every(n=>{const x=info(n);return wk[n]&&x&&allowed(x,p)}));
+   shown.forEach(o=>{const ing=new Set(o.rows.flatMap(([m,r])=>r.ings).concat(o.items.map(x=>x.n)));
+     const c=famOk.filter(d=>last[d.n]===undefined||(FZ&&o.di-last[d.n]>=3)).map((d,k)=>({d,sc:d.base.filter(n=>ing.has(n)).length,k:(k*7+o.di*13+(p.seed||1))%11})).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc||a.k-b.k);
+     o.fam=c.length?c[0].d:null;o.famFz=null;
+     if(o.fam){const n=o.fam.n;if(first[n]!==undefined)o.famFz=first[n];else first[n]=o.di;last[n]=o.di}})}
   const useful=out.some(o=>o.items.length||o.done.length||o.kn.length);
   $("rem").innerHTML="";
   const wkd=dt=>dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".","");
@@ -1542,6 +1608,8 @@ function plan(){
   const dayCard=o=>{
     const isT=o.ds===t0,y=whyHtml(o),w=pz?"trocitos":"tiras";
     const doneH=o.done.length?`<p class="mute dn1">✓ Ya probado hoy: ${o.done.map(n=>`<b>${esc(n)}</b>`).join(", ")}</p>`:"";
+    const fz0=o.famFz!==null&&o.famFz!==undefined?shown[o.famFz]:null,fzT=o.fam&&FZ?(fz0?`<p><span class="tag">Del congelador: lo cocinaste el ${esc(fz0.dt.toLocaleDateString("es-ES",{weekday:"long"}))}</span></p>`:`<p><span class="tag">Cocina ración doble y congela el resto</span></p>`):"";
+    const famH=o.fam?`<div class="pap"><b class="disp">Para papis</b>${fzT}<p class="pn">${esc(o.fam.n)}</p><p class="mute">Con lo del bebé: ${o.fam.base.map(esc).join(", ")}. Para vosotros además: ${esc(o.fam.extra)}.</p><p><b>Para el bebé:</b> ${esc(o.fam.baby)}</p><p><b>Para vosotros:</b> ${esc(o.fam.adult)}</p></div>`:"";
     const tg=o.items.flatMap(n=>goals.filter(g=>GS[g](n)).map(g=>`<span class="tag">${GL[g]}</span>`)).join(" ")+(o.items.some(n=>n.a)?' <span class="tag w">alérgeno</span>':"");
     const mealsList=[...new Set(o.rows.flatMap(([mm,r])=>r.ings))];
     const btns=o.items.filter(n=>!mealsList.includes(n.n)).map(n=>`<button class="btn" data-n="${esc(n.n)}" data-d="${o.ds}">Registrar ${esc(n.n)}</button>`).join("");
@@ -1549,7 +1617,7 @@ function plan(){
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
-    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}<p class="hd">${y.head}</p>${tg?`<p>${tg}</p>`:""}${doneH}${btns?`<div class="bt">${btns}</div>`:""}${how}${reto}${menu}</div>`};
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}<p class="hd">${y.head}</p>${tg?`<p>${tg}</p>`:""}${doneH}${btns?`<div class="bt">${btns}</div>`:""}${how}${reto}${menu}${famH}</div>`};
   $("days").innerHTML=useful?strip+(sd<t0?pastCard(sd):dayCard(shown.find(o=>o.ds===sd)||shown[0])):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-pd]").forEach(b=>b.onclick=()=>{pdate=b.dataset.pd;plan()});
   {const wk=$("days").querySelector(".wk"),on=wk&&wk.querySelector(".wd.on");if(on)wk.scrollLeft=on.offsetLeft-(wk.clientWidth-on.offsetWidth)/2}
@@ -1569,15 +1637,19 @@ function plan(){
     save();render()});
   $("days").querySelectorAll("button[data-chg]").forEach(b=>b.onclick=()=>{
     const d=b.dataset.d,m=b.dataset.chg,o=shown.find(x=>x.ds===d),row=o&&o.rows.find(([mm])=>mm===m);if(!row)return;
-    const cur=row[1],seen=new Set([cur.n]),alts=recipesFor(o.kn,mo,pz).filter(r=>r.meals.includes(m)&&!seen.has(r.n)&&seen.add(r.n)).slice(0,8),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
+    const cur=row[1],seen=new Set([cur.n]),alts=recipesFor(o.kn,mo,pz).filter(r=>r.meals.includes(m)&&!seen.has(r.n)&&seen.add(r.n)).slice(0,4),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
     $("chg_x").value="";$("chg_ok").textContent=isT?"Ha comido otra cosa":"Guardar";$("chg_rs").classList.toggle("hide",!hasOv);
     {const sel=new Set(),kn=o.kn.filter(x=>x.c!=="Condimentos").sort((a,b)=>a.n.localeCompare(b.n,"es")),pick=(r)=>{dropMeal(d,m);setOv(d,m,{n:r.n});$("chg").classList.add("hide");save();render()};
       let found=[];
-      const res=()=>{if(!sel.size){$("chef_r").innerHTML='<p class="mute">Marca lo que tengas y salen las recetas.</p>';return}
-        const seen=new Set();found=recipesFor(kn.filter(x=>sel.has(x.n)),mo,pz).filter(r=>r.meals.includes(m)&&r.ings.every(n=>sel.has(n))&&!seen.has(r.n)&&seen.add(r.n)).slice(0,6);
-        $("chef_r").innerHTML=found.length?found.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}<small>${esc(r.q.join(" · "))}</small><small><i>${esc(r.how)}</i></small></button>`).join(""):'<p class="mute">Con eso no sale una receta completa. Prueba a añadir una verdura y una proteína o un cereal.</p>';
+      const res=()=>{if(!sel.size){$("chef_r").innerHTML='<p class="mute">Marca lo que tengas y salen las recetas.</p>';found=[];return}
+        const seen=new Set(),all=recipesFor(kn.filter(x=>sel.has(x.n)),mo,pz).filter(r=>r.ings.every(n=>sel.has(n))&&!seen.has(r.n)&&seen.add(r.n)),
+          combos=all.filter(r=>r.ings.length>1||!["solo","fruta"].includes(r.t)).sort((a,b)=>b.ings.length-a.ings.length).slice(0,6),used=new Set(combos.flatMap(r=>r.ings)),
+          left=kn.filter(x=>sel.has(x.n)&&!used.has(x.n)).map(x=>{const pp=presOf(x);return{t:"solo",n:x.n,q:[qty(x)],how:offerText(x,pz),ings:[x.n],meals:[m],g:pp?fig(pz?pp.q[0]:pp.b[0],0,0,pz):""}});
+        found=[...combos,...left];
+        const bt=(r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}<small>${esc(r.q.join(" · "))}</small><small><i>${esc(r.how)}</i></small></button>`;
+        $("chef_r").innerHTML=(combos.length?combos.map((r,i)=>bt(r,i)).join(""):sel.size>1?'<p class="mute">Con eso no sale una receta mezclada.</p>':"")+(left.length?`<p class="mute">${combos.length?"Lo que sobra, suelto:":sel.size>1?"Cada uno, suelto:":""}</p>`+left.map((r,i)=>bt(r,combos.length+i)).join(""):"");
         $("chef_r").querySelectorAll("button").forEach(bb=>bb.onclick=()=>pick(found[+bb.dataset.i]))};
       const chips=()=>{const q=norm($("chef_q").value.trim());$("chef_c").innerHTML=kn.filter(x=>!q||norm(x.n).includes(q)).map(x=>`<button type="button" class="chk${sel.has(x.n)?" on":""}" data-n="${esc(x.n)}" aria-pressed="${sel.has(x.n)}">${esc(x.n)}</button>`).join("")||'<span class="mute">Nada con ese nombre.</span>';
         $("chef_c").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const n=bb.dataset.n;if(sel.has(n))sel.delete(n);else sel.add(n);chips();res()})};
@@ -1593,11 +1665,11 @@ $("mk").onclick=()=>{$("pfcard").open=false;if(S.prefs.gen)S.prefs.seed=(S.prefs
 
 const SHOPORD=["Frutas","Verduras","Proteínas","Cereales","Lácteos","Frutos secos","Condimentos"];
 let shopCur={};
-function renderShop(wk){
-  shopCur=wk;const names=Object.keys(wk);
+function renderShop(wk,buys){
+  buys=buys||{};shopCur=wk;const names=Object.keys(wk);
   if(!names.length){$("shop").innerHTML='<p class="mute">Cuando haya menú, aquí sale lo que hay que comprar.</p>';return}
   const by={};names.forEach(n=>{const x=info(n);if(x)(by[x.c]=by[x.c]||[]).push(x)});
-  $("shop").innerHTML='<div class="shcols">'+SHOPORD.filter(c=>by[c]).map(c=>`<div class="shc"><h4 class="sh">${c}</h4>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(x=>`<label class="sl"><input type="checkbox" data-sl="${esc(x.n)}"${S.sl[x.n]?" checked":""}><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="mute">${wk[x.n]} ${wk[x.n]===1?"día":"días"}</span></label>`).join("")+"</div>").join("")+'</div><div class="btns" style="max-width:420px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Aceite de oliva virgen extra para cocinar. Sin sal ni azúcar.</p>';
+  $("shop").innerHTML=`<p class="mute">${names.length} alimentos para la semana. ${S.prefs.fz==="freeze"?"Cocina en tandas y congela raciones: purés, guisos, tortitas y hamburguesitas aguantan semanas.":"Todo fresco: el menú reutiliza lo que compras antes de que se estropee. Pescado y carne, para 1 o 2 días."}</p>`+'<div class="shcols">'+SHOPORD.filter(c=>by[c]).map(c=>`<div class="shc"><h4 class="sh">${c}</h4>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(x=>`<label class="sl"><input type="checkbox" data-sl="${esc(x.n)}"${S.sl[x.n]?" checked":""}><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="mute">${wk[x.n]} ${wk[x.n]===1?"día":"días"}${buys[x.n]>1?` · ${buys[x.n]} compras`:""}</span></label>`).join("")+"</div>").join("")+'</div><div class="btns" style="max-width:420px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Aceite de oliva virgen extra para cocinar. Sin sal ni azúcar.</p>';
 }
 $("shop").addEventListener("change",e=>{const n=e.target.dataset&&e.target.dataset.sl;if(!n)return;if(e.target.checked)S.sl[n]=true;else delete S.sl[n];save()});
 $("shop").addEventListener("click",e=>{
@@ -1641,13 +1713,8 @@ const FAM=[
 {n:"Yogur con plátano y avena",base:["Yogur natural","Plátano","Avena"],extra:"frutos secos",baby:"Yogur natural sin azúcar, con plátano aplastado.",adult:"Con miel y frutos secos."},
 {n:"Pera asada con canela",base:["Pera"],extra:"canela",baby:"Cuña muy blanda, sin azúcar ni miel.",adult:"Con miel, nueces y yogur."}
 ];
-function renderFam(wk,have){
-  const list=FAM.filter(d=>d.base.every(n=>{const x=info(n);return have.has(n)&&x&&allowed(x,S.prefs)})).map(d=>({d,sc:d.base.filter(n=>wk[n]).length,k:(d.n.length*31+(S.prefs.seed||1)*17)%97})).sort((a,b)=>b.sc-a.sc||a.k-b.k).slice(0,8);
-  if(!list.length){$("fam").innerHTML='<div class="card"><p class="mute">Cuando haya probado más verduras, proteínas o cereales, aquí salen platos para los papis con lo mismo.</p></div>';return}
-  $("fam").innerHTML=list.map(({d,sc})=>`<div class="card"><b>${esc(d.n)}</b><p class="mute">Con lo del bebé: ${d.base.map(esc).join(", ")}. Para vosotros además: ${esc(d.extra)}.</p>${sc===d.base.length?'<p><span class="tag">Usa lo que ya compras esta semana</span></p>':""}<p><b>Para el bebé:</b> ${esc(d.baby)}</p><p><b>Para vosotros:</b> ${esc(d.adult)}</p></div>`).join("");
-}
-function subtab(n){[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",i!==n);$("p"+i).classList.toggle("on",i===n)})}
-[1,2,3].forEach(i=>$("p"+i).onclick=()=>subtab(i));
+function subtab(n){[1,2].forEach(i=>{$("pv"+i).classList.toggle("hide",i!==n);$("p"+i).classList.toggle("on",i===n)})}
+[1,2].forEach(i=>$("p"+i).onclick=()=>subtab(i));
 
 const RCH3=["love","meh","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
 $("rxg").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;document.querySelectorAll("#rxg button").forEach(x=>x.classList.toggle("on",x===b));$("rx").value=b.dataset.v;$("rx").dispatchEvent(new Event("change"));$("ok").disabled=false});
