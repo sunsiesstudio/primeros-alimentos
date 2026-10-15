@@ -1204,7 +1204,7 @@ let snkT=0;
 function snack(html,label,fn){const e=$("snk");e.innerHTML=`<span>${html}</span>${label?`<button type="button" class="x">${label}</button>`:""}<button type="button" class="x" aria-label="Cerrar">✕</button>`;e.classList.remove("hide");
   const bs=e.querySelectorAll("button");if(label)bs[0].onclick=()=>{e.classList.add("hide");fn()};bs[bs.length-1].onclick=()=>e.classList.add("hide");clearTimeout(snkT);snkT=setTimeout(()=>e.classList.add("hide"),12000)}
 let curMeal="";
-function openSheet(n,pd,rest,pieces){cur=n;curMeal="";const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?sheetPres(x):"";
+function openSheet(n,pd,rest,pieces){cur=n;curMeal="";const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":"";$("shp").innerHTML=x&&!x.lim?sheetPres(x):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
   if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo} meses.`:""}</p>`);
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
