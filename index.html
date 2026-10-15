@@ -28,6 +28,25 @@ main{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
 h1{font-size:clamp(1.8rem,7vw,2.8rem);color:var(--green);margin:0;line-height:1;transform:rotate(-2deg)}
 .hero .logo{margin-top:6px}
 .rtabs{margin-bottom:22px!important}
+.sprog{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin:14px 0 6px}.sprog i{display:block;height:100%;border-radius:99px;background:var(--green);transition:width .3s}
+#school .gh0{margin-bottom:12px}
+.les{display:grid;grid-template-columns:24px 1fr;gap:10px;margin:0 0 10px}
+.les .lc{position:relative;padding-top:20px}.les .lc::after{content:"";position:absolute;left:11px;top:44px;bottom:-22px;width:2px;background:var(--line)}.les:last-of-type .lc::after{display:none}
+.les .ld{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2.5px solid var(--blue);background:var(--bg);position:relative;z-index:1}.les.dn .ld{background:var(--green);border-color:var(--green)}.les.open .ld{background:var(--blue)}.les.open.dn .ld{background:var(--green)}
+.les .lm{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:4px 14px;min-width:0}
+.les .lh{display:block;position:relative;width:100%;text-align:left;background:none;border:0;font:inherit;color:inherit;padding:12px 28px 12px 0;cursor:pointer;min-height:44px}
+.les .lt{display:flex;align-items:center;gap:8px;margin-bottom:4px}.les .lmin{font-size:.74rem;color:var(--mute)}
+.les .ltl{display:block;font-size:1.12rem;line-height:1.25}.les .lsub{display:block;color:var(--mute);font-size:.88rem;margin-top:2px}
+.les .lch{position:absolute;right:0;top:18px;color:var(--green);transition:transform .2s}.les.open .lch{transform:rotate(180deg)}
+.lbd{padding:2px 0 14px}.lpts{margin:0 0 10px;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:.92rem;line-height:1.45}
+.ltip{margin:0 0 12px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--green) 12%,transparent);font-size:.88rem;line-height:1.4}
+.lrec{border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;background:var(--bg)}.lrec summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:10px 12px;min-height:44px;justify-content:center}.lrec summary::-webkit-details-marker{display:none}.lrec summary b{color:var(--terra)}.lrec summary small{color:var(--mute)}
+.lrb{padding:0 12px 12px;font-size:.9rem;line-height:1.45}.lrb b{display:block;margin:6px 0 4px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}.lrb ul,.lrb ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.lft{display:flex;flex-direction:column;gap:10px;margin-top:12px}.lft .btn{width:100%}
+.lsw{display:flex;align-items:center;gap:10px;font-size:.88rem;cursor:pointer;min-height:44px}.lsw input{width:22px;height:22px;flex:none;margin:0;accent-color:var(--green)}
+.gqw{margin:8px 0 14px}.gqw>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border:2px solid var(--blue);border-radius:999px;color:var(--blue);font-weight:700;min-height:48px}.gqw>summary::-webkit-details-marker{display:none}.gqw[open]>summary{margin-bottom:14px}
+.schs{margin:12px 0 4px;padding:12px;border-radius:16px;background:color-mix(in srgb,var(--green) 11%,transparent);border:1.5px solid color-mix(in srgb,var(--green) 40%,transparent)}.schs>b{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:6px}.schs button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;background:none;border:0;border-top:1px solid color-mix(in srgb,var(--green) 25%,transparent);padding:9px 0;font:inherit;color:inherit;cursor:pointer;min-height:44px}.schs button:first-of-type{border-top:0}.schs button span{font-weight:700}.schs button small{color:var(--mute)}
+
 #fsw{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;gap:20px;border-bottom:1px solid var(--line);margin:4px 0 16px!important}#fsw::-webkit-scrollbar{display:none}#v2 .rtabs,#rtabs{display:none!important}#fsw .btn{white-space:nowrap;flex:none;min-height:44px;padding:8px 2px;border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;color:var(--mute);font-weight:700;margin-bottom:-1px}#fsw .btn.on{color:var(--blue);border-bottom-color:var(--blue);background:transparent}
 .meta{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}
 .meta label{flex:1;min-width:140px;font-size:.85rem}
@@ -554,7 +573,8 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 </section>
 
 <section id="v5" class="hide">
-<div class="card gh0"><h3 class="disp">Guía rápida</h3><p class="mute">Consejos para que la alimentación complementaria sea segura, práctica y divertida para tu peque. Pregunta siempre a tu pediatra.</p></div>
+<div id="school"></div>
+<details class="gqw" id="gq"><summary>Guía rápida ilustrada<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
 
 <div class="card gx"><h4 class="disp gs">Antes de empezar</h4>
   <div class="gg">
@@ -687,6 +707,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
     </ul>
     <p class="mute">No sustituye el consejo de tu pediatra.</p>
   </details>
+</details>
 </section>
 <section id="v4" class="hide">
   <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_fr">Encuadrar</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
@@ -908,13 +929,59 @@ const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:1,seed:1,gen:false,fz:"fresh"});
 const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,eat:"",meals:0,app:"",al:{},rx:[],ph:"",sl:{},ml:{},ov:{},dip:false,log:[],prefs:DEFP()});
+const LESSONS=[
+{id:"listo",t:"Cómo saber si está listo",s:"Las señales que importan, más que la edad",m:3,
+ pts:["Hacia los 6 meses, nunca antes de los 4. Lo importante es que se siga sosteniendo sentado con poco apoyo.","Ha perdido el reflejo de empujar la comida fuera con la lengua.","Se interesa por lo que comes, mira, intenta agarrar y se lleva cosas a la boca.","La leche sigue siendo su alimento principal. La comida al principio es explorar, no llenar.","Si va a un ritmo distinto al de otros bebés, no pasa nada. Ajusta el plan a Pol."],
+ tip:"Siéntalo siempre en una silla estable, con los pies apoyados y la espalda recta, y nunca sin supervisión."},
+{id:"seguro",t:"Arcada o atragantamiento",s:"Lo primero que conviene saber antes de empezar",m:4,
+ pts:["La arcada es normal: es un reflejo que lo protege. Hace ruido, tose y escupe. Mantén la calma y déjale resolver.","El atragantamiento es silencioso: no tose, no llora, no respira. Ahí hay que actuar ya.","Estate siempre a su lado, sin móvil y sin prisas. Que no coma recostado, en el coche ni jugando.","Los alimentos duros, redondos o resbaladizos se ofrecen cocinados, en tiras gruesas o aplastados. Uvas y similares, siempre abiertos a lo largo.","Ve a un curso de primeros auxilios pediátricos si puedes. Ver cómo se hace da mucha tranquilidad."],
+ tip:"En la Guía rápida ilustrada tienes el paso a paso de qué hacer si se atraganta."},
+{id:"evitar",t:"Lo que todavía no",s:"Alimentos y costumbres que esperan",m:4,
+ pts:["Miel: nada antes del año, por riesgo de botulismo.","Sal y azúcar: no se añaden. Su riñón es inmaduro y el gusto se educa.","Leche de vaca como bebida: hasta el año. En yogur o queso sí puede, y al cocinar también.","Acelgas, espinacas, borraja y remolacha: mejor esperar al año por los nitratos.","Pez espada, tiburón, atún rojo y lucio: por el mercurio, no antes de los 10 años.","Frutos secos enteros: hasta los 5 años. Molidos o en crema fina, desde el principio.","Arroz: puedes ofrecerlo, pero con moderación, y evita las bebidas de arroz. Por el arsénico.","Embutidos, galletas, zumos y ultraprocesados: fuera de su plato."],
+ tip:"Si dudas con un alimento concreto, la app no lo sugiere hasta que toca por edad."},
+{id:"agua",t:"Agua y leche",s:"Qué beber ahora que empieza a comer",m:2,
+ pts:["Ofrece agua en sorbos, en un vasito abierto o con pajita, cuando coma. No hace falta que beba mucho.","Su leche (materna o fórmula) sigue como base de su alimentación durante todo el primer año.","No hace falta ofrecerle zumos, infusiones ni bebidas vegetales. El agua es suficiente.","Con las primeras comidas bebe poco. Es normal y no es motivo de preocupación."],
+ tip:"Un vaso pequeño y estable, que pueda agarrar él, ayuda a que lo explore."},
+{id:"hierro",t:"Hierro y zinc",s:"Los nutrientes clave del primer año",m:5,
+ pts:["Sus reservas de hierro bajan a partir de los 6 meses, así que conviene ofrecer una fuente casi todos los días.","Buenas fuentes: ternera, pollo, huevo, legumbres, pescado y semillas molidas.","El zinc suele ir en las mismas comidas: carne, huevo, legumbres, queso y frutos secos molidos.","El hierro de las legumbres se absorbe mejor con algo de vitamina C: naranja, kiwi, pimiento o tomate.","Evita dárselas junto con leche o yogur en la misma toma, porque estorban la absorción.","Raciones pequeñas: una o dos cucharadas al principio son suficientes."],
+ tip:"En el plan priorizo los alimentos con hierro y zinc cuando llevan unos días sin aparecer.",
+ rec:[{n:"Puré de ternera, calabacín y patata",q:"1 ración",ing:["40 g de ternera magra","1 patata pequeña","½ calabacín","1 cucharadita de aceite de oliva virgen extra"],st:["Pela y trocea la patata y el calabacín. Cuécelos con la ternera troceada en poca agua, 20 minutos o hasta que esté muy tierna.","Tritura con un poco del agua de cocción hasta la textura que le toque.","Añade el aceite en crudo al final."]},
+  {n:"Crema de lentejas rojas con zanahoria",q:"1 ración",ing:["3 cucharadas de lentejas rojas","½ zanahoria","unas gotas de zumo de naranja","1 cucharadita de aceite de oliva virgen extra"],st:["Cuece las lentejas con la zanahoria en agua, unos 15 minutos.","Tritura o chafa con tenedor según su etapa.","Termina con unas gotas de naranja y el aceite. La vitamina C ayuda a absorber el hierro."]}]},
+{id:"texturas",t:"De puré a trozos",s:"Cómo ir subiendo la textura sin prisa",m:4,
+ pts:["Empieza con purés finos o alimentos muy blandos, y ve subiendo a chafado con tenedor, luego a grumos y después a trozos.","Cada alimento nuevo puede volver a una textura más fina un par de días. Es normal.","A los 8 o 9 meses ya debería tomar grumos como tarde. Retrasarlo mucho puede hacer que luego le cueste.","Ofrece trozos blandos que pueda agarrar con la mano: tiras gruesas, bastones cocidos, tortitas.","Sin sal ni azúcar, con aceite de oliva virgen extra en crudo."],
+ tip:"En tu Perfil puedes cambiar el ritmo cuando quieras: todo puré, mixto o directo a trozos.",
+ rec:[{n:"Huevo con aguacate chafado",q:"1 ración",ing:["1 huevo cocido duro","¼ de aguacate maduro","unas gotas de aceite de oliva virgen extra"],st:["Cuece el huevo 10 minutos y pélalo.","Chafa el huevo con el aguacate con un tenedor.","Más fino o con grumos según su etapa. Puede comerlo con cuchara o en bolitas."]},
+  {n:"Tortitas de plátano y avena",q:"2 o 3 tortitas",ing:["1 plátano maduro","4 cucharadas de copos de avena finos","un chorrito de su leche"],st:["Chafa el plátano y mezcla con la avena y la leche.","Cocina en una sartén sin aceite o con una gota, a fuego medio, 2 minutos por lado.","Córtalas en tiras para que las agarre."]}]},
+{id:"alergenos",t:"Alérgenos sin miedo",s:"Cómo introducirlos con calma",m:4,
+ pts:["No hace falta retrasarlos: huevo, pescado, frutos secos molidos, gluten y lácteos pueden entrar desde que empiece a comer.","Uno cada vez, en poca cantidad, y repetido 3 días seguidos si todo va bien.","Mejor entre semana, por la mañana o a mediodía, y no en fin de semana ni con poco margen para observar.","Que esté sano ese día: sin fiebre, sin vacunas recientes, sin otros alimentos nuevos.","Si hay reacción, deja de ofrecerlo y llama a tu pediatra. Si hay dificultad para respirar, hinchazón de cara o decaimiento, ve a urgencias o llama al 112.","En la pestaña Stats, Alérgenos, puedes anotar cómo ha ido cada uno."],
+ tip:"Por eso el plan solo estrena alérgenos de lunes a miércoles.",
+ rec:[{n:"Tortilla fina de huevo en tiras",q:"1 ración",ing:["1 huevo","unas gotas de aceite de oliva virgen extra"],st:["Bate el huevo y cuájalo en una sartén con poquito aceite, fino y bien hecho por los dos lados.","Corta en tiras para que las agarre.","El huevo siempre bien cuajado, nunca poco hecho."]}]},
+{id:"pescado",t:"Pescado y huevo",s:"Proteínas suaves y rápidas de hacer",m:4,
+ pts:["El pescado blanco (merluza, lenguado, bacalao) y el azul de bajo mercurio (salmón, sardina) van bien. Ofrécelos desde pronto.","Sin espinas y bien cocinado: al vapor, a la plancha o al horno.","Pescados grandes (pez espada, tiburón, atún rojo, lucio): fuera por el mercurio.","El huevo siempre cocinado del todo. La yema cuajada es una fuente genial de hierro.","Una o dos veces por semana de pescado, alternando blanco y azul, es un buen ritmo."],
+ tip:"Si compras el pescado fresco, compruébalo bien por si lleva espinas pequeñas.",
+ rec:[{n:"Merluza al vapor con patata chafada",q:"1 ración",ing:["40 g de merluza sin espinas","1 patata cocida pequeña","1 cucharadita de aceite de oliva virgen extra"],st:["Cuece la merluza al vapor 5 o 6 minutos.","Desmenúzala y revisa que no queden espinas.","Chafa la patata con el pescado y termina con el aceite."]}]},
+{id:"legumbres",t:"Legumbres y cereales",s:"Energía, fibra y hierro vegetal",m:4,
+ pts:["Las legumbres son una fuente muy buena de hierro, zinc y fibra. Ofrécelas a menudo.","Bien cocidas y sin hollejo al principio, que es más fácil de digerir. Lentejas rojas y garbanzos pelados son los más amables.","Con un poquito de vitamina C (naranja, tomate, pimiento) absorbe mejor su hierro.","Los cereales, mejor integrales cuando ya los tolera. Avena, quinoa, pasta, pan.","El gluten se puede ofrecer desde el principio, en poca cantidad al estrenar."],
+ tip:"Al principio pueden dar gases. Empieza con raciones pequeñas.",
+ rec:[{n:"Hummus suave sin sal",q:"varias raciones",ing:["3 cucharadas de garbanzos cocidos y sin piel","1 cucharadita de tahini","zumo de ½ limón","1 cucharada de aceite de oliva virgen extra","agua para ajustar"],st:["Tritura todo hasta que quede cremoso, añadiendo agua poco a poco.","Sírvelo sobre tostada blanda o con bastones de verdura cocida.","Dura 2 o 3 días en la nevera."]}]},
+{id:"rechazo",t:"Cuando dice que no",s:"Un rechazo no es definitivo",m:3,
+ pts:["Puede necesitar 10 o 15 intentos para aceptar un alimento. Ofrecerlo sin presión cuenta.","No lo fuerces ni lo escondas. Déjalo en el plato y vuelve a ofrecerlo otro día.","Cámbialo de forma: si no le gusta cocido, prueba asado, en tortita o mezclado.","Come contigo: ver a otros comer ayuda más que cualquier truco.","Tú decides qué, cuándo y dónde. Él decide cuánto."],
+ tip:"Márcalo como Regular o Hoy no en el registro. La app vuelve a ofrecérselo más adelante.",
+ rec:[{n:"Pera chafada con avena y yogur",q:"1 ración",ing:["½ pera madura","2 cucharadas de copos de avena","2 cucharadas de yogur natural"],st:["Cuece la pera 5 minutos y chafa con un tenedor.","Mezcla con la avena y el yogur.","Es una forma suave de volver a ofrecerle algo que ha rechazado."]}]},
+{id:"batch",t:"Organizarse y congelar",s:"Desayunos, meriendas y tandas",m:4,
+ pts:["Cocina una vez y guarda en porciones: es lo que más tiempo ahorra.","Congela en bandejas de cubitos o tarros pequeños, con la fecha. Se conservan 2 o 3 meses.","Descongela en la nevera, no a temperatura ambiente, y no vuelvas a congelar lo ya descongelado.","Para desayunos y meriendas: tortitas, fruta chafada con yogur, tostadas con crema de frutos secos molidos.","Elige 2 o 3 desayunos que le gusten y rótalos. En el Plan puedes guardar tus favoritos."],
+ tip:"Puedes decir en el Plan qué desayunos y meriendas repites y la app organiza el resto.",
+ rec:[{n:"Puré base de verduras para congelar",q:"8 a 10 raciones",ing:["2 patatas","2 zanahorias","1 calabacín","½ calabaza pequeña"],st:["Cuece todo junto en poca agua hasta que esté muy blando.","Tritura con un poco de agua de cocción.","Reparte en cubitos o tarros, congela, y combina cada día con proteína."]}]}
+];
+const LID=new Set(LESSONS.map(l=>l.id));
+const cleanSch=o=>{const r={done:{},off:{}};if(o&&typeof o==="object"){["done","off"].forEach(k=>{const x=o[k];if(x&&typeof x==="object")Object.keys(x).forEach(i=>{if(LID.has(i)&&x[i])r[k][i]=1})})}return r};
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;if(!["pure","grad","blw"].includes(pr.sty))pr.sty="";{const r={};["Desayuno","Merienda"].forEach(m=>{const a=pr.rec&&Array.isArray(pr.rec[m])?pr.rec[m]:[];r[m]=a.filter(x=>x&&typeof x.n==="string"&&x.n.trim()).slice(0,6).map(x=>({n:x.n.trim().slice(0,60),i:(Array.isArray(x.i)?x.i:[]).filter(n=>typeof n==="string"&&ALL.some(a=>a.n===n)).slice(0,8)}))});pr.rec=r}
   pr.skip=Array.isArray(pr.skip)?pr.skip.filter(n=>typeof n==="string"&&ALL.some(x=>x.n===n)).slice(0,60):[];
   pr.ord=Array.isArray(pr.ord)?pr.ord.filter(n=>typeof n==="string"&&ALL.some(x=>x.n===n)).slice(0,30):[];if(pr.sty!=="grad"||!/^\d{4}-\d{2}-\d{2}$/.test(pr.sty0||""))delete pr.sty0;
   pr.gen=o.prefs&&"gen" in o.prefs?!!o.prefs.gen:!!(o.bd||(Array.isArray(o.log)&&o.log.length));
-  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,eat:["pure","mix","bits"].includes(o.eat)?o.eat:"",meals:[1,2,3,4].includes(+o.meals)?+o.meals:0,app:["play","some","full"].includes(o.app)?o.app:"",pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),ml:cleanMl(o.ml),ov:cleanOv(o.ov),dip:!!o.dip,log:(Array.isArray(o.log)?o.log:[]).map(l=>l&&FMAP[l.f]?{...l,f:FMAP[l.f]}:l),prefs:pr}};
+  return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,eat:["pure","mix","bits"].includes(o.eat)?o.eat:"",meals:[1,2,3,4].includes(+o.meals)?+o.meals:0,app:["play","some","full"].includes(o.app)?o.app:"",pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),ml:cleanMl(o.ml),ov:cleanOv(o.ov),sch:cleanSch(o.sch),dip:!!o.dip,log:(Array.isArray(o.log)?o.log:[]).map(l=>l&&FMAP[l.f]?{...l,f:FMAP[l.f]}:l),prefs:pr}};
 const fixDB=o=>{o=o||{};const b=Array.isArray(o.babies)&&o.babies.length?o.babies.map(fixB):[fixB(o)];
   return{babies:b,cur:Math.min(Math.max(+o.cur||0,0),b.length-1)}};
 let DB=fixDB(null),S=DB.babies[DB.cur];
@@ -1382,12 +1449,45 @@ function obFinish(){
 $("q").oninput=board;
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
+let openL="";
+const lsOn=id=>!(S.sch&&S.sch.off[id]);
+function schSug(ctx){
+  const R=[],nx=ctx.next||[],nm=nx.map(x=>x.n),k=ctx.n;
+  const T={
+    listo:()=>k<4?"Para empezar con buen pie":"",
+    seguro:()=>k<4?"Antes de las primeras comidas":"",
+    evitar:()=>k<6?"Qué no ofrecer todavía":"",
+    agua:()=>k<6?"Para acompañar las comidas":"",
+    texturas:()=>k>=8?"Ya conoce bastantes alimentos, toca subir textura":"",
+    hierro:()=>nx.some(x=>x.fe)?"Esta semana entra un alimento con hierro":(k>=3&&ctx.ironGap>=3?"Lleva unos días sin hierro":""),
+    alergenos:()=>{const a=nx.find(x=>x.a);return a?"Toca un alérgeno: "+a.n.toLowerCase():""},
+    pescado:()=>nm.some(n=>/merluza|lenguado|bacalao|salm|sardina|pescado|huevo|gamba/i.test(n))?"Entra pescado o huevo esta semana":"",
+    legumbres:()=>nx.some(x=>/lentej|garbanz|alubia|jud[ií]a|guisante|haba/i.test(x.n)||x.c==="Cereales")?"Entra una legumbre o cereal esta semana":"",
+    rechazo:()=>ctx.no>=2?"Ha rechazado algún alimento":"",
+    batch:()=>k>=12?"Con tantos alimentos compensa organizarse":""
+  };
+  LESSONS.forEach(l=>{if(!S.sch||S.sch.done[l.id]||S.sch.off[l.id])return;const w=T[l.id]&&T[l.id]();if(w)R.push({id:l.id,t:l.t,why:w})});
+  return R.slice(0,2)}
+function goLesson(id){openL=id;tab(5);renderSchool();setTimeout(()=>{const e=document.getElementById("les_"+id);if(e)e.scrollIntoView({block:"start",behavior:"smooth"})},60)}
+function renderSchool(){
+  const w=$("school");if(!w)return;const sc=S.sch||{done:{},off:{}},n=LESSONS.length,d=LESSONS.filter(l=>sc.done[l.id]).length,p=Math.round(d/n*100);
+  const rec=r=>`<details class="lrec"><summary><b>${esc(r.n)}</b><small>${esc(r.q)}</small></summary><div class="lrb"><b>Ingredientes</b><ul>${r.ing.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><b>Cómo se hace</b><ol>${r.st.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div></details>`;
+  w.innerHTML=`<div class="card gh0"><h3 class="disp">Escuela de comida sana</h3><p class="mute">Lecciones cortas y recetas simples para que ${esc(S.nm||"tu peque")} coma bien, con mucho hierro y zinc. Léelas a tu ritmo.</p><div class="sprog" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.max(p,d?6:0)}%"></i></div><small class="mute">${d} de ${n} lecciones leídas</small></div>`+
+  LESSONS.map((l,i)=>{const dn=!!sc.done[l.id],op=openL===l.id;
+    return `<div class="les${dn?" dn":""}${op?" open":""}" id="les_${l.id}"><div class="lc"><i class="ld">${dn?'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':""}</i></div><div class="lm"><button type="button" class="lh" data-l="${l.id}" aria-expanded="${op}"><span class="lt"><span class="tag">Lección ${i+1}</span><span class="lmin">${l.m} min${l.rec?" · "+l.rec.length+(l.rec.length>1?" recetas":" receta"):""}</span></span><b class="ltl">${esc(l.t)}</b><span class="lsub">${esc(l.s)}</span><svg class="lch" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`+
+    (op?`<div class="lbd"><ul class="lpts">${l.pts.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>${l.tip?`<p class="ltip">${esc(l.tip)}</p>`:""}${(l.rec||[]).map(rec).join("")}<div class="lft"><button type="button" class="btn${dn?"":" p"}" data-done="${l.id}">${dn?"Leída":"Marcar como leída"}</button><label class="lsw"><input type="checkbox" data-sug="${l.id}"${lsOn(l.id)?" checked":""}><span>Sugerirla en el plan cuando toque</span></label></div></div>`:"")+`</div></div>`}).join("");
+}
+$("school").addEventListener("click",e=>{
+  const h=e.target.closest("[data-l]");if(h){openL=openL===h.dataset.l?"":h.dataset.l;renderSchool();return}
+  const dn=e.target.closest("[data-done]");if(dn){const id=dn.dataset.done;S.sch.done[id]=S.sch.done[id]?0:1;if(!S.sch.done[id])delete S.sch.done[id];save();renderSchool();return}
+});
+$("school").addEventListener("change",e=>{const c=e.target.closest("[data-sug]");if(c){const id=c.dataset.sug;if(c.checked)delete S.sch.off[id];else S.sch.off[id]=1;save()}});
 let selA=0,selB=5;
 const SW=[["A","Semana",()=>{tab(2);subtab(3)}],["A","Menú",()=>{tab(2);subtab(1)}],["A","Ingredientes",()=>{tab(2);subtab(2)}],["A","Lista",()=>tab(1)],["A","Calendario",()=>{setRT("cal");tab(3)}],["B","Estadísticas",()=>{setRT("st");tab(3)}],["B","Alérgenos",()=>{setRT("al");tab(3)}]];
 let curV=2,psub=3;
 function swIdx(){if(curV===1)return 3;if(curV===3)return rtab==="cal"?4:rtab==="st"?5:6;if(curV===2)return psub===3?0:psub===1?1:2;return -1}
 function renderSw(){const k=swIdx(),g=k<0?null:SW[k][0],w=$("fsw");w.classList.toggle("hide",k<0);if(k<0)return;w.innerHTML=SW.map((x,i)=>x[0]===g?`<button type="button" class="btn${i===k?" on":""}" data-sw="${i}" role="tab" aria-selected="${i===k}">${x[1]}</button>`:"").join("");w.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{SW[+b.dataset.sw][2]();window.scrollTo(0,0)});const on=w.querySelector(".on");if(on&&on.scrollIntoView)w.scrollLeft=Math.max(0,on.offsetLeft-20)}
-function tab(n){curV=n;{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));$("t4").classList.toggle("on",n===4);$("t5").classList.toggle("on",n===5);const k=swIdx();if(k>=0){if(SW[k][0]==="A")selA=k;else selB=k}$("nA").classList.toggle("on",k>=0&&SW[k][0]==="A");$("nB").classList.toggle("on",k>=0&&SW[k][0]==="B");renderSw();if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
+function tab(n){curV=n;{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));$("t4").classList.toggle("on",n===4);$("t5").classList.toggle("on",n===5);const k=swIdx();if(k>=0){if(SW[k][0]==="A")selA=k;else selB=k}$("nA").classList.toggle("on",k>=0&&SW[k][0]==="A");$("nB").classList.toggle("on",k>=0&&SW[k][0]==="B");renderSw();if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}if(n===5)renderSchool();window.scrollTo(0,0)}
 renderSw();$("nA").onclick=()=>SW[selA][2]();$("nB").onclick=()=>SW[selB][2]();$("t4").onclick=()=>tab(4);$("t5").onclick=()=>tab(5);
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
@@ -1716,8 +1816,10 @@ function plan(){
       else if(o.rep)body=`<b>${esc(o.rep.x.n)}</b><small>Repetimos, día ${o.rep.n} de 3</small>`;
       else{const nf=o.done.filter(f=>first[f]===o.ds);body=nf.length?`<b>${nf.map(esc).join(", ")}</b><small>✓ Probado</small>`:`<b class="mute">Sin alimento nuevo</b><small>Recetas con lo que ya conoce</small>`}
       return `<div class="wrow"><button class="wgo" data-go="${o.ds}"><span class="wdn">${esc(dl)}</span>${(x||(o.rep&&o.rep.x))?ico((x||o.rep.x).n):'<span class="wic"></span>'}<span class="wfn">${body}</span></button>${mvb}</div>`}).join("");
-    $("pv3").innerHTML=`<div class="card"><h3 class="sec" style="margin-top:0">Esta semana probamos</h3><p class="mute">Estos son los alimentos nuevos de los próximos días. Arrastra ≡ para cambiar el orden y toca uno para ver sus recetas.</p><div class="btns" style="margin:12px 0"><button class="btn p" id="wk_add" style="flex:1 1 100%">Elegir yo el alimento a probar</button></div><div id="wk_addp" class="${wkAdd?"":"hide"}">${wkRep?`<p style="margin:0 0 8px"><b>Cambiar ${esc(wkRep)} por otro alimento</b> <button type="button" class="recx" id="wk_cx">Cancelar</button></p>`:""}<label class="mute" style="display:${wkRep?"none":"block"};margin-bottom:6px">¿Qué día quieres probarlo?<select id="wk_day">${shown.filter(o=>o.items.length&&o.ds>=t0).map((o,k)=>`<option value="${k}">${esc(o.ds===t0?"Hoy":o.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric"}))}</option>`).join("")}</select></label><div class="chips" id="wk_cat"></div><input type="search" id="wk_q" placeholder="Buscar alimento" aria-label="Buscar alimento" value="${esc(wkQ)}"><div class="chips" id="wk_res"></div></div>${rows}${(p.ord||[]).length||(p.skip||[]).length?'<div class="btns" style="margin-top:12px"><button class="btn" id="wk_rst">Restablecer</button></div>':""}<p class="mute">Los alérgenos se siguen espaciando aunque cambies el orden.</p></div>`;
+    const schB=(()=>{const nx=shown.filter(o=>o.items.length&&o.ds>=t0).flatMap(o=>o.items).concat(shown.filter(o=>o.rep).map(o=>o.rep.x));const sg=schSug({n:Object.keys(m).filter(k=>!m[k].all.includes("react")).length,next:nx,ironGap:gapD("iron"),no:S.log.filter(l=>l.r==="no"||l.r==="meh").length});return sg.length?`<div class="schs"><b>Para leer</b>${sg.map(x=>`<button type="button" data-les="${x.id}"><span>${esc(x.t)}</span><small>${esc(x.why)}</small></button>`).join("")}</div>`:""})();
+    $("pv3").innerHTML=`<div class="card"><h3 class="sec" style="margin-top:0">Esta semana probamos</h3><p class="mute">Estos son los alimentos nuevos de los próximos días. Arrastra ≡ para cambiar el orden y toca uno para ver sus recetas.</p>${schB}<div class="btns" style="margin:12px 0"><button class="btn p" id="wk_add" style="flex:1 1 100%">Elegir yo el alimento a probar</button></div><div id="wk_addp" class="${wkAdd?"":"hide"}">${wkRep?`<p style="margin:0 0 8px"><b>Cambiar ${esc(wkRep)} por otro alimento</b> <button type="button" class="recx" id="wk_cx">Cancelar</button></p>`:""}<label class="mute" style="display:${wkRep?"none":"block"};margin-bottom:6px">¿Qué día quieres probarlo?<select id="wk_day">${shown.filter(o=>o.items.length&&o.ds>=t0).map((o,k)=>`<option value="${k}">${esc(o.ds===t0?"Hoy":o.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric"}))}</option>`).join("")}</select></label><div class="chips" id="wk_cat"></div><input type="search" id="wk_q" placeholder="Buscar alimento" aria-label="Buscar alimento" value="${esc(wkQ)}"><div class="chips" id="wk_res"></div></div>${rows}${(p.ord||[]).length||(p.skip||[]).length?'<div class="btns" style="margin-top:12px"><button class="btn" id="wk_rst">Restablecer</button></div>':""}<p class="mute">Los alérgenos se siguen espaciando aunque cambies el orden.</p></div>`;
     $("pv3").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>pdn(b.dataset.go));
+    $("pv3").querySelectorAll("[data-les]").forEach(b=>b.onclick=()=>goLesson(b.dataset.les));
     const setOrd=(i,j)=>{if(i===j||j<0||j>=mv.length)return;const o2=mv.slice(),[m]=o2.splice(i,1);o2.splice(j,0,m);S.prefs.ord=o2;planShown=7;save();plan()};
     $("pv3").querySelectorAll(".wh").forEach(h=>{const row=h.closest(".wrow");
       h.onpointerdown=e=>{e.preventDefault();try{h.setPointerCapture(e.pointerId)}catch(_){}
