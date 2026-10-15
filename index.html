@@ -243,6 +243,7 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 details.gfull{margin-top:14px}
 .shq{margin:14px 0 6px;font-weight:700;font-size:.95rem;color:var(--ink)}.shq2{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}#sh .svp{margin-bottom:0}
 .nfch{display:flex;justify-content:space-between;gap:10px;margin-top:10px}.nfch .x{font-size:.85rem}#nfsh #nfsh_q{width:100%;margin-bottom:6px}#nfsh .fit .tag{font-size:.7rem}
+.shmore .sml,.shmore[open] .smo{display:none}.shmore[open] .sml{display:inline}
 .ndk{display:flex!important;align-items:center;gap:8px;font-size:.9rem;margin-top:6px!important;cursor:pointer}.ndk input{width:20px;height:20px;margin:0;accent-color:var(--green)}#dt:disabled{opacity:.4}.ndt{font-size:.8rem}
 .mpick{margin-top:10px}.svp{margin:4px 0 10px}.svp div{display:grid!important;grid-template-columns:1fr 1fr}.svp button{min-height:40px!important}.mpick>span{display:block;font-size:.85rem;margin-bottom:6px}.mpick div{display:flex;flex-wrap:wrap;gap:6px}.mpick button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 11px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:34px}.mpick button.on{background:var(--green);border-color:var(--green);color:#fff}
 .mk{display:block;margin-top:8px}.mk .mt,.dday .bt .mt{display:block;width:100%;min-height:44px;font-size:.9rem}
@@ -703,7 +704,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
     <label>¿Qué reacción?<select id="rxt"></select></label>
     <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
   </div>
-  <details class="shmore"><summary>Más detalles</summary>
+  <details class="shmore"><summary><span class="smo">Más detalles</span><span class="sml">Menos detalles</span></summary>
   <label>Probado por primera vez<input id="dt" type="date"></label>
   <label class="ndk"><input type="checkbox" id="dt_nd"> No recuerdo cuándo lo probó</label>
   <label id="howl">Cómo lo serviste<select id="how"></select></label>
@@ -877,7 +878,7 @@ function sheetPres(x){const p=presOf(x);if(!p)return"";if(x.c==="Frutos secos")r
   // Antes de los 9 meses (sin pinza) se ofrece en tiras; a partir de ahí, en trozos
   const pz=pinzaNow(),f=(form,t,lab)=>`<figure>${fig(form,0,0,pz)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
   const o=[];if(p.pu)o.push(f("mash",p.pu,"Puré o aplastado"));
-  if(pz){if(p.q)o.push(f(p.q[0],p.q[1],"Trozos"))}else if(p.b[0]!=="mash")o.push(f(p.b[0]==="balls"?"stick":p.b[0],p.b[1],"Tiras"));
+  if(pz){if(p.q)o.push(f(p.q[0],p.q[1],"Trozos"))}else if(p.b[0]!=="mash"&&p.b[0]!=="bits")o.push(f(p.b[0]==="balls"?"stick":p.b[0],p.b[1],"Tiras"));
   return o.length?`<div class="pres">${o.join("")}</div>`:""}
 // Info: alimentos que más atragantan y cómo ofrecerlos con seguridad
 const CHOKE=[["Uvas","Uvas","En cuartos a lo largo, nunca enteras"],["Tomate","Tomate cherry","En cuartos a lo largo, nunca entero"],["Zanahoria","Zanahoria cruda","Cocida muy blanda en bastones, o rallada fina"],["Manzana","Manzana cruda","Asada o cocida hasta que esté blanda, o rallada fina"],["Almendra","Frutos secos","Nunca enteros antes de los 5 años: en crema o molidos muy finos"],["Cacahuete","Cacahuete","En crema 100 % cacahuete, untada fina sobre una tostada"]];
