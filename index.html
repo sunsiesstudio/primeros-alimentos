@@ -240,6 +240,7 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 #v5 .gtile,#v5 .gok,#v5 .gno,#v5 .gwarn,#v5 .gsafe,#v5 .gband{padding:12px;border-radius:16px}
 #v5 .gsteps li{padding:10px 12px;border-radius:16px}
 details.gfull{margin-top:14px}
+.ndk{display:flex!important;align-items:center;gap:8px;font-size:.9rem;margin-top:6px!important;cursor:pointer}.ndk input{width:20px;height:20px;margin:0;accent-color:var(--green)}#dt:disabled{opacity:.4}.ndt{font-size:.8rem}
 .mpick{margin-top:10px}.svp{margin:4px 0 10px}.svp div{display:grid!important;grid-template-columns:1fr 1fr}.svp button{min-height:40px!important}.mpick>span{display:block;font-size:.85rem;margin-bottom:6px}.mpick div{display:flex;flex-wrap:wrap;gap:6px}.mpick button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 11px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:34px}.mpick button.on{background:var(--green);border-color:var(--green);color:#fff}
 .mk{display:block;margin-top:8px}.mk .mt,.dday .bt .mt{display:block;width:100%;min-height:44px;font-size:.9rem}
 .pfg{grid-column:1/-1}.pfg .msl{position:static;min-width:0;max-height:none;box-shadow:none;margin-top:6px;border:0;padding:0;display:flex;flex-direction:column;gap:8px}
@@ -697,6 +698,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   </div>
   <details class="shmore"><summary>Más detalles</summary>
   <label>Probado por primera vez<input id="dt" type="date"></label>
+  <label class="ndk"><input type="checkbox" id="dt_nd"> No recuerdo cuándo lo probó</label>
   <label id="howl">Cómo lo serviste<select id="how"></select></label>
   <input id="rxn" type="text" maxlength="300" placeholder="Notas (opcional)" aria-label="Notas">
   <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" class="x" id="fph_rm">Quitar foto</button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
@@ -1140,7 +1142,7 @@ function board(){
 }
 function hoSel(x,cur){const o=howOpts(x).slice();if(cur&&!o.includes(cur))o.unshift(cur);return o.map(h=>`<option${h===cur?" selected":""}>${esc(h)}</option>`).join("")}
 function rowHtml(l){const x=info(l.f),nt=(l.r==="react"&&l.rt)||l.rn?esc([l.r==="react"?l.rt:"",l.rn].filter(Boolean).join(". ")):"";
-  return `<div class="row lr"><div class="lm"><b class="${x&&x.a?"al":""}">${esc(l.f)}</b><div class="lt"><span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span>${l.pre?`<span class="mute">${esc(l.how)}</span>`:`${l.ml?`<span class="mute">${esc(l.ml)} ·</span>`:""}${l.sv?`<span class="mute">${l.sv==="rec"?"En receta":"Solo"} ·</span>`:""}<select class="hsel" data-how="${l.i}" aria-label="Cómo lo comió">${hoSel(x,l.how)}</select>`}</div>${nt?`<div class="mute">${nt}</div>`:""}${validPh(l.ph)?`<img class="rph" src="${l.ph}" alt="Foto de ${esc(l.f)}">`:""}</div><div class="lx"><input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha"><button class="x" data-i="${l.i}">Borrar</button></div></div>`}
+  return `<div class="row lr"><div class="lm"><b class="${x&&x.a?"al":""}">${esc(l.f)}</b><div class="lt"><span class="tag"><span class="dot rc-${l.r}"></span> ${RL[l.r]}</span>${l.pre?`<span class="mute">${esc(l.how)}</span>`:`${l.ml?`<span class="mute">${esc(l.ml)} ·</span>`:""}${l.sv?`<span class="mute">${l.sv==="rec"?"En receta":"Solo"} ·</span>`:""}<select class="hsel" data-how="${l.i}" aria-label="Cómo lo comió">${hoSel(x,l.how)}</select>`}</div>${nt?`<div class="mute">${nt}</div>`:""}${validPh(l.ph)?`<img class="rph" src="${l.ph}" alt="Foto de ${esc(l.f)}">`:""}</div><div class="lx"><input ${l.nd?`<span class="mute ndt">Fecha no recordada</span>`:`<input type="date" value="${l.d}" data-i="${l.i}" aria-label="Fecha">`}<button class="x" data-i="${l.i}">Borrar</button></div></div>`}
 function bindRows(el){
   el.querySelectorAll("select[data-how]").forEach(b=>b.onchange=()=>{const l=S.log[+b.dataset.how];if(l){l.how=b.value;save()}});
   el.querySelectorAll("input[type=date]").forEach(b=>b.onchange=()=>{if(b.value){S.log[+b.dataset.i].d=b.value;save();render()}});
@@ -1229,7 +1231,7 @@ function openSheet(n,pd,rest,pieces){cur=n;curMeal="";curSv="solo";drawSv();cons
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
   if(x&&x.lim)w.unshift('<p><b>Mejor limitarlo.</b> El arroz y los productos de arroz (tortitas, galletas) contienen arsénico inorgánico, y los bebés se exponen más que los adultos. Si lo das, que sea de vez en cuando y alternando con otros cereales. Las bebidas de arroz, mejor evitarlas. Consúltalo con tu pediatra.</p>');
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
-  {const rk=RISK[n];$("risk").classList.toggle("hide",!rk);$("risk").innerHTML=rk?`<b>${rk[0]}</b><p>${rk[1]}</p>`:""}$("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"",ho=howOpts(x);$("how").innerHTML=ho.map(h=>`<option>${h}</option>`).join("");const dv=!p?(ho.includes("Mezclado en papilla o yogur")?"Mezclado en papilla o yogur":ho[0]):k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado";$("how").value=ho.includes(dv)?dv:ho[0];
+  {const rk=RISK[n];$("risk").classList.toggle("hide",!rk);$("risk").innerHTML=rk?`<b>${rk[0]}</b><p>${rk[1]}</p>`:""}$("warn").innerHTML=w.join("");$("warn").classList.toggle("hide",!w.length);$("ok").textContent=lk?"Guardar igualmente":"Guardar";$("dt").value=pd||today();$("dt_nd").checked=false;$("dt").disabled=false;{const p=x&&presOf(x),pz=pinzaNow(),k=p?pict(pz?p.q[0]:p.b[0],pz):"",ho=howOpts(x);$("how").innerHTML=ho.map(h=>`<option>${h}</option>`).join("");const dv=!p?(ho.includes("Mezclado en papilla o yogur")?"Mezclado en papilla o yogur":ho[0]):k==="strips"?"Tiras":k==="bits"?"Trozos":"Puré o aplastado";$("how").value=ho.includes(dv)?dv:ho[0];
     const fs=[...$("shp").querySelectorAll("figure")];$("howl").classList.toggle("hide",!!fs.length);
     if(fs.length){
       const pick=f=>{fs.forEach(g=>{g.classList.toggle("sel",g===f);g.setAttribute("aria-pressed",g===f)});$("how").value=f.querySelector("b").textContent};
@@ -1248,8 +1250,10 @@ function celebrate(o){const old=document.getElementById("cel");if(old)old.remove
   c.innerHTML=`<div class="celp">${o.food?`<span class="celi">${ico(o.food)}</span>`:`<span class="celi cels">★</span>`}<span class="celt"><b>${esc(o.t)}</b>${o.s?`<small>${esc(o.s)}</small>`:""}</span></div><div class="celb">${bits}</div>`;
   document.body.appendChild(c);celT=setTimeout(()=>c.remove(),o.big?3200:2600)}
 $("cx").onclick=()=>$("sh").classList.add("hide");
-$("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();const wasNew=!S.log.some(l=>l.f===cur),nB=Object.keys(stats()).length,gB=goalsFull(),food0=cur;
-  {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;if(curMeal)e.ml=curMeal;e.sv=curSv;S.log.push(e);
+$("dt_nd").onchange=e=>{$("dt").disabled=e.target.checked};
+const noDate=()=>{const y=new Date(today()+"T00:00:00");y.setDate(y.getDate()-1);let d=dstr(y);if(S.bd){const b=new Date(S.bd+"T00:00:00");b.setMonth(b.getMonth()+6);const s6=dstr(b);if(s6<d)d=s6}const mn=S.log.reduce((a,l)=>l.d<a?l.d:a,d);return mn<d?mn:d};
+$("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const nd=$("dt_nd").checked,g=AG[cur],d0=nd?noDate():($("dt").value||today());const wasNew=!S.log.some(l=>l.f===cur),nB=Object.keys(stats()).length,gB=goalsFull(),food0=cur;
+  {const e={f:cur,how:$("how").value,r:rv,d:d0,...(nd?{nd:true}:{})},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;if(curMeal)e.ml=curMeal;e.sv=curSv;S.log.push(e);
     if(curMeal){const dm=S.ml[d0]=S.ml[d0]||{};if(!dm[curMeal]){dm[curMeal]={d:true};if(MR.includes(rv))dm[curMeal].r=rv;S.ov=S.ov||{};const od=S.ov[d0]=S.ov[d0]||{};if(!od[curMeal])od[curMeal]={n:cur,i:[cur]}}}}
   document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
   {const x=info(cur),h=$("how").value,had=S.log.filter(l=>l.f===cur).some(l=>PCSH.has(l.how));const nm=cur;
