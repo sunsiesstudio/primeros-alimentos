@@ -242,7 +242,7 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 #v5 .gsteps li{padding:10px 12px;border-radius:16px}
 details.gfull{margin-top:14px}
 .shq{margin:14px 0 6px;font-weight:700;font-size:.95rem;color:var(--ink)}.shq2{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}#sh .svp{margin-bottom:0}
-.nfch{display:flex;justify-content:space-between;gap:10px;margin-top:10px}.nfch .x{font-size:.85rem}#nfsh #nfsh_q{width:100%;margin-bottom:6px}#nfsh .fit .tag{font-size:.7rem}
+.nfch{display:flex;justify-content:space-between;gap:10px;margin-top:10px}.nfch .x{font-size:.85rem}#nfsh #nfsh_q{width:100%;margin-bottom:6px}#nfsh .nfhd{position:sticky;top:-16px;z-index:2;background:var(--card);margin:-16px -18px 0;padding:16px 18px 8px;border-bottom:1px solid var(--line)}#nfsh .nfhd .xc{top:14px;right:14px}#nfsh .fit .tag{font-size:.7rem}
 .shmore .sml,.shmore[open] .smo{display:none}.shmore[open] .sml{display:inline}
 #stwrap #nutcard{margin:0}.nfd{display:flex;align-items:baseline;gap:8px;margin:12px 0}.nfd b{font:400 2rem "Luckiest Guy",system-ui,sans-serif;color:var(--green)}.nfd span{font-size:.9rem;color:var(--mute)}.ntip{border-radius:14px;padding:12px;margin:0 0 14px;background:color-mix(in srgb,var(--terra) 14%,transparent);border:1.5px solid color-mix(in srgb,var(--terra) 45%,transparent)}.ntip.ok{background:color-mix(in srgb,var(--green) 12%,transparent);border-color:color-mix(in srgb,var(--green) 45%,transparent)}.ntip b{display:block;font-size:.92rem}.ntip span{display:block;font-size:.85rem;color:var(--mute);margin-top:2px}
 .ndk{display:flex!important;align-items:center;gap:8px;font-size:.9rem;margin-top:6px!important;cursor:pointer}.ndk input{width:20px;height:20px;margin:0;accent-color:var(--green)}#dt:disabled{opacity:.4}.ndt{font-size:.8rem}
@@ -727,10 +727,10 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 </div></div>
 
 <div class="sheet hide" id="nfsh" role="dialog" aria-label="Elegir alimento nuevo"><div>
-  <button class="xc" id="nfsh_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="nfhd"><button class="xc" id="nfsh_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp">Elegir alimento nuevo</h3>
   <p class="mute" style="margin:4px 0 10px">Solo salen los que aún no ha probado y ya puede comer.</p>
-  <input id="nfsh_q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+  <input id="nfsh_q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento"></div>
   <div id="nfsh_l"></div>
 </div></div>
 <div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
