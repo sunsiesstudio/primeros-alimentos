@@ -29,7 +29,7 @@ h1{font-size:clamp(1.8rem,7vw,2.8rem);color:var(--green);margin:0;line-height:1;
 .hero .logo{margin-top:6px}
 .rtabs{margin-bottom:22px!important}
 .les .lm .lh{padding-left:54px}.les .lic{position:absolute;left:0;top:12px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:var(--green);background:color-mix(in srgb,var(--green) 14%,transparent);border:2px solid color-mix(in srgb,var(--green) 40%,transparent)}.les .lh .lch{top:18px}
-.lz{margin:0 0 12px}.lbd .lz.gg{gap:10px}.lbd .lz.gyn{gap:10px}.lbd .gyn ul{margin:0;padding-left:16px;font-size:.84rem;line-height:1.35;display:flex;flex-direction:column;gap:3px}
+.lz{margin:0 0 12px}.lbd .lz.gg{gap:10px}.lbd .lz.gyn{gap:10px}.gyn h5 svg{width:18px;height:18px;flex:none}.lbd .gyn ul{margin:0;padding-left:16px;font-size:.84rem;line-height:1.35;display:flex;flex-direction:column;gap:3px}
 .lno{display:flex;flex-wrap:wrap;gap:6px}.lno span{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:99px;font-size:.82rem;font-weight:600;color:#c0392b;background:color-mix(in srgb,#c0392b 9%,transparent);border:1.5px solid color-mix(in srgb,#c0392b 40%,transparent)}
 .lmore{margin:0 0 12px}.lmore>summary{cursor:pointer;color:var(--blue);font-weight:700;font-size:.88rem;min-height:40px;display:flex;align-items:center}.lmore .lpts{margin-top:4px}
 #v2 #pfcard{margin:0 0 12px}
@@ -497,21 +497,6 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 .leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin:0 0 12px}
 .leg span{display:inline-flex;align-items:center;gap:6px}
 .tag .dot{width:7px;height:7px;margin-right:3px}
-#sumprint{display:none}
-@media print{
-  @page{margin:14mm}
-  html,body{background:#fff!important;color:#000!important;font-size:11pt}
-  body>*:not(#sumprint){display:none!important}
-  #sumprint{display:block}
-  #sumprint h1{font-size:18pt;margin:0 0 4pt}
-  #sumprint h2{font-size:12pt;margin:14pt 0 4pt;border-bottom:1px solid #000;padding-bottom:2pt}
-  #sumprint p,#sumprint li{margin:3pt 0}
-  #sumprint table{width:100%;border-collapse:collapse;font-size:9.5pt}
-  #sumprint td,#sumprint th{border:1px solid #999;padding:3pt 5pt;text-align:left;vertical-align:top}
-  #sumprint th{background:#eee}
-  #sumprint tr.cat td{background:#f2f2f2;font-weight:700}
-  #sumprint .pie{margin-top:14pt;font-size:9pt;color:#444}
-}
 /* escala tipografica: H3 de tarjeta 1.6rem, H4 1.25rem, texto 15.5px, apoyo .9rem, items .9/.82rem, tags .72rem */
 .gh0 h3,.tkh h3,.wkaim h3,.wkd h3,#nutcard>h3,.sheet h3,.ob h2{font-family:"Luckiest Guy","Arial Rounded MT Bold",system-ui,sans-serif;font-weight:400;letter-spacing:.03em;font-size:1.6rem;line-height:1.1;color:var(--green);margin:0}
 .gs,.wks b,.rmenu .mh .disp,.pap .disp,.chef .disp,details.grp>summary .disp,.dday>b.disp{font-size:1.25rem;line-height:1.15;color:var(--green)}
@@ -522,7 +507,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 .gic{display:flex;gap:0;margin:0 0 6px -4px}.gic svg.fd{width:40px;height:40px}.gsafe .gic+b{margin-top:2px}
 button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;margin:0;position:relative}.ah .aht{flex:1;min-width:0}.ah .aht .tag{display:inline-block;margin-bottom:8px}.ah .aht b{display:block;line-height:1.15}.ah .lch{flex:none;color:var(--mute);transition:transform .2s}.les2.shut .lch{transform:rotate(-90deg)}.les2.shut .lbd{display:none}.les2.shut .ah{margin-bottom:0}.les2:not(.shut) .ah{margin-bottom:14px}
 .ah .adn{flex:none;width:24px;height:24px;border-radius:50%;background:var(--green);display:grid;place-items:center}.les2 .lbd>.btn{width:100%;margin-top:4px}
-.gyn h5{font-size:.88rem;overflow-wrap:normal}.gyn h5 svg{width:18px;height:18px;flex:none}
+.gyn h5{font-size:.8rem;overflow-wrap:normal}.gyn h5 svg{width:18px;height:18px;flex:none}
 #cel{position:fixed;inset:0;z-index:80;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:26vh}
 .celp{display:flex;align-items:center;gap:10px;padding:10px 16px 10px 10px;border-radius:999px;background:var(--card);border:2px solid color-mix(in srgb,var(--green) 55%,transparent);box-shadow:0 8px 24px rgba(0,0,0,.16);animation:celin 2.4s cubic-bezier(.2,.9,.3,1.2) both;position:relative;z-index:2;max-width:calc(100vw - 32px)}
 .celi svg.fd{width:46px;height:46px;display:block;animation:celhop .7s .15s ease-out both}.celi.cels{font-size:2rem;line-height:46px;width:46px;text-align:center;color:var(--terra)}
@@ -534,7 +519,10 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 @keyframes celbit{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 40px)) scale(1)}}
 @media (prefers-reduced-motion:reduce){.celb{display:none}.celi svg.fd{animation:none}.celp{animation:celfade 2.4s both}@keyframes celfade{0%,100%{opacity:0}12%,80%{opacity:1}}}
 .sosc{display:flex;align-items:center;justify-content:center;min-height:64px;border-radius:18px;background:#c0392b;color:#fff;font:700 1.3rem Montserrat,sans-serif;text-decoration:none;margin-bottom:14px}
-.sosk{padding:14px;border-radius:18px;background:var(--card);border:2px solid color-mix(in srgb,#c0392b 45%,transparent);margin-bottom:12px}.sosk h3{margin:0;font-size:1.15rem;color:#c0392b}.sosw{margin:4px 0 8px;font-size:.92rem}
+.gyn ul{list-style:none!important;padding-left:0!important;gap:0!important}.gyn li{position:relative;padding:7px 0 7px 24px;border-top:1px dashed color-mix(in srgb,currentColor 22%,transparent)}.gyn li:first-child{border-top:0}.gyn li::before{content:"";position:absolute;left:2px;top:11px;width:12px;height:12px;border-radius:50%}.gok li::before{background:var(--green)}.gno li::before{background:#c0392b}
+.figc{margin:0 0 12px}.figt{margin:0 0 8px;font-size:.84rem}.fig{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 6px}.fi{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}.fi .fd{width:46px;height:46px}.fi em{font-style:normal;font-size:.74rem;font-weight:600;line-height:1.15}
+.evl{list-style:none;margin:0 0 12px;padding:0}.evl li{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px dashed var(--line)}.evl li:first-child{border-top:0}.evl .fd{width:38px;height:38px;flex:none}.evt{flex:1;display:flex;flex-direction:column}.evt b{font-size:.95rem}.evt small{font-size:.78rem;color:var(--mute)}.evx{color:#c0392b;flex:none;display:flex}
+.sosk2{padding:14px}.sosk2 .sh{margin:10px 0 0;font-size:1.05rem;color:var(--ink,#333)}.sosk2 .sosc{min-height:52px;font-size:1.1rem;margin:12px 0 0;background:var(--green)}.sosk{padding:14px;border-radius:18px;background:var(--card);border:2px solid color-mix(in srgb,#c0392b 45%,transparent);margin-bottom:12px}.sosk h3{margin:0;font-size:1.15rem;color:#c0392b}.sosw{margin:4px 0 8px;font-size:.92rem}
 .sosk ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:1rem;line-height:1.35}.sosn{margin:10px 0 0;font-size:.88rem;color:var(--mute)}.sosk+.sosk{margin-top:0}
 .why summary,.chg{min-height:44px;display:inline-flex;align-items:center}.phe,#ph_edit{min-width:44px;min-height:44px}
 .pfmore>summary,.shmore>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;font-size:.9rem;color:var(--blue)}.shmore{margin:8px 0}.shmore>*:not(summary){margin-top:8px}.shmore label{display:block}
@@ -657,8 +645,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
     <div class="prow"><div><div class="lab">Edad</div><div class="val" id="vage"></div></div></div>
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
     <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div></div><button class="btn" id="go_tk" style="flex:none;width:112px;padding:10px 0;text-align:center">Ver</button></div>
-    <div class="prow"><div><div class="lab">Resumen para pediatra y guardería</div></div><button class="btn p" id="exp" style="flex:none;width:112px;padding:10px 0;text-align:center">Exportar</button></div>
-    <div class="prow"><div><div class="lab">Compartir con cuidadores</div><div class="mute">Texto corto: lo probado, alergias y reacciones</div></div><button class="btn p" id="shr" style="flex:none;width:112px;padding:10px 0;text-align:center">Compartir</button></div>
+    <div class="prow"><div><div class="lab">Compartir resumen</div><div class="mute">Una imagen con lo probado, alergias y reacciones, lista para WhatsApp</div></div><button class="btn p" id="exp" style="flex:none;width:112px;padding:10px 0;text-align:center">Compartir</button></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
   <div class="btns" style="max-width:260px;margin:18px 0 0"><button class="btn" id="so">Cerrar sesión</button></div>
@@ -726,7 +713,6 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   <p class="mute" id="cfe" style="color:var(--red)"></p>
   <div class="btns"><button class="btn" id="cfx">Cancelar</button><button class="btn rd" id="cfok">Eliminar</button></div>
 </div></div>
-<div id="sumprint"></div>
 <div class="dip hide" id="dip"><div class="dipb"><button class="xc" id="dip_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><canvas id="dipc" width="1240" height="1754"></canvas><p class="mute" id="dip_p"></p><div class="btns"><button class="btn p" id="dip_dl">Descargar</button><button class="btn hide" id="dip_sh">Compartir</button></div></div></div>
 <script>
 // categoría, color, consejo de preparación, alimentos separados por |
@@ -1095,7 +1081,7 @@ function card(x,m,col){
 const LOPN=new Set();
 function paintProg(){const m=stats();$("prog").innerHTML=progHtml(ALL.filter(x=>m[x.n]).length)}
 function paintRecent(){const w=$("recent");if(!w)return;const seen=new Set(),L=[];S.log.slice().sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:0).forEach(l=>{if(l.r==="no"||seen.has(l.f)||!info(l.f))return;seen.add(l.f);L.push(l.f)});
-  const t=L.slice(0,14);w.classList.toggle("hide",!t.length);w.innerHTML=t.length?`<h3 class="disp rcap">Alimentos probados</h3><div class="rcp">${t.map((f,i)=>`<span style="--r:${[-7,5,-3,8,-6,3,-8][i%7]}deg;z-index:${t.length-i}" title="${esc(f)}">${ico(f)}</span>`).join("")}</div>`:""}
+  const t=L.slice(0,14);w.classList.add("hide");w.innerHTML=false?`<h3 class="disp rcap">Alimentos probados</h3><div class="rcp">${t.map((f,i)=>`<span style="--r:${[-7,5,-3,8,-6,3,-8][i%7]}deg;z-index:${t.length-i}" title="${esc(f)}">${ico(f)}</span>`).join("")}</div>`:""}
 function board(){
   const m=stats(),q=norm($("q").value.trim());
   FIRSTD={};S.log.forEach(l=>{if(!FIRSTD[l.f]||l.d<FIRSTD[l.f])FIRSTD[l.f]=l.d});
@@ -1315,14 +1301,58 @@ $("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value
 $("ph_fr").onclick=()=>{$("phm").classList.add("hide");if(S.ph)openCrop(S.ph,false)};
 $("ph_del").onclick=()=>{$("phm").classList.add("hide");S.ph="";saveLocal();render();pushCloud()};
 $("go_tk").onclick=()=>{setRT("al");tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
-function shareText(){const m=stats(),cats={};ALL.forEach(x=>{if(m[x.n])(cats[x.c]=cats[x.c]||[]).push(x.n)});
-  const L=[(S.nm||"Bebé")+(($("vage")&&$("vage").textContent)?", "+$("vage").textContent:"")+" · Primeros alimentos"],tot=Object.keys(cats).reduce((a,c)=>a+cats[c].length,0);
-  L.push("Alimentos probados: "+tot);Object.keys(cats).forEach(c=>L.push(c+": "+cats[c].join(", ")));
-  const al=Object.keys(S.al||{}).map(g=>AGL[g]+(S.al[g]==="alergia"?" (confirmada)":" (sospecha)"));L.push("Alergias: "+(al.length?al.join(", "):"ninguna indicada"));
-  const rx=S.log.filter(l=>l.r==="react").map(l=>l.f+(l.rt?" ("+l.rt+")":"")+" el "+l.d);if(rx.length)L.push("Reacciones anotadas: "+rx.join("; "));
-  L.push("Dato orientativo de la app, no sustituye al pediatra.");return L.join("\n")}
-$("shr").onclick=()=>{const t=shareText();if(navigator.share)navigator.share({title:"Primeros alimentos",text:t}).catch(()=>{});else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>snack("Copiado. Pégalo donde quieras.")).catch(()=>prompt("Copia el resumen:",t));else prompt("Copia el resumen:",t)};
-$("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
+
+function loadSvg(svg){return new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.onerror=()=>r(null);im.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg)})}
+async function buildPng(){
+  try{await Promise.all([document.fonts.load('48px "Luckiest Guy"'),document.fonts.load('700 28px Montserrat'),document.fonts.load('500 26px Montserrat')])}catch(e){}
+  const W=1080,P=60,m=stats(),FF='Montserrat,Arial,sans-serif',HF='"Luckiest Guy",Arial Black,sans-serif';
+  const cv=document.createElement("canvas");cv.width=W;cv.height=9000;const g=cv.getContext("2d");
+  const rr=(x,y,w,h,r)=>{g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()};
+  g.fillStyle="#eeead8";g.fillRect(0,0,W,9000);
+  let y=P;
+  const first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
+  const ra=age(true),now=new Date().toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+  g.fillStyle="#4a8760";g.font='56px '+HF;g.textBaseline="top";g.fillText("Primeros alimentos de "+(S.nm||"mi bebé"),P,y);y+=74;
+  g.fillStyle="#6b675a";g.font='500 28px '+FF;g.fillText((ra?ra.mo+" meses · ":"")+now,P,y);y+=62;
+  const sec=t=>{g.fillStyle="#3e4cd0";g.font='44px '+HF;g.fillText(t,P,y);y+=62};
+  const pill=(x,yy,t,col,bg)=>{g.font='700 26px '+FF;const w=g.measureText(t).width+60;rr(x,yy,w,52,26);g.fillStyle=bg;g.fill();g.strokeStyle=col;g.lineWidth=2.500;g.stroke();g.fillStyle=col;g.beginPath();g.arc(x+26,yy+26,8,0,7);g.fill();g.fillText(t,x+44,yy+11);return w};
+  const flow=(items)=>{let x=P;items.forEach(it=>{g.font='700 26px '+FF;const w=g.measureText(it[0]).width+60;if(x+w>W-P){x=P;y+=64}pill(x,y,it[0],it[1],it[2]);x+=w+14});y+=84};
+  // alergias
+  sec("Alergias indicadas");
+  const al=Object.keys(S.al||{});
+  if(al.length)flow(al.map(k=>[AGL[k]+(S.al[k]==="alergia"?": confirmada":": sospecha"),"#b3382a","#f3ddd6"]));
+  else{g.fillStyle="#2b2a26";g.font='500 28px '+FF;g.fillText("Ninguna indicada",P,y);y+=60}
+  // alergenos
+  sec("Alérgenos");
+  flow(Object.keys(AGD).map(k=>{const i=gInfo(k),rx=i.rxs.filter(r=>r.r&&r.r!==RXO[0]).length+i.reactLog.length;
+    return rx?[AGL[k]+": reacción","#b3382a","#f3ddd6"]:i.tried.length?[AGL[k]+": probado","#3b7a55","#dfeadf"]:[AGL[k]+": no probado","#7a766a","#e4e0cf"]}));
+  // alimentos
+  const tot=ALL.filter(x=>m[x.n]).length;
+  sec("Alimentos probados ("+tot+")");
+  const imgs={};await Promise.all(ALL.filter(x=>m[x.n]).map(async x=>{const sv=ico(x.n).replace('<svg class="fd"','<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"');imgs[x.n]=await loadSvg(sv)}));
+  const CW=(W-2*P)/4;
+  C.forEach(c=>{const xs=ALL.filter(x=>x.c===c[0]&&m[x.n]);if(!xs.length)return;
+    g.fillStyle="#6b675a";g.font='700 26px '+FF;g.fillText(c[0].toUpperCase(),P,y);y+=44;
+    xs.forEach((x,i)=>{const cx=P+(i%4)*CW,cy=y+Math.floor(i/4)*190;
+      if(imgs[x.n])g.drawImage(imgs[x.n],cx+CW/2-50,cy,100,100);
+      const rx=m[x.n].last==="react";if(rx){g.fillStyle="#c0392b";g.beginPath();g.arc(cx+CW/2+46,cy+8,16,0,7);g.fill();g.fillStyle="#fff";g.font='700 22px '+FF;g.textAlign="center";g.fillText("!",cx+CW/2+46,cy-3);g.textAlign="left"}
+      g.fillStyle="#2b2a26";g.font='600 24px '+FF;g.textAlign="center";
+      const words=x.n.split(" "),lines=[];let cur="";words.forEach(w=>{const t=cur?cur+" "+w:w;if(g.measureText(t).width>CW-10&&cur){lines.push(cur);cur=w}else cur=t});lines.push(cur);
+      lines.slice(0,2).forEach((l,k)=>g.fillText(l,cx+CW/2,cy+108+k*28));g.textAlign="left"});
+    y+=Math.ceil(xs.length/4)*190+14});
+  if(!tot){g.fillStyle="#2b2a26";g.font='500 28px '+FF;g.fillText("Todavía no se ha registrado ningún alimento.",P,y);y+=60}
+  if(ALL.some(x=>m[x.n]&&m[x.n].last==="react")){g.fillStyle="#c0392b";g.beginPath();g.arc(P+14,y+16,14,0,7);g.fill();g.fillStyle="#2b2a26";g.font='500 24px '+FF;g.fillText("Hubo reacción anotada",P+40,y+4);y+=56}
+  g.fillStyle="#6b675a";g.font='500 22px '+FF;g.fillText("Anotado por la familia en Primeros alimentos. No sustituye al pediatra.",P,y+10);y+=P+20;
+  const out=document.createElement("canvas");out.width=W;out.height=y;out.getContext("2d").drawImage(cv,0,0);
+  return new Promise(r=>out.toBlob(r,"image/png"));
+}
+$("exp").onclick=async()=>{const b0=$("exp"),t0=b0.textContent;b0.textContent="...";b0.disabled=true;
+  try{const blob=await buildPng();if(!blob)throw 0;const f=new File([blob],"primeros-alimentos-"+(S.nm||"bebe").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Primeros alimentos"})}catch(e){}}
+    else{const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}}
+  catch(e){snack("No se pudo crear la imagen")}
+  b0.textContent=t0;b0.disabled=false};
+
 let obSkip=false;
 const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
@@ -1395,17 +1425,10 @@ batch:'<path d="M12 3v18M4.200 7.500l15.600 9M4.200 16.500l15.600-9"/>',fuentes:
 const LIC2={clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',cup:'<path d="M6 4h12l-1.500 16h-9z"/><path d="M7 9h10"/>',bottle:'<path d="M10 3h4v3l2 3v12H8V9l2-3z"/>',drop:'<path d="M12 3C8 8.500 6 11.500 6 15a6 6 0 0012 0c0-3.500-2-6.500-6-12z"/>',spoon:'<g transform="rotate(35 12 12)"><ellipse cx="12" cy="6.600" rx="3.500" ry="4.600"/><path d="M12 11.400v10"/></g>',fish:LIC.pescado,egg:LIC.alergenos,leaf:LIC.legumbres,bolt:LIC.hierro,snow:LIC.batch,heart:LIC.rechazo,alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4.500M12 17.500h.01"/>',phone:'<path d="M6 3h4l2 5-2.500 1.500a11 11 0 005 5L16 12l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 013-2z"/>'};
 Object.assign(LIC,{digestion:LIC.listo,cuando:LIC.listo,ofrecer:LIC.hierro,leche:'<path d="M10 3h4v3l2 3v12H8V9l2-3z"/>',seguridad:LIC.seguro,cantidad:LIC.rechazo,congelar:LIC.batch});
 const LVZ={
-cuando:[["t",[["6 m","lactancia exclusiva","después se añaden alimentos, sin quitar la leche","clock"],["4 m","nunca antes","riesgo de atragantamiento, infecciones y menos leche","alert"],]],
- ["t",[["Interés","por la comida","quiere probar",""],["Sin","extrusión","no empuja la comida con la lengua",""],["Coge","y se la lleva","a la boca",""],["Sentado","con apoyo","sostiene la cabeza",""]]],
- ["b","Sin pasar de las 26 semanas (retrasarlo más no se recomienda). En prematuros se individualiza según su desarrollo motor."]],
-seguridad:[["yn","Arcada",["Es normal y le protege","Tose y hace ruido","Ojos llorosos","Echa la comida hacia delante","Calma, no metas los dedos"],"Atragantamiento",["No tose, no llora, no respira","Se pone morado","Ruido agudo o silencio","Actúa ya"]],
+seguridad:[["yn","Arcada",["Es normal y le protege","Tose y hace ruido","Ojos llorosos","Echa la comida hacia delante","Calma. No metas los dedos ni le des golpes"],"Atragantamiento",["No tose, no llora, no respira","Se pone morado","Ruido agudo o silencio","Actúa ya","Llama al 112"]],
  ["s",[["112","Llama o pide que llamen"],["5 golpes en la espalda","Boca abajo sobre tu antebrazo, con la cabeza más baja"],["5 compresiones en el pecho","Boca arriba, con dos dedos"],["Repite","Hasta que expulse el objeto. Si pierde el conocimiento, RCP"]]],
  ["g",[["Uvas y cherry","En cuartos, a lo largo","Uvas"],["Frutos secos","Molidos o en crema, nunca enteros",["Almendra","Nuez"]],["Manzana y zanahoria","Cocidas o ralladas finas, nunca crudas en trozos",["Manzana","Zanahoria"]],["Carne, pescado y huevo","Bien cocinados, sin piel ni espinas",["Pollo","Merluza","Huevo"]]]],
  ["b","Siempre sentado y erguido, con un adulto al lado y sin pantallas. Un curso de primeros auxilios pediátricos sirve para cualquier método."]],
-ofrecer:[["b","No hay un orden rígido. Un alimento nuevo cada vez, con unos días entre uno y otro, para ver cómo lo tolera."],
- ["g1",[["Proteínas, cada día","Variadas, y con prioridad a las ricas en hierro y zinc: carne roja, yema de huevo, lentejas, alubias, guisantes, brócoli y frutos secos molidos.",["Ternera","Lentejas","Huevo"]],["Cereales","Mejor integrales: avena, quinoa, pasta, pan. Sin miel ni azúcar añadidos. El gluten, entre los 4 y los 11 meses, mejor hacia los 6.",["Avena","Quinoa","Pasta"]],["Verduras y fruta","Todas, variando la forma: triturada, chafada o en trozos. Mejor fruta entera que zumo.",["Brócoli","Pera","Kiwi"]],["Lácteos","Yogur natural y queso, desde los 9 meses.",["Yogur natural","Queso fresco"]]]],
- ["t",[["+ C","vitamina C","naranja, kiwi, pimiento o tomate: ayuda a absorber el hierro","bolt"]]],
- ["b","Sin alimentos de origen animal cuesta cubrir hierro, zinc y B12: consúltalo con tu pediatra. En vegana estricta, la B12 necesita suplemento. Vitamina D, 400 UI al día hasta los 12 meses, según tu pediatra."]],
 alergenos:[["t",[["Pronto","y en poca cantidad","puede reducir la alergia posterior","egg"],["No","retrasarlos","pasados los 6 meses no previene la alergia",""]]],
  ["g1",[["Los habituales","Huevo, pescado, frutos secos molidos, algunas frutas y el gluten.",["Huevo","Merluza","Cacahuete","Pan"]],["Cómo lo hace la app","Uno cada vez, 3 días seguidos y en poca cantidad. Solo los estrena de lunes a miércoles, para poder observarlo entre semana."]]],
  ["yn","Reacción leve",["Ronchas, picor, enrojecimiento","Algún vómito aislado","No repitas. Anótalo y consulta a tu pediatra"],"Grave: 112",["Labios, lengua o cara hinchados","Le cuesta respirar","Vómitos repetidos o muy decaído","Tumbado y vigilado hasta que llegue la ayuda"]]],
@@ -1413,21 +1436,9 @@ texturas:[["raw","<div class=\"gflow\"><div><i><svg viewBox=\"0 0 48 48\" width=
  ["b","Grumos cuanto antes, nunca más tarde de los 8 o 9 meses. Introducirlos después de los 9 se asocia con problemas de alimentación y menos fruta y verdura."],
  ["g1",[["Triturado y cuchara","Puré fino que va ganando grumos. Tú le das con la cuchara."],["Baby-led weaning","Trozos blandos sin triturar. Los coge, se los lleva a la boca y decide cuánto come."],["Mixto","Algo de puré en unas comidas y trozos en otras."]]],
  ["b","Ningún método respetuoso con el bebé es mejor que otro. El BLW no se recomienda con dificultades neurológicas o motoras, ni con fallo de medro."]],
-leche:[["t",[["6-12 m","la leche es lo principal","materna a demanda, sin reducir tomas","bottle"],["500 ml","de lácteos al día","aprox., cuando la dieta ya es variada",""],["9 m","yogur y queso","natural y sin azúcar",""],["12 m","leche de vaca entera","como bebida",""]]],
- ["b","Si no toma pecho: fórmula de continuación (tipo 2), o seguir con la de inicio (tipo 1). El agua, en sorbos, en vaso abierto o con pajita."]],
-evitar:[["g1",[["Sal","Nunca se añade, aunque la comida parezca sosa."],["Azúcares añadidos y zumos","Antes de los 2 años. Mejor la fruta entera."],["Miel","Antes de los 12 meses, por el botulismo."],["Cacao, bollería, galletas y embutidos","Cuanto más tarde, mejor, y nunca antes de los 12 meses."],["Acelgas, espinacas y borraja","Todo el primer año, por los nitratos.",["Acelgas","Espinacas"]],["Pescados grandes","Emperador, pez espada, atún rojo, cazón y lucio, por el mercurio. No antes de los 3 años.","Salmón"],["Arroz y bebida de arroz","Por el arsénico. El arroz, de vez en cuando. La bebida, no.","Arroz"],["Cabeza de gambas y crustáceos","Por el cadmio.","Gambas"],["Leche de vaca como bebida","Hasta los 12 meses."]]]],
-cantidad:[["t",[["Él","decide cuánto","tú decides qué, cuándo y dónde","heart"],["Poco","al principio","porciones pequeñas que crecen con él",""],["10-15","intentos","un rechazo no es definitivo, vuelve a ofrecerlo",""],["Sin","presionar","ni premios ni consuelo con comida, ni pantallas",""]]],
- ["b","Importan más la variedad y los hábitos que la cantidad. Fíjate en sus señales de hambre y de saciedad."]],
-digestion:[["t",[["Cambia","color, olor y textura","es normal con cada alimento nuevo; puedes ver trocitos","spoon"],["Su ritmo","puede variar","más o menos veces, o algún día sin caca","clock"]]],
- ["g1",[["Qué ayuda","Fruta, verdura, legumbres y cereales integrales. Agua en sorbos con las comidas y sin reducir la leche.",["Pera","Lentejas","Avena"]],["Qué vigilar","Caca dura y seca, esfuerzo o llanto al hacerla, tripa hinchada, sangre, o varios días sin hacer y molesto."]]],
- ["b","Si está contento, come bien y la caca es blanda, un día sin hacer no suele preocupar. Si dudas, consulta a tu pediatra y no des laxantes ni remedios por tu cuenta."]],
-congelar:[["t",[["2 h","máximo fuera de la nevera","enfría en raciones pequeñas","clock"],["3","meses a -18 °C","etiqueta con la fecha","snow"],["24 h","tras descongelar","y no se vuelve a congelar",""],["Nevera","para descongelar","o microondas o baño maría, nunca fuera",""]]],
- ["yn","Congela bien",["Purés y guisos","Legumbres cocidas","Carne y pescado cocinados","Tortitas y hamburguesitas"],"Mejor no",["Patata sola","Huevo duro","Yogur y queso fresco","Fruta fresca y verdura cruda"]],
- ["b","Calienta bien, remueve y deja templar. No guardes las sobras del plato del bebé."]],
-fuentes:[["g1",[["AEP, noviembre de 2018","Recomendaciones sobre alimentación complementaria. Es la base de casi todo."],["OMS, octubre de 2023","Guía de 6 a 23 meses: hierro, zinc y B12 sin alimentos animales, y evitar bebidas azucaradas."],["Pediatría Integral, marzo de 2025","Vitamina D, B12 vegana y número de tomas. Es de la SEPEAP, no de la AEP."],["ESPGHAN","Guía de bolsillo en la web de la AEP: la vitamina C para absorber el hierro."],["AESAN","Pescados grandes, cabeza de crustáceos y acelgas y espinacas."],["Arroz","Comité de Nutrición de la ESPGHAN y normativa europea sobre el arsénico."]]],["b","Esto no sustituye el consejo de tu pediatra."]]};
+};
 const lzSvg=(p,w)=>`<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const lzIc=v=>{const L=(Array.isArray(v)?v:[v]).filter(n=>n&&info(n));return L.length?`<span class="gic">${L.map(ico).join("")}</span>`:""};
-const lzViz=id=>lzBlocks(LVZ[id]||[]);
 const lzViz2=B=>lzBlocks(B);
 const lzBlocks=B=>B.map(b=>{
   if(b[0]==="t")return `<div class="gg lz">${b[1].map((x,i)=>`<div class="gtile g${i%4+1}">${x[3]&&LIC2[x[3]]?`<i>${lzSvg(LIC2[x[3]],30)}</i>`:""}<b class="big">${esc(x[0])}</b><span>${esc(x[1])}</span>${x[2]?`<small>${esc(x[2])}</small>`:""}</div>`).join("")}</div>`;
@@ -1435,44 +1446,31 @@ const lzBlocks=B=>B.map(b=>{
   if(b[0]==="g")return `<div class="gg lz">${b[1].map(x=>`<div class="gsafe">${lzIc(x[2])}<b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>`;
   if(b[0]==="raw")return `<div class="lz lfl">${b[1]}</div>`;
   if(b[0]==="b")return `<p class="gband lz">${esc(b[1])}</p>`;
-  if(b[0]==="yn")return `<div class="gyn lz"><div class="gok"><h5>${lzSvg('<path d="M5 12.500l4.500 4.500L19 7.500"/>',22)} ${esc(b[1])}</h5><ul>${b[2].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="gno"><h5>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',22)} ${esc(b[3])}</h5><ul>${b[4].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`;
+  if(b[0]==="yn")return `<div class="gyn lz"><div class="gok"><h5>${lzSvg('<path d="M5 12.500l4.500 4.500L19 7.500"/>',22)} ${esc(b[1])}</h5><ul>${b[2].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="gno"><h5>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',22)} ${esc(b[3])}</h5><ul>${b[4].map(x=>/^Llama al 112/.test(x)?`<li><a href="tel:112" style="color:inherit;font-weight:700">${esc(x)}</a></li>`:`<li>${esc(x)}</li>`).join("")}</ul></div></div>`;
   if(b[0]==="no")return `<div class="lno lz">${b[1].map(x=>`<span>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',14)}${esc(x)}</span>`).join("")}</div>`;
   if(b[0]==="s")return `<ol class="gsteps lz">${b[1].map(x=>`<li><b>${esc(x[0])}</b>${x[1]?`<span>${esc(x[1])}</span>`:""}</li>`).join("")}</ol>`;
   return ""}).join("");
-let openL="";const shutL=new Set();let shutInit=false;
-const lsOn=id=>!(S.sch&&S.sch.off[id]);
-function schSug(ctx){
-  const R=[],nx=ctx.next||[],nm=nx.map(x=>x.n),k=ctx.n;
-  const T={
-    cuando:()=>k<4?"Para empezar con buen pie":"",
-    seguridad:()=>k<4?"Antes de las primeras comidas":"",
-    evitar:()=>k<6?"Qué no ofrecer todavía":"",
-    leche:()=>k<6?"Para acompañar las primeras comidas":"",
-    ofrecer:()=>nx.some(x=>x.fe)?"Esta semana entra un alimento con hierro":(k>=3&&ctx.ironGap>=3?"Lleva unos días sin hierro":""),
-    alergenos:()=>{const a=nx.find(x=>x.a);return a?"Toca un alérgeno: "+a.n.toLowerCase():""},
-    texturas:()=>k>=8?"Ya conoce bastantes alimentos, toca subir textura":"",
-    cantidad:()=>ctx.no>=2?"Ha rechazado algún alimento":"",
-    congelar:()=>k>=12?"Con tantos alimentos compensa organizarse":""
-  };
-  LESSONS.forEach(l=>{if(!S.sch||S.sch.done[l.id])return;const w=T[l.id]&&T[l.id]();if(w)R.push({id:l.id,t:l.t,why:w})});
-  return R.slice(0,2)}
-function goLesson(id){openL=id;shutL.delete(id);tab(5);renderSchool();setTimeout(()=>{const e=document.getElementById("les_"+id);if(e)e.scrollIntoView({block:"start",behavior:"smooth"})},60)}
 function renderSchool(){
   const w=$("school");if(!w)return;
   const blk=(t,ic,body)=>`<div class="card gx"><div class="ah">${ic}<div class="aht"><b class="disp gs">${t}</b></div></div><div class="lbd">${body}</div></div>`;
   const tx=LVZ.texturas[0],sg=LVZ.seguridad,al=LVZ.alergenos[2];
-  const ev=["Sal","Azúcar y zumos","Miel (antes de 12 meses)","Frutos secos enteros","Uvas y cherry enteros","Pescados grandes","Leche de vaca como bebida (antes de 12 meses)","Bebida de arroz"];
-  const chips=`<div class="lno lz">${ev.map(x=>`<span>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',14)}${esc(x)}</span>`).join("")}</div>`;
-  w.innerHTML=`<div class="card gh0"><h3 class="disp">Info</h3><p class="mute">Lo más básico, de un vistazo. Basado en las recomendaciones de la AEP. Pregunta siempre a tu pediatra.</p><div class="ahero">${["Aguacate","Zanahoria","Brócoli","Plátano","Huevo","Lentejas"].map(ico).join("")}</div></div>`+`<div class="card sosk" style="margin-bottom:12px"><h3 class="disp" style="font-size:1.6rem">Emergencia</h3><a class="sosc" href="tel:112">Llamar al 112</a><h3>No tose, no llora, no respira</h3><p class="sosw">Atragantamiento. Actúa ya.</p><ol><li><b>112.</b> Llama o pide que llamen.</li><li><b>5 golpes en la espalda.</b> Boca abajo sobre tu antebrazo, cabeza más baja.</li><li><b>5 compresiones en el pecho.</b> Boca arriba, con dos dedos.</li><li><b>Repite</b> hasta que expulse el objeto. Si pierde el conocimiento, RCP.</li></ol><p class="sosn">Si tose y hace ruido es una arcada: es normal. Calma y no metas los dedos.</p><h3 style="margin-top:14px">Reacción alérgica grave</h3><p class="sosw">Labios, lengua o cara hinchados, le cuesta respirar, vómitos repetidos o está muy decaído.</p><ol><li><b>112.</b> No esperes a ver si pasa.</li><li><b>Tumbado y vigilado</b> hasta que llegue la ayuda.</li></ol></div>`+
+  const fi=(n,l)=>`<span class="fi">${ico(n)}<em>${esc(l)}</em></span>`,fig=(a,cap)=>`<div class="figc">${cap?`<p class="mute figt">${esc(cap)}</p>`:""}<div class="fig">${a.map(x=>fi(x[0],x[1])).join("")}</div></div>`;
+  const sv=(b)=>`<svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true">${b}</svg>`;
+  const CI={
+    sal:sv('<rect x="14" y="14" width="20" height="26" rx="5" fill="#e8e4d4" stroke="#b9b39c" stroke-width="2"/><path d="M14 18c0-6 4-9 10-9s10 3 10 9z" fill="#9aa3ad"/><circle cx="20" cy="12.500" r="1.200" fill="#e8e4d4"/><circle cx="24" cy="11.500" r="1.200" fill="#e8e4d4"/><circle cx="28" cy="12.500" r="1.200" fill="#e8e4d4"/>'),
+    azu:sv('<rect x="9" y="22" width="15" height="15" rx="3" fill="#f6f1e4" stroke="#c9c2aa" stroke-width="2"/><rect x="24" y="26" width="15" height="11" rx="3" fill="#efe8d4" stroke="#c9c2aa" stroke-width="2"/><rect x="16" y="9" width="15" height="14" rx="3" fill="#fbf8ee" stroke="#c9c2aa" stroke-width="2"/>'),
+    miel:sv('<rect x="11" y="16" width="26" height="24" rx="8" fill="#e0a030"/><rect x="14" y="9" width="20" height="8" rx="3" fill="#8a5a2b"/><rect x="16" y="23" width="16" height="10" rx="3" fill="#f6e7b8"/><path d="M20 28h8" stroke="#c9962f" stroke-width="2" stroke-linecap="round"/>'),
+    leche:sv('<path d="M14 18l5-8h10l5 8v22a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3z" fill="#f3f1ea" stroke="#b9c3cf" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h20" stroke="#b9c3cf" stroke-width="2"/><rect x="19" y="25" width="10" height="9" rx="2" fill="#6aa4d8"/>'),
+    pez:sv('<path d="M6 24c8-12 22-12 30 0-8 12-22 12-30 0z" fill="#6b8fb0"/><path d="M34 24l9-8v16z" fill="#4f7396"/><circle cx="14" cy="22" r="2" fill="#fff"/><circle cx="14" cy="22" r=".9" fill="#222"/><path d="M22 17c2 4 2 10 0 14" stroke="#4f7396" stroke-width="2" fill="none" stroke-linecap="round"/>')};
+  const ev=[[CI.sal,"Sal","Nunca se añade"],[CI.azu,"Azúcar y zumos","Mejor la fruta entera"],[CI.miel,"Miel","Antes de 12 meses"],[ico("Almendra"),"Frutos secos enteros","Hasta los 4-5 años, solo molidos o en crema"],[ico("Uvas"),"Uvas y cherry enteros","Siempre abiertas o en cuartos"],[CI.pez,"Pescados grandes","Pez espada, emperador, cazón, tintorera, atún"],[CI.leche,"Leche de vaca como bebida","Antes de 12 meses"],[ico("Arroz"),"Bebida de arroz","Mejor evitarla"]];
+  const evl=`<ul class="evl">${ev.map(x=>`<li>${x[0]}<span class="evt"><b>${esc(x[1])}</b><small>${esc(x[2])}</small></span><i class="evx" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></i></li>`).join("")}</ul>`;
+  const emer=`<div class="card sosk2"><h3 class="disp" style="font-size:1.6rem;color:var(--green)">Por si acaso</h3><p class="mute">Si alguna vez hace falta, esto es lo que hay que hacer.</p><h3 class="sh">No tose, no llora, no respira</h3><p class="sosw">Atragantamiento. Actúa ya.</p><ol><li><b>112.</b> Llama o pide que llamen.</li><li><b>Mira la boca.</b> Si ves el objeto, sácalo sin empujarlo hacia dentro.</li><li><b>5 golpes en la espalda.</b> Boca abajo sobre tu antebrazo, cabeza más baja, entre los omóplatos.</li><li><b>5 compresiones en el pecho.</b> Boca arriba, en el centro del pecho, con dos dedos.</li><li><b>Repite</b> hasta que expulse el objeto. Si pierde el conocimiento, empieza la RCP.</li></ol><p class="sosn">Si tose con fuerza y hace ruido, es una arcada: es normal. Déjale toser, no le des golpes ni metas los dedos.</p><h3 class="sh" style="margin-top:14px">Reacción alérgica grave</h3><p class="sosw">Labios, lengua o cara hinchados, le cuesta respirar, vómitos repetidos o está muy decaído.</p><ol><li><b>112.</b> No esperes a ver si pasa.</li><li><b>Tumbado y vigilado</b> hasta que llegue la ayuda.</li></ol><a class="sosc" href="tel:112">Llamar al 112</a></div>`;
+  w.innerHTML=`<div class="card gh0"><h3 class="disp">Info</h3><p class="mute">Lo más básico, de un vistazo. Basado en las recomendaciones de la AEP. Pregunta siempre a tu pediatra.</p><div class="ahero">${["Aguacate","Zanahoria","Brócoli","Plátano","Huevo","Lentejas"].map(ico).join("")}</div></div>`+
   blk("Texturas",ico("Zanahoria"),lzViz2([tx,LVZ.texturas[1]]))+
-  blk("Arcada o atragantamiento",gicoSvg("zinc"),lzViz2([sg[0]]))+
-  blk("Reacción alérgica",ico("Huevo"),lzViz2([al]))+
-  blk("Qué evitar",ico("Uvas"),chips+lzViz2([["b","Todo esto, hasta que tu pediatra diga lo contrario."]]));
+  blk("Arcada o atragantamiento",gicoSvg("zinc"),fig([["Uvas","Uvas"],["Almendra","Frutos secos"],["Tomate","Cherry"],["Zanahoria","Zanahoria cruda"],["Manzana","Manzana cruda"],["Cacahuete","Cacahuete"]],"Lo que más atraganta: en tiras, rallado o cocinado blando.")+lzViz2([sg[0]]))+
+  blk("Reacción alérgica",ico("Huevo"),fig([["Huevo","Huevo"],["Yogur natural","Leche"],["Cacahuete","Cacahuete"],["Merluza","Pescado"],["Gambas","Marisco"],["Pan","Gluten"]],"Los alérgenos más comunes.")+lzViz2([al]))+
+  blk("Qué evitar",ico("Uvas"),evl+lzViz2([["b","Todo esto, hasta que tu pediatra diga lo contrario."]]))+emer;
 }
-$("school").addEventListener("click",e=>{
-  const h=e.target.closest("[data-l]");if(h){const id=h.dataset.l;if(shutL.has(id))shutL.delete(id);else shutL.add(id);renderSchool();return}
-  const dn=e.target.closest("[data-done]");if(dn){const id=dn.dataset.done;S.sch.done[id]=S.sch.done[id]?0:1;if(S.sch.done[id])shutL.add(id);else delete S.sch.done[id];save();renderSchool();const el=document.getElementById("les_"+id);if(el)el.scrollIntoView({block:"center"});return}
-});
 let selA=2,selB=0;
 const SW=[["B","Alimentos",()=>tab(1)],["B","Alérgenos",()=>{setRT("al");tab(3)}],["A","Menú semanal",()=>{tab(2);subtab(1)}],["A","Compra",()=>{tab(2);subtab(2)}]];
 let curV=1,psub=1;
@@ -2076,26 +2074,6 @@ $("tk").addEventListener("change",e=>{
   if(t.dataset.sel!==undefined){const u=t.closest("details").querySelector("[data-urg]");u.classList.toggle("hide",t.value!==URG)}
 });
 $("tk").addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.g){if(d.open)tkSet.add(d.dataset.g);else tkSet.delete(d.dataset.g)}},true);
-function buildSummary(){
-  const m=stats(),first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
-  const ra=age(true),now=new Date().toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
-  const othR=S.log.filter(l=>l.r==="react"&&!AG[l.f]).map(l=>`<li>${fd(l.d)}: ${esc(l.f)}${l.rt?". "+esc(l.rt):""}${l.rn?" ("+esc(l.rn)+")":""}</li>`).join("");
-  const edad=ra?`${Math.floor(ra.days/7)} semanas (${ra.mo} meses)`:"sin calcular";
-  const alg=Object.keys(S.al||{}).map(g=>`<li><b>${AGL[g]}</b>: ${S.al[g]==="alergia"?"alergia confirmada":"sospecha de alergia"}</li>`).join("");
-  const arows=Object.keys(AGD).map(g=>{const i=gInfo(g),f=i.tried.map(n=>first[n]).sort()[0];
-    const rx=[...i.rxs.filter(r=>r.r&&r.r!==RXO[0]).map(r=>fd(r.d)+": "+r.r+(r.n?" ("+r.n+")":"")),...i.reactLog.map(l=>fd(l.d)+": "+(l.rt||"reacción")+" con "+l.f+(l.rn?" ("+l.rn+")":""))];
-    return `<tr><td>${AGL[g]}</td><td>${i.tried.length?esc(i.tried.join(", ")):"No probado"}</td><td>${f?fd(f):"-"}</td><td>${rx.length?esc(rx.join("; ")):"Sin reacciones anotadas"}</td></tr>`}).join("");
-  const frows=C.map(c=>{const xs=ALL.filter(x=>x.c===c[0]&&m[x.n]);if(!xs.length)return"";
-    return `<tr class="cat"><td colspan="4">${esc(c[0])}</td></tr>`+xs.map(x=>`<tr><td>${esc(x.n)}${x.a?" (alérgeno)":""}</td><td>${isPre(x.n,first[x.n])?"Antes de empezar":fd(first[x.n])}</td><td>${m[x.n].c}</td><td>${esc(RL[m[x.n].last])}</td></tr>`).join("")}).join("");
-  return `<h1>Resumen de alimentación complementaria</h1>
-  <p><b>${esc(S.nm||"Bebé")}</b>${S.bd?`. Nacimiento: ${fd(S.bd)}. Edad: ${edad}.`:""}</p>
-  <p>Generado el ${now}.</p>
-  <h2>Alergias indicadas</h2>${alg?`<ul>${alg}</ul>`:"<p>Ninguna indicada.</p>"}
-  <h2>Alérgenos</h2><table><tr><th>Alérgeno</th><th>Alimentos probados</th><th>Primera vez</th><th>Reacciones</th></tr>${arows}</table>
-  ${othR?`<h2>Otras reacciones</h2><ul>${othR}</ul>`:""}
-  <h2>Alimentos probados</h2>${frows?`<table><tr><th>Alimento</th><th>Primera vez</th><th>Veces</th><th>Última valoración</th></tr>${frows}</table>`:"<p>Todavía no se ha registrado ningún alimento.</p>"}
-  <p class="pie">Información anotada por la familia en la app Primeros alimentos. No sustituye una valoración médica.</p>`;
-}
 render();
 
 
