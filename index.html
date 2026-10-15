@@ -239,6 +239,7 @@ details.gfull{margin-top:14px}
 .mrow>.mt{flex:none;align-self:center}.lc{font-size:.78rem;margin:8px 0 0}
 .why{margin:8px 0 4px;padding:8px 12px;border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 9%,transparent);border-radius:0 10px 10px 0}
 .why p{margin:3px 0;font-size:.86rem;line-height:1.4}
+.nfood{margin:12px 0 4px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}.nfood .nfn{display:block;font-size:1.7rem;color:var(--green);line-height:1.1;margin:6px 0 4px}.nfood .btn{margin-top:10px;width:100%}
 .rmenu{margin:12px 0 2px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:2px solid var(--green);outline:1px solid var(--green);outline-offset:3px;text-align:left}
 .rmenu .mh{text-align:center;margin-bottom:6px}
 .rmenu .mh .disp{display:block;font-size:1.35rem;color:var(--green);line-height:1.1}
@@ -477,8 +478,20 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="t2" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5M9 7h6M9 11h6"/></svg><span>Guía</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
+<div class="tabs"><button id="t1" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg><span>Tablero</span></button><button id="t2" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></svg><span>Registro</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5M9 7h6M9 11h6"/></svg><span>Guía</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Perfil</span></button></div>
 
+<section id="v1" class="hide">
+  <div class="tools">
+    <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+      <div class="vt" role="group" aria-label="Cambiar vista">
+        <button id="vb" aria-label="Vista tablero" title="Tablero"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg></button>
+        <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
+      </div></div>
+    <div class="chips" id="chips"></div>
+  </div>
+  <div class="board" id="board"></div>
+  <div class="grid" id="lst"></div>
+</section>
 <section id="v2">
   <div class="btns rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" id="p1" role="tab">Menú</button><button class="btn" id="p2" role="tab">Ingredientes</button></div>
   <div id="pv1">
@@ -924,7 +937,7 @@ function head(){sizeTtl();const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros a
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
 let cat="Todos",cur="",PLANNED={},FIRSTD={};
-let view="board";
+let view="list";try{view=localStorage.getItem("primeros_view")==="board"?"board":"list"}catch(e){}
 /*ICO_START*/
 const G="#6aa86f",GD="#3f7d52",IK='class="o"';
 const pa=(d,f,x="")=>`<path class="o" d="${d}" fill="${f}" ${x}/>`;
@@ -1092,10 +1105,35 @@ function progHtml(c){
   const stars=PM.map((m,i)=>`<span class="ps${c>=m?" on":""}${i===4?" gold":""}" style="left:${i*25}%"><svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="${SP}"/></svg><b>${m}</b></span>`).join("");
   return `<p class="pc">${c} ${c===1?"alimento probado":"alimentos probados"}${next?" · siguiente meta: "+next:" · meta de 100 conseguida"}</p><div class="pb" role="img" aria-label="${c} alimentos probados"><div class="t"></div><div class="f" style="width:${pct.toFixed(1)}%"></div>${stars}</div><p style="margin:6px 0 0">${c>=100?'<button class="btn p" id="dip_open" style="max-width:340px">Ver diploma de los 100 alimentos</button>':'<button class="x" id="dip_open">Vista previa del diploma</button>'}</p>`}
 const OPENC=new Set();
+function card(x,m,col){
+  const s=m[x.n],lk=!unlocked(x);
+  return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span>${col==="plan"?`<span class="ct">${fdShort(PLANNED[x.n])}</span>`:col==="done"&&FIRSTD[x.n]?`<span class="ct">${fdShort(FIRSTD[x.n])}</span>`:""}${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}${x.lim?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Limitar</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
+}
 function board(){
-  const m=stats();
+  const m=stats(),q=norm($("q").value.trim());
   FIRSTD={};S.log.forEach(l=>{if(!FIRSTD[l.f]||l.d<FIRSTD[l.f])FIRSTD[l.f]=l.d});
-  $("prog").innerHTML=progHtml(ALL.filter(x=>m[x.n]).length);
+  $("chips").classList.toggle("hide",view==="list");$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
+  $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
+  $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
+  const nd=ALL.filter(x=>m[x.n]).length;
+  $("prog").innerHTML=progHtml(nd);
+  if(view==="list"){
+    $("lst").innerHTML=C.map(c=>{
+      const it=ALL.filter(x=>x.c===c[0]&&(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q)));
+      if(!it.length)return"";
+      return `<div><h2 class="disp">${c[0]}</h2><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
+        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">${x.lim?"Limitar":"No antes de "+x.min+" m"}</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+    $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
+    return;
+  }
+  const cols={todo:[],plan:[],done:[],lock:[]};
+  ALL.filter(x=>(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q))).forEach(x=>{
+    if(!unlocked(x)){cols.lock.push(x);return}const s=m[x.n];cols[s?"done":PLANNED[x.n]?"plan":"todo"].push(x)});
+  Object.values(cols).forEach(c=>c.sort((a,b)=>a.n.localeCompare(b.n,"es")));cols.plan.sort((a,b)=>PLANNED[a.n]<PLANNED[b.n]?-1:PLANNED[a.n]>PLANNED[b.n]?1:a.n.localeCompare(b.n,"es"));cols.done.sort((a,b)=>(FIRSTD[b.n]||"")<(FIRSTD[a.n]||"")?-1:(FIRSTD[b.n]||"")>(FIRSTD[a.n]||"")?1:a.n.localeCompare(b.n,"es"));const defs=[["todo","Por probar","p1"],["plan","Programados","p2"],["done","Probado","p3"],["lock","Más adelante","p4"]];
+  $("board").innerHTML=defs.map(d=>`<div class="col"><div class="ch"><h2 class="disp">${d[1]}</h2><span class="n">${cols[d[0]].length}</span></div><div class="cl">${cols[d[0]].map(x=>card(x,m,d[0])).join("")||'<div class="empty">Nada por aquí.</div>'}</div></div>`).join("");
+  $("board").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
+  const done=ALL.filter(x=>m[x.n]).length;
+  $("prog").innerHTML=progHtml(done);
 }
 function hoSel(x,cur){const o=howOpts(x).slice();if(cur&&!o.includes(cur))o.unshift(cur);return o.map(h=>`<option${h===cur?" selected":""}>${esc(h)}</option>`).join("")}
 function rowHtml(l){const x=info(l.f),nt=(l.r==="react"&&l.rt)||l.rn?esc([l.r==="react"?l.rt:"",l.rn].filter(Boolean).join(". ")):"";
@@ -1167,6 +1205,8 @@ $("adel").onclick=()=>cfOpen("¿Eliminar tu cuenta?","Se borran tu cuenta y todo
 function render(){
   if(backfill())save();
   head();renderProfile();renderBabies();renderPlanForm();plan();
+  $("chips").innerHTML=["Todos",...C.map(c=>c[0])].map(n=>{const c=C.find(x=>x[0]===n);return `<button class="${n===cat?"on":""}" data-c="${n}">${c?`<span class="dot" style="background:${c[1]}"></span> `:""}${n}</button>`}).join("");
+  $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()});
   board();
   renderCal();renderNut();renderTrack();setRT(rtab);
 }
@@ -1325,8 +1365,11 @@ function obFinish(){
   S.al={...S.al,...cleanAl(OB.al)};
   S.eat=OB.ya?OB.eat:"";S.meals=OB.ya?OB.meals:0;S.app=OB.ya?OB.app:"";S.prefs.diet=OB.diet;S.prefs.every=OB.every;S.prefs.fz=OB.fz;S.prefs.goals=[...OB.goals];S.prefs.gen=true;S.prefs.sty=OB.sty;if(OB.sty==="grad")S.prefs.sty0=today();else delete S.prefs.sty0;
   $("ob").classList.add("hide");save();render();renderPlanForm();tab(2)}
-function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
-[2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));
+$("q").oninput=board;
+const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
+$("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
+function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
+[1,2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
 const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha","Gambas","Mejillones"]);
@@ -1566,12 +1609,12 @@ function plan(){
     });
     return rows};
   const menuHtml=(o,rows)=>{
-    if(!rows.length){const mn=menuFor(o);return mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:""}
-    const MV={"Desayuno":"Ha desayunado","Media mañana":"Ha tomado la media mañana","Comida":"Ha comido","Merienda":"Ha merendado","Cena":"Ha cenado"},ML=S.ml[o.ds]||{};
-    return `<div class="rmenu"><div class="mh"><span class="disp">Menú del día</span><small>${rows.length} servicio${rows.length===1?"":"s"} · leche a demanda</small></div><div class="orn">✦</div>`+rows.map(([meal,r])=>{const st=ML[meal],rt=st&&st.r,isT=o.ds===today(),lf=S.log.filter(l=>l.d===o.ds&&l.ml===meal),hasAl=lf.some(l=>(info(l.f)||{}).a);
-      return `<div class="course"><div class="cl">${esc(meal)}<button class="chg" data-chg="${esc(meal)}" data-d="${o.ds}">Cambiar</button></div><div class="mr">${r.g}<p><span class="dn">${esc(r.n)}</span><br><span class="qs">${esc(r.q.join(" · "))}</span><em>${esc(r.how)}</em></p></div>`+
-      (isT?`<div class="mk"><button class="mt${st?" on":""}" data-ml="${esc(meal)}" data-d="${o.ds}" aria-pressed="${!!st}">${st?"✓ ":""}${MV[meal]||meal}</button></div>`:"")+
-      (st&&isT?`<div class="fb${hasAl?" w":""}"><span>¿Le gustó?</span>`+[["love","Sí"],["meh","Regular"],["no","No"]].map(([v,l])=>`<button data-fb="${v}" data-ml="${esc(meal)}" data-d="${o.ds}" class="${rt===v?"on":""}" data-v="${v}" aria-pressed="${rt===v}">${l}</button>`).join("")+(hasAl?`<button data-fb="react" data-ml="${esc(meal)}" data-d="${o.ds}" data-v="react">Reacción</button>`:"")+`</div>`:"")+`</div>`}).join("")+`<div class="orn">✦</div><p class="foot">¡Buen provecho!</p></div>`;
+    const nn=new Set(o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[])),nws=o.items.concat(o.rep?[o.rep.x]:[]);
+    const newH=nws.map(x=>`<div class="nfood"><span class="tag">${o.rep&&x===o.rep.x?"Repetimos":"Alimento nuevo"}</span><b class="disp nfn">${esc(x.n)}</b>${offerText(x,pz)?`<p class="mute">${esc(offerText(x,pz))}</p>`:""}<button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-m="">Registrar cómo ha ido</button></div>`).join("");
+    if(!rows.length){const mn=menuFor(o);return newH+(mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:"")}
+    const withNew=rows.filter(([m,r])=>r.ings.some(n=>nn.has(n))),others=rows.filter(x=>!withNew.includes(x));
+    const rc=([meal,r],tag)=>`<div class="course"><div class="cl">${esc(meal)}${tag?` <span class="tag">${tag}</span>`:""}<button class="chg" data-chg="${esc(meal)}" data-d="${o.ds}">Cambiar</button></div><div class="mr">${r.g}<p><span class="dn">${esc(r.n)}</span><br><span class="qs">${esc(r.q.join(" · "))}</span><em>${esc(r.how)}</em></p></div></div>`;
+    return newH+`<div class="rmenu"><div class="mh"><span class="disp">Recetas simples</span><small>${nws.length?"Para integrar el alimento nuevo con lo que ya conoce":"Con lo que ya ha probado"}</small></div><div class="orn">✦</div>`+withNew.map(x=>rc(x,"con el nuevo")).join("")+others.map(x=>rc(x,"")).join("")+`</div>`;
   };
   const CW={"Frutas":"ninguna fruta","Verduras":"ninguna verdura","Proteínas":"ninguna proteína","Cereales":"ningún cereal","Lácteos":"ningún lácteo","Frutos secos":"ningún fruto seco","Condimentos":"ninguna hierba ni especia"};
   const CW1={"Frutas":["fruta","frutas"],"Verduras":["verdura","verduras"],"Proteínas":["proteína","proteínas"],"Cereales":["cereal","cereales"]};
