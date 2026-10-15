@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Primeros alimentos">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Kaushan+Script&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--red:#c0392b;--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--onacc:#fff;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -55,6 +55,16 @@ h1{font-size:clamp(1.8rem,7vw,2.8rem);color:var(--green);margin:0;line-height:1;
 .lz.gg .gtile:last-child:nth-child(odd){grid-column:1/-1}.lz.gg .gtile i{margin-bottom:2px}.lz.gg .gsafe:last-child:nth-child(odd){grid-column:1/-1}
 .lbd .gsteps{margin:0 0 12px}.lbd .gsteps li{display:grid;grid-template-columns:28px 1fr;column-gap:10px;row-gap:1px;align-items:center}.lbd .gsteps li:before{grid-row:1/3}.lbd .gsteps li b{grid-column:2}.lbd .gsteps li span{grid-column:2;font-size:.82rem;color:var(--mute)}.lbd .gsteps li:not(:has(span)):before{grid-row:1}
 .lbd .gband{margin:0 0 12px}
+.tkt{max-width:340px;margin-left:auto;margin-right:auto;background-image:linear-gradient(90deg,transparent 33%,rgba(0,0,0,.04) 33.3%,transparent 33.8%),linear-gradient(90deg,transparent 66%,rgba(0,0,0,.035) 66.3%,transparent 66.8%)}
+.tkt-h{border-bottom:1px solid var(--tk);padding-bottom:14px}.tkt-h h3{font:400 2rem/1.05 "Kaushan Script",cursive;letter-spacing:0;text-transform:none;margin:2px 0 8px}.tkt-h small{font-size:.7rem}
+.tkt .sl{display:grid;grid-template-columns:44px 1fr auto;column-gap:8px;align-items:baseline;padding:4px 0;font-size:.86rem;position:relative}
+.tkt .sl input{position:absolute;opacity:0;pointer-events:none}
+.tkt .sl .tq{font-weight:400}.tkt .sl .tn{font-weight:400;letter-spacing:.02em;min-width:0}.tkt .sl .td{font-size:.7rem;color:var(--tm);text-align:right;max-width:104px;line-height:1.2}
+.tkt .sl.cg1{margin-top:10px}.tkt .sl{min-height:0!important}
+.tkt .sl input:checked~span,.tkt .sl input:checked~b{text-decoration:line-through;opacity:.4}
+.tkt .trip{padding:10px 0 4px;border-bottom:1px solid var(--tk);margin:0}
+.tkt-tot{border-top:0;margin-top:12px;padding-top:0;font-size:1rem;letter-spacing:.04em}.tkt-tot b{font-size:1rem}.tkt-tot.sm{margin-top:2px;font-size:.9rem;font-weight:400}
+.tkt-g{letter-spacing:.24em;margin-top:0;font-size:.72rem}.tkt-n{display:none}
 .sprog{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin:14px 0 6px}.sprog i{display:block;height:100%;border-radius:99px;background:var(--green);transition:width .3s}
 #school .gh0{margin-bottom:12px}
 .les{display:grid;grid-template-columns:24px 1fr;gap:10px;margin:0 0 10px}
@@ -548,7 +558,6 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="btns rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" id="p3" role="tab">Semana</button><button class="btn" id="p1" role="tab">Menú</button><button class="btn" id="p2" role="tab">Ingredientes</button></div>
   <div id="pv3"></div>
   <div id="pv1">
-<div class="card" id="calcard"><div id="cal"></div><div class="leg"><span><i class="dot rc-love"></i>Le gustó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>No</span><span><i class="dot rc-react"></i>Reacción o alérgeno</span></div></div>
   <details class="card" id="pfcard">
     <summary class="plh"><span id="pf_head"></span><span class="ple" aria-label="Editar plan" role="img"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span></summary>
     <div class="pf" style="margin-top:10px">
@@ -569,11 +578,12 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   </details>
   <div class="remind" id="rem"></div>
   <div id="days"></div>
-  <div id="cdet"></div>
   </div>
-  <div id="pv2" class="hide"><div class="tkt"><div class="tkt-h"><small>Primeros alimentos</small><h3 id="wk_t">Lista de la compra</h3><small id="wk_rng"></small></div><div id="shop"></div></div></div>
+  <div id="pv2" class="hide"><div class="tkt"><div class="tkt-h"><h3 id="wk_t">Lista de la compra</h3><small id="wk_rng"></small></div><div id="shop"></div></div></div>
 </section>
 <section id="v3" class="hide"><div class="btns rtabs" id="rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" data-rt="st" role="tab">Estadísticas</button><button class="btn" data-rt="al" role="tab">Alérgenos</button></div>
+<div class="card hide" id="calcard"><div id="cal"></div><div class="leg"><span><i class="dot rc-love"></i>Le gustó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>No</span><span><i class="dot rc-react"></i>Reacción o alérgeno</span></div></div>
+<div id="cdet" class="hide"></div>
 <div class="card hide" id="progcard"><div class="tkh" style="margin-bottom:10px"><h3 class="disp">Estadísticas</h3></div><div id="prog"></div></div>
 <div class="card hide" id="nutcard"></div>
 <div class="tk hide" id="tkwrap">
@@ -1108,7 +1118,7 @@ let cm=new Date();cm=new Date(cm.getFullYear(),cm.getMonth(),1);let csel=today()
 let cpick=false;
 let rtab="st";
 function setRT(t){rtab=t;document.querySelectorAll("#rtabs [data-rt]").forEach(b=>{const on=b.dataset.rt===t;b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
-  $("progcard").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al");if(typeof renderSw==="function"&&curV===3)renderSw()}
+  $("progcard").classList.toggle("hide",t!=="st");$("calcard").classList.toggle("hide",t!=="st");$("cdet").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al");if(typeof renderSw==="function"&&curV===3)renderSw()}
 document.querySelectorAll("#rtabs [data-rt]").forEach(b=>b.onclick=()=>{setRT(b.dataset.rt);window.scrollTo({top:0})});
 function renderCal(){
   const t0=today(),byDay={};S.log.forEach((l,i)=>{(byDay[l.d]=byDay[l.d]||[]).push({...l,i})});
@@ -1126,7 +1136,7 @@ function renderCal(){
       cells+=`<button type="button" class="hm ${cl}${ds===t0?" today":""}${ds===csel?" sel":""}${fut?" fut":""}" data-d="${ds}" style="grid-row:${d+1};grid-column:${w+2}" aria-label="${esc(lab)}" title="${esc(lab)}"${dis?" disabled":""}></button>`}}
   const dl=["L","","X","","V","","D"].map((x,k)=>`<span style="grid-row:${k+2};grid-column:1">${x}</span>`).join("");
   $("cal").innerHTML=`<div class="hmg" style="grid-template-columns:14px repeat(${W},minmax(0,1fr))">${mlab.replace(/<span style="grid-column:(\d+)">/g,(a,c)=>`<span class="hmm" style="grid-row:1;grid-column:${c}">`)}${dl.replace(/grid-row:(\d+)/g,(a,r)=>"grid-row:"+r)}${cells.replace(/grid-row:(\d+)/g,(a,r)=>"grid-row:"+(+r+1))}</div>`;
-  $("cal").querySelectorAll(".hm").forEach(b=>b.onclick=()=>{csel=b.dataset.d;pdate=b.dataset.d;cpick=false;plan();window.scrollTo({top:0,behavior:"smooth"})});
+  $("cal").querySelectorAll(".hm").forEach(b=>b.onclick=()=>{csel=b.dataset.d;cpick=false;renderCal()});
   const box=$("cdet");if(!box)return;
   if(csel>=t0){box.innerHTML="";return}
   const list=(byDay[csel]||[]).slice().sort((a,b)=>(a.ml?MEALS.indexOf(a.ml):9)-(b.ml?MEALS.indexOf(b.ml):9));
@@ -1706,12 +1716,12 @@ function plan(){
   const wkd=dt=>dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".","");
   const pastD=[];for(let k=7;k>=1;k--){const dt=new Date(start);dt.setDate(start.getDate()-k);pastD.push({dt,ds:dstr(dt)})}
   const allD=[...pastD.map(x=>({...x,past:true})),...shown.map(o=>({dt:o.dt,ds:o.ds,o}))];
-  const pl=new Date(start);pl.setDate(pl.getDate()-120);const sd=(pdate&&pdate<t0&&pdate>=dstr(pl))||allD.some(x=>x.ds===pdate)?pdate:t0;csel=sd;
+  const sd=allD.some(x=>x.ds===pdate)?pdate:t0;
   const strip=`<div class="wk" role="group" aria-label="Elegir día">`+allD.map(x=>{const nw=x.past?S.log.some(l=>l.d===x.ds):(x.o.items.length||x.o.rep);return `<button class="wd${x.past?" past":""}${x.ds===sd?" on":""}" data-pd="${x.ds}" aria-pressed="${x.ds===sd}"><small>${wkd(x.dt)}</small><b>${x.dt.getDate()}</b></button>`}).join("")+`</div>`;
   const pastCard=ds=>{const dt=new Date(ds+"T00:00:00"),lg=S.log.filter(l=>l.d===ds),ml=S.ml[ds]||{},ov=(S.ov||{})[ds]||{};
     const meals=MEALS.filter(m=>ml[m]||ov[m]).map(m=>`<div class="course"><div class="cl">${esc(m)}</div><div class="mr"><p><span class="dn">${esc(ov[m]?ov[m].n:"Hecho")}</span></p></div></div>`).join("");
     const foods=lg.map(l=>`<p>✓ <b class="${(info(l.f)||{}).a?"al":""}">${esc(l.f)}</b> <span class="mute">${esc(l.how)} · ${esc(RL[l.r]||"")}</span></p>`).join("");
-    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(dt)}</b> <span class="tag">Pasado</span>${foods||meals?"":'<p class="mute hd">No hay nada registrado este día.</p>'}${foods?`<div class="hd">${foods}</div>`:""}${meals?`<div class="mn" style="border:0">${meals}</div>`:""}<p class="mute lc">Para añadir algo de este día, usa el calendario de Registro.</p></div>`};
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(dt)}</b> <span class="tag">Pasado</span>${foods||meals?"":'<p class="mute hd">No hay nada registrado este día.</p>'}${foods?`<div class="hd">${foods}</div>`:""}${meals?`<div class="mn" style="border:0">${meals}</div>`:""}<p class="mute lc">Para añadir algo de este día, ve a Stats y toca ese día en el calendario.</p></div>`};
   const dayCard=o=>{
     const isT=o.ds===t0,y=whyHtml(o),w=pz?"trocitos":"tiras";
     const doneH=o.done.length?`<p class="mute dn1">✓ Ha comido: ${o.done.slice().sort((a,b)=>a.localeCompare(b,"es")).map(n=>`<b>${esc(n)}</b>${first[n]===o.ds&&n!=="AOVE"?" (nuevo)":""}`).join(", ")}</p>`:"";
@@ -1758,8 +1768,7 @@ function plan(){
       $("wk_res").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n,o3=mv.slice();if(wkRep&&mv.includes(wkRep)){o3.splice(mv.indexOf(wkRep),1,n);S.prefs.skip=[...new Set([...(S.prefs.skip||[]).filter(x=>x!==n),wkRep])]}else{o3.splice(Math.min(+($("wk_day")||{}).value||0,mv.length),0,n);S.prefs.skip=(S.prefs.skip||[]).filter(x=>x!==n)}S.prefs.ord=o3;wkRep="";wkAdd=false;wkQ="";wkCat="Todos";planShown=7;save();plan()})};
     $("wk_add").onclick=()=>{wkRep="";wkAdd=!wkAdd;$("wk_addp").classList.toggle("hide",!wkAdd);if(wkAdd){paintRes();$("wk_q").focus()}};
     $("wk_q").oninput=e=>{wkQ=e.target.value;paintRes()};if(wkAdd)paintRes()}
-  $("days").innerHTML=useful?(sd<t0?"":dayCard(shown.find(o=>o.ds===sd)||shown[0])):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
-  renderCal();
+  $("days").innerHTML=useful?strip+(sd<t0?pastCard(sd):dayCard(shown.find(o=>o.ds===sd)||shown[0])):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-pd]").forEach(b=>b.onclick=()=>{pdate=b.dataset.pd;plan()});
   {const wk=$("days").querySelector(".wk"),on=wk&&wk.querySelector(".wd.on");if(on)wk.scrollLeft=on.offsetLeft-(wk.clientWidth-on.offsetWidth)/2}
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>b.dataset.pc?openSheet(b.dataset.n,b.dataset.d,undefined,true):openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
@@ -1819,13 +1828,14 @@ function renderWeek(W){
   const nm=W.trips.length;
   const lq=(x,q)=>{const lw=x.n.charAt(0).toLowerCase()+x.n.slice(1);return q?(/^[\d,]+ (g|kg)/.test(q)?q.replace(/^([\d,]+ (?:g|kg))/,"$1 de "+lw):q):x.n};
   const by={};shopCur.forEach(i=>{const x=info(i.n);if(x)(by[x.c]=by[x.c]||[]).push({...i,x})});
-  const tripH=SHOPORD.filter(c=>by[c]).map(c=>`<div class="cat">${c}</div>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(i=>{const q=shopQty(i.x,i.s),m=lq(i.x,q);return `<label class="sl"><input type="checkbox" data-sl="${esc(i.key)}"${S.sl[i.key]?" checked":""}><span class="sn"><b class="${i.x.a?"al":""}">${esc(m.charAt(0).toUpperCase()+m.slice(1))}</b><span class="mute">${esc(dl(i.dl))}</span></span></label>`}).join("")).join("");
+  const qsplit=m=>{const r=m.match(/^([\d,]+(?:\s?(?:g|kg|ml|l))?)\s+(?:de\s+)?(.+)$/i);return r?[r[1],r[2]]:["1",m]};
+  const tripH=SHOPORD.filter(c=>by[c]).map((c,ci)=>by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map((i,k)=>{const q=shopQty(i.x,i.s),m=lq(i.x,q),[qq,nn]=qsplit(m);return `<label class="sl${k===0&&ci>0?" cg1":""}"><input type="checkbox" data-sl="${esc(i.key)}"${S.sl[i.key]?" checked":""}><span class="tq">${esc(qq)}</span><b class="tn${i.x.a?" al":""}">${esc(nn.toUpperCase())}</b><span class="td">${esc(dl(i.dl).toUpperCase())}</span></label>`}).join("")).join("");
   const ckItem=c=>`<div class="ck"><b>${esc(c.n)}</b><span class="mute">${c.c} ración${c.c===1?"":"es"} · ${esc(dl(c.dl))}${!fz&&c.c>1&&c.di[c.di.length-1]-c.di[0]<=1?" · cocina doble y guarda en la nevera":""}</span></div>`;
   let cookH="";
   if(fz){cookH=`<p class="mute">Un día de cocina: cocina cada ingrediente por separado, reparte en raciones y congela. Al servir, mezcla los que toquen y saca la ración la noche antes.</p>`+W.comp.map(c=>`<div class="ck"><b>${esc(c.x.n)}</b><span class="mute">${c.s} ración${c.s===1?"":"es"} · ${esc(shopQty(c.x,c.s))}</span></div>`).join("")}
   else cookH=(W.cook.length?`<p class="mute">Cocina el mismo día. Si una receta se repite en días seguidos, cocina doble y guárdala en la nevera.</p>`+W.cook.map(ckItem).join(""):'<p class="mute">Esta semana casi todo es sencillo: fruta, verdura al vapor y cosas que no necesitan cocina.</p>');
   const daysH=W.days.map(d=>`<button class="wdy" data-go="${d.ds}"><b>${d.ds===today()?"Hoy":d.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric"})}</b>${d.rows.map(([m,r])=>`<span class="mute">${esc(m)}</span> ${esc(r.n)}<br>`).join("")}</button>`).join("");
-  $("shop").innerHTML=`<div class="trip">`+tripH+'</div>'+`<div class="tkt-tot"><span>Artículos</span><b>${shopCur.length}</b></div><p class="tkt-n">Cantidades aproximadas, con margen por piel y desperdicio. Aceite de oliva virgen extra para cocinar, sin sal ni azúcar.</p><div class="tkt-bar" aria-hidden="true"></div><p class="tkt-g">¡Buen provecho!</p><div class="tkt-b"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div>`
+  $("shop").innerHTML=`<div class="trip">`+tripH+'</div>'+`<div class="tkt-tot"><span>Total</span><b>${shopCur.length}</b></div><div class="tkt-tot sm"><span>Para</span><b>${esc((S.nm||"el bebé").toUpperCase())}</b></div><p class="tkt-n">Cantidades aproximadas, con margen por piel y desperdicio. Aceite de oliva virgen extra para cocinar, sin sal ni azúcar.</p><div class="tkt-bar" aria-hidden="true"></div><p class="tkt-g">${(()=>{const d=today().replace(/-/g,"");return d.slice(2)+" "+d.slice(0,2)+"0712"})()}</p><div class="tkt-b"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div>`
 }
 $("shop").addEventListener("change",e=>{const n=e.target.dataset&&e.target.dataset.sl;if(!n)return;if(e.target.checked)S.sl[n]=true;else delete S.sl[n];save()});
 $("shop").addEventListener("click",e=>{
