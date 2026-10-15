@@ -408,9 +408,10 @@ details.rxa[open] summary{border-bottom:1px solid color-mix(in srgb,var(--terra)
 .tkc details.g{background:none;border:0;border-top:1px solid var(--line);border-radius:0;margin:0}
 .tkc details.g summary{padding:14px 2px;min-height:52px}
 .tkc details.g summary b{flex:1;font-size:1.02rem}
-.tkc details.g summary:after{content:"";width:9px;height:9px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .15s;margin:0 4px 4px 4px}
-.tkc details.g[open] summary:after{transform:rotate(-135deg);margin:4px 4px 0 4px}
+.tkc details.g>summary:after{content:"";width:9px;height:9px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .15s;margin:0 4px 4px 4px}
+.tkc details.g[open]>summary:after{transform:rotate(-135deg);margin:4px 4px 0 4px}
 .tkc .gb{padding:0 2px 14px}
+.agb>p:first-child{margin-top:0}.agh{font-size:.82rem;color:var(--mute);margin:10px 0 6px}.agf{display:flex;flex-wrap:wrap;gap:6px}.agc{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 12px;font:600 .82rem Montserrat,sans-serif;cursor:pointer;min-height:34px}.agc.on{background:color-mix(in srgb,var(--green) 18%,transparent);border-color:var(--green);color:var(--green)}.agx{margin-top:14px;border:1.5px solid color-mix(in srgb,var(--terra) 55%,transparent);border-radius:14px;padding:0 12px}.agx>summary{cursor:pointer;min-height:46px;display:flex;align-items:center;font-weight:700;font-size:.92rem;color:var(--terra)}.agxb{padding:0 0 14px}.agxb label{display:block;margin-top:8px}.agst{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.agst button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:8px 6px;font:600 .82rem Montserrat,sans-serif;cursor:pointer}.agst button.on[data-v=""]{background:var(--line);border-color:var(--line);color:var(--ink)}.agx>summary:after{content:"";width:8px;height:8px;border-right:2px solid var(--terra);border-bottom:2px solid var(--terra);transform:rotate(45deg);margin:0 0 4px 10px}.agx[open]>summary:after{transform:rotate(-135deg);margin:4px 0 0 10px}.agxb .btn.p{max-width:none}.agst button.on{background:var(--terra);border-color:var(--terra);color:var(--onacc,#fff)}
 .fpc #q{margin:10px 0 6px;width:100%}.fpc #lst{display:block}.fpc #lst details.g:first-child{border-top:0}.fil{padding:0 2px 10px}.fit{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:6px 2px;background:none;border:0;border-top:1px dashed var(--line);color:var(--ink);font:inherit;font-size:.95rem;text-align:left;cursor:pointer}.fit:first-child{border-top:0}.fit>svg,.fit .fd{flex:none;width:30px;height:30px}.fit .nm{flex:1;min-width:0}.fit .nm.al{font-weight:700}.fit .tag{flex:none}
 .tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:8px;align-items:start}
 .info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
@@ -1567,7 +1568,7 @@ function renderRec(){const el=$("pf_rec");if(!el)return;const rc=S.prefs.rec||{}
 function renderPlanForm(){
   const p=S.prefs,dt=DIETTXT[p.diet];
   $("dinfo").classList.toggle("hide",!dt);$("dinfo").title=dt||"";$("dpop").textContent=dt||"";if(!dt)$("dpop").classList.add("hide");
-  $("pf_diet").value=p.diet;$("pf_sty").value=p.sty||"blw";{const g=stage(),n=$("pf_stn");if(p.sty==="grad"){const w=Math.floor((Date.parse(today())-Date.parse(p.sty0||today()))/6048e5)+1;n.textContent="Semana "+w+": "+(g==="pure"?"solo puré.":g==="mid"?"puré y alimentos sencillos en tiras, sin carnes ni pescado en trozos todavía.":"ya con todo en tiras y trozos.");n.classList.remove("hide")}else n.classList.add("hide")}$("pf_meals").value=String(S.meals||0);$("pf_every").value=String(p.every||2);$("pf_fz").value=p.fz==="freeze"||p.fz==="split"?p.fz:"fresh";
+  $("pf_diet").value=p.diet;$("pf_sty").value=p.sty||"blw";{const g=stage(),n=$("pf_stn");if(false&&p.sty==="grad"){const w=Math.floor((Date.parse(today())-Date.parse(p.sty0||today()))/6048e5)+1;n.textContent="Semana "+w+": "+(g==="pure"?"solo puré.":g==="mid"?"puré y alimentos sencillos en tiras, sin carnes ni pescado en trozos todavía.":"ya con todo en tiras y trozos.");n.classList.remove("hide")}else n.classList.add("hide")}$("pf_meals").value=String(S.meals||0);$("pf_every").value=String(p.every||2);$("pf_fz").value=p.fz==="freeze"||p.fz==="split"?p.fz:"fresh";
   $("pf_glist").querySelectorAll("input").forEach(i=>i.checked=p.goals.includes(i.value));
   const g=p.goals.map(x=>GL[x]);
   $("pf_gsum").textContent=!g.length?"Elegir":g.length<=2?g.join(", "):g.length+" objetivos";
@@ -2085,25 +2086,31 @@ function renderTrack(){
     const foods=i.foods.map(n=>i.m[n]?`<b>${esc(n)}</b> (${i.m[n].c}x)`:esc(n)).join(", ");
     const items=[...i.rxs.map(r=>({d:r.d,t:esc(r.r||"Reacción")+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,t:"Registro: "+esc(l.f)+(l.rt?": "+esc(l.rt):", tuvo reacción")+(l.rn?". "+esc(l.rn):""),id:""}))].sort((a,b)=>a.d<b.d?1:-1);
     const list=items.length?`<div class="rxl">${items.map(r=>`<p>${fd(r.d)}: ${r.t}${r.id?` <button class="x" data-del="${r.id}">Borrar</button>`:""}</p>`).join("")}</div>`:"";
-    return `<details class="g" id="g_${g}" data-g="${g}"${tkSet.has(g)?" open":""}><summary><b>${AGL[g]}</b> ${chips}</summary><div class="gb">
-      <p class="mute">${foods}</p>
-      <p>${procTxt(i,st)}</p>${list}
-      <label>Estado en el perfil<select data-st="${g}">${Object.keys(ALST).map(k=>`<option value="${k}"${k===st?" selected":""}>${ALST[k]}</option>`).join("")}</select></label>
-      <p class="mute">Si marcas sospecha o alergia, se guarda en el perfil y estos alimentos dejan de salir en el plan.</p>
-      <p class="ckh" style="margin:16px 0 0">Anotar una reacción</p>
-      <label>Fecha<input type="date" data-d="${g}" value="${today()}"></label>
-      <label>Reacción<select data-sel="${g}"><option value="">Elige una opción</option>${RXO.map(o=>`<option>${esc(o)}</option>`).join("")}</select></label>
-      <div class="warn hide" data-urg><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
-      <label>Notas<input type="text" data-n="${g}" maxlength="300" placeholder="Qué pasó, cuánto tardó, cuánto duró"></label>
-      <button class="btn p" data-save="${g}" style="width:100%;flex:none;margin-top:14px">Guardar reacción</button>
+    const fchips=i.foods.map(n=>`<button type="button" class="agc${i.m[n]?" on":""}" data-food="${esc(n)}">${i.m[n]?"✓ ":""}${esc(n)}</button>`).join("");
+    return `<details class="g" id="g_${g}" data-g="${g}"${tkSet.has(g)?" open":""}><summary><b>${AGL[g]}</b> ${chips}</summary><div class="gb agb">
+      <p>${procTxt(i,st)}</p>
+      <p class="agh">Alimentos con ${esc(AGL[g].toLowerCase())}. Toca uno para anotarlo</p>
+      <div class="agf">${fchips}</div>${list}
+      <details class="agx"${st||items.length?"":""}><summary>¿Ha tenido una reacción?</summary><div class="agxb">
+        <label>Qué ha pasado<select data-sel="${g}"><option value="">Elige una opción</option>${RXO.map(o=>`<option>${esc(o)}</option>`).join("")}</select></label>
+        <div class="warn hide" data-urg><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
+        <label>Cuándo<input type="date" data-d="${g}" value="${today()}"></label>
+        <label>Notas (opcional)<input type="text" data-n="${g}" maxlength="300" placeholder="Cuánto tardó, cuánto duró"></label>
+        <button class="btn p" data-save="${g}" style="width:100%;flex:none;margin-top:12px">Guardar reacción</button>
+        <p class="agh" style="margin-top:18px">Si tu pediatra lo indica, márcalo en el perfil</p>
+        <div class="agst">${Object.keys(ALST).map(k=>`<button type="button" data-stb="${g}" data-v="${k}" class="${k===st?"on":""}">${{"":"Nada",sospecha:"Sospecha",alergia:"Alergia"}[k]}</button>`).join("")}</div>
+        <p class="mute" style="font-size:.8rem;margin:6px 0 0">Con sospecha o alergia, estos alimentos dejan de salir en el menú.</p>
+      </div></details>
     </div></details>`}).join("");
   const oth=S.log.filter(l=>l.r==="react"&&!AG[l.f]).sort((a,b)=>a.d<b.d?1:-1);
   if(oth.length)$("tk").innerHTML+=`<div class="card" style="grid-column:1/-1"><b>Otras reacciones</b><p class="mute">Alimentos que no son alérgenos de la lista.</p>${oth.map(l=>`<p>${fd(l.d)}: ${esc(l.f)}${l.rt?". "+esc(l.rt):""}${l.rn?". "+esc(l.rn):""}</p>`).join("")}</div>`;
 }
 $("tk").addEventListener("click",e=>{
+  const fb=e.target.closest("[data-food]");if(fb){openSheet(fb.dataset.food);return}
+  const sb=e.target.closest("[data-stb]");if(sb){const g=sb.dataset.stb;if(sb.dataset.v)S.al[g]=sb.dataset.v;else delete S.al[g];tkSet.add(g);save();render();return}
   const b=e.target.closest("[data-save],[data-del]");if(!b)return;
   if(b.dataset.del){S.rx=S.rx.filter(r=>r.id!==b.dataset.del);save();render();return}
-  const g=b.dataset.save,det=b.closest("details"),sel=det.querySelector("[data-sel]"),dt=det.querySelector("[data-d]"),nt=det.querySelector("[data-n]");
+  const g=b.dataset.save,det=b.closest("details.g"),sel=det.querySelector("[data-sel]"),dt=det.querySelector("[data-d]"),nt=det.querySelector("[data-n]");
   if(!sel.value){sel.focus();return}
   S.rx.push({id:uid(),g,d:dt.value||today(),r:sel.value,n:nt.value.trim().slice(0,300)});
   tkSet.add(g);save();render();
@@ -2111,7 +2118,7 @@ $("tk").addEventListener("click",e=>{
 $("tk").addEventListener("change",e=>{
   const t=e.target;
   if(t.dataset.st!==undefined){const g=t.dataset.st;if(t.value)S.al[g]=t.value;else delete S.al[g];tkSet.add(g);save();render();return}
-  if(t.dataset.sel!==undefined){const u=t.closest("details").querySelector("[data-urg]");u.classList.toggle("hide",t.value!==URG)}
+  if(t.dataset.sel!==undefined){const u=t.closest("details.g").querySelector("[data-urg]");u.classList.toggle("hide",t.value!==URG)}
 });
 $("tk").addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.g){if(d.open)tkSet.add(d.dataset.g);else tkSet.delete(d.dataset.g)}},true);
 render();
