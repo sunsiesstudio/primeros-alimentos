@@ -1521,7 +1521,7 @@ function recipesFor(kn,mo,pz){
     return out.filter(r=>PU.has(r.t)||(r.t==="solo"&&cer.some(c=>c.n===r.ings[0])))}
   return out.filter(r=>MD.has(r.t)&&!(r.t==="solo"&&r.ings.length===1&&prot.some(x=>x.n===r.ings[0])))}
 
-let pdate=null,lastDay=today(),wkAdd=false,wkQ="",wkCat="Todos";
+let pdate=null,lastDay=today(),wkAdd=false,wkQ="",wkCat="Todos",wkRep="";
 function plan(){
   PLANNED={};
   const p=S.prefs,goals=[...new Set([...(p.goals||[]),"iron","zinc"])],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
@@ -1571,7 +1571,7 @@ function plan(){
         if(x.fe&&goals.includes("iron")&&!extra)s+=3;
         s+=ease(x)*Math.max(0,1-T0/25);
         if(!extra){if(x.fe&&d-lastFe>=2)s+=Math.min(d-lastFe,6)*1.5;if(ZN.has(x.n)&&d-lastZn>=2)s+=Math.min(d-lastZn,6)*1.2}
-        {const oi=(p.ord||[]).indexOf(x.n);if(oi>=0&&!(x.a&&d-lastA<gap))s+=1000-oi*10}
+        {const oi=(p.ord||[]).indexOf(x.n);if(oi>=0&&!(x.a&&d-lastA<gap))s+=3000-oi*100}
         if(LATE.has(x.n)&&T0<30)s-=99;else if(!EZ0.has(x.n)&&!EZ1.has(x.n)&&!extra&&T0<20)s-=4;
         if(x.n==="Huevo"&&kn0("Aguacate")||x.n==="Aguacate"&&kn0("Huevo"))s+=3*Math.max(0,1-T0/25);
         if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
@@ -1705,11 +1705,11 @@ function plan(){
     return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}<p class="hd">${y.head}</p>${tg?`<p>${tg}</p>`:""}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${famH}</div>`};
   {const mv=shown.filter(o=>o.items.length&&o.ds>=t0).map(o=>o.items[0].n),pdn=n=>{pdate=n;subtab(1);plan();window.scrollTo({top:0})};
     const rows=shown.map(o=>{const x=o.items[0],dl=o.ds===t0?"Hoy":o.dt.toLocaleDateString("es-ES",{weekday:"short",day:"numeric"}).replace(".","");let body,mvb="";
-      if(x&&o.ds>=t0){const k=mv.indexOf(x.n);body=`<b>${esc(x.n)}</b><small>${esc(x.c)}${x.a?" · alérgeno":""}</small>`;mvb=`<span class="wmv"><button type="button" class="wx" data-skip="${esc(x.n)}" aria-label="No probar ${esc(x.n)} por ahora">✕</button><button type="button" class="wh" data-mv="${esc(x.n)}" aria-label="Arrastrar para cambiar el orden de ${esc(x.n)}"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 8h16M4 12h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></span>`}
+      if(x&&o.ds>=t0){const k=mv.indexOf(x.n);body=`<b>${esc(x.n)}</b><small>${esc(x.c)}${x.a?" · alérgeno":""}</small>`;mvb=`<span class="wmv"><button type="button" class="wx" data-skip="${esc(x.n)}" aria-label="Cambiar ${esc(x.n)} por otro alimento">✕</button><button type="button" class="wh" data-mv="${esc(x.n)}" aria-label="Arrastrar para cambiar el orden de ${esc(x.n)}"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 8h16M4 12h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></span>`}
       else if(o.rep)body=`<b>${esc(o.rep.x.n)}</b><small>Repetimos, día ${o.rep.n} de 3</small>`;
       else{const nf=o.done.filter(f=>first[f]===o.ds);body=nf.length?`<b>${nf.map(esc).join(", ")}</b><small>✓ Probado</small>`:`<b class="mute">Sin alimento nuevo</b><small>Recetas con lo que ya conoce</small>`}
       return `<div class="wrow"><button class="wgo" data-go="${o.ds}"><span class="wdn">${esc(dl)}</span>${(x||(o.rep&&o.rep.x))?ico((x||o.rep.x).n):'<span class="wic"></span>'}<span class="wfn">${body}</span></button>${mvb}</div>`}).join("");
-    $("pv3").innerHTML=`<div class="card"><h3 class="sec" style="margin-top:0">Esta semana probamos</h3><p class="mute">Estos son los alimentos nuevos de los próximos días. Arrastra ≡ para cambiar el orden y toca uno para ver sus recetas.</p>${rows}<div class="btns" style="margin-top:12px"><button class="btn" id="wk_add">+ Añadir un alimento</button>${(p.ord||[]).length||(p.skip||[]).length?'<button class="btn" id="wk_rst">Restablecer</button>':""}</div><div id="wk_addp" class="${wkAdd?"":"hide"}"><div class="chips" id="wk_cat"></div><input type="search" id="wk_q" placeholder="Buscar alimento" aria-label="Buscar alimento" value="${esc(wkQ)}"><div class="chips" id="wk_res"></div></div><p class="mute">Los alérgenos se siguen espaciando aunque cambies el orden.</p></div>`;
+    $("pv3").innerHTML=`<div class="card"><h3 class="sec" style="margin-top:0">Esta semana probamos</h3><p class="mute">Estos son los alimentos nuevos de los próximos días. Arrastra ≡ para cambiar el orden y toca uno para ver sus recetas.</p><div class="btns" style="margin:12px 0"><button class="btn p" id="wk_add" style="flex:1 1 100%">Elegir yo el alimento a probar</button></div><div id="wk_addp" class="${wkAdd?"":"hide"}">${wkRep?`<p style="margin:0 0 8px"><b>Cambiar ${esc(wkRep)} por otro alimento</b> <button type="button" class="recx" id="wk_cx">Cancelar</button></p>`:""}<label class="mute" style="display:${wkRep?"none":"block"};margin-bottom:6px">¿Qué día quieres probarlo?<select id="wk_day">${shown.filter(o=>o.items.length&&o.ds>=t0).map((o,k)=>`<option value="${k}">${esc(o.ds===t0?"Hoy":o.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric"}))}</option>`).join("")}</select></label><div class="chips" id="wk_cat"></div><input type="search" id="wk_q" placeholder="Buscar alimento" aria-label="Buscar alimento" value="${esc(wkQ)}"><div class="chips" id="wk_res"></div></div>${rows}${(p.ord||[]).length||(p.skip||[]).length?'<div class="btns" style="margin-top:12px"><button class="btn" id="wk_rst">Restablecer</button></div>':""}<p class="mute">Los alérgenos se siguen espaciando aunque cambies el orden.</p></div>`;
     $("pv3").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>pdn(b.dataset.go));
     const setOrd=(i,j)=>{if(i===j||j<0||j>=mv.length)return;const o2=mv.slice(),[m]=o2.splice(i,1);o2.splice(j,0,m);S.prefs.ord=o2;planShown=7;save();plan()};
     $("pv3").querySelectorAll(".wh").forEach(h=>{const row=h.closest(".wrow");
@@ -1719,7 +1719,8 @@ function plan(){
         h.onpointerup=h.onpointercancel=()=>{h.onpointermove=h.onpointerup=h.onpointercancel=null;row.classList.remove("wdrag");row.style.transform="";rows.forEach(r=>r.classList.remove("wtarget"));setOrd(i,j)}};
       h.onkeydown=e=>{if(e.key!=="ArrowUp"&&e.key!=="ArrowDown")return;e.preventDefault();const i=mv.indexOf(h.dataset.mv);setOrd(i,i+(e.key==="ArrowUp"?-1:1))}});
     if($("wk_rst"))$("wk_rst").onclick=()=>{S.prefs.ord=[];S.prefs.skip=[];planShown=7;save();plan()};
-    $("pv3").querySelectorAll("[data-skip]").forEach(b=>b.onclick=()=>{const n=b.dataset.skip;S.prefs.skip=[...new Set([...(S.prefs.skip||[]),n])];S.prefs.ord=(S.prefs.ord||[]).filter(x=>x!==n);planShown=7;save();plan()});
+    $("pv3").querySelectorAll("[data-skip]").forEach(b=>b.onclick=()=>{wkRep=b.dataset.skip;wkAdd=true;wkQ="";wkCat="Todos";plan();const e=$("wk_addp");if(e)e.scrollIntoView({block:"center"})});
+    if($("wk_cx"))$("wk_cx").onclick=()=>{wkRep="";wkAdd=false;plan()};
     const NUT=["iron","zinc","omega3","calcium","vitc","fiber"],NL={iron:"hierro",zinc:"zinc",omega3:"omega-3",calcium:"calcio",vitc:"vitamina C",fiber:"fibra"},gapOf={};
     NUT.forEach(g=>{let last=null;S.log.forEach(l=>{if(l.r==="no"||l.r==="react")return;const x=info(l.f);if(x&&GS[g](x)&&(!last||l.d>last))last=l.d});gapOf[g]=last?Math.max(0,Math.round((Date.parse(t0)-Date.parse(last))/864e5)):99});
     const lack=g=>gapOf[g]>=(g==="iron"||g==="zinc"?2:3),need=x=>NUT.filter(g=>lack(g)&&GS[g](x));
@@ -1729,8 +1730,8 @@ function plan(){
       $("wk_cat").querySelectorAll("button").forEach(b=>b.onclick=()=>{wkCat=b.dataset.c;paintRes()});
       const top=NUT.filter(g=>lack(g)&&L.some(o=>GS[g](o.x))).sort((a,b)=>((b==="iron"||b==="zinc")*1000+gapOf[b])-((a==="iron"||a==="zinc")*1000+gapOf[a]))[0],hint=top?(gapOf[top]>=99?`Aún no ha tomado ${NL[top]}. `:`Lleva ${gapOf[top]} días sin ${NL[top]}. `)+"Te sugiero primero los que lo aportan.":"";
       $("wk_res").innerHTML=(hint?`<p class="mute" style="flex:1 1 100%;margin:0 0 4px">${esc(hint)}</p>`:"")+(L.map(o=>`<button type="button" class="pk" data-n="${esc(o.x.n)}">${esc(o.x.n)}${o.nd.length?` <small class="mute">· ${o.nd.map(g=>NL[g]).join(", ")}</small>`:""}</button>`).join("")||'<span class="mute">No encuentro ese alimento entre los que puede probar.</span>');
-      $("wk_res").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;S.prefs.ord=[n,...mv.filter(x=>x!==n)];S.prefs.skip=(S.prefs.skip||[]).filter(x=>x!==n);wkAdd=false;wkQ="";wkCat="Todos";planShown=7;save();plan()})};
-    $("wk_add").onclick=()=>{wkAdd=!wkAdd;$("wk_addp").classList.toggle("hide",!wkAdd);if(wkAdd){paintRes();$("wk_q").focus()}};
+      $("wk_res").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n,o3=mv.slice();if(wkRep&&mv.includes(wkRep)){o3.splice(mv.indexOf(wkRep),1,n);S.prefs.skip=[...new Set([...(S.prefs.skip||[]).filter(x=>x!==n),wkRep])]}else{o3.splice(Math.min(+($("wk_day")||{}).value||0,mv.length),0,n);S.prefs.skip=(S.prefs.skip||[]).filter(x=>x!==n)}S.prefs.ord=o3;wkRep="";wkAdd=false;wkQ="";wkCat="Todos";planShown=7;save();plan()})};
+    $("wk_add").onclick=()=>{wkRep="";wkAdd=!wkAdd;$("wk_addp").classList.toggle("hide",!wkAdd);if(wkAdd){paintRes();$("wk_q").focus()}};
     $("wk_q").oninput=e=>{wkQ=e.target.value;paintRes()};if(wkAdd)paintRes()}
   $("days").innerHTML=useful?strip+(sd<t0?pastCard(sd):dayCard(shown.find(o=>o.ds===sd)||shown[0])):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-pd]").forEach(b=>b.onclick=()=>{pdate=b.dataset.pd;plan()});
