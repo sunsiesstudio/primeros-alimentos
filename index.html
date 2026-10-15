@@ -33,6 +33,7 @@ h1{font-size:clamp(1.8rem,7vw,2.8rem);color:var(--green);margin:0;line-height:1;
 .lno{display:flex;flex-wrap:wrap;gap:6px}.lno span{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:99px;font-size:.82rem;font-weight:600;color:#c0392b;background:color-mix(in srgb,#c0392b 9%,transparent);border:1.5px solid color-mix(in srgb,#c0392b 40%,transparent)}
 .lmore{margin:0 0 12px}.lmore>summary{cursor:pointer;color:var(--blue);font-weight:700;font-size:.88rem;min-height:40px;display:flex;align-items:center}.lmore .lpts{margin-top:4px}
 #v2 #pfcard{margin:0 0 12px}
+#pfcard .pfsh,#pfcard .pfbg{display:none}#pfcard[open] .pfbg{display:block;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:11}#pfcard[open] .pfsh{display:block;position:fixed;left:0;right:0;bottom:0;max-height:88vh;max-height:88dvh;overflow-y:auto;overscroll-behavior:contain;background:var(--card);border-top:3px solid var(--terra);border-radius:22px 22px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 30px rgba(0,0,0,.3);z-index:12;text-align:left}.pfin{max-width:520px;margin:0 auto}.pfhd{display:flex;align-items:center;justify-content:space-between;gap:10px}.pfhd h3{margin:0;font-size:1.4rem;color:var(--green)}.pfhd .xc{position:static}
 .wks{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-height:44px;justify-content:center}.wks::-webkit-details-marker{display:none}.wks b{font-size:1.25rem;color:var(--green)}.wks small{color:var(--mute)}
 #v1 .vt{display:none}
 .tkt{--pp:#fffdf4;--tk:#2b2a24;--tm:#7d7a68;position:relative;margin:14px 0 26px;padding:22px 18px 22px;background:var(--pp);color:var(--tk);font-family:"Courier New",ui-monospace,Menlo,monospace;filter:drop-shadow(0 3px 8px rgba(0,0,0,.14))}
@@ -593,6 +594,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   <div id="pv1">
   <details class="card" id="pfcard">
     <summary class="plh"><span id="pf_head"></span><span class="ple" aria-label="Editar plan" role="img"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span></summary>
+    <div class="pfbg" id="pfbg"></div><div class="pfsh"><div class="pfin"><div class="pfhd"><h3 class="disp">Ajustar el plan</h3><button type="button" class="xc" id="pfx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="pf" style="margin-top:10px">
       <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Uno nuevo cada día</option><option value="2">Uno nuevo cada 2 días</option><option value="3">Uno nuevo cada 3 días</option></select></label>
@@ -605,7 +607,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
     <p class="pop hide" id="dpop"></p>
     <div class="btns" style="max-width:none"><button class="btn p" id="mk" style="width:100%;flex:1 1 100%">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
-  </details>
+  </div></div></details>
   <div class="remind" id="rem"></div>
   <div id="days"></div>
   </div>
@@ -1920,6 +1922,7 @@ function plan(){
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&today()!==lastDay){lastDay=today();pdate=null;render()}});
 setInterval(()=>{if(today()!==lastDay){lastDay=today();pdate=null;render()}},60000);
+$("pfx").onclick=$("pfbg").onclick=()=>{$("pfcard").open=false};
 $("mk").onclick=()=>{$("pfcard").open=false;if(S.prefs.gen)S.prefs.seed=(S.prefs.seed||1)+1;S.prefs.gen=true;planShown=7;save();plan()};
 
 const SHOPORD=["Frutas","Verduras","Proteínas","Cereales","Lácteos","Frutos secos","Condimentos"];
