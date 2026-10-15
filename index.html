@@ -532,11 +532,9 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 @keyframes celhop{0%{transform:scale(.6)}50%{transform:scale(1.18) rotate(-6deg)}100%{transform:scale(1)}}
 @keyframes celbit{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 40px)) scale(1)}}
 @media (prefers-reduced-motion:reduce){.celb{display:none}.celi svg.fd{animation:none}.celp{animation:celfade 2.4s both}@keyframes celfade{0%,100%{opacity:0}12%,80%{opacity:1}}}
-#sosb{position:fixed;top:max(10px,env(safe-area-inset-top));right:10px;z-index:60;display:flex;align-items:center;justify-content:center;width:46px;height:46px;padding:0;border-radius:50%;border:0;background:#c0392b;color:#fff;font:700 .72rem Montserrat,sans-serif;letter-spacing:.04em;box-shadow:0 3px 10px rgba(0,0,0,.2);cursor:pointer}
-#sos{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}.sosi{max-width:520px;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 16px 28px}
-.sosi h2{margin:0 0 12px;font-size:2rem;color:#c0392b}.sosc{display:flex;align-items:center;justify-content:center;min-height:64px;border-radius:18px;background:#c0392b;color:#fff;font:700 1.3rem Montserrat,sans-serif;text-decoration:none;margin-bottom:14px}
+.sosc{display:flex;align-items:center;justify-content:center;min-height:64px;border-radius:18px;background:#c0392b;color:#fff;font:700 1.3rem Montserrat,sans-serif;text-decoration:none;margin-bottom:14px}
 .sosk{padding:14px;border-radius:18px;background:var(--card);border:2px solid color-mix(in srgb,#c0392b 45%,transparent);margin-bottom:12px}.sosk h3{margin:0;font-size:1.15rem;color:#c0392b}.sosw{margin:4px 0 8px;font-size:.92rem}
-.sosk ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:1rem;line-height:1.35}.sosn{margin:10px 0 0;font-size:.88rem;color:var(--mute)}.sosx{width:100%;min-height:56px;margin-top:6px}
+.sosk ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:1rem;line-height:1.35}.sosn{margin:10px 0 0;font-size:.88rem;color:var(--mute)}.sosk+.sosk{margin-top:0}
 .why summary,.chg{min-height:44px;display:inline-flex;align-items:center}.phe,#ph_edit{min-width:44px;min-height:44px}
 .pfmore>summary,.shmore>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;font-size:.9rem;color:var(--blue)}.shmore{margin:8px 0}.shmore>*:not(summary){margin-top:8px}.shmore label{display:block}
 .how{margin-top:12px}.how>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;font-size:.9rem;color:var(--blue)}
@@ -544,16 +542,6 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-<button type="button" id="sosb" aria-label="Emergencia: atragantamiento o reacción grave"><span>SOS</span></button>
-<div id="sos" class="hide" role="dialog" aria-modal="true" aria-label="Qué hacer en una emergencia"><div class="sosi">
-<h2 class="disp">Emergencia</h2>
-<a class="sosc" href="tel:112">Llamar al 112</a>
-<div class="sosk"><h3>No tose, no llora, no respira</h3><p class="sosw">Atragantamiento. Actúa ya.</p>
-<ol><li><b>112.</b> Llama o pide que llamen.</li><li><b>5 golpes en la espalda.</b> Boca abajo sobre tu antebrazo, cabeza más baja.</li><li><b>5 compresiones en el pecho.</b> Boca arriba, con dos dedos.</li><li><b>Repite</b> hasta que expulse el objeto. Si pierde el conocimiento, RCP.</li></ol>
-<p class="sosn">Si tose y hace ruido es una arcada: es normal. Calma y no metas los dedos.</p></div>
-<div class="sosk"><h3>Reacción alérgica grave</h3><p class="sosw">Labios, lengua o cara hinchados, le cuesta respirar, vómitos repetidos o está muy decaído.</p>
-<ol><li><b>112.</b> No esperes a ver si pasa.</li><li><b>Tumbado y vigilado</b> hasta que llegue la ayuda.</li></ol></div>
-<button type="button" class="btn sosx" id="sosx">Cerrar</button></div></div>
 <div class="gate" id="gate"><div>
   <svg class="logo" viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos" style="width:min(420px,90%);margin-bottom:44px">
     <defs><path id="ARC1" d="M10,185 Q320,10 630,185"/></defs>
@@ -1330,9 +1318,6 @@ function shareText(){const m=stats(),cats={};ALL.forEach(x=>{if(m[x.n])(cats[x.c
   const rx=S.log.filter(l=>l.r==="react").map(l=>l.f+(l.rt?" ("+l.rt+")":"")+" el "+l.d);if(rx.length)L.push("Reacciones anotadas: "+rx.join("; "));
   L.push("Dato orientativo de la app, no sustituye al pediatra.");return L.join("\n")}
 $("shr").onclick=()=>{const t=shareText();if(navigator.share)navigator.share({title:"Primeros alimentos",text:t}).catch(()=>{});else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>snack("Copiado. Pégalo donde quieras.")).catch(()=>prompt("Copia el resumen:",t));else prompt("Copia el resumen:",t)};
-$("sosb").onclick=()=>{$("sos").classList.remove("hide");document.body.style.overflow="hidden";$("sos").scrollTop=0};
-$("sosx").onclick=()=>{$("sos").classList.add("hide");document.body.style.overflow=""};
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("sos").classList.contains("hide"))$("sosx").click()});
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 let obSkip=false;
 const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
@@ -1473,9 +1458,9 @@ function renderSchool(){
   const tx=LVZ.texturas[0],sg=LVZ.seguridad,al=LVZ.alergenos[2];
   const ev=["Sal","Azúcar y zumos","Miel (antes de 12 meses)","Frutos secos enteros","Uvas y cherry enteros","Pescados grandes","Leche de vaca como bebida (antes de 12 meses)","Bebida de arroz"];
   const chips=`<div class="lno lz">${ev.map(x=>`<span>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',14)}${esc(x)}</span>`).join("")}</div>`;
-  w.innerHTML=`<div class="card gh0"><h3 class="disp">Info</h3><p class="mute">Lo más básico, de un vistazo. Basado en las recomendaciones de la AEP. Pregunta siempre a tu pediatra.</p><div class="ahero">${["Aguacate","Zanahoria","Brócoli","Plátano","Huevo","Lentejas"].map(ico).join("")}</div></div>`+
+  w.innerHTML=`<div class="card gh0"><h3 class="disp">Info</h3><p class="mute">Lo más básico, de un vistazo. Basado en las recomendaciones de la AEP. Pregunta siempre a tu pediatra.</p><div class="ahero">${["Aguacate","Zanahoria","Brócoli","Plátano","Huevo","Lentejas"].map(ico).join("")}</div></div>`+`<div class="card sosk" style="margin-bottom:12px"><h3 class="disp" style="font-size:1.6rem">Emergencia</h3><a class="sosc" href="tel:112">Llamar al 112</a><h3>No tose, no llora, no respira</h3><p class="sosw">Atragantamiento. Actúa ya.</p><ol><li><b>112.</b> Llama o pide que llamen.</li><li><b>5 golpes en la espalda.</b> Boca abajo sobre tu antebrazo, cabeza más baja.</li><li><b>5 compresiones en el pecho.</b> Boca arriba, con dos dedos.</li><li><b>Repite</b> hasta que expulse el objeto. Si pierde el conocimiento, RCP.</li></ol><p class="sosn">Si tose y hace ruido es una arcada: es normal. Calma y no metas los dedos.</p><h3 style="margin-top:14px">Reacción alérgica grave</h3><p class="sosw">Labios, lengua o cara hinchados, le cuesta respirar, vómitos repetidos o está muy decaído.</p><ol><li><b>112.</b> No esperes a ver si pasa.</li><li><b>Tumbado y vigilado</b> hasta que llegue la ayuda.</li></ol></div>`+
   blk("Texturas",ico("Zanahoria"),lzViz2([tx,LVZ.texturas[1]]))+
-  blk("Atragantamiento",gicoSvg("zinc"),lzViz2([sg[0],sg[1]]))+
+  blk("Arcada o atragantamiento",gicoSvg("zinc"),lzViz2([sg[0]]))+
   blk("Reacción alérgica",ico("Huevo"),lzViz2([al]))+
   blk("Qué evitar",ico("Uvas"),chips+lzViz2([["b","Todo esto, hasta que tu pediatra diga lo contrario."]]));
 }
