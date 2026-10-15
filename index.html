@@ -566,7 +566,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 
 <section id="v1">
 <div id="recent" class="hide"></div>
-  <div class="card tkc" style="margin-bottom:12px"><div class="tkh"><h3 class="disp" style="white-space:nowrap;font-size:min(1.6rem,6.2vw)">Alimentos probados</h3><span class="tkn" id="fp_n" style="white-space:nowrap"></span></div><div id="prog"></div></div>
+  <div class="card tkc" style="margin-bottom:12px"><div class="tkh"><h3 class="disp" style="white-space:nowrap;font-size:min(1.6rem,6.2vw)">Alimentos probados</h3><span class="tkn" id="fp_n" style="white-space:nowrap"></span></div><div class="tkbar" aria-hidden="true"><i id="fp_b"></i></div></div>
   <div class="tools">
     <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
       <div class="vt" role="group" aria-label="Cambiar vista">
@@ -603,6 +603,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   </div>
   <div id="pvw"><div id="pv3"></div>
 <div class="card" id="nutcard"></div>
+<div id="prog"></div>
   </div>
   <div id="pv2" class="hide"><div class="tkt"><div class="tkt-h"><h3 id="wk_t">Lista de la compra</h3><small id="wk_rng"></small></div><div id="shop"></div></div></div>
 </section>
@@ -1072,13 +1073,11 @@ function drawPoster(ctx,W,H,o){
 }
 /*POSTER_END*/
 
-const PM=[5,25,50,75,100];
+const PM=[1,10,25,50,100];
 const SP=Array.from({length:10},(_,k)=>{const a=-Math.PI/2+k*Math.PI/5,q=k%2?13:30;return (32+q*Math.cos(a)).toFixed(1)+","+(33+q*Math.sin(a)).toFixed(1)}).join(" ");
 function progHtml(c){
-  const pct=Math.min(c,100);
-  const next=PM.find(m=>m>c);
-  const stars=PM.map((m,i)=>`<span class="ps${c>=m?" on":""}${i===4?" gold":""}" style="left:${m}%"><svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="${SP}"/></svg><b>${m}</b></span>`).join("");
-  return `<p class="pc">${next?"Siguiente estrella: "+next+" alimentos":"¡Meta de 100 conseguida!"}</p><div class="pb" role="img" aria-label="${c} alimentos probados"><div class="t"></div><div class="f" style="width:${pct.toFixed(1)}%"></div>${stars}</div><p style="margin:6px 0 0">${c>=100?'<button class="btn p" id="dip_open" style="max-width:340px">Ver diploma de los 100 alimentos</button>':'<button class="x" id="dip_open">Vista previa del diploma</button>'}</p>`}
+  // El diploma es sorpresa: no se menciona hasta llegar a 100; después queda este botón para volver a verlo
+  return c>=100?'<div class="card" style="padding:10px 16px 14px"><button class="btn p" id="dip_open" style="max-width:340px">Ver diploma de los 100 alimentos</button></div>':""}
 const OPENC=new Set();
 function card(x,m,col){
   const s=m[x.n],lk=!unlocked(x);
@@ -1095,7 +1094,7 @@ function board(){
   $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
   $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
   const nd=ALL.filter(x=>m[x.n]).length;
-  $("fp_n").textContent=Math.min(nd,100)+"/100";
+  {const tt=ALL.filter(x=>!x.lim).length;$("fp_n").textContent=nd+"/"+tt;$("fp_b").style.width=Math.round(100*nd/Math.max(tt,1))+"%"}
   $("prog").innerHTML=progHtml(nd);
   if(view==="list"){
     document.querySelectorAll("#gm [data-g]").forEach(b=>b.classList.toggle("on",b.dataset.g===gmode));
@@ -1219,7 +1218,7 @@ const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","M
 const HOWX={"AOVE":["Un chorrito en la comida","Al cocinar"]};
 const howOpts=x=>(x&&HOWX[x.n])||(x&&HOWC[x.c])||HOW;
 function goalsFull(){const t=new Date(today()+"T00:00:00"),days=[];for(let i=6;i>=0;i--){const x=new Date(t);x.setDate(t.getDate()-i);days.push(dstr(x))}const ed=eatenByDay();return new Set(GOALS.map(g=>g[0]).filter(k=>days.every(d=>[...(ed[d]||[])].some(n=>{const x=info(n);return x&&GS[k](x)}))))}
-const MILE=[1,5,25,50,75];
+const MILE=[1,10,25,50];
 let celT=0;
 function celebrate(o){const old=document.getElementById("cel");if(old)old.remove();clearTimeout(celT);
   const c=document.createElement("div");c.id="cel";c.setAttribute("role","status");
