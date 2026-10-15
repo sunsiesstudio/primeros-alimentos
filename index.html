@@ -522,10 +522,38 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;margin:0;position:relative}.ah .aht{flex:1;min-width:0}.ah .aht .tag{display:inline-block;margin-bottom:8px}.ah .aht b{display:block;line-height:1.15}.ah .lch{flex:none;color:var(--mute);transition:transform .2s}.les2.shut .lch{transform:rotate(-90deg)}.les2.shut .lbd{display:none}.les2.shut .ah{margin-bottom:0}.les2:not(.shut) .ah{margin-bottom:14px}
 .ah .adn{flex:none;width:24px;height:24px;border-radius:50%;background:var(--green);display:grid;place-items:center}.les2 .lbd>.btn{width:100%;margin-top:4px}
 .gyn h5{font-size:.88rem;overflow-wrap:normal}.gyn h5 svg{width:18px;height:18px;flex:none}
+#cel{position:fixed;inset:0;z-index:80;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:26vh}
+.celp{display:flex;align-items:center;gap:10px;padding:10px 16px 10px 10px;border-radius:999px;background:var(--card);border:2px solid color-mix(in srgb,var(--green) 55%,transparent);box-shadow:0 8px 24px rgba(0,0,0,.16);animation:celin 2.4s cubic-bezier(.2,.9,.3,1.2) both;position:relative;z-index:2;max-width:calc(100vw - 32px)}
+.celi svg.fd{width:46px;height:46px;display:block;animation:celhop .7s .15s ease-out both}.celi.cels{font-size:2rem;line-height:46px;width:46px;text-align:center;color:var(--terra)}
+.celt b{display:block;font-size:.95rem;color:var(--green)}.celt small{display:block;font-size:.8rem;color:var(--mute)}
+.celb{position:absolute;left:50%;top:calc(26vh + 34px);width:0;height:0}
+.celb i{position:absolute;width:var(--s);height:var(--s);margin:-3px;border-radius:50%;background:var(--c);opacity:0;animation:celbit 1.3s var(--d) ease-out both}.celb i:nth-child(3n){border-radius:2px;transform:rotate(30deg)}
+@keyframes celin{0%{opacity:0;transform:translateY(14px) scale(.9)}14%{opacity:1;transform:none}80%{opacity:1}100%{opacity:0;transform:translateY(-6px)}}
+@keyframes celhop{0%{transform:scale(.6)}50%{transform:scale(1.18) rotate(-6deg)}100%{transform:scale(1)}}
+@keyframes celbit{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 40px)) scale(1)}}
+@media (prefers-reduced-motion:reduce){.celb{display:none}.celi svg.fd{animation:none}.celp{animation:celfade 2.4s both}@keyframes celfade{0%,100%{opacity:0}12%,80%{opacity:1}}}
+#sosb{position:fixed;top:max(10px,env(safe-area-inset-top));right:10px;z-index:60;display:flex;align-items:center;justify-content:center;width:46px;height:46px;padding:0;border-radius:50%;border:0;background:#c0392b;color:#fff;font:700 .72rem Montserrat,sans-serif;letter-spacing:.04em;box-shadow:0 3px 10px rgba(0,0,0,.2);cursor:pointer}
+#sos{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}.sosi{max-width:520px;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 16px 28px}
+.sosi h2{margin:0 0 12px;font-size:2rem;color:#c0392b}.sosc{display:flex;align-items:center;justify-content:center;min-height:64px;border-radius:18px;background:#c0392b;color:#fff;font:700 1.3rem Montserrat,sans-serif;text-decoration:none;margin-bottom:14px}
+.sosk{padding:14px;border-radius:18px;background:var(--card);border:2px solid color-mix(in srgb,#c0392b 45%,transparent);margin-bottom:12px}.sosk h3{margin:0;font-size:1.15rem;color:#c0392b}.sosw{margin:4px 0 8px;font-size:.92rem}
+.sosk ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:1rem;line-height:1.35}.sosn{margin:10px 0 0;font-size:.88rem;color:var(--mute)}.sosx{width:100%;min-height:56px;margin-top:6px}
+.why summary,.chg{min-height:44px;display:inline-flex;align-items:center}.phe,#ph_edit{min-width:44px;min-height:44px}
+.pfmore>summary,.shmore>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;font-size:.9rem;color:var(--blue)}.shmore{margin:8px 0}.shmore>*:not(summary){margin-top:8px}.shmore label{display:block}
+.how{margin-top:12px}.how>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;font-size:.9rem;color:var(--blue)}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
+<button type="button" id="sosb" aria-label="Emergencia: atragantamiento o reacción grave"><span>SOS</span></button>
+<div id="sos" class="hide" role="dialog" aria-modal="true" aria-label="Qué hacer en una emergencia"><div class="sosi">
+<h2 class="disp">Emergencia</h2>
+<a class="sosc" href="tel:112">Llamar al 112</a>
+<div class="sosk"><h3>No tose, no llora, no respira</h3><p class="sosw">Atragantamiento. Actúa ya.</p>
+<ol><li><b>112.</b> Llama o pide que llamen.</li><li><b>5 golpes en la espalda.</b> Boca abajo sobre tu antebrazo, cabeza más baja.</li><li><b>5 compresiones en el pecho.</b> Boca arriba, con dos dedos.</li><li><b>Repite</b> hasta que expulse el objeto. Si pierde el conocimiento, RCP.</li></ol>
+<p class="sosn">Si tose y hace ruido es una arcada: es normal. Calma y no metas los dedos.</p></div>
+<div class="sosk"><h3>Reacción alérgica grave</h3><p class="sosw">Labios, lengua o cara hinchados, le cuesta respirar, vómitos repetidos o está muy decaído.</p>
+<ol><li><b>112.</b> No esperes a ver si pasa.</li><li><b>Tumbado y vigilado</b> hasta que llegue la ayuda.</li></ol></div>
+<button type="button" class="btn sosx" id="sosx">Cerrar</button></div></div>
 <div class="gate" id="gate"><div>
   <svg class="logo" viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos" style="width:min(420px,90%);margin-bottom:44px">
     <defs><path id="ARC1" d="M10,185 Q320,10 630,185"/></defs>
@@ -553,7 +581,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="nB" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.2c-1.6-1.4-3.6-1.6-5-.6-1.9 1.4-2 4.6-.7 7.2 1.1 2.3 2.9 4.7 4.4 4.7.9 0 1.1-.5 1.3-.5s.4.5 1.3.5c1.5 0 3.3-2.4 4.4-4.7 1.3-2.6 1.2-5.8-.7-7.2-1.4-1-3.4-.8-5 .6z"/><path d="M12 8.2c0-2 .8-3.6 2.4-4.7"/></svg><span>Registro</span></button><button id="nA"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="7.5" cy="7.5" rx="2.8" ry="4.2"/><path d="M7.5 11.7V21"/><path d="M14.2 3.5v4.2a2.3 2.3 0 0 0 4.6 0V3.5M16.5 10v11"/></svg><span>Menú</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></svg><span>Academia</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.8 10h.01M15.2 10h.01"/><path d="M8 14.2c1 1.8 2.5 2.8 4 2.8s3-1 4-2.8"/></svg><span>Perfil</span></button></div>
+<div class="tabs"><button id="nB" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.2c-1.6-1.4-3.6-1.6-5-.6-1.9 1.4-2 4.6-.7 7.2 1.1 2.3 2.9 4.7 4.4 4.7.9 0 1.1-.5 1.3-.5s.4.5 1.3.5c1.5 0 3.3-2.4 4.4-4.7 1.3-2.6 1.2-5.8-.7-7.2-1.4-1-3.4-.8-5 .6z"/><path d="M12 8.2c0-2 .8-3.6 2.4-4.7"/></svg><span>Registro</span></button><button id="nA"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="7.5" cy="7.5" rx="2.8" ry="4.2"/><path d="M7.5 11.7V21"/><path d="M14.2 3.5v4.2a2.3 2.3 0 0 0 4.6 0V3.5M16.5 10v11"/></svg><span>Menú</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></svg><span>Info</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.8 10h.01M15.2 10h.01"/><path d="M8 14.2c1 1.8 2.5 2.8 4 2.8s3-1 4-2.8"/></svg><span>Perfil</span></button></div>
 <div class="btns rtabs" id="fsw" role="tablist"></div>
 
 <section id="v1">
@@ -578,7 +606,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
     <summary class="plh"><span id="pf_head"></span><span class="ple" aria-label="Editar plan" role="img"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span></summary>
     <div class="pf" style="margin-top:10px">
       <label><span>Dieta <button type="button" class="info hide" id="dinfo" aria-label="Más información sobre esta dieta">i</button></span><select id="pf_diet"><option value="om">De todo</option><option value="veg">Vegetariana</option><option value="vgn">Vegana</option></select></label>
-      <label>Cocina<select id="pf_fz"><option value="fresh">Todo fresco del día</option><option value="split">Desayunos y meriendas frescos, comidas congeladas</option><option value="freeze">Congelo todo en tandas</option></select></label>
+      <details class="pfmore" style="grid-column:1/-1"><summary>Más opciones</summary><div class="pf" style="margin-top:8px"><label>Cocina<select id="pf_fz"><option value="fresh">Todo fresco del día</option><option value="split">Desayunos y meriendas frescos, comidas congeladas</option><option value="freeze">Congelo todo en tandas</option></select></label>
       <label>Alimento nuevo<select id="pf_every"><option value="1">Cada día</option><option value="2">Cada 2 días</option><option value="3">Cada 3 días</option></select></label>
       <label>Ritmo<select id="pf_sty"><option value="pure">Puré por ahora</option><option value="grad">Poco a poco</option><option value="blw">BLW completo</option></select></label>
       <div class="mute hide" id="pf_stn" style="grid-column:1/-1;margin:-4px 0 0"></div>
@@ -586,7 +614,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
       <label>Comidas al día<select id="pf_meals"><option value="0">Según su edad</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4 o más</option></select></label>
       <label>Cómo come<select id="pf_app"><option value="">Sin indicar</option><option value="play">Juega y prueba</option><option value="some">Come un poco</option><option value="full">Come de verdad</option></select></label>
       <div class="fl pfg" id="pf_rec"></div>
-      <div class="fl pfg"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div>
+      <div class="fl pfg"><span class="flab">Objetivos</span><details class="ms" id="pf_goals"><summary id="pf_gsum">Elegir</summary><div class="msl" id="pf_glist"></div></details></div></div></details>
     </div>
     <p class="pop hide" id="dpop"></p>
     <div class="btns" style="max-width:none"><button class="btn p" id="mk" style="width:100%;flex:1 1 100%">Generar plan</button></div>
@@ -640,6 +668,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
     <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div></div><button class="btn" id="go_tk" style="flex:none;width:112px;padding:10px 0;text-align:center">Ver</button></div>
     <div class="prow"><div><div class="lab">Resumen para pediatra y guardería</div></div><button class="btn p" id="exp" style="flex:none;width:112px;padding:10px 0;text-align:center">Exportar</button></div>
+    <div class="prow"><div><div class="lab">Compartir con cuidadores</div><div class="mute">Texto corto: lo probado, alergias y reacciones</div></div><button class="btn p" id="shr" style="flex:none;width:112px;padding:10px 0;text-align:center">Compartir</button></div>
   </div>
   <p class="mute" id="pmsg" style="min-height:1.4em"></p>
   <div class="btns" style="max-width:260px;margin:18px 0 0"><button class="btn" id="so">Cerrar sesión</button></div>
@@ -673,18 +702,20 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   <div class="mute" id="sht"></div>
   <div class="warn hide" id="warn"></div>
   <div class="risk hide" id="risk"></div>
-  <label>Fecha<input id="dt" type="date"></label>
   <div id="shp"></div>
-  <div class="mpick" id="mpick" role="group" aria-label="Servicio (opcional)"><span>¿En qué comida? (opcional)</span><div id="mpick_b"></div></div>
-  <label id="howl">Cómo lo serviste<select id="how"></select></label>
   <div class="rxq"><div class="rxg" id="rxg" role="group" aria-label="¿Cómo ha ido?"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">Hoy no</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
   <select id="rx" class="hide"><option value="">Elige</option><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select>
   <div id="rxb" class="hide">
     <label>¿Qué reacción?<select id="rxt"></select></label>
     <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
   </div>
+  <details class="shmore"><summary>Más detalles</summary>
+  <label>Fecha<input id="dt" type="date"></label>
+  <div class="mpick" id="mpick" role="group" aria-label="Servicio (opcional)"><span>¿En qué comida? (opcional)</span><div id="mpick_b"></div></div>
+  <label id="howl">Cómo lo serviste<select id="how"></select></label>
   <input id="rxn" type="text" maxlength="300" placeholder="Notas (opcional)" aria-label="Notas">
   <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" class="x" id="fph_rm">Quitar foto</button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
+  </details>
   <div id="rest" class="hide"><b>¿Y el resto del menú de hoy?</b><p class="mute">Opcional. Toca lo que quieras anotar.</p><div id="restl"></div></div>
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
@@ -1203,13 +1234,26 @@ function openSheet(n,pd,rest,pieces){cur=n;curMeal="";drawMeal();const x=info(n)
 const HOWC={"Frutas":["Tiras","Puré o aplastado","Trozos","Asado","Al vapor","Mezclado en papilla o yogur"],"Verduras":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Mezclado en papilla o yogur"],"Proteínas":["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur"],"Cereales":["Tiras","Puré o aplastado","Trozos","Mezclado en papilla o yogur"],"Lácteos":["Tal cual","Tiras","Trozos","Puré o aplastado","Mezclado en papilla o yogur"],"Frutos secos":["En crema o muy triturado","Mezclado en papilla o yogur"],"Condimentos":["En polvo o picado en la comida","Al cocinar"]};
 const HOWX={"AOVE":["Un chorrito en la comida","Al cocinar"]};
 const howOpts=x=>(x&&HOWX[x.n])||(x&&HOWC[x.c])||HOW;
+function goalsFull(){const t=new Date(today()+"T00:00:00"),days=[];for(let i=6;i>=0;i--){const x=new Date(t);x.setDate(t.getDate()-i);days.push(dstr(x))}const ed=eatenByDay();return new Set(GOALS.map(g=>g[0]).filter(k=>days.every(d=>[...(ed[d]||[])].some(n=>{const x=info(n);return x&&GS[k](x)}))))}
+const MILE=[1,10,25,50];
+let celT=0;
+function celebrate(o){const old=document.getElementById("cel");if(old)old.remove();clearTimeout(celT);
+  const c=document.createElement("div");c.id="cel";c.setAttribute("role","status");
+  const cols=["#4a8760","#c96a47","#3e4cd0","#c9962f","#d46a9a","#2f9aa0"];
+  const bits=Array.from({length:o.big?22:14},(_,i)=>{const a=(i/(o.big?22:14))*Math.PI*2+Math.random()*.4,r=70+Math.random()*(o.big?90:60);return `<i style="--x:${Math.cos(a)*r|0}px;--y:${Math.sin(a)*r-30|0}px;--c:${cols[i%cols.length]};--d:${(Math.random()*.15).toFixed(2)}s;--s:${(6+Math.random()*5)|0}px"></i>`}).join("");
+  c.innerHTML=`<div class="celp">${o.food?`<span class="celi">${ico(o.food)}</span>`:`<span class="celi cels">★</span>`}<span class="celt"><b>${esc(o.t)}</b>${o.s?`<small>${esc(o.s)}</small>`:""}</span></div><div class="celb">${bits}</div>`;
+  document.body.appendChild(c);celT=setTimeout(()=>c.remove(),o.big?3200:2600)}
 $("cx").onclick=()=>$("sh").classList.add("hide");
-$("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();
+$("ok").onclick=()=>{const rv=$("rx").value;if(!rv)return;const g=AG[cur],d0=$("dt").value||today();const wasNew=!S.log.some(l=>l.f===cur),nB=Object.keys(stats()).length,gB=goalsFull(),food0=cur;
   {const e={f:cur,how:$("how").value,r:rv,d:d0},nt=$("rxn").value.trim().slice(0,300);if(rv==="react")e.rt=$("rxt").value;if(nt)e.rn=nt;if(curPh)e.ph=curPh;if(curMeal)e.ml=curMeal;S.log.push(e);
     if(curMeal){const dm=S.ml[d0]=S.ml[d0]||{};if(!dm[curMeal]){dm[curMeal]={d:true};if(MR.includes(rv))dm[curMeal].r=rv;S.ov=S.ov||{};const od=S.ov[d0]=S.ov[d0]||{};if(!od[curMeal])od[curMeal]={n:cur,i:[cur]}}}}
   document.querySelectorAll("#restl .rxg").forEach(el=>{const on=el.querySelector("button.on");if(on)S.log.push({f:el.dataset.f,how:"Del menú",r:on.dataset.v,d:d0})});
   {const x=info(cur),h=$("how").value,had=S.log.filter(l=>l.f===cur).some(l=>PCSH.has(l.how));const nm=cur;
    save();$("sh").classList.add("hide");render();
+   if(rv!=="react"&&rv!=="no"){const nA=Object.keys(stats()).length,gA=goalsFull(),gn=[...gA].filter(k=>!gB.has(k)),mi=MILE.find(m=>nB<m&&nA>=m);
+     if(gn.length)celebrate({big:1,t:"¡Objetivo cumplido!",s:GL[gn[0]]+": todos los días de esta semana"});
+     else if(mi&&mi>1)celebrate({big:1,food:food0,t:"¡"+mi+" alimentos probados!",s:"Qué bien lo está haciendo"});
+     else if(wasNew)celebrate({food:food0,t:mi===1?"¡Primer alimento!":"¡Primera vez de "+food0.toLowerCase()+"!",s:"Sin reacciones. Anotado en su diario"})}
    if(x&&MASHH.has(h)&&!had&&canPieces(x)&&!blockedG(x)&&stage()!=="pure")snack(`¡Muy bien! La próxima vez anímate a ofrecer <b>${esc(nm)}</b> en ${pinzaNow()?"trocitos":"tiras"}.`,"Probar ya",()=>openSheet(nm,today(),undefined,true))}
   if(!S.dip&&Object.keys(stats()).length>=100){S.dip=true;save();openDiploma(false)}
   else if(rv==="react"&&g){tkSet.add(g);setRT("al");tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}
@@ -1279,14 +1323,24 @@ $("ph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value
 $("ph_fr").onclick=()=>{$("phm").classList.add("hide");if(S.ph)openCrop(S.ph,false)};
 $("ph_del").onclick=()=>{$("phm").classList.add("hide");S.ph="";saveLocal();render();pushCloud()};
 $("go_tk").onclick=()=>{setRT("al");tab(3);setTimeout(()=>{const e=$("tkwrap");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)};
+function shareText(){const m=stats(),cats={};ALL.forEach(x=>{if(m[x.n])(cats[x.c]=cats[x.c]||[]).push(x.n)});
+  const L=[(S.nm||"Bebé")+(($("vage")&&$("vage").textContent)?", "+$("vage").textContent:"")+" · Primeros alimentos"],tot=Object.keys(cats).reduce((a,c)=>a+cats[c].length,0);
+  L.push("Alimentos probados: "+tot);Object.keys(cats).forEach(c=>L.push(c+": "+cats[c].join(", ")));
+  const al=Object.keys(S.al||{}).map(g=>AGL[g]+(S.al[g]==="alergia"?" (confirmada)":" (sospecha)"));L.push("Alergias: "+(al.length?al.join(", "):"ninguna indicada"));
+  const rx=S.log.filter(l=>l.r==="react").map(l=>l.f+(l.rt?" ("+l.rt+")":"")+" el "+l.d);if(rx.length)L.push("Reacciones anotadas: "+rx.join("; "));
+  L.push("Dato orientativo de la app, no sustituye al pediatra.");return L.join("\n")}
+$("shr").onclick=()=>{const t=shareText();if(navigator.share)navigator.share({title:"Primeros alimentos",text:t}).catch(()=>{});else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>snack("Copiado. Pégalo donde quieras.")).catch(()=>prompt("Copia el resumen:",t));else prompt("Copia el resumen:",t)};
+$("sosb").onclick=()=>{$("sos").classList.remove("hide");document.body.style.overflow="hidden";$("sos").scrollTop=0};
+$("sosx").onclick=()=>{$("sos").classList.add("hide");document.body.style.overflow=""};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("sos").classList.contains("hide"))$("sosx").click()});
 $("exp").onclick=()=>{$("sumprint").innerHTML=buildSummary();window.print()};
 let obSkip=false;
 const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
 function askProfile(){if(!S.bd&&!obSkip&&USER&&LOADED&&$("gate").classList.contains("hide"))openOb()}
 let OB=null;
-function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:[],sty:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
-function obSteps(){return OB.ya?[0,1,2,3,...(obGroups().length?[4]:[]),7,8,9,10,5,6]:[0,1,2,10,5,6]}
+function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:["iron","zinc"],sty:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
+function obSteps(){return OB.ya?[0,1,2,3,5]:[0,1,2,5]}
 function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
 const obOpt=(k,v,t,sm,on)=>`<button type="button" class="gcard eatc${on?" on":""}" data-ok="${k}" data-ov="${v}"><span class="kt"><b>${t}</b><small>${sm}</small></span></button>`;
 function drawOb(){
@@ -1303,7 +1357,7 @@ function drawOb(){
   if(i===8){title=`¿Cuántas comidas al día hace ${esc(nm||"tu bebé")}?`;h='<div class="ocl">'+[[1,"1 comida","Solo una vez al día"],[2,"2 comidas","Por ejemplo comida y merienda"],[3,"3 comidas","Desayuno, comida y merienda"],[4,"4 o más","Con cena incluida"]].map(o=>obOpt("meals",o[0],o[1],o[2],OB.meals===o[0])).join("")+"</div>";ok=!!OB.meals}
   if(i===9){title=`¿Come de verdad o solo juega?`;h='<div class="ocl">'+[["play","Juega y prueba","Toca, huele y se lo lleva a la boca, pero casi no traga"],["some","Come un poco","Traga algo, pero deja casi todo"],["full","Come de verdad","Se termina platos o raciones enteras"]].map(o=>obOpt("app",o[0],o[1],o[2],OB.app===o[0])).join("")+"</div>";ok=!!OB.app}
   if(i===10){title="¿A qué ritmo quieres ir?";h='<div class="ocl">'+[["pure","Puré por ahora","Solo triturado o aplastado, sin trozos todavía"],["grad","Poco a poco","Empezamos con puré y vamos pasando a tiras y trozos en unas semanas"],["blw","BLW completo","Tiras y trozos blandos desde el principio"]].map(o=>obOpt("sty",o[0],o[1],o[2],OB.sty===o[0])).join("")+'</div><p class="mute">Lo puedes cambiar cuando quieras en el plan.</p>';ok=!!OB.sty}
-  if(i===5){title="¿Cómo lo planificamos?";h=`<div class="fl"><span class="flab">Dieta</span><div class="ag" data-k="diet">${[["om","De todo"],["veg","Vegetariana"],["vgn","Vegana"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.diet===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Alimento nuevo</span><div class="ag" data-k="every">${[[1,"Cada día (recomendado)"],[2,"Cada 2 días"],[3,"Cada 3 días"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.every===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div><div class="fl"><span class="flab">Cocina</span><div class="ag" data-k="fz">${[["fresh","Todo fresco del día"],["split","Desayunos y meriendas frescos, comidas congeladas"],["freeze","Congelo todo en tandas"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.fz===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>`}
+  if(i===5){title="¿Alguna restricción en su dieta?";h=`<div class="fl"><span class="flab">Dieta</span><div class="ag" data-k="diet">${[["om","De todo"],["veg","Vegetariana"],["vgn","Vegana"]].map(o=>`<button type="button" data-v="${o[0]}"${OB.diet===o[0]?' class="on"':""}>${o[1]}</button>`).join("")}</div></div>`}
   if(i===6){title="¿Qué objetivos quieres cubrir?";h='<p class="mute">Elige los que quieras. Con esto generamos el plan, y puedes cambiarlo cuando quieras.</p><div class="ocl">'+GOALS.map(g=>goalCard(g,OB.goals.includes(g[0]))).join("")+"</div>"}
   const sk=i===0?'<button class="skip" id="ob_skip">Saltar</button>':[3,4,7,8,9,10].includes(i)?'<button class="skip" id="ob_pass">Saltar</button>':"<span></span>";
   $("ob").innerHTML=`<div><div class="obnav">${i>0?'<button class="skip" id="ob_back">‹ Atrás</button>':"<span></span>"}${sk}</div><div class="dots">${st.map(k=>`<i class="${st.indexOf(k)<=st.indexOf(i)?"on":""}"></i>`).join("")}</div><div class="mid${[3,4,6].includes(i)?" top":""}"><h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":"Siguiente"}</button>${i===0?'<button class="skip" id="ob_out">Cerrar sesión</button>':""}</div></div>`;
@@ -1383,7 +1437,9 @@ congelar:[["t",[["2 h","máximo fuera de la nevera","enfría en raciones pequeñ
 fuentes:[["g1",[["AEP, noviembre de 2018","Recomendaciones sobre alimentación complementaria. Es la base de casi todo."],["OMS, octubre de 2023","Guía de 6 a 23 meses: hierro, zinc y B12 sin alimentos animales, y evitar bebidas azucaradas."],["Pediatría Integral, marzo de 2025","Vitamina D, B12 vegana y número de tomas. Es de la SEPEAP, no de la AEP."],["ESPGHAN","Guía de bolsillo en la web de la AEP: la vitamina C para absorber el hierro."],["AESAN","Pescados grandes, cabeza de crustáceos y acelgas y espinacas."],["Arroz","Comité de Nutrición de la ESPGHAN y normativa europea sobre el arsénico."]]],["b","Esto no sustituye el consejo de tu pediatra."]]};
 const lzSvg=(p,w)=>`<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const lzIc=v=>{const L=(Array.isArray(v)?v:[v]).filter(n=>n&&info(n));return L.length?`<span class="gic">${L.map(ico).join("")}</span>`:""};
-const lzViz=id=>(LVZ[id]||[]).map(b=>{
+const lzViz=id=>lzBlocks(LVZ[id]||[]);
+const lzViz2=B=>lzBlocks(B);
+const lzBlocks=B=>B.map(b=>{
   if(b[0]==="t")return `<div class="gg lz">${b[1].map((x,i)=>`<div class="gtile g${i%4+1}">${x[3]&&LIC2[x[3]]?`<i>${lzSvg(LIC2[x[3]],30)}</i>`:""}<b class="big">${esc(x[0])}</b><span>${esc(x[1])}</span>${x[2]?`<small>${esc(x[2])}</small>`:""}</div>`).join("")}</div>`;
   if(b[0]==="g1")return `<div class="lz gg1">${b[1].map(x=>`<div class="gsafe">${lzIc(x[2])}<b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>`;
   if(b[0]==="g")return `<div class="gg lz">${b[1].map(x=>`<div class="gsafe">${lzIc(x[2])}<b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>`;
@@ -1412,12 +1468,16 @@ function schSug(ctx){
   return R.slice(0,2)}
 function goLesson(id){openL=id;shutL.delete(id);tab(5);renderSchool();setTimeout(()=>{const e=document.getElementById("les_"+id);if(e)e.scrollIntoView({block:"start",behavior:"smooth"})},60)}
 function renderSchool(){
-  const w=$("school");if(!w)return;const sc=S.sch||{done:{},off:{}},n=LESSONS.length,d=LESSONS.filter(l=>sc.done[l.id]).length,p=Math.round(d/n*100);
-  const rec=r=>`<details class="lrec"><summary><b>${esc(r.n)}</b><small>${esc(r.q)}</small></summary><div class="lrb"><b>Ingredientes</b><ul>${r.ing.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><b>Cómo se hace</b><ol>${r.st.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div></details>`;
-  const AI={cuando:()=>ico("Plátano"),seguridad:()=>gicoSvg("zinc"),ofrecer:()=>ico("Lentejas"),alergenos:()=>ico("Huevo"),texturas:()=>ico("Zanahoria"),leche:()=>ico("Yogur natural"),evitar:()=>ico("Uvas"),cantidad:()=>ico("Aguacate"),congelar:()=>ico("Brócoli"),digestion:()=>ico("Ciruela"),fuentes:()=>gicoSvg("fiber")};
-  if(!shutInit){shutInit=true;LESSONS.forEach(l=>{if(sc.done[l.id])shutL.add(l.id)})}
-  w.innerHTML=`<div class="card gh0"><h3 class="disp">Academia de alimentación sana</h3><p class="mute">Lo esencial para empezar y seguir, ilustrado y basado en las recomendaciones de la AEP. Pregunta siempre a tu pediatra.</p><div class="ahero">${["Aguacate","Zanahoria","Brócoli","Plátano","Huevo","Lentejas"].map(ico).join("")}</div><div class="sprog" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.max(p,d?6:0)}%"></i></div><small class="mute">${d} de ${n} lecciones leídas</small></div>`+
-  LESSONS.map((l,i)=>{const dn=!!sc.done[l.id],sh=shutL.has(l.id);return `<div class="card gx les2${dn?" dn":""}${sh?" shut":""}" id="les_${l.id}"><button type="button" class="ah" data-l="${l.id}" aria-expanded="${!sh}">${(AI[l.id]||(()=>""))()}<span class="aht"><span class="tag">Lección ${i+1}</span><b class="disp gs">${esc(l.t)}</b></span>${dn?'<i class="adn" aria-label="Leída"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>':""}<svg class="lch" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="lbd">${lzViz(l.id)}${l.tip?`<p class="ltip">${esc(l.tip)}</p>`:""}<button type="button" class="btn${dn?"":" p"}" data-done="${l.id}">${dn?"Leída":"Marcar como leída"}</button></div></div>`}).join("");
+  const w=$("school");if(!w)return;
+  const blk=(t,ic,body)=>`<div class="card gx"><div class="ah">${ic}<div class="aht"><b class="disp gs">${t}</b></div></div><div class="lbd">${body}</div></div>`;
+  const tx=LVZ.texturas[0],sg=LVZ.seguridad,al=LVZ.alergenos[2];
+  const ev=["Sal","Azúcar y zumos","Miel (antes de 12 meses)","Frutos secos enteros","Uvas y cherry enteros","Pescados grandes","Leche de vaca como bebida (antes de 12 meses)","Bebida de arroz"];
+  const chips=`<div class="lno lz">${ev.map(x=>`<span>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',14)}${esc(x)}</span>`).join("")}</div>`;
+  w.innerHTML=`<div class="card gh0"><h3 class="disp">Info</h3><p class="mute">Lo más básico, de un vistazo. Basado en las recomendaciones de la AEP. Pregunta siempre a tu pediatra.</p><div class="ahero">${["Aguacate","Zanahoria","Brócoli","Plátano","Huevo","Lentejas"].map(ico).join("")}</div></div>`+
+  blk("Texturas",ico("Zanahoria"),lzViz2([tx,LVZ.texturas[1]]))+
+  blk("Atragantamiento",gicoSvg("zinc"),lzViz2([sg[0],sg[1]]))+
+  blk("Reacción alérgica",ico("Huevo"),lzViz2([al]))+
+  blk("Qué evitar",ico("Uvas"),chips+lzViz2([["b","Todo esto, hasta que tu pediatra diga lo contrario."]]));
 }
 $("school").addEventListener("click",e=>{
   const h=e.target.closest("[data-l]");if(h){const id=h.dataset.l;if(shutL.has(id))shutL.delete(id);else shutL.add(id);renderSchool();return}
@@ -1750,7 +1810,7 @@ function plan(){
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
-    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}<p class="hd">${y.head}</p>${tg?`<p>${tg}</p>`:""}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${famH}</div>`};
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}<p class="hd">${y.head}</p>${tg?`<p>${tg}</p>`:""}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${how}</div>`};
   {const pdn=n=>{pdate=n;subtab(1);plan();window.scrollTo({top:0})};
     const fm2=d=>d.toLocaleDateString("es-ES",{day:"numeric",month:"long"}),jn=a=>a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
     const rowOf=(o,dlab)=>{const x=o.items[0],dl=dlab;let body,mvb="";
