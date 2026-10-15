@@ -660,7 +660,6 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
       <div class="ed hide" id="ed_ga"><input id="ga" type="number" inputmode="numeric" min="22" max="42" placeholder="Por ejemplo 40" aria-label="Semanas de embarazo al nacer"><div class="mute" style="margin-top:4px">Si nació antes de las 37 semanas, la app cuenta desde la edad corregida.</div><div class="btns"><button class="btn" id="x_ga">Cancelar</button><button class="btn p" id="ok_ga">Guardar</button></div></div></div>
       <button class="pen" id="pen_ga" aria-label="Editar semanas de embarazo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
     <div class="prow"><div><div class="lab">Edad</div><div class="val" id="vage"></div></div></div>
-    <div class="prow"><div><div class="lab">Ya hace la pinza</div><div class="mute">Con la pinza pasa de tiras a trozos</div></div><button class="btn" id="pz_t" aria-pressed="false" style="flex:none;width:112px;padding:10px 0;text-align:center"></button></div>
     <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
     <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div></div><button class="btn" id="go_tk" style="flex:none;width:112px;padding:10px 0;text-align:center">Ver</button></div>
     <div class="prow"><div><div class="lab">Compartir resumen</div><div class="mute">Una imagen con lo probado, alergias y reacciones, lista para WhatsApp</div></div><button class="btn p" id="exp" style="flex:none;width:112px;padding:10px 0;text-align:center">Compartir</button></div>
@@ -869,8 +868,8 @@ const EATTX={pure:mo=>S.prefs.sty?`Por ahora solo puré: espeso y con grumos, si
 mix:mo=>`Ahora mezcla puré y trozos: vamos hacia menos aplastado y más trocitos blandos.`,
 bits:mo=>`Ya come trozos: seguimos con tiras y trocitos blandos, casi como la familia y sin sal.`};
 const texText=(mo,tx)=>effEat()&&EATTX[effEat()]?EATTX[effEat()](mo):TXL[tx](mo);
-// Pinza: lo que marque la familia en el perfil; si no ha marcado nada, a partir de los 9 meses
-const pinzaOn=()=>{if(S.pinza===true||S.pinza===false)return S.pinza;const a=age();return !!a&&a.mo>=9};
+// Pinza: a partir de los 9 meses
+const pinzaOn=()=>{const a=age();return !!a&&a.mo>=9};
 const pinzaNow=()=>pinzaOn()&&effEat()!=="pure";
 const lowFirst=t=>t.charAt(0).toLowerCase()+t.slice(1);
 const RISK={"Manzana":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pera":["Riesgo de atragantamiento","Cruda es dura y se parte en trozos que pueden atragantar. Por eso se ofrece asada o cocida, hasta que esté muy blanda, o asada y aplastada."],"Pan":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."],"Pan integral":["Riesgo de atragantamiento","La miga fresca se hace una bola pegajosa en la boca y el pan suele llevar sal. Por eso se ofrece tostado, en tiras y sin sal."]};
@@ -1316,7 +1315,6 @@ function renderProfile(){
   $("vga").textContent=S.ga?S.ga+" semanas"+(S.ga<37?" (prematuro)":""):"No indicado";
   $("valg").textContent=Object.keys(S.al||{}).map(g=>AGL[g]+" ("+(S.al[g]==="alergia"?"confirmada":"sospecha")+")").join(", ")||"Ninguna indicada";
   $("vcnt").textContent=Object.keys(stats()).length+" alimentos";
-  {const on=pinzaOn();$("pz_t").textContent=on?"Sí":"Aún no";$("pz_t").setAttribute("aria-pressed",on);$("pz_t").classList.toggle("p",on)}
   ["nm","bd","ga"].forEach(k=>{
     $("ed_"+k).classList.toggle("hide",editing!==k);$("vw_"+k).classList.toggle("hide",editing===k);$("pen_"+k).classList.toggle("hide",editing===k);
     if(editing!==k)$(k).value=S[k]||"";
@@ -1329,7 +1327,6 @@ function pushCloud(){
     .then(()=>{$("pmsg").textContent="Guardado en tu cuenta ✓";$("err").textContent=""})
     .catch(()=>{$("pmsg").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."});
 }
-$("pz_t").onclick=()=>{S.pinza=!pinzaOn();saveLocal();render();pushCloud()};
 ["nm","bd","ga"].forEach(k=>{
   $("pen_"+k).onclick=()=>{editing=k;$("pmsg").textContent="";renderProfile();$(k).focus()};
   $("x_"+k).onclick=()=>{editing=null;renderProfile()};
