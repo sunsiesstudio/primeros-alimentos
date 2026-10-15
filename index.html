@@ -34,6 +34,27 @@ h1{font-size:clamp(1.8rem,7vw,2.8rem);color:var(--green);margin:0;line-height:1;
 .lmore{margin:0 0 12px}.lmore>summary{cursor:pointer;color:var(--blue);font-weight:700;font-size:.88rem;min-height:40px;display:flex;align-items:center}.lmore .lpts{margin-top:4px}
 #v2{display:flex;flex-direction:column}#pv1:not(.hide){display:contents}#v2 #rem,#v2 #days{order:1}#v2 #pv3{order:2}#v2 #pfcard{order:3;margin-top:14px}
 .wks{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-height:44px;justify-content:center}.wks::-webkit-details-marker{display:none}.wks b{font-size:1.25rem;color:var(--green)}.wks small{color:var(--mute)}
+#v1 .vt{display:none}
+.tkt{--pp:#fffdf4;--tk:#2b2a24;--tm:#7d7a68;position:relative;margin:14px 0 26px;padding:22px 18px 22px;background:var(--pp);color:var(--tk);font-family:"Courier New",ui-monospace,Menlo,monospace;filter:drop-shadow(0 3px 8px rgba(0,0,0,.14))}
+.tkt::before,.tkt::after{content:"";position:absolute;left:0;right:0;height:10px;background:linear-gradient(135deg,var(--pp) 25%,transparent 25%) -5px 0,linear-gradient(225deg,var(--pp) 25%,transparent 25%) -5px 0;background-size:10px 10px}
+.tkt::before{top:-10px;transform:scaleY(-1)}.tkt::after{bottom:-10px}
+.tkt-h{text-align:center;padding-bottom:12px;border-bottom:2px dashed var(--tm);margin-bottom:6px}.tkt-h small{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tm)}.tkt-h h3{margin:6px 0 4px;font:700 1.35rem "Courier New",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--tk)}
+.tkt .trip{margin:0}.tkt .cat{margin:14px 0 2px;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tk);padding-bottom:3px;border-bottom:1px dashed var(--tm)}
+.tkt .sl{border-top:0;padding:6px 0;gap:10px;align-items:flex-start;color:var(--tk)}.tkt .sl input{accent-color:var(--tk);margin-top:2px}
+.tkt .sl .sn{flex-direction:row;justify-content:space-between;align-items:baseline;gap:10px}.tkt .sl .sn b{font-weight:700;font-size:.92rem}.tkt .sl .sn .mute{color:var(--tm);font-size:.72rem;text-align:right;flex:none;max-width:42%}
+.tkt-tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:10px;border-top:2px dashed var(--tm);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}.tkt-tot b{font-size:1.3rem}
+.tkt-n{margin:10px 0 0;font-size:.72rem;color:var(--tm);line-height:1.4;text-align:center}
+.tkt-bar{height:48px;width:72%;margin:16px auto 6px;background:repeating-linear-gradient(90deg,var(--tk) 0 2px,transparent 2px 4px,var(--tk) 4px 5px,transparent 5px 9px,var(--tk) 9px 12px,transparent 12px 14px,var(--tk) 14px 15px,transparent 15px 18px)}
+.tkt-g{text-align:center;margin:0 0 10px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tm)}
+.tkt-b{display:flex;gap:10px}.tkt-b .btn{flex:1;font-family:Montserrat,sans-serif}
+.hmg{display:grid;gap:3px;align-items:center}.hmg>span{font-size:.62rem;color:var(--mute);line-height:1}.hmm{text-transform:capitalize;white-space:nowrap;overflow:visible}
+.hm{aspect-ratio:1;width:100%;padding:0;border:0;border-radius:4px;background:color-mix(in srgb,var(--ink) 9%,transparent);cursor:pointer;min-height:0}
+.hm.fut{background:transparent;border:1.5px dashed var(--line)}.hm:disabled{opacity:.35;cursor:default}
+.hm.today{outline:2px solid var(--terra);outline-offset:1px}.hm.sel{outline:2px solid var(--blue);outline-offset:1px}.hm.today.sel{outline-color:var(--blue)}
+#calcard .leg{margin:12px 0 0}#calcard{padding:14px}
+.lz.gg .gtile:last-child:nth-child(odd){grid-column:1/-1}.lz.gg .gtile i{margin-bottom:2px}.lz.gg .gsafe:last-child:nth-child(odd){grid-column:1/-1}
+.lbd .gsteps{margin:0 0 12px}.lbd .gsteps li{display:grid;grid-template-columns:28px 1fr;column-gap:10px;row-gap:1px;align-items:center}.lbd .gsteps li:before{grid-row:1/3}.lbd .gsteps li b{grid-column:2}.lbd .gsteps li span{grid-column:2;font-size:.82rem;color:var(--mute)}.lbd .gsteps li:not(:has(span)):before{grid-row:1}
+.lbd .gband{margin:0 0 12px}
 .sprog{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin:14px 0 6px}.sprog i{display:block;height:100%;border-radius:99px;background:var(--green);transition:width .3s}
 #school .gh0{margin-bottom:12px}
 .les{display:grid;grid-template-columns:24px 1fr;gap:10px;margin:0 0 10px}
@@ -527,6 +548,7 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="btns rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" id="p3" role="tab">Semana</button><button class="btn" id="p1" role="tab">Menú</button><button class="btn" id="p2" role="tab">Ingredientes</button></div>
   <div id="pv3"></div>
   <div id="pv1">
+<div class="card" id="calcard"><div id="cal"></div><div class="leg"><span><i class="dot rc-love"></i>Le gustó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>No</span><span><i class="dot rc-react"></i>Reacción o alérgeno</span></div></div>
   <details class="card" id="pfcard">
     <summary class="plh"><span id="pf_head"></span><span class="ple" aria-label="Editar plan" role="img"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span></summary>
     <div class="pf" style="margin-top:10px">
@@ -547,16 +569,12 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   </details>
   <div class="remind" id="rem"></div>
   <div id="days"></div>
+  <div id="cdet"></div>
   </div>
-  <div id="pv2" class="hide"><div class="card"><h3 class="sec" id="wk_t" style="margin-top:0">Ingredientes</h3><div id="shop"></div></div></div>
+  <div id="pv2" class="hide"><div class="tkt"><div class="tkt-h"><small>Primeros alimentos</small><h3 id="wk_t">Lista de la compra</h3><small id="wk_rng"></small></div><div id="shop"></div></div></div>
 </section>
-<section id="v3" class="hide"><div class="btns rtabs" id="rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" data-rt="cal" role="tab">Calendario</button><button class="btn" data-rt="st" role="tab">Estadísticas</button><button class="btn" data-rt="al" role="tab">Alérgenos</button></div>
+<section id="v3" class="hide"><div class="btns rtabs" id="rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" data-rt="st" role="tab">Estadísticas</button><button class="btn" data-rt="al" role="tab">Alérgenos</button></div>
 <div class="card hide" id="progcard"><div class="tkh" style="margin-bottom:10px"><h3 class="disp">Estadísticas</h3></div><div id="prog"></div></div>
-<div class="card" id="calcard">
-  <div class="tkh"><h3 class="disp">Calendario</h3><button class="btn" id="chy" type="button" style="flex:none;width:auto;padding:8px 20px;margin:0">Hoy</button></div>
-  <div id="cal"></div>
-  <div class="leg" style="margin:14px 0 0"><span><i class="dot rc-love"></i>Le encantó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>Hoy no</span><span><i class="dot rc-react"></i>Reacción o alergia</span></div>
-</div>
 <div class="card hide" id="nutcard"></div>
 <div class="tk hide" id="tkwrap">
   <div class="card tkc">
@@ -580,140 +598,6 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
 
 <section id="v5" class="hide">
 <div id="school"></div>
-<details class="gqw" id="gq"><summary>Guía rápida ilustrada<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-
-<div class="card gx"><h4 class="disp gs">Antes de empezar</h4>
-  <div class="gg">
-    <div class="gtile g1"><b class="big">6</b><span>meses para empezar</span><small>Nunca antes de los 4</small></div>
-    <div class="gtile g2"><b class="big">1</b><span>alimento nuevo cada vez</span><small>Y repite lo que ya conoce</small></div>
-    <div class="gtile g3"><b class="big">3</b><span>días seguidos por alérgeno</span><small>En poca cantidad</small></div>
-    <div class="gtile g4"><b class="big">10-15</b><span>intentos</span><small>Un rechazo no es definitivo</small></div>
-  </div>
-  <p class="gband">Tú decides <b>qué, cuándo y dónde</b>. Él decide <b>cuánto</b>.</p>
-</div>
-
-<div class="card gx"><h4 class="disp gs">Texturas</h4>
-  <div class="gflow">
-    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 24h36a18 14 0 0 1-36 0z" fill="currentColor" stroke="none"/><path d="M14 22c2-8 18-8 20 0z" fill="currentColor" stroke="none" opacity=".5"/></svg></i><b>6 m</b><span>Puré espeso</span></div>
-    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 26h36a18 14 0 0 1-36 0z" fill="currentColor" stroke="none"/><circle cx="17" cy="19" r="4" fill="currentColor" stroke="none"/><circle cx="27" cy="16" r="4.5" fill="currentColor" stroke="none"/><circle cx="35" cy="20" r="3.5" fill="currentColor" stroke="none"/></svg></i><b>8-9 m</b><span>Con grumos y tiras</span></div>
-    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="9" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><rect x="25" y="7" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><rect x="12" y="27" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><rect x="29" y="25" width="12" height="12" rx="3" fill="currentColor" stroke="none"/></svg></i><b>9 m</b><span>Pinza: trocitos</span></div>
-    <div><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="14" r="6" fill="currentColor" stroke="none"/><circle cx="33" cy="17" r="4.5" fill="currentColor" stroke="none"/><path d="M5 40c0-9 6-14 11-14s11 5 11 14zM27 40c0-6 3-10 7-10s8 4 8 10z" fill="currentColor" stroke="none"/></svg></i><b>12 m</b><span>Como la familia</span></div>
-  </div>
-  <p class="gnote">Las grumosas, como tarde a los 8-9 meses. Sin sal ni azúcar.</p>
-</div>
-
-<div class="card gx"><h4 class="disp gs">Agua y leche</h4>
-  <div class="gg3">
-    <div class="gtile gw"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6C16 17 12 23 12 29a12 12 0 0 0 24 0c0-6-4-12-12-23z" fill="currentColor" stroke="none"/></svg></i><b class="big">120</b><span>ml al día</span><small>6 a 8 meses</small></div>
-    <div class="gtile gw"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6C16 17 12 23 12 29a12 12 0 0 0 24 0c0-6-4-12-12-23z" fill="currentColor" stroke="none"/></svg></i><b class="big">240</b><span>ml al día</span><small>9 a 11 meses</small></div>
-    <div class="gtile gm"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 6h16l-2 8 5 6v22H13V20l5-6z" fill="currentColor" stroke="none"/></svg></i><b class="big">12</b><span>meses</span><small>La leche sigue siendo la base</small></div>
-  </div>
-  <p class="gnote">Agua en sorbos, en vaso abierto o con pajita.</p>
-</div>
-
-<div class="card gx"><h4 class="disp gs">Sí y no</h4>
-  <div class="gyn">
-    <div class="gok"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 25l9 9 19-21"/></svg> Sí</h5><ul><li>Sentado y erguido</li><li>Siempre con un adulto</li><li>Que toque y se manche</li><li>Sin pantallas</li><li>Aceite de oliva, poco</li></ul></div>
-    <div class="gno"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12l24 24M36 12L12 36"/></svg> No</h5><ul><li>Sal ni azúcar</li><li>Miel antes de 1 año</li><li>Zumos y bebidas azucaradas</li><li>Embutidos y bollería</li><li>Acelga, espinaca y borraja antes de 1 año</li></ul></div>
-  </div>
-</div>
-
-<div class="card gx"><h4 class="disp gs">Prepáralo seguro</h4>
-  <div class="gg">
-    <div class="gsafe"><b>Uvas, cherry y aceitunas</b><span>En cuartos, a lo largo</span></div>
-    <div class="gsafe"><b>Frutos secos</b><span>Molidos o en crema, nunca enteros</span></div>
-    <div class="gsafe"><b>Manzana y zanahoria</b><span>Cocidas o ralladas finas</span></div>
-    <div class="gsafe"><b>Carne, pescado y huevo</b><span>Bien cocinados, sin piel ni espinas</span></div>
-  </div>
-</div>
-
-<div class="card gx"><h4 class="disp gs">Arcada o atragantamiento</h4>
-  <div class="gyn">
-    <div class="gok"><h5>Arcada</h5><p>Normal, le protege.</p><ul><li>Tose y hace ruido</li><li>Ojos llorosos</li><li>Echa la comida hacia delante</li></ul><p class="gdo">Calma. No metas los dedos.</p></div>
-    <div class="gno"><h5>Atragantamiento</h5><p>No tose, no llora, no respira.</p><ul><li>Se pone morado</li><li>Ruido agudo o silencio</li></ul><p class="gdo">Actúa ya.</p></div>
-  </div>
-  <ol class="gsteps">
-    <li><b>112</b><span>Llama o pide que llamen.</span></li>
-    <li><b>5 golpes</b><span>En la espalda, boca abajo sobre tu antebrazo, cabeza más baja.</span></li>
-    <li><b>5 compresiones</b><span>En el pecho, boca arriba, con dos dedos.</span></li>
-    <li><b>Repite</b><span>Hasta que expulse el objeto. Si pierde el conocimiento, RCP.</span></li>
-  </ol>
-  <p class="gnote">Mejor hacer un curso de primeros auxilios pediátricos.</p>
-</div>
-
-<div class="card gx"><h4 class="disp gs">Reacción alérgica</h4>
-  <div class="gyn">
-    <div class="gwarn"><h5>Leve</h5><ul><li>Ronchas, picor, enrojecimiento</li><li>Algún vómito aislado</li></ul><p class="gdo">No repitas. Anótalo y consulta a tu pediatra.</p></div>
-    <div class="gno"><h5>Grave: 112</h5><ul><li>Labios, lengua o cara hinchados</li><li>Le cuesta respirar</li><li>Vómitos repetidos o muy decaído</li></ul><p class="gdo">Tumbado y vigilado hasta que llegue la ayuda.</p></div>
-  </div>
-</div>
-
-<div class="card gx"><h4 class="disp gs">Congelar</h4>
-  <p class="gband">O ración fresca cada día, o cocinas en tanda y <b>congelas todo</b>.</p>
-  <div class="gg">
-    <div class="gtile g1"><b class="big">2 h</b><span>máximo fuera de la nevera</span><small>Enfría en raciones pequeñas</small></div>
-    <div class="gtile g2"><b class="big">3</b><span>meses a -18 °C</span><small>Etiqueta con la fecha</small></div>
-    <div class="gtile g3"><b class="big">24 h</b><span>tras descongelar</span><small>Y no se vuelve a congelar</small></div>
-    <div class="gtile g4"><i><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 5v38M7 14l34 20M41 14L7 34"/><path d="M19 8l5 4 5-4M19 40l5-4 5 4"/></svg></i><span>Descongela en la nevera</span><small>O microondas o baño maría. Nunca fuera.</small></div>
-  </div>
-  <div class="gyn" style="margin-top:12px">
-    <div class="gok"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 25l9 9 19-21"/></svg> Congela bien</h5><ul><li>Purés y guisos</li><li>Legumbres cocidas</li><li>Carne y pescado cocinados</li><li>Tortitas y hamburguesitas</li></ul></div>
-    <div class="gno"><h5><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12l24 24M36 12L12 36"/></svg> Mejor no</h5><ul><li>Patata sola</li><li>Huevo duro</li><li>Yogur y queso fresco</li><li>Fruta fresca y verdura cruda</li></ul></div>
-  </div>
-  <p class="gnote">Calienta bien, remueve y deja templar. No guardes las sobras del plato del bebé.</p>
-</div>
-
-<details class="card aep gfull"><summary>Pautas completas y fuentes (AEP, OMS)</summary>
-    <h4>Cuándo empezar</h4>
-    <ul>
-      <li>Hacia los 6 meses (26 semanas), nunca antes de los 4 y sin retrasarlo más allá del séptimo mes. La lactancia puede seguir hasta los 2 años o más.</li>
-      <li>Señales de que está listo: interés por la comida, ya no empuja con la lengua los alimentos no líquidos, coge comida y se la lleva a la boca, y se mantiene sentado con apoyo.</li>
-      <li>La leche (materna o de fórmula) sigue siendo el alimento principal hasta los 12 meses y se mantiene a demanda. Se puede empezar con 2 tomas de comida al día y subir hasta 4 o 5 hacia los 12 meses. A los 6 a 8 meses la comida aporta entre el 20 y el 30% de la energía.</li>
-    </ul>
-    <h4>Qué ofrecer</h4>
-    <ul>
-      <li>Un alimento nuevo cada vez, dejando unos días entre uno y otro, para ver cómo lo tolera.</li>
-      <li>Prioridad a los alimentos ricos en hierro y zinc (carne roja, legumbres, huevo), y proteína cada día, de forma variada. El hierro se cubre con dos porciones diarias de alimentos proteicos o cereales enriquecidos, y la vitamina C ayuda a absorberlo.</li>
-      <li>Dieta variada. Sin alimentos de origen animal es difícil cubrir el hierro, el zinc y la vitamina B12 a los 6 a 8 meses: consúltalo con tu pediatra. En la alimentación vegana estricta, la B12 necesita suplemento.</li>
-      <li>Vitamina D, 400 UI al día hasta los 12 meses. Consúltalo con tu pediatra.</li>
-      <li>No hace falta retrasar los alérgenos: se pueden introducir hacia los 6 meses, uno cada vez y en poca cantidad. El gluten, entre los 4 y los 11 meses, mejor hacia los 6 y en poca cantidad.</li>
-      <li>Texturas grumosas lo antes posible, nunca más tarde de los 8 o 9 meses.</li>
-    </ul>
-    <h4>Cómo ofrecerlo</h4>
-    <ul>
-      <li>Sin sal, azúcar ni edulcorantes.</li>
-      <li>Un rechazo inicial no es definitivo: pueden hacer falta hasta 10 o 15 intentos, sin presionar.</li>
-      <li>Los padres deciden qué, cuándo y dónde, y el bebé decide cuánto. Atender sus señales de hambre y saciedad, sin pantallas ni distracciones.</li>
-    </ul>
-    <h4>Qué evitar</h4>
-    <ul>
-      <li>En el primer año: acelga, espinaca y borraja (nitratos), zumos, bebidas azucaradas y grasas trans, y pescados grandes como atún, pez espada, emperador, cazón y tintorera (mercurio).</li>
-      <li>Azúcares, miel, cacao, bollería, galletas y embutidos, siempre a partir de los 12 meses y cuanto más tarde mejor.</li>
-      <li>Arroz y productos de arroz (tortitas, galletas, bebida de arroz): contienen arsénico inorgánico. La bebida de arroz, evitarla. El arroz, solo de vez en cuando y alternando con otros cereales. Por eso la app no lo programa en el plan.</li>
-      <li>Cabeza de las gambas y de otros crustáceos, por el cadmio. Acelgas y espinacas, como máximo una ración al día entre 1 y 3 años.</li>
-      <li>Yogur natural y queso, desde los 9 meses. Leche de vaca entera, desde los 12.</li>
-    </ul>
-    <h4>Seguridad</h4>
-    <ul>
-      <li>Sentado y erguido, nunca recostado ni solo. Nada de frutos secos enteros, palomitas, uvas enteras, salchichas en rodajas, ni manzana o zanahoria crudas. Los sólidos con riesgo de atragantamiento, por encima de los 3 años.</li>
-    </ul>
-    <h4>Casos especiales</h4>
-    <ul>
-      <li>Prematuros: no hay pautas claras y se individualiza. Una edad corregida de 6 meses puede ser apropiada, y se prioriza el hierro. La guía de la OMS no los cubre.</li>
-      <li>El baby-led weaning no se recomienda con fallo de medro ni dificultades neurológicas o motoras.</li>
-    </ul>
-    <h4>Fuentes</h4>
-    <ul>
-      <li><b>AEP, noviembre de 2018.</b> Recomendaciones de la Asociación Española de Pediatría sobre alimentación complementaria (Comités de Nutrición y de Lactancia Materna). Es la base de casi todas estas pautas.</li>
-      <li><b>OMS, octubre de 2023.</b> Guía sobre alimentación complementaria de 6 a 23 meses. Aporta, entre otras, la falta de hierro, zinc y B12 sin alimentos de origen animal y evitar bebidas azucaradas y grasas trans.</li>
-      <li><b>Pediatría Integral, marzo de 2025</b> (SEPEAP, no es un documento de la AEP). Aporta la vitamina D, la B12 vegana, el hierro, el número de tomas y los objetivos de fibra, omega-3 y calcio.</li>
-      <li><b>Guía de bolsillo de la ESPGHAN</b>, publicada en la web de la AEP. Aporta la vitamina C para absorber el hierro.</li>
-      <li><b>AESAN</b> (Agencia Española de Seguridad Alimentaria y Nutrición). Aporta los pescados grandes en menores de 3 años, la cabeza de los crustáceos, y las acelgas y espinacas.</li>
-      <li><b>Comité de Nutrición de la ESPGHAN y normativa europea sobre arsénico en el arroz.</b> Aporta lo del arroz y sus productos.</li>
-    </ul>
-    <p class="mute">No sustituye el consejo de tu pediatra.</p>
-  </details>
-</details>
 </section>
 <section id="v4" class="hide">
   <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_fr">Encuadrar</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
@@ -937,47 +821,38 @@ const uid=()=>"b"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const newBaby=()=>({id:uid(),nm:"",bd:"",ga:0,early:false,pinza:null,eat:"",meals:0,app:"",al:{},rx:[],ph:"",sl:{},ml:{},ov:{},dip:false,log:[],prefs:DEFP()});
 const LESSONS=[
 {id:"listo",t:"Cómo saber si está listo",s:"Las señales que importan, más que la edad",m:3,
- pts:["Hacia los 6 meses, nunca antes de los 4. Lo importante es que se siga sosteniendo sentado con poco apoyo.","Ha perdido el reflejo de empujar la comida fuera con la lengua.","Se interesa por lo que comes, mira, intenta agarrar y se lleva cosas a la boca.","La leche sigue siendo su alimento principal. La comida al principio es explorar, no llenar.","Si va a un ritmo distinto al de otros bebés, no pasa nada. Ajusta el plan a Pol."],
  tip:"Siéntalo siempre en una silla estable, con los pies apoyados y la espalda recta, y nunca sin supervisión."},
 {id:"seguro",t:"Arcada o atragantamiento",s:"Lo primero que conviene saber antes de empezar",m:4,
- pts:["La arcada es normal: es un reflejo que lo protege. Hace ruido, tose y escupe. Mantén la calma y déjale resolver.","El atragantamiento es silencioso: no tose, no llora, no respira. Ahí hay que actuar ya.","Estate siempre a su lado, sin móvil y sin prisas. Que no coma recostado, en el coche ni jugando.","Los alimentos duros, redondos o resbaladizos se ofrecen cocinados, en tiras gruesas o aplastados. Uvas y similares, siempre abiertos a lo largo.","Ve a un curso de primeros auxilios pediátricos si puedes. Ver cómo se hace da mucha tranquilidad."],
- tip:"En la Guía rápida ilustrada tienes el paso a paso de qué hacer si se atraganta."},
+ tip:"Hacer un curso de primeros auxilios pediátricos da mucha tranquilidad."},
 {id:"evitar",t:"Lo que todavía no",s:"Alimentos y costumbres que esperan",m:4,
- pts:["Miel: nada antes del año, por riesgo de botulismo.","Sal y azúcar: no se añaden. Su riñón es inmaduro y el gusto se educa.","Leche de vaca como bebida: hasta el año. En yogur o queso sí puede, y al cocinar también.","Acelgas, espinacas, borraja y remolacha: mejor esperar al año por los nitratos.","Pez espada, tiburón, atún rojo y lucio: por el mercurio, no antes de los 10 años.","Frutos secos enteros: hasta los 5 años. Molidos o en crema fina, desde el principio.","Arroz: puedes ofrecerlo, pero con moderación, y evita las bebidas de arroz. Por el arsénico.","Embutidos, galletas, zumos y ultraprocesados: fuera de su plato."],
  tip:"Si dudas con un alimento concreto, la app no lo sugiere hasta que toca por edad."},
 {id:"agua",t:"Agua y leche",s:"Qué beber ahora que empieza a comer",m:2,
- pts:["Ofrece agua en sorbos, en un vasito abierto o con pajita, cuando coma. No hace falta que beba mucho.","Su leche (materna o fórmula) sigue como base de su alimentación durante todo el primer año.","No hace falta ofrecerle zumos, infusiones ni bebidas vegetales. El agua es suficiente.","Con las primeras comidas bebe poco. Es normal y no es motivo de preocupación."],
  tip:"Un vaso pequeño y estable, que pueda agarrar él, ayuda a que lo explore."},
 {id:"hierro",t:"Hierro y zinc",s:"Los nutrientes clave del primer año",m:5,
- pts:["Sus reservas de hierro bajan a partir de los 6 meses, así que conviene ofrecer una fuente casi todos los días.","Buenas fuentes: ternera, pollo, huevo, legumbres, pescado y semillas molidas.","El zinc suele ir en las mismas comidas: carne, huevo, legumbres, queso y frutos secos molidos.","El hierro de las legumbres se absorbe mejor con algo de vitamina C: naranja, kiwi, pimiento o tomate.","Evita dárselas junto con leche o yogur en la misma toma, porque estorban la absorción.","Raciones pequeñas: una o dos cucharadas al principio son suficientes."],
  tip:"En el plan priorizo los alimentos con hierro y zinc cuando llevan unos días sin aparecer.",
  rec:[{n:"Puré de ternera, calabacín y patata",q:"1 ración",ing:["40 g de ternera magra","1 patata pequeña","½ calabacín","1 cucharadita de aceite de oliva virgen extra"],st:["Pela y trocea la patata y el calabacín. Cuécelos con la ternera troceada en poca agua, 20 minutos o hasta que esté muy tierna.","Tritura con un poco del agua de cocción hasta la textura que le toque.","Añade el aceite en crudo al final."]},
   {n:"Crema de lentejas rojas con zanahoria",q:"1 ración",ing:["3 cucharadas de lentejas rojas","½ zanahoria","unas gotas de zumo de naranja","1 cucharadita de aceite de oliva virgen extra"],st:["Cuece las lentejas con la zanahoria en agua, unos 15 minutos.","Tritura o chafa con tenedor según su etapa.","Termina con unas gotas de naranja y el aceite. La vitamina C ayuda a absorber el hierro."]}]},
 {id:"texturas",t:"De puré a trozos",s:"Cómo ir subiendo la textura sin prisa",m:4,
- pts:["Empieza con purés finos o alimentos muy blandos, y ve subiendo a chafado con tenedor, luego a grumos y después a trozos.","Cada alimento nuevo puede volver a una textura más fina un par de días. Es normal.","A los 8 o 9 meses ya debería tomar grumos como tarde. Retrasarlo mucho puede hacer que luego le cueste.","Ofrece trozos blandos que pueda agarrar con la mano: tiras gruesas, bastones cocidos, tortitas.","Sin sal ni azúcar, con aceite de oliva virgen extra en crudo."],
  tip:"En tu Perfil puedes cambiar el ritmo cuando quieras: todo puré, mixto o directo a trozos.",
  rec:[{n:"Huevo con aguacate chafado",q:"1 ración",ing:["1 huevo cocido duro","¼ de aguacate maduro","unas gotas de aceite de oliva virgen extra"],st:["Cuece el huevo 10 minutos y pélalo.","Chafa el huevo con el aguacate con un tenedor.","Más fino o con grumos según su etapa. Puede comerlo con cuchara o en bolitas."]},
   {n:"Tortitas de plátano y avena",q:"2 o 3 tortitas",ing:["1 plátano maduro","4 cucharadas de copos de avena finos","un chorrito de su leche"],st:["Chafa el plátano y mezcla con la avena y la leche.","Cocina en una sartén sin aceite o con una gota, a fuego medio, 2 minutos por lado.","Córtalas en tiras para que las agarre."]}]},
 {id:"alergenos",t:"Alérgenos sin miedo",s:"Cómo introducirlos con calma",m:4,
- pts:["No hace falta retrasarlos: huevo, pescado, frutos secos molidos, gluten y lácteos pueden entrar desde que empiece a comer.","Uno cada vez, en poca cantidad, y repetido 3 días seguidos si todo va bien.","Mejor entre semana, por la mañana o a mediodía, y no en fin de semana ni con poco margen para observar.","Que esté sano ese día: sin fiebre, sin vacunas recientes, sin otros alimentos nuevos.","Si hay reacción, deja de ofrecerlo y llama a tu pediatra. Si hay dificultad para respirar, hinchazón de cara o decaimiento, ve a urgencias o llama al 112.","En la pestaña Stats, Alérgenos, puedes anotar cómo ha ido cada uno."],
  tip:"Por eso el plan solo estrena alérgenos de lunes a miércoles.",
  rec:[{n:"Tortilla fina de huevo en tiras",q:"1 ración",ing:["1 huevo","unas gotas de aceite de oliva virgen extra"],st:["Bate el huevo y cuájalo en una sartén con poquito aceite, fino y bien hecho por los dos lados.","Corta en tiras para que las agarre.","El huevo siempre bien cuajado, nunca poco hecho."]}]},
 {id:"pescado",t:"Pescado y huevo",s:"Proteínas suaves y rápidas de hacer",m:4,
- pts:["El pescado blanco (merluza, lenguado, bacalao) y el azul de bajo mercurio (salmón, sardina) van bien. Ofrécelos desde pronto.","Sin espinas y bien cocinado: al vapor, a la plancha o al horno.","Pescados grandes (pez espada, tiburón, atún rojo, lucio): fuera por el mercurio.","El huevo siempre cocinado del todo. La yema cuajada es una fuente genial de hierro.","Una o dos veces por semana de pescado, alternando blanco y azul, es un buen ritmo."],
  tip:"Si compras el pescado fresco, compruébalo bien por si lleva espinas pequeñas.",
  rec:[{n:"Merluza al vapor con patata chafada",q:"1 ración",ing:["40 g de merluza sin espinas","1 patata cocida pequeña","1 cucharadita de aceite de oliva virgen extra"],st:["Cuece la merluza al vapor 5 o 6 minutos.","Desmenúzala y revisa que no queden espinas.","Chafa la patata con el pescado y termina con el aceite."]}]},
 {id:"legumbres",t:"Legumbres y cereales",s:"Energía, fibra y hierro vegetal",m:4,
- pts:["Las legumbres son una fuente muy buena de hierro, zinc y fibra. Ofrécelas a menudo.","Bien cocidas y sin hollejo al principio, que es más fácil de digerir. Lentejas rojas y garbanzos pelados son los más amables.","Con un poquito de vitamina C (naranja, tomate, pimiento) absorbe mejor su hierro.","Los cereales, mejor integrales cuando ya los tolera. Avena, quinoa, pasta, pan.","El gluten se puede ofrecer desde el principio, en poca cantidad al estrenar."],
  tip:"Al principio pueden dar gases. Empieza con raciones pequeñas.",
  rec:[{n:"Hummus suave sin sal",q:"varias raciones",ing:["3 cucharadas de garbanzos cocidos y sin piel","1 cucharadita de tahini","zumo de ½ limón","1 cucharada de aceite de oliva virgen extra","agua para ajustar"],st:["Tritura todo hasta que quede cremoso, añadiendo agua poco a poco.","Sírvelo sobre tostada blanda o con bastones de verdura cocida.","Dura 2 o 3 días en la nevera."]}]},
 {id:"rechazo",t:"Cuando dice que no",s:"Un rechazo no es definitivo",m:3,
- pts:["Puede necesitar 10 o 15 intentos para aceptar un alimento. Ofrecerlo sin presión cuenta.","No lo fuerces ni lo escondas. Déjalo en el plato y vuelve a ofrecerlo otro día.","Cámbialo de forma: si no le gusta cocido, prueba asado, en tortita o mezclado.","Come contigo: ver a otros comer ayuda más que cualquier truco.","Tú decides qué, cuándo y dónde. Él decide cuánto."],
  tip:"Márcalo como Regular o Hoy no en el registro. La app vuelve a ofrecérselo más adelante.",
  rec:[{n:"Pera chafada con avena y yogur",q:"1 ración",ing:["½ pera madura","2 cucharadas de copos de avena","2 cucharadas de yogur natural"],st:["Cuece la pera 5 minutos y chafa con un tenedor.","Mezcla con la avena y el yogur.","Es una forma suave de volver a ofrecerle algo que ha rechazado."]}]},
 {id:"batch",t:"Organizarse y congelar",s:"Desayunos, meriendas y tandas",m:4,
- pts:["Cocina una vez y guarda en porciones: es lo que más tiempo ahorra.","Congela en bandejas de cubitos o tarros pequeños, con la fecha. Se conservan 2 o 3 meses.","Descongela en la nevera, no a temperatura ambiente, y no vuelvas a congelar lo ya descongelado.","Para desayunos y meriendas: tortitas, fruta chafada con yogur, tostadas con crema de frutos secos molidos.","Elige 2 o 3 desayunos que le gusten y rótalos. En el Plan puedes guardar tus favoritos."],
  tip:"Puedes decir en el Plan qué desayunos y meriendas repites y la app organiza el resto.",
  rec:[{n:"Puré base de verduras para congelar",q:"8 a 10 raciones",ing:["2 patatas","2 zanahorias","1 calabacín","½ calabaza pequeña"],st:["Cuece todo junto en poca agua hasta que esté muy blando.","Tritura con un poco de agua de cocción.","Reparte en cubitos o tarros, congela, y combina cada día con proteína."]}]}
+,
+{id:"fuentes",t:"De dónde sale todo",s:"Las fuentes en las que se basa la app",m:2}
 ];
 const LID=new Set(LESSONS.map(l=>l.id));
 const cleanSch=o=>{const r={done:{},off:{}};if(o&&typeof o==="object"){["done","off"].forEach(k=>{const x=o[k];if(x&&typeof x==="object")Object.keys(x).forEach(i=>{if(LID.has(i)&&x[i])r[k][i]=1})})}return r};
@@ -1020,7 +895,7 @@ function head(){sizeTtl();const t=S.nm?"Primeros alimentos de "+S.nm:"Primeros a
   const a=age(),w=S.nm||"Tu bebé";
   $("age").textContent=!S.bd?"Añade la fecha de nacimiento en Perfil para ver los días y desbloquear alimentos.":!a?"Revisa la fecha de nacimiento.":`${w} tiene ${a.days} día${a.days===1?"":"s"} (${a.mo} mes${a.mo===1?"":"es"})`+(a.mo<6?`. Faltan ${a.s6} días para los 6 meses.`:"")}
 let cat="Todos",cur="",PLANNED={},FIRSTD={};
-let view="list";try{view=localStorage.getItem("primeros_view")==="board"?"board":"list"}catch(e){}
+let view="list";
 /*ICO_START*/
 const G="#6aa86f",GD="#3f7d52",IK='class="o"';
 const pa=(d,f,x="")=>`<path class="o" d="${d}" fill="${f}" ${x}/>`;
@@ -1231,34 +1106,33 @@ function bindRows(el){
 }
 let cm=new Date();cm=new Date(cm.getFullYear(),cm.getMonth(),1);let csel=today();
 let cpick=false;
-let rtab="cal";
+let rtab="st";
 function setRT(t){rtab=t;document.querySelectorAll("#rtabs [data-rt]").forEach(b=>{const on=b.dataset.rt===t;b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
-  $("calcard").classList.toggle("hide",t!=="cal");$("progcard").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al");if(typeof renderSw==="function"&&curV===3)renderSw()}
+  $("progcard").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al");if(typeof renderSw==="function"&&curV===3)renderSw()}
 document.querySelectorAll("#rtabs [data-rt]").forEach(b=>b.onclick=()=>{setRT(b.dataset.rt);window.scrollTo({top:0})});
-$("chy").onclick=()=>{const t=new Date();cm=new Date(t.getFullYear(),t.getMonth(),1);csel=today();cpick=false;renderCal()};
 function renderCal(){
-  const y=cm.getFullYear(),mo=cm.getMonth();
-  const lead=(new Date(y,mo,1).getDay()+6)%7,dim=new Date(y,mo+1,0).getDate();
-  const byDay={};S.log.forEach((l,i)=>{(byDay[l.d]=byDay[l.d]||[]).push({...l,i})});
-  const title=new Date(y,mo,1).toLocaleDateString("es-ES",{month:"long",year:"numeric"});
-  let cells="";
-  for(let i=0;i<lead;i++)cells+="<div></div>";
-  for(let d=1;d<=dim;d++){
-    const ds=`${y}-${String(mo+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-    const es=byDay[ds]||[];
-    const PR={react:0,no:1,meh:2,love:3,pre:4},dots=[...es].filter(e=>e.r!=="mix").sort((a,b)=>PR[a.r]-PR[b.r]).slice(0,4).map(e=>`<span class="dot rc-${e.r}"></span>`).join("");
-    cells+=`<button class="cd${ds===today()?" today":""}${ds===csel?" sel":""}" data-d="${ds}" aria-label="${d}: ${es.length} alimentos"><span>${d}</span><span class="dts">${dots}</span>${es.length>4?`<span class="more">+${es.length-4}</span>`:""}</button>`;
-  }
+  const t0=today(),byDay={};S.log.forEach((l,i)=>{(byDay[l.d]=byDay[l.d]||[]).push({...l,i})});
+  const nowD=new Date(t0+"T00:00:00"),dow=(nowD.getDay()+6)%7,W=16;
+  const st=new Date(nowD);st.setDate(st.getDate()-dow-7*(W-1));
+  const lim=new Date(nowD);lim.setDate(lim.getDate()+6);const limS=dstr(lim);
+  const PR={react:0,no:1,meh:2,love:3,pre:4,mix:5},cols=[];let cells="",mlab="",lastM=-1;
+  for(let w=0;w<W;w++){
+    const wd=new Date(st);wd.setDate(st.getDate()+7*w);
+    const m=wd.getMonth();if(m!==lastM&&(w===0||wd.getDate()<=7)){mlab+=`<span style="grid-column:${w+2}">${wd.toLocaleDateString("es-ES",{month:"short"}).replace(".","")}</span>`;lastM=m}
+    for(let d=0;d<7;d++){
+      const dt=new Date(wd);dt.setDate(wd.getDate()+d);const ds=dstr(dt),es=byDay[ds]||[],fut=ds>t0;
+      const top=es.map(e=>e.r).sort((a,b)=>(PR[a]??9)-(PR[b]??9))[0],cl=top?`rc-${top}`:"";
+      const dis=ds>limS,lab=dt.toLocaleDateString("es-ES",{day:"numeric",month:"long"})+": "+(es.length?es.length+" alimento"+(es.length>1?"s":""):"nada registrado");
+      cells+=`<button type="button" class="hm ${cl}${ds===t0?" today":""}${ds===csel?" sel":""}${fut?" fut":""}" data-d="${ds}" style="grid-row:${d+1};grid-column:${w+2}" aria-label="${esc(lab)}" title="${esc(lab)}"${dis?" disabled":""}></button>`}}
+  const dl=["L","","X","","V","","D"].map((x,k)=>`<span style="grid-row:${k+2};grid-column:1">${x}</span>`).join("");
+  $("cal").innerHTML=`<div class="hmg" style="grid-template-columns:14px repeat(${W},minmax(0,1fr))">${mlab.replace(/<span style="grid-column:(\d+)">/g,(a,c)=>`<span class="hmm" style="grid-row:1;grid-column:${c}">`)}${dl.replace(/grid-row:(\d+)/g,(a,r)=>"grid-row:"+r)}${cells.replace(/grid-row:(\d+)/g,(a,r)=>"grid-row:"+(+r+1))}</div>`;
+  $("cal").querySelectorAll(".hm").forEach(b=>b.onclick=()=>{csel=b.dataset.d;pdate=b.dataset.d;cpick=false;plan();window.scrollTo({top:0,behavior:"smooth"})});
+  const box=$("cdet");if(!box)return;
+  if(csel>=t0){box.innerHTML="";return}
   const list=(byDay[csel]||[]).slice().sort((a,b)=>(a.ml?MEALS.indexOf(a.ml):9)-(b.ml?MEALS.indexOf(b.ml):9));
   const sel=new Date(csel+"T00:00:00").toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
-  $("cal").innerHTML=`<div class="calh"><button class="x" id="cprev" aria-label="Mes anterior">‹</button><b style="text-transform:capitalize">${title}</b><button class="x" id="cnext" aria-label="Mes siguiente">›</button></div>
-  <div class="cg wk">${["L","M","X","J","V","S","D"].map(w=>`<span>${w}</span>`).join("")}</div>
-  <div class="cg">${cells}</div>
-  <div class="cdetail"><b style="text-transform:capitalize">${sel}</b>${csel<=today()?`<div style="margin:8px 0;max-width:260px"><button class="btn" id="cadd">${cpick?"Cerrar":"+ Registrar alimento"}</button></div>${cpick?'<input type="search" id="cq" placeholder="Buscar alimento" aria-label="Buscar alimento" autocomplete="off"><div id="cres"></div>':""}`:""}${list.length?list.map(rowHtml).join(""):'<p class="mute">Nada registrado este día.</p>'}</div>`;
-  $("cprev").onclick=()=>{cm=new Date(y,mo-1,1);renderCal()};
-  $("cnext").onclick=()=>{cm=new Date(y,mo+1,1);renderCal()};
-  $("cal").querySelectorAll(".cd").forEach(b=>b.onclick=()=>{csel=b.dataset.d;cpick=false;renderCal()});
-  bindRows($("cal"));
+  box.innerHTML=`<div class="card cdetail"><b class="disp" style="color:var(--green);font-size:1.25rem">${sel.charAt(0).toUpperCase()+sel.slice(1)}</b> <span class="tag">Pasado</span><div style="margin:10px 0;max-width:260px"><button class="btn" id="cadd">${cpick?"Cerrar":"+ Registrar alimento"}</button></div>${cpick?'<input type="search" id="cq" placeholder="Buscar alimento" aria-label="Buscar alimento" autocomplete="off"><div id="cres"></div>':""}${list.length?list.map(rowHtml).join(""):'<p class="mute">No hay nada registrado este día.</p>'}</div>`;
+  bindRows(box);
   if($("cadd"))$("cadd").onclick=()=>{cpick=!cpick;renderCal();if(cpick)$("cq").focus()};
   if($("cq")){const fill=()=>{const q=norm($("cq").value.trim());$("cres").innerHTML=q?ALL.filter(x=>norm(x.n).includes(q)).slice(0,8).map(x=>`<button type="button" class="it" data-f="${esc(x.n)}">${ico(x.n)}${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span></span></button>`).join("")||'<p class="mute">No lo encuentro.</p>':'<p class="mute">Escribe para buscar.</p>';
       $("cres").querySelectorAll("button[data-f]").forEach(b=>b.onclick=()=>{cpick=false;openSheet(b.dataset.f,csel)})};
@@ -1466,22 +1340,26 @@ alergenos:'<path d="M12 3c3.500 0 6 5 6 9.500a6 6 0 01-12 0C6 8 8.500 3 12 3z"/>
 pescado:'<path d="M3 12c3-5 8-6 12-3l5-3v12l-5-3c-4 3-9 2-12-3z"/><path d="M8 11h.01"/>',
 legumbres:'<path d="M5 19C5 10 10 5 19 5c0 9-5 14-14 14z"/><path d="M5 19l8-8"/>',
 rechazo:'<path d="M12 20s-8-5-8-11a4.500 4.500 0 018-2.800A4.500 4.500 0 0120 9c0 6-8 11-8 11z"/>',
-batch:'<path d="M12 3v18M4.200 7.500l15.600 9M4.200 16.500l15.600-9"/>'};
+batch:'<path d="M12 3v18M4.200 7.500l15.600 9M4.200 16.500l15.600-9"/>',fuentes:'<path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11M9 8h6"/>'};
+const LIC2={clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',cup:'<path d="M6 4h12l-1.500 16h-9z"/><path d="M7 9h10"/>',bottle:'<path d="M10 3h4v3l2 3v12H8V9l2-3z"/>',drop:'<path d="M12 3C8 8.500 6 11.500 6 15a6 6 0 0012 0c0-3.500-2-6.500-6-12z"/>',spoon:'<g transform="rotate(35 12 12)"><ellipse cx="12" cy="6.600" rx="3.500" ry="4.600"/><path d="M12 11.400v10"/></g>',fish:LIC.pescado,egg:LIC.alergenos,leaf:LIC.legumbres,bolt:LIC.hierro,snow:LIC.batch,heart:LIC.rechazo,alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4.500M12 17.500h.01"/>',phone:'<path d="M6 3h4l2 5-2.500 1.500a11 11 0 005 5L16 12l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 013-2z"/>'};
 const LVZ={
-listo:[["t",[["6","meses","nunca antes de los 4"],["Sentado","con poco apoyo",""],["Sin","empujar con la lengua","reflejo ya perdido"],["Mira","y quiere agarrar","interés por tu plato"]]]],
-seguro:[["yn","Arcada",["Hace ruido","Tose y escupe","Déjale resolver"],"Peligro",["Silencio","No respira ni llora","Actúa ya"]]],
-evitar:[["no",["Miel antes del año","Sal","Azúcar","Leche de vaca como bebida","Acelga, espinaca, borraja y remolacha","Pez espada, atún rojo, tiburón y lucio","Frutos secos enteros","Arroz en exceso","Ultraprocesados y zumos"]]],
-agua:[["t",[["Sorbos","de agua","en vaso abierto o pajita"],["Leche","sigue siendo la base","todo el primer año"]]]],
-hierro:[["t",[["1-2","cucharadas al empezar","raciones pequeñas"],["+ C","vitamina C","naranja, kiwi o pimiento"]]],["yn","Fuentes",["Ternera y pollo","Huevo","Lentejas y garbanzos","Pescado","Semillas molidas"],"Evita junto",["Leche o yogur en la misma toma"]]],
-texturas:[["s",[["Puré fino","para empezar"],["Chafado","con tenedor"],["Con grumos","a los 8-9 meses como tarde"],["Trozos blandos","que agarre con la mano"]]]],
-alergenos:[["t",[["3","días seguidos","en poca cantidad"],["Lun-Mié","para estrenar","mejor entre semana"],["1","cada vez","y que esté sano"],["112","si no respira","o se hincha cara o labios"]]]],
-pescado:[["yn","Sí",["Merluza, lenguado, bacalao","Salmón y sardina","Huevo bien cuajado"],"No",["Pez espada","Atún rojo y tiburón","Lucio"]]],
-legumbres:[["t",[["+ C","vitamina C","absorbe mejor el hierro"],["Pelada","y bien cocida","lentejas rojas y garbanzos"],["Poca","cantidad al principio","pueden dar gases"],["Gluten","sí, desde el principio","poca cantidad al estrenar"]]]],
-rechazo:[["t",[["10-15","intentos","es lo normal"],["Sin","forzar ni esconder","vuelve a ofrecerlo"],["Otra","forma de cocinarlo","asado, tortita o mezclado"],["Tú","decides qué","él decide cuánto"]]]],
-batch:[["t",[["2-3","meses en el congelador","con fecha"],["Nevera","para descongelar","no a temperatura ambiente"]]],["s",[["Cocina de más",""],["Reparte","en cubitos o tarros"],["Congela","con fecha"],["Descongela","en la nevera"]]]]};
+listo:[["t",[["6","meses","nunca antes de los 4 ni más allá del 7º","clock"],["Sentado","con poco apoyo","y mantiene la cabeza firme",""],["Sin","empujar con la lengua","ya no echa la comida","spoon"],["Mira","y quiere agarrar","se lleva cosas a la boca",""],["2 a 4","tomas de comida al día","sube hasta 4 o 5 hacia el año",""],["400","UI de vitamina D al día","hasta los 12 meses, consúltalo con tu pediatra",""]]],["b","La leche, materna o de fórmula, sigue siendo su alimento principal hasta los 12 meses. Tú decides qué, cuándo y dónde. Él decide cuánto."]],
+seguro:[["yn","Arcada",["Es normal y le protege","Tose y hace ruido","Ojos llorosos","Echa la comida hacia delante","Calma, no metas los dedos"],"Atragantamiento",["No tose, no llora, no respira","Se pone morado","Ruido agudo o silencio","Actúa ya"]],["s",[["112","Llama o pide que llamen"],["5 golpes en la espalda","Boca abajo sobre tu antebrazo, con la cabeza más baja"],["5 compresiones en el pecho","Boca arriba, con dos dedos"],["Repite","Hasta que expulse el objeto. Si pierde el conocimiento, RCP"]]],["g",[["Uvas, cherry y aceitunas","En cuartos, a lo largo"],["Frutos secos","Molidos o en crema, nunca enteros"],["Manzana y zanahoria","Cocidas o ralladas finas"],["Carne, pescado y huevo","Bien cocinados, sin piel ni espinas"]]],["b","Siempre sentado y erguido, con un adulto al lado, sin recostarlo y sin pantallas."]],
+evitar:[["no",["Sal, azúcar y edulcorantes","Miel antes del año","Cacao, bollería, galletas y embutidos","Zumos y bebidas azucaradas","Leche de vaca como bebida (antes del año)","Acelga, espinaca, borraja y remolacha (antes del año)","Pez espada, atún rojo, tiburón y lucio (antes de los 3 años)","Cabeza de gambas y crustáceos","Arroz y bebida de arroz (arsénico)","Frutos secos enteros"]],["b","El yogur y el queso, desde los 9 meses. La leche de vaca entera, desde los 12. El arroz, solo de vez en cuando y alternando con otros cereales."]],
+agua:[["t",[["Sorbos","de agua cuando coma","en vaso abierto o pajita","cup"],["Leche","sigue siendo la base","hasta los 12 meses","bottle"],["120","ml de agua al día","de 6 a 8 meses","drop"],["240","ml de agua al día","de 9 a 11 meses","drop"]]],["b","Sin zumos, infusiones ni bebidas azucaradas. Con las primeras comidas bebe poco y es normal."]],
+hierro:[["t",[["2","porciones al día","de proteína o cereal enriquecido","bolt"],["+ C","vitamina C","naranja, kiwi, pimiento o tomate","heart"]]],["yn","Fuentes",["Ternera y pollo","Huevo","Lentejas y garbanzos","Pescado","Semillas molidas"],"Evita junto",["Leche o yogur en la misma toma"]],["b","Sin carne ni pescado cuesta cubrir hierro, zinc y B12 a esta edad: consúltalo con tu pediatra. En alimentación vegana estricta, la B12 necesita suplemento."]],
+texturas:[["s",[["Puré espeso","6 meses"],["Con grumos y tiras","8 a 9 meses, como tarde"],["Pinza: trocitos","9 meses"],["Como la familia","12 meses"]]],["t",[["8-9 m","grumos como tarde","retrasarlo hace que luego le cueste","spoon"],["Vuelve","a un puré más fino","con cada alimento nuevo, si hace falta",""]]],["b","Sin sal ni azúcar. Aceite de oliva virgen extra en crudo."]],
+alergenos:[["t",[["3","días seguidos","en poca cantidad","egg"],["Lun-Mié","para estrenarlos","mejor entre semana",""],["1","cada vez","y que esté sano ese día",""],["6 m","gluten","entre los 4 y los 11 meses, mejor hacia los 6",""]]],["yn","Reacción leve",["Ronchas, picor, enrojecimiento","Algún vómito aislado","No repitas. Anótalo y consulta a tu pediatra"],"Grave: 112",["Labios, lengua o cara hinchados","Le cuesta respirar","Vómitos repetidos o muy decaído","Tumbado y vigilado hasta que llegue la ayuda"]],["b","No hace falta retrasarlos: se pueden dar desde que empieza a comer, uno cada vez."]],
+pescado:[["yn","Sí",["Merluza, lenguado, bacalao","Salmón y sardina","Huevo bien cuajado"],"No",["Pez espada, atún rojo, tiburón y lucio","Cabeza de gambas","Pescado crudo o poco hecho"]],["t",[["1-2","veces por semana","alternando blanco y azul","fish"],["Sin","espinas ni piel","y bien cocinado",""]]]],
+legumbres:[["t",[["+ C","vitamina C","absorbe mejor el hierro","leaf"],["Pelada","y bien cocida","lentejas rojas y garbanzos",""],["Poca","cantidad al principio","pueden dar gases",""],["Gluten","sí, desde pronto","poca cantidad al estrenar",""]]],["b","Los cereales, mejor integrales cuando ya los tolera: avena, quinoa, pasta y pan."]],
+rechazo:[["t",[["10-15","intentos","es lo normal","heart"],["Sin","forzar ni esconder","vuelve a ofrecerlo otro día",""],["Otra","forma de cocinarlo","asado, tortita o mezclado",""],["Contigo","en la mesa","verte comer ayuda más que cualquier truco",""]]],["b","Tú decides qué, cuándo y dónde. Él decide cuánto."]],
+batch:[["t",[["2 h","máximo fuera de la nevera","enfría en raciones pequeñas","clock"],["3","meses a -18 °C","etiqueta con la fecha","snow"],["24 h","tras descongelar","y no se vuelve a congelar",""],["Nevera","para descongelar","o microondas o baño maría, nunca fuera",""]]],["yn","Congela bien",["Purés y guisos","Legumbres cocidas","Carne y pescado cocinados","Tortitas y hamburguesitas"],"Mejor no",["Patata sola","Huevo duro","Yogur y queso fresco","Fruta fresca y verdura cruda"]],["b","Calienta bien, remueve y deja templar. No guardes las sobras del plato del bebé."]],
+fuentes:[["g",[["AEP, noviembre de 2018","Recomendaciones sobre alimentación complementaria. Es la base de casi todo."],["OMS, octubre de 2023","Guía de 6 a 23 meses: hierro, zinc y B12 sin alimentos animales, y evitar bebidas azucaradas."],["Pediatría Integral, marzo de 2025","Vitamina D, B12 vegana, número de tomas y objetivos de fibra, omega-3 y calcio. Es de la SEPEAP, no de la AEP."],["ESPGHAN","Guía de bolsillo en la web de la AEP: la vitamina C para absorber el hierro."],["AESAN","Pescados grandes, cabeza de crustáceos y acelgas y espinacas."],["Arroz","Comité de Nutrición de la ESPGHAN y normativa europea sobre arsénico."]]],["b","Prematuros: no hay pautas claras y se individualiza. Una edad corregida de 6 meses puede ser apropiada, priorizando el hierro. El baby-led weaning no se recomienda con fallo de medro ni dificultades neurológicas o motoras. Esto no sustituye el consejo de tu pediatra."]]};
 const lzSvg=(p,w)=>`<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const lzViz=id=>(LVZ[id]||[]).map(b=>{
-  if(b[0]==="t")return `<div class="gg lz">${b[1].map((x,i)=>`<div class="gtile g${i%4+1}"><b class="big">${esc(x[0])}</b><span>${esc(x[1])}</span>${x[2]?`<small>${esc(x[2])}</small>`:""}</div>`).join("")}</div>`;
+  if(b[0]==="t")return `<div class="gg lz">${b[1].map((x,i)=>`<div class="gtile g${i%4+1}">${x[3]&&LIC2[x[3]]?`<i>${lzSvg(LIC2[x[3]],30)}</i>`:""}<b class="big">${esc(x[0])}</b><span>${esc(x[1])}</span>${x[2]?`<small>${esc(x[2])}</small>`:""}</div>`).join("")}</div>`;
+  if(b[0]==="g")return `<div class="gg lz">${b[1].map(x=>`<div class="gsafe"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>`;
+  if(b[0]==="b")return `<p class="gband lz">${esc(b[1])}</p>`;
   if(b[0]==="yn")return `<div class="gyn lz"><div class="gok"><h5>${lzSvg('<path d="M5 12.500l4.500 4.500L19 7.500"/>',22)} ${esc(b[1])}</h5><ul>${b[2].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="gno"><h5>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',22)} ${esc(b[3])}</h5><ul>${b[4].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`;
   if(b[0]==="no")return `<div class="lno lz">${b[1].map(x=>`<span>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',14)}${esc(x)}</span>`).join("")}</div>`;
   if(b[0]==="s")return `<ol class="gsteps lz">${b[1].map(x=>`<li><b>${esc(x[0])}</b>${x[1]?`<span>${esc(x[1])}</span>`:""}</li>`).join("")}</ol>`;
@@ -1512,17 +1390,17 @@ function renderSchool(){
   w.innerHTML=`<div class="card gh0"><h3 class="disp">Escuela de comida sana</h3><p class="mute">Lecciones cortas y recetas simples para que ${esc(S.nm||"tu peque")} coma bien, con mucho hierro y zinc. Léelas a tu ritmo.</p><div class="sprog" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.max(p,d?6:0)}%"></i></div><small class="mute">${d} de ${n} lecciones leídas</small></div>`+
   LESSONS.map((l,i)=>{const dn=!!sc.done[l.id],op=openL===l.id;
     return `<div class="les${dn?" dn":""}${op?" open":""}" id="les_${l.id}"><div class="lc"><i class="ld">${dn?'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':""}</i></div><div class="lm"><button type="button" class="lh" data-l="${l.id}" aria-expanded="${op}"><i class="lic">${lzSvg(LIC[l.id]||"",24)}</i><span class="lt"><span class="tag">Lección ${i+1}</span><span class="lmin">${l.m} min${l.rec?" · "+l.rec.length+(l.rec.length>1?" recetas":" receta"):""}</span></span><b class="ltl">${esc(l.t)}</b><span class="lsub">${esc(l.s)}</span><svg class="lch" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`+
-    (op?`<div class="lbd">${lzViz(l.id)}${l.tip?`<p class="ltip">${esc(l.tip)}</p>`:""}<details class="lmore"><summary>Más detalle</summary><ul class="lpts">${l.pts.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>${(l.rec||[]).map(rec).join("")}<div class="lft"><button type="button" class="btn${dn?"":" p"}" data-done="${l.id}">${dn?"Leída":"Marcar como leída"}</button><label class="lsw"><input type="checkbox" data-sug="${l.id}"${lsOn(l.id)?" checked":""}><span>Sugerirla en el plan cuando toque</span></label></div></div>`:"")+`</div></div>`}).join("");
+    (op?`<div class="lbd">${lzViz(l.id)}${l.tip?`<p class="ltip">${esc(l.tip)}</p>`:""}${(l.rec||[]).map(rec).join("")}<div class="lft"><button type="button" class="btn${dn?"":" p"}" data-done="${l.id}">${dn?"Leída":"Marcar como leída"}</button><label class="lsw"><input type="checkbox" data-sug="${l.id}"${lsOn(l.id)?" checked":""}><span>Sugerirla en el plan cuando toque</span></label></div></div>`:"")+`</div></div>`}).join("");
 }
 $("school").addEventListener("click",e=>{
   const h=e.target.closest("[data-l]");if(h){openL=openL===h.dataset.l?"":h.dataset.l;renderSchool();return}
   const dn=e.target.closest("[data-done]");if(dn){const id=dn.dataset.done;S.sch.done[id]=S.sch.done[id]?0:1;if(!S.sch.done[id])delete S.sch.done[id];save();renderSchool();return}
 });
 $("school").addEventListener("change",e=>{const c=e.target.closest("[data-sug]");if(c){const id=c.dataset.sug;if(c.checked)delete S.sch.off[id];else S.sch.off[id]=1;save()}});
-let selA=0,selB=3;
-const SW=[["A","Hoy",()=>{tab(2);subtab(1)}],["A","Ingredientes",()=>{tab(2);subtab(2)}],["A","Lista",()=>tab(1)],["B","Estadísticas",()=>{setRT("st");tab(3)}],["B","Calendario",()=>{setRT("cal");tab(3)}],["B","Alérgenos",()=>{setRT("al");tab(3)}]];
+let selA=0,selB=2;
+const SW=[["A","Hoy",()=>{tab(2);subtab(1)}],["A","Compra",()=>{tab(2);subtab(2)}],["B","Estadísticas",()=>{setRT("st");tab(3)}],["B","Alimentos",()=>tab(1)],["B","Alérgenos",()=>{setRT("al");tab(3)}]];
 let curV=2,psub=1;
-function swIdx(){if(curV===1)return 2;if(curV===3)return rtab==="cal"?4:rtab==="st"?3:5;if(curV===2)return psub===2?1:0;return -1}
+function swIdx(){if(curV===1)return 3;if(curV===3)return rtab==="st"?2:4;if(curV===2)return psub===2?1:0;return -1}
 function renderSw(){const k=swIdx(),g=k<0?null:SW[k][0],w=$("fsw");w.classList.toggle("hide",k<0);if(k<0)return;w.innerHTML=SW.map((x,i)=>x[0]===g?`<button type="button" class="btn${i===k?" on":""}" data-sw="${i}" role="tab" aria-selected="${i===k}">${x[1]}</button>`:"").join("");w.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{SW[+b.dataset.sw][2]();window.scrollTo(0,0)});const on=w.querySelector(".on");if(on&&on.scrollIntoView)w.scrollLeft=Math.max(0,on.offsetLeft-20)}
 function tab(n){curV=n;{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));$("t4").classList.toggle("on",n===4);$("t5").classList.toggle("on",n===5);const k=swIdx();if(k>=0){if(SW[k][0]==="A")selA=k;else selB=k}$("nA").classList.toggle("on",k>=0&&SW[k][0]==="A");$("nB").classList.toggle("on",k>=0&&SW[k][0]==="B");renderSw();if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}if(n===5)renderSchool();window.scrollTo(0,0)}
 renderSw();$("nA").onclick=()=>SW[selA][2]();$("nB").onclick=()=>SW[selB][2]();$("t4").onclick=()=>tab(4);$("t5").onclick=()=>tab(5);
@@ -1828,7 +1706,7 @@ function plan(){
   const wkd=dt=>dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".","");
   const pastD=[];for(let k=7;k>=1;k--){const dt=new Date(start);dt.setDate(start.getDate()-k);pastD.push({dt,ds:dstr(dt)})}
   const allD=[...pastD.map(x=>({...x,past:true})),...shown.map(o=>({dt:o.dt,ds:o.ds,o}))];
-  const sd=allD.some(x=>x.ds===pdate)?pdate:t0;
+  const pl=new Date(start);pl.setDate(pl.getDate()-120);const sd=(pdate&&pdate<t0&&pdate>=dstr(pl))||allD.some(x=>x.ds===pdate)?pdate:t0;csel=sd;
   const strip=`<div class="wk" role="group" aria-label="Elegir día">`+allD.map(x=>{const nw=x.past?S.log.some(l=>l.d===x.ds):(x.o.items.length||x.o.rep);return `<button class="wd${x.past?" past":""}${x.ds===sd?" on":""}" data-pd="${x.ds}" aria-pressed="${x.ds===sd}"><small>${wkd(x.dt)}</small><b>${x.dt.getDate()}</b></button>`}).join("")+`</div>`;
   const pastCard=ds=>{const dt=new Date(ds+"T00:00:00"),lg=S.log.filter(l=>l.d===ds),ml=S.ml[ds]||{},ov=(S.ov||{})[ds]||{};
     const meals=MEALS.filter(m=>ml[m]||ov[m]).map(m=>`<div class="course"><div class="cl">${esc(m)}</div><div class="mr"><p><span class="dn">${esc(ov[m]?ov[m].n:"Hecho")}</span></p></div></div>`).join("");
@@ -1880,7 +1758,8 @@ function plan(){
       $("wk_res").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n,o3=mv.slice();if(wkRep&&mv.includes(wkRep)){o3.splice(mv.indexOf(wkRep),1,n);S.prefs.skip=[...new Set([...(S.prefs.skip||[]).filter(x=>x!==n),wkRep])]}else{o3.splice(Math.min(+($("wk_day")||{}).value||0,mv.length),0,n);S.prefs.skip=(S.prefs.skip||[]).filter(x=>x!==n)}S.prefs.ord=o3;wkRep="";wkAdd=false;wkQ="";wkCat="Todos";planShown=7;save();plan()})};
     $("wk_add").onclick=()=>{wkRep="";wkAdd=!wkAdd;$("wk_addp").classList.toggle("hide",!wkAdd);if(wkAdd){paintRes();$("wk_q").focus()}};
     $("wk_q").oninput=e=>{wkQ=e.target.value;paintRes()};if(wkAdd)paintRes()}
-  $("days").innerHTML=useful?strip+(sd<t0?pastCard(sd):dayCard(shown.find(o=>o.ds===sd)||shown[0])):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  $("days").innerHTML=useful?(sd<t0?"":dayCard(shown.find(o=>o.ds===sd)||shown[0])):'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  renderCal();
   $("days").querySelectorAll("button[data-pd]").forEach(b=>b.onclick=()=>{pdate=b.dataset.pd;plan()});
   {const wk=$("days").querySelector(".wk"),on=wk&&wk.querySelector(".wd.on");if(on)wk.scrollLeft=on.offsetLeft-(wk.clientWidth-on.offsetWidth)/2}
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>b.dataset.pc?openSheet(b.dataset.n,b.dataset.d,undefined,true):openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
@@ -1934,7 +1813,7 @@ function shopQty(x,sv){const n=x.n,s=Math.max(1,sv||1);
 function renderWeek(W){
   const fz=S.prefs.fz==="freeze",cap=x=>x.charAt(0).toUpperCase()+x.slice(1),fm=d=>d.toLocaleDateString("es-ES",{day:"numeric",month:"long"});
   {const mg={};W.trips.forEach(t=>t.items.forEach(i=>{const e=mg[i.n]=mg[i.n]||{n:i.n,s:0,dl:[],key:i.n};e.s+=i.s;i.dl.forEach(d=>{if(!e.dl.includes(d))e.dl.push(d)})}));shopCur=Object.values(mg)}
-  $("wk_t").textContent="Ingredientes del "+(W.a.getMonth()===W.b.getMonth()?W.a.getDate():fm(W.a))+" al "+fm(W.b);
+  $("wk_rng").textContent="Del "+(W.a.getMonth()===W.b.getMonth()?W.a.getDate():fm(W.a))+" al "+fm(W.b)+(S.nm?" · para "+S.nm:"");
   if(!W.trips.length){$("shop").innerHTML='<p class="mute">Cuando haya menú, aquí salen los ingredientes de la semana.</p>';return}
   const dl=a=>a.length>=6?"toda la semana":a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
   const nm=W.trips.length;
@@ -1946,7 +1825,7 @@ function renderWeek(W){
   if(fz){cookH=`<p class="mute">Un día de cocina: cocina cada ingrediente por separado, reparte en raciones y congela. Al servir, mezcla los que toquen y saca la ración la noche antes.</p>`+W.comp.map(c=>`<div class="ck"><b>${esc(c.x.n)}</b><span class="mute">${c.s} ración${c.s===1?"":"es"} · ${esc(shopQty(c.x,c.s))}</span></div>`).join("")}
   else cookH=(W.cook.length?`<p class="mute">Cocina el mismo día. Si una receta se repite en días seguidos, cocina doble y guárdala en la nevera.</p>`+W.cook.map(ckItem).join(""):'<p class="mute">Esta semana casi todo es sencillo: fruta, verdura al vapor y cosas que no necesitan cocina.</p>');
   const daysH=W.days.map(d=>`<button class="wdy" data-go="${d.ds}"><b>${d.ds===today()?"Hoy":d.dt.toLocaleDateString("es-ES",{weekday:"long",day:"numeric"})}</b>${d.rows.map(([m,r])=>`<span class="mute">${esc(m)}</span> ${esc(r.n)}<br>`).join("")}</button>`).join("");
-  $("shop").innerHTML=`<p class="mute">Estos son los alimentos que se van a usar esta semana, con la cantidad que comerá el bebé y los días en que toca.</p><div class="trip">`+tripH+'</div>'+'<div class="btns" style="max-width:420px;margin-top:12px"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div><p class="mute">Cantidades aproximadas, con margen por piel y desperdicio. Aceite de oliva virgen extra para cocinar, sin sal ni azúcar.</p>'
+  $("shop").innerHTML=`<div class="trip">`+tripH+'</div>'+`<div class="tkt-tot"><span>Artículos</span><b>${shopCur.length}</b></div><p class="tkt-n">Cantidades aproximadas, con margen por piel y desperdicio. Aceite de oliva virgen extra para cocinar, sin sal ni azúcar.</p><div class="tkt-bar" aria-hidden="true"></div><p class="tkt-g">¡Buen provecho!</p><div class="tkt-b"><button class="btn" id="sl_copy">Copiar lista</button><button class="btn" id="sl_reset">Desmarcar todo</button></div>`
 }
 $("shop").addEventListener("change",e=>{const n=e.target.dataset&&e.target.dataset.sl;if(!n)return;if(e.target.checked)S.sl[n]=true;else delete S.sl[n];save()});
 $("shop").addEventListener("click",e=>{
@@ -1991,7 +1870,7 @@ const FAM=[
 {n:"Yogur con plátano y avena",base:["Yogur natural","Plátano","Avena"],extra:"frutos secos",baby:"Yogur natural sin azúcar, con plátano aplastado.",adult:"Con miel y frutos secos."},
 {n:"Pera asada con canela",base:["Pera"],extra:"canela",baby:"Cuña muy blanda, sin azúcar ni miel.",adult:"Con miel, nueces y yogur."}
 ];
-function subtab(n){n=n===2?2:1;psub=n;[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",n===2?i!==2:i===2);$("p"+i).classList.toggle("on",i===n)})}
+function subtab(n){n=n===2?2:1;psub=n;[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",n===2?i!==2:i===2);$("p"+i).classList.toggle("on",i===n)});if(typeof renderSw==="function")renderSw()}
 [1,2,3].forEach(i=>$("p"+i).onclick=()=>subtab(i));
 
 const RCH3=["love","meh","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
