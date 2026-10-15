@@ -282,6 +282,7 @@ details.gfull{margin-top:14px}
 .chef{margin:14px 0 4px;padding:12px;border:2px dashed var(--green);border-radius:14px}.chef .disp{color:var(--green);font-size:1.1rem}.chef p{margin:4px 0 8px;font-size:.84rem}.chef input{width:100%;margin-bottom:8px}
 .chefc{display:flex;flex-wrap:wrap;gap:6px;max-height:150px;overflow-y:auto;margin-bottom:10px}.chk{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 10px;font:600 .78rem Montserrat,sans-serif;cursor:pointer}.chk.on{background:var(--green);border-color:var(--green);color:#fff}
 .chgo small{display:block;font-weight:500;color:var(--mute);font-size:.78rem;margin-top:2px}
+.chgmd{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}.chgmd button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:9px 6px;font:700 .85rem Montserrat,sans-serif;cursor:pointer}.chgmd button.on{background:var(--blue);border-color:var(--blue);color:#1b1d2e}#chg textarea{width:100%;margin-top:6px;font:inherit;resize:vertical}.chgdet{max-height:none}.chgadd{margin-top:6px}.chgadd>summary{cursor:pointer;min-height:40px;display:flex;align-items:center;font-weight:700;font-size:.88rem;color:var(--blue)}.chgadd #chg_s{width:100%}
 .chgp{display:flex;flex-wrap:wrap;gap:6px;max-height:150px;overflow:auto;margin:8px 0}.pk{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:6px 11px;font:600 .8rem Montserrat,sans-serif;cursor:pointer}.pk.on{background:var(--green);border-color:var(--green);color:#fff}#chg_s{width:100%}
 .ngr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 8px;margin-top:14px}.ng{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}.ng span{font-size:.78rem;font-weight:700;line-height:1.15}
 .ng .ring{--p:0;position:relative;width:74px;height:74px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),color-mix(in srgb,var(--ink) 9%,transparent) 0);display:flex;align-items:center;justify-content:center;gap:1px}
@@ -680,13 +681,21 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 <div class="sheet hide" id="chg" role="dialog" aria-label="Cambiar menú"><div>
   <button class="xc" id="chg_c" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="chg_t"></h3>
-  <p class="mute" style="margin:6px 0">Otras ideas para este servicio:</p>
-  <div id="chg_l" class="chgl"></div>
-  <p class="mute" style="margin:12px 0 6px">O elige los ingredientes que ha comido:</p>
-  <input id="chg_s" type="search" placeholder="Buscar ingrediente" aria-label="Buscar ingrediente">
-  <div id="chg_p" class="chgp"></div>
-  <label>Nombre del plato (opcional)<input id="chg_x" type="text" maxlength="80" placeholder="Por ejemplo: tortilla de la abuela"></label>
-  <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button" style="width:100%;flex:1 1 100%">Guardar</button></div>
+  <div class="chgmd" id="chg_md" role="group" aria-label="Qué ha pasado"><button type="button" data-md="a" class="on">No me cuadra</button><button type="button" data-md="b">Le he dado otra cosa</button></div>
+  <div id="chg_a">
+    <p class="mute" style="margin:10px 0 6px">Elige otra propuesta:</p>
+    <div id="chg_l" class="chgl"></div>
+  </div>
+  <div id="chg_b" class="hide">
+    <label style="margin-top:10px">¿Qué le has dado?<textarea id="chg_x" rows="2" maxlength="120" placeholder="Por ejemplo: tortilla de patata con calabacín"></textarea></label>
+    <p class="mute" style="margin:10px 0 6px" id="chg_dh">Anotaremos como comido:</p>
+    <div id="chg_det" class="chgp chgdet"></div>
+    <details class="chgadd"><summary>¿Falta algún alimento? Añádelo</summary>
+      <input id="chg_s" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+      <div id="chg_p" class="chgp"></div>
+    </details>
+    <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button" style="width:100%;flex:1 1 100%">Guardar y anotar como comido</button></div>
+  </div>
 </div></div>
 <div class="sheet hide" id="sh" role="dialog" aria-label="Registrar alimento"><div>
   <button class="xc" id="shx" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -1932,15 +1941,28 @@ function plan(){
     const cur=row[1],seen=new Set([cur.n]),alts=recipesFor(o.kn,mo,pz).filter(r=>r.meals.includes(m)&&!seen.has(r.n)&&seen.add(r.n)).slice(0,4),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
-    $("chg_x").value="";$("chg_s").value="";
-    const sel=new Set(),mm=stats(),pool=ALL.filter(x=>unlocked(x)).sort((a,b)=>(mm[b.n]?1:0)-(mm[a.n]?1:0)||a.n.localeCompare(b.n,"es"));
-    const paint=()=>{const q=norm($("chg_s").value.trim()),L=pool.filter(x=>sel.has(x.n)||(q?norm(x.n).includes(q):true)).slice(0,q?60:36);
-      $("chg_p").innerHTML=L.map(x=>`<button type="button" class="pk${sel.has(x.n)?" on":""}" data-n="${esc(x.n)}" aria-pressed="${sel.has(x.n)}">${esc(x.n)}</button>`).join("")||'<p class="mute">No encuentro ese ingrediente.</p>';
-      $("chg_p").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;if(sel.has(n))sel.delete(n);else sel.add(n);paint()})};
-    $("chg_s").oninput=paint;paint();
+    $("chg_x").value="";$("chg_s").value="";$("chg_b").querySelector(".chgadd").open=false;
+    const setMd=md=>{$("chg_md").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.md===md));$("chg_a").classList.toggle("hide",md!=="a");$("chg_b").classList.toggle("hide",md!=="b")};
+    $("chg_md").querySelectorAll("button").forEach(x=>x.onclick=()=>setMd(x.dataset.md));setMd(alts.length?"a":"b");
+    // Lo que le ha dado: lo que se reconoce en el texto + lo que se añade a mano − lo que se quita
+    const sel=new Set(),rem=new Set(),mm=stats(),pool=ALL.filter(x=>unlocked(x)).sort((a,b)=>(mm[b.n]?1:0)-(mm[a.n]?1:0)||a.n.localeCompare(b.n,"es"));
+    const fin=()=>[...new Set([...inferIngs($("chg_x").value).filter(n=>!rem.has(n)),...sel])];
+    const paint=()=>{const F=fin(),q=norm($("chg_s").value.trim()),L=pool.filter(x=>!F.includes(x.n)&&(q?norm(x.n).includes(q):true)).slice(0,q?60:30);
+      $("chg_dh").textContent=F.length?"Anotaremos como comido:":"Escribe qué le has dado y aquí saldrán los alimentos.";
+      $("chg_det").innerHTML=F.map(n=>`<button type="button" class="pk on" data-n="${esc(n)}" aria-label="Quitar ${esc(n)}">${esc(n)} ✕</button>`).join("");
+      $("chg_det").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;if(sel.has(n))sel.delete(n);else rem.add(n);paint()});
+      $("chg_p").innerHTML=L.map(x=>`<button type="button" class="pk" data-n="${esc(x.n)}">+ ${esc(x.n)}</button>`).join("")||'<p class="mute">No encuentro ese alimento.</p>';
+      $("chg_p").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;sel.add(n);rem.delete(n);paint()})};
+    $("chg_s").oninput=paint;$("chg_x").oninput=paint;paint();
     $("chg").classList.remove("hide");
     $("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=alts[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n,i:r.ings.slice()});$("chg").classList.add("hide");save();render()});
-    $("chg_ok").onclick=()=>{const ii=[...sel];let t=$("chg_x").value.trim().slice(0,80);if(!t&&ii.length){const lo=ii.map(n=>n.toLowerCase());t=(lo.length>1?lo.slice(0,-1).join(", ")+" y "+lo[lo.length-1]:lo[0]);t=t.charAt(0).toUpperCase()+t.slice(1)}if(!t)return;dropMeal(d,m);{const i2=ii.length?ii:inferIngs(t);setOv(d,m,i2.length?{n:t,i:i2}:{n:t})}$("chg").classList.add("hide");save();render()};});
+    $("chg_ok").onclick=()=>{const ii=fin();let t=$("chg_x").value.trim().replace(/\s+/g," ").slice(0,80);
+      if(!t&&ii.length){const lo=ii.map(n=>n.toLowerCase());t=(lo.length>1?lo.slice(0,-1).join(", ")+" y "+lo[lo.length-1]:lo[0])}
+      if(!t){$("chg_x").focus();return}t=t.charAt(0).toUpperCase()+t.slice(1);
+      dropMeal(d,m);setOv(d,m,ii.length?{n:t,i:ii}:{n:t});
+      const e=S.ml[d]=S.ml[d]||{};e[m]={d:true};
+      const sm=stats(),fdm=firstDates();ii.filter(n=>!S.log.some(l=>l.d===d&&l.f===n)).forEach(n=>S.log.push({f:n,how:ii.length>1?"En receta":(pz?"Trozos":"Tiras"),r:mealR(n,ii,!fdm[n],null,sm[n]&&sm[n].last),d,ml:m,sv:ii.length>1?"rec":"solo"}));
+      $("chg").classList.add("hide");save();render()};});
 
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&today()!==lastDay){lastDay=today();pdate=null;render()}});
