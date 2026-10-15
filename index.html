@@ -849,8 +849,10 @@ function presHtml(x,pz){const p=presOf(x);if(!p)return"";const ML=x&&x.c==="Frut
 
 // Ficha de registro: puré/aplastado y trozos, lado a lado
 function sheetPres(x){const p=presOf(x);if(!p)return"";if(x.c==="Frutos secos")return presHtml(x,pinzaNow());
-  const f=(form,t,lab)=>`<figure>${fig(form,0,0,true)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
-  const o=[];if(p.pu)o.push(f("mash",p.pu,"Puré o aplastado"));if(p.q)o.push(f("bits",p.q[1],"Trozos"));
+  // Antes de los 9 meses (sin pinza) se ofrece en tiras; a partir de ahí, en trozos
+  const pz=pinzaNow(),f=(form,t,lab)=>`<figure>${fig(form,0,0,pz)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
+  const o=[];if(p.pu)o.push(f("mash",p.pu,"Puré o aplastado"));
+  if(pz){if(p.q)o.push(f(p.q[0],p.q[1],"Trozos"))}else if(pict(p.b[0],false)!=="mash")o.push(f(p.b[0],p.b[1],"Tiras"));
   return o.length?`<div class="pres">${o.join("")}</div>`:""}
 const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","En crema o muy triturado"];
 const RL={love:"Le encantó",meh:"Regular",no:"No ha querido",react:"Tuvo reacción",pre:"Ya lo había probado",mix:"En mezcla"};
