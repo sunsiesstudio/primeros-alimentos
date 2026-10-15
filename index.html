@@ -242,6 +242,7 @@ details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remin
 #v5 .gsteps li{padding:10px 12px;border-radius:16px}
 details.gfull{margin-top:14px}
 .shq{margin:14px 0 6px;font-weight:700;font-size:.95rem;color:var(--ink)}.shq2{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}#sh .svp{margin-bottom:0}
+.nfch{display:flex;justify-content:space-between;gap:10px;margin-top:10px}.nfch .x{font-size:.85rem}#nfsh #nfsh_q{width:100%;margin-bottom:6px}#nfsh .fit .tag{font-size:.7rem}
 .ndk{display:flex!important;align-items:center;gap:8px;font-size:.9rem;margin-top:6px!important;cursor:pointer}.ndk input{width:20px;height:20px;margin:0;accent-color:var(--green)}#dt:disabled{opacity:.4}.ndt{font-size:.8rem}
 .mpick{margin-top:10px}.svp{margin:4px 0 10px}.svp div{display:grid!important;grid-template-columns:1fr 1fr}.svp button{min-height:40px!important}.mpick>span{display:block;font-size:.85rem;margin-bottom:6px}.mpick div{display:flex;flex-wrap:wrap;gap:6px}.mpick button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 11px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:34px}.mpick button.on{background:var(--green);border-color:var(--green);color:#fff}
 .mk{display:block;margin-top:8px}.mk .mt,.dday .bt .mt{display:block;width:100%;min-height:44px;font-size:.9rem}
@@ -713,6 +714,13 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
 
+<div class="sheet hide" id="nfsh" role="dialog" aria-label="Elegir alimento nuevo"><div>
+  <button class="xc" id="nfsh_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h3 class="disp">Elegir alimento nuevo</h3>
+  <p class="mute" style="margin:4px 0 10px">Solo salen los que aún no ha probado y ya puede comer.</p>
+  <input id="nfsh_q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+  <div id="nfsh_l"></div>
+</div></div>
 <div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
 <div class="snk hide" id="snk" role="status"></div>
 <div class="sheet hide" id="cr" role="dialog" aria-label="Encuadrar foto" style="z-index:14"><div>
@@ -880,6 +888,16 @@ const QTY=[[6,6,"6 meses","1 o 2 comidas al día","De 1 a 3 cucharadas por comid
 const qtyRows=()=>{const a=age(),mo=a?a.mo:-1,plate=`<div class="plt"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="var(--line)"/><path d="M60 60 L60 6 A54 54 0 0 0 60 114 Z" fill="#7bb661"/><path d="M60 60 L60 6 A54 54 0 0 1 114 60 Z" fill="#e0a090"/><path d="M60 60 L114 60 A54 54 0 0 1 60 114 Z" fill="#e0c48a"/><path d="M60 6 V114 M60 60 H114" stroke="var(--card,#2a2e2b)" stroke-width="3"/></svg><ul><li><i style="background:#7bb661"></i><span><b>La mitad, verdura</b><small>Calabacín, brócoli, zanahoria, judías... También vale fruta</small></span></li><li><i style="background:#e0a090"></i><span><b>Un cuarto, proteína</b><small>Carne, pescado, huevo o legumbre</small></span></li><li><i style="background:#e0c48a"></i><span><b>Un cuarto, hidratos</b><small>Patata, boniato, arroz, pasta, pan o quinoa</small></span></li></ul></div><p class="mute qtyn">Y un chorrito de aceite de oliva virgen extra. En la práctica, con 4 cucharadas: 2 de verdura, 1 de proteína y 1 de hidratos.</p>`;
   return `<div class="qty"><h5>Cuánto, según la edad</h5>${QTY.map(([f,t,l,m,c])=>{const now=mo>=f&&mo<=t;return `<div class="qtyr${now?" now":""}"><b>${l}${now?' <span class="tag ok">Ahora</span>':""}</b><span class="qtym">${m}</span><small>${c}</small></div>`}).join("")}<p class="mute qtyn">Cuchara sopera, por comida principal. Son orientativas: tú decides qué ofrecer y el bebé decide cuánto come. La leche, materna o de fórmula, sigue siendo lo principal hasta el año y va a demanda.</p><h5 class="qtyh2">Cómo repartir el plato</h5>${plate}</div>`};
 const chokeList=()=>`<div class="chk"><h5>Lo que más atraganta y cómo ofrecerlo</h5>${CHOKE.map(([i,n,t])=>`<div class="chkr"><span class="chki">${ico(i)}</span><span><b>${esc(n)}</b><small>${esc(t)}</small></span></div>`).join("")}</div>`;
+// Cambiar el alimento nuevo de un día: otra sugerencia o elegido a mano
+let nfDay="";
+const nfPool=()=>{const m=stats(),p=S.prefs;return ALL.filter(x=>!m[x.n]&&unlocked(x)&&allowed(x,p)&&!x.lim).sort((a,b)=>a.n.localeCompare(b.n,"es"))};
+function nfDraw(){const q=norm($("nfsh_q").value.trim()),L=nfPool().filter(x=>!q||norm(x.n).includes(q));$("nfsh_l").innerHTML=L.map(x=>`<button type="button" class="fit" data-pick="${esc(x.n)}">${ico(x.n)}<span class="nm${x.a?" al":""}">${esc(x.n)}</span><span class="tag">${esc(x.c)}</span></button>`).join("")||'<p class="mute">No hay ninguno con ese nombre.</p>'}
+function nfSet(ds,fn){S.prefs.nfd=S.prefs.nfd||{};S.prefs.nfs=S.prefs.nfs||{};fn(S.prefs.nfd,S.prefs.nfs);save();plan()}
+document.addEventListener("click",e=>{
+  const o=e.target.closest("[data-nfo]");if(o){const ds=o.dataset.d,n=o.dataset.nfo;nfSet(ds,(d,sk)=>{delete d[ds];sk[ds]=[...new Set([...(sk[ds]||[]),n])].slice(-40)});return}
+  const pk=e.target.closest("[data-nfp]");if(pk){nfDay=pk.dataset.d;$("nfsh_q").value="";nfDraw();$("nfsh").classList.remove("hide");return}
+  const c=e.target.closest("#nfsh [data-pick]");if(c){const ds=nfDay,n=c.dataset.pick;$("nfsh").classList.add("hide");nfSet(ds,(d,sk)=>{d[ds]=n;if(sk[ds])sk[ds]=sk[ds].filter(v=>v!==n)});return}
+});
 const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","En crema o muy triturado"];
 const RL={love:"Le encantó",meh:"Regular",no:"No ha querido",react:"Tuvo reacción",pre:"Ya lo había probado",mix:"En mezcla"};
 const isPre=(f,d)=>S.log.some(l=>l.pre&&l.f===f&&l.d===d);
@@ -905,7 +923,8 @@ const cleanSch=o=>{const r={done:{},off:{}};if(o&&typeof o==="object"){["done","
 const fixB=o=>{o=o||{};const pr={...DEFP(),...(o.prefs||{})};pr.goals=Array.isArray(pr.goals)?[...pr.goals]:[];
   if(pr.iron&&!pr.goals.includes("iron"))pr.goals.push("iron");if(pr.alg&&!pr.goals.includes("alg"))pr.goals.push("alg");
   delete pr.iron;delete pr.alg;delete pr.per;if(!["pure","grad","blw"].includes(pr.sty))pr.sty="";{const r={};["Desayuno","Merienda"].forEach(m=>{const a=pr.rec&&Array.isArray(pr.rec[m])?pr.rec[m]:[];r[m]=a.filter(x=>x&&typeof x.n==="string"&&x.n.trim()).slice(0,6).map(x=>({n:x.n.trim().slice(0,60),i:(Array.isArray(x.i)?x.i:[]).filter(n=>typeof n==="string"&&ALL.some(a=>a.n===n)).slice(0,8)}))});pr.rec=r}
-  pr.skip=Array.isArray(pr.skip)?pr.skip.filter(n=>typeof n==="string"&&ALL.some(x=>x.n===n)).slice(0,60):[];
+  {const okD=v=>v&&typeof v==="object"&&!Array.isArray(v)?v:{},lim=new Date(Date.now()-14*864e5).toISOString().slice(0,10),cut=o=>Object.fromEntries(Object.entries(o).filter(([k])=>/^\d{4}-\d{2}-\d{2}$/.test(k)&&k>=lim));pr.nfd=cut(okD(pr.nfd));pr.nfs=cut(okD(pr.nfs))}
+pr.skip=Array.isArray(pr.skip)?pr.skip.filter(n=>typeof n==="string"&&ALL.some(x=>x.n===n)).slice(0,60):[];
   pr.ord=Array.isArray(pr.ord)?pr.ord.filter(n=>typeof n==="string"&&ALL.some(x=>x.n===n)).slice(0,30):[];if(pr.sty!=="grad"||!/^\d{4}-\d{2}-\d{2}$/.test(pr.sty0||""))delete pr.sty0;
   pr.gen=o.prefs&&"gen" in o.prefs?!!o.prefs.gen:!!(o.bd||(Array.isArray(o.log)&&o.log.length));
   return{id:o.id||uid(),nm:o.nm||"",bd:o.bd||"",ga:+o.ga>=22&&+o.ga<=42?+o.ga:0,early:!!o.early,eat:["pure","mix","bits"].includes(o.eat)?o.eat:"",meals:[1,2,3,4].includes(+o.meals)?+o.meals:0,app:["play","some","full"].includes(o.app)?o.app:"",pinza:o.pinza===true?true:o.pinza===false?false:null,al:cleanAl(o.al),rx:cleanRx(o.rx),ph:validPh(o.ph),sl:cleanSl(o.sl),ml:cleanMl(o.ml),ov:cleanOv(o.ov),sch:cleanSch(o.sch),dip:!!o.dip,log:(Array.isArray(o.log)?o.log:[]).map(l=>l&&FMAP[l.f]?{...l,f:FMAP[l.f]}:l),prefs:pr}};
@@ -1694,7 +1713,9 @@ function plan(){
     if(!doneNew.length&&rp&&rp.left>0){rp.left--;rp.n++;rep={x:rp.x,n:rp.n};lastA=d;lastNew=d}
     else if(!doneNew.length&&d-lastNew>=every){
       let best=null,bs=-1e9;const kn0=n=>known.some(k=>k.n===n),T0=Object.values(cc).reduce((a,b)=>a+b,0);
+      const nfs=(p.nfs&&p.nfs[ds])||[],nfd=p.nfd&&p.nfd[ds];
       pool.forEach(x=>{
+        if(nfs.includes(x.n))return;
         const extra=x.c==="Frutos secos"||x.c==="Condimentos";
         const des=Math.max(TGT[x.c]||0,(SH[x.c]||0)*(T0+1)),cnt=cc[x.c]||0;
         let s=rnd()*1.5+Math.min(Math.max(0,des-cnt),3)*2.5;
@@ -1710,6 +1731,7 @@ function plan(){
         if(x.c===prev)s-=2;
         if(extra)s-=(T0<12?9:3);
         if(s>bs){bs=s;best=x}});
+      if(nfd){const c=pool.find(x=>x.n===nfd);if(c)best=c}
       let drp=false;
       if(best&&S.ov&&S.ov[ds]){const mo0=ag?ag.mo:8,R0=recipesFor([...known,best],mo0,pinzaNow()),ovd=S.ov[ds],ing=v=>{if(!v)return[];const f=R0.find(r=>r.n===v.n);return f?f.ings:(v.i||[])},
         slot=mealsFor(mo0).find(k=>R0.some(r=>r.meals.includes(k)&&r.ings.includes(best.n)));
@@ -1766,7 +1788,7 @@ function plan(){
   const menuHtml=(o,rows)=>{
     const nn=new Set(o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[])),nws=o.items.concat(o.rep?[o.rep.x]:[]);
     const wy=whyHtml(o);
-    const newH=nws.map(x=>`<div class="nfood"><div class="nfr">${ico(x.n)}<div class="nfb"><span class="tag">${o.rep&&x===o.rep.x?"Repetimos":"Alimento nuevo"}</span><b class="disp nfn">${esc(x.n)}</b>${x===o.items[0]&&wy.why?`<span class="nfw">${esc(wy.why)}</span>`:""}${(o.rep&&x===o.rep.x)?"":`<span class="nfg">${goals.filter(g=>GS[g](x)&&g!=="alg").map(g=>`<span class="tag">${GL[g]}</span>`).join("")}</span>`}</div></div>${offerText(x,pz)?`<p class="mute">${esc(offerText(x,pz))}</p>`:""}<button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-m="">Registrar cómo ha ido</button></div>`).join("");
+    const newH=nws.map(x=>`<div class="nfood"><div class="nfr">${ico(x.n)}<div class="nfb"><span class="tag">${o.rep&&x===o.rep.x?"Repetimos":"Alimento nuevo"}</span><b class="disp nfn">${esc(x.n)}</b>${x===o.items[0]&&wy.why?`<span class="nfw">${esc(wy.why)}</span>`:""}${(o.rep&&x===o.rep.x)?"":`<span class="nfg">${goals.filter(g=>GS[g](x)&&g!=="alg").map(g=>`<span class="tag">${GL[g]}</span>`).join("")}</span>`}</div></div>${offerText(x,pz)?`<p class="mute">${esc(offerText(x,pz))}</p>`:""}<button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-m="">Registrar cómo ha ido</button>${(o.rep&&x===o.rep.x)||o.done.includes(x.n)?"":`<div class="nfch"><button type="button" class="x" data-nfo="${esc(x.n)}" data-d="${o.ds}">Otra sugerencia</button><button type="button" class="x" data-nfp="${esc(x.n)}" data-d="${o.ds}">Elegir otro alimento</button></div>`}</div>`).join("");
     if(!rows.length){const mn=menuFor(o);return newH+(mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:"")}
     const withNew=rows.filter(([m,r])=>r.ings.some(n=>nn.has(n)));
     const VB={"Desayuno":"desayunado","Media mañana":"tomado la media mañana","Comida":"comido","Merienda":"merendado","Cena":"cenado"};
@@ -1922,6 +1944,7 @@ function plan(){
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&today()!==lastDay){lastDay=today();pdate=null;render()}});
 setInterval(()=>{if(today()!==lastDay){lastDay=today();pdate=null;render()}},60000);
+$("nfsh_x").onclick=()=>$("nfsh").classList.add("hide");$("nfsh_q").oninput=nfDraw;
 $("pfx").onclick=$("pfbg").onclick=()=>{$("pfcard").open=false};
 $("mk").onclick=()=>{$("pfcard").open=false;if(S.prefs.gen)S.prefs.seed=(S.prefs.seed||1)+1;S.prefs.gen=true;planShown=7;save();plan()};
 
