@@ -1109,6 +1109,7 @@ function card(x,m,col){
   const s=m[x.n],lk=!unlocked(x);
   return `<button class="it kb${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span><span class="ct"><span class="dot" style="background:${x.col}"></span>${x.c}</span>${col==="plan"?`<span class="ct">${fdShort(PLANNED[x.n])}</span>`:col==="done"&&FIRSTD[x.n]?`<span class="ct">${fdShort(FIRSTD[x.n])}</span>`:""}${blockedG(x)?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Alergia</span>':""}${x.lim?'<span class="ct" style="background:var(--terra);color:var(--onacc)">Limitar</span>':""}</span>${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`;
 }
+const LOPN=new Set();
 function board(){
   const m=stats(),q=norm($("q").value.trim());
   FIRSTD={};S.log.forEach(l=>{if(!FIRSTD[l.f]||l.d<FIRSTD[l.f])FIRSTD[l.f]=l.d});
@@ -1119,10 +1120,12 @@ function board(){
   $("prog").innerHTML=progHtml(nd);
   if(view==="list"){
     $("lst").innerHTML=C.map(c=>{
-      const it=ALL.filter(x=>x.c===c[0]&&(cat==="Todos"||x.c===cat)&&(!q||norm(x.n).includes(q)));
+      const it=ALL.filter(x=>x.c===c[0]&&!x.lim&&(!q||norm(x.n).includes(q)));
       if(!it.length)return"";
-      return `<div><h2 class="disp">${c[0]}</h2><p class="cn">${esc(c[2])}</p>`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
-        return `<button class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${STAR}<span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">${x.lim?"Limitar":"No antes de "+x.min+" m"}</span>`:""}${s&&s.c>1?`<span class="cnt">x${s.c}</span>`:""}</button>`}).join("")+"</div>"}).join("")||'<div class="empty">Nada por aquí.</div>';
+      const tn=it.filter(x=>m[x.n]).length;
+      return `<details class="grp" data-c="${esc(c[0])}"${q||LOPN.has(c[0])?" open":""}><summary><h2 class="disp" style="font-size:1.15rem;color:var(--blue)">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb">`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
+        return `<button type="button" class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${ico(x.n)}${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">No antes de ${x.min} m</span>`:""}</span></button>`}).join("")+`</div></details>`}).join("");
+    $("lst").querySelectorAll("details.grp").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)LOPN.add(d.dataset.c);else LOPN.delete(d.dataset.c)}));
     $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
     return;
   }
