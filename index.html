@@ -316,6 +316,9 @@ details.gfull{margin-top:14px}
 .course .cl i{font-style:normal;color:var(--green)}
 #shp figure{cursor:pointer;border:2px solid transparent}
 #shp figure.sel{border-color:var(--green)}
+#shp .pres{grid-template-columns:repeat(2,minmax(0,1fr))}
+#shp .pres:has(figure:only-child){grid-template-columns:1fr}
+#shp figure{flex-direction:column;align-items:flex-start;padding:10px}
 #shp .ph{font-size:.8rem;color:var(--mute);margin:0 0 -2px}
 .mr{display:flex;gap:10px;align-items:center;margin:4px 0 6px}
 .mr .dn{font-weight:700;font-size:.98rem;line-height:1.25}
@@ -679,15 +682,14 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
   <div class="warn hide" id="warn"></div>
   <div class="risk hide" id="risk"></div>
   <div id="shp"></div>
-  <div class="rxq"><div class="rxg" id="rxg" role="group" aria-label="¿Cómo ha ido?"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">Hoy no</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
-  <select id="rx" class="hide"><option value="">Elige</option><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">Hoy no</option><option value="react">Tuvo reacción</option></select>
+  <div class="rxq"><div class="rxg" id="rxg" role="group" aria-label="¿Cómo ha ido?"><button type="button" data-v="love">Le encantó</button><button type="button" data-v="meh">Regular</button><button type="button" data-v="no">No ha querido</button><button type="button" data-v="react">Tuvo reacción</button></div></div>
+  <select id="rx" class="hide"><option value="">Elige</option><option value="love">Le encantó</option><option value="meh">Regular</option><option value="no">No ha querido</option><option value="react">Tuvo reacción</option></select>
   <div id="rxb" class="hide">
     <label>¿Qué reacción?<select id="rxt"></select></label>
     <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
   </div>
   <details class="shmore"><summary>Más detalles</summary>
-  <label>Fecha<input id="dt" type="date"></label>
-  <div class="mpick" id="mpick" role="group" aria-label="Servicio (opcional)"><span>¿En qué comida? (opcional)</span><div id="mpick_b"></div></div>
+  <label>Probado por primera vez<input id="dt" type="date"></label>
   <label id="howl">Cómo lo serviste<select id="how"></select></label>
   <input id="rxn" type="text" maxlength="300" placeholder="Notas (opcional)" aria-label="Notas">
   <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" class="x" id="fph_rm">Quitar foto</button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
@@ -845,8 +847,13 @@ function presHtml(x,pz){const p=presOf(x);if(!p)return"";const ML=x&&x.c==="Frut
   if(pict(p.b[0],false)==="mash")return `<div class="pres">${f("mash",p.b[1],ML)}</div>`;
   return `<div class="pres">${f(p.b[0],p.b[1],"Tiras")}${f("mash",p.pu,ML)}</div>`}
 
+// Ficha de registro: puré/aplastado y trozos, lado a lado
+function sheetPres(x){const p=presOf(x);if(!p)return"";if(x.c==="Frutos secos")return presHtml(x,pinzaNow());
+  const f=(form,t,lab)=>`<figure>${fig(form,0,0,true)}<figcaption><b>${lab}</b>${esc(t)}</figcaption></figure>`;
+  const o=[];if(p.pu)o.push(f("mash",p.pu,"Puré o aplastado"));if(p.q)o.push(f("bits",p.q[1],"Trozos"));
+  return o.length?`<div class="pres">${o.join("")}</div>`:""}
 const HOW=["Tiras","Puré o aplastado","Trozos","Al vapor","Asado","Desmenuzado","Mezclado en papilla o yogur","En crema o muy triturado"];
-const RL={love:"Le encantó",meh:"Regular",no:"Hoy no",react:"Tuvo reacción",pre:"Ya lo había probado",mix:"En mezcla"};
+const RL={love:"Le encantó",meh:"Regular",no:"No ha querido",react:"Tuvo reacción",pre:"Ya lo había probado",mix:"En mezcla"};
 const isPre=(f,d)=>S.log.some(l=>l.pre&&l.f===f&&l.d===d);
 const K="primeros_v2";
 const DEFP=()=>({diet:"om",goals:[],gf:false,days:7,every:1,seed:1,gen:false,fz:"fresh"});
@@ -1197,8 +1204,7 @@ let snkT=0;
 function snack(html,label,fn){const e=$("snk");e.innerHTML=`<span>${html}</span>${label?`<button type="button" class="x">${label}</button>`:""}<button type="button" class="x" aria-label="Cerrar">✕</button>`;e.classList.remove("hide");
   const bs=e.querySelectorAll("button");if(label)bs[0].onclick=()=>{e.classList.add("hide");fn()};bs[bs.length-1].onclick=()=>e.classList.add("hide");clearTimeout(snkT);snkT=setTimeout(()=>e.classList.add("hide"),12000)}
 let curMeal="";
-function drawMeal(){$("mpick_b").innerHTML=MEALS.map(m=>`<button type="button" data-m="${esc(m)}" class="${curMeal===m?"on":""}" aria-pressed="${curMeal===m}">${esc(m)}</button>`).join("");$("mpick_b").querySelectorAll("button").forEach(b=>b.onclick=()=>{curMeal=curMeal===b.dataset.m?"":b.dataset.m;drawMeal()})}
-function openSheet(n,pd,rest,pieces){cur=n;curMeal="";drawMeal();const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?presHtml(x,pinzaNow()):"";
+function openSheet(n,pd,rest,pieces){cur=n;curMeal="";const x=info(n);$("shn").textContent=n;$("sht").textContent=x&&x.c==="Condimentos"?"Una pizca, al cocinar":rest!==undefined?"Alimento nuevo de hoy. Lo importante es cómo ha ido con este.":"";$("shp").innerHTML=x&&!x.lim?sheetPres(x):"";
   const lk=!!x&&!unlocked(x),w=[],a=age();
   if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo} meses.`:""}</p>`);
   if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p>');
