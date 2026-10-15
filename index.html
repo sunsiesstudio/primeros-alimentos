@@ -239,7 +239,7 @@ details.gfull{margin-top:14px}
 .mrow>.mt{flex:none;align-self:center}.lc{font-size:.78rem;margin:8px 0 0}
 .why{margin:8px 0 4px;padding:8px 12px;border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 9%,transparent);border-radius:0 10px 10px 0}
 .why p{margin:3px 0;font-size:.86rem;line-height:1.4}
-.nfood{margin:12px 0 4px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}.nfood .nfn{display:block;font-size:1.7rem;color:var(--green);line-height:1.1;margin:6px 0 4px}.nfood .btn{margin-top:10px;width:100%}
+.nfood{margin:12px 0 4px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}.nfood .nfn{display:block;font-size:1.7rem;color:var(--green);line-height:1.1;margin:6px 0 4px}.nfood .nfr{display:flex;align-items:center;gap:12px}.nfood svg.fd{width:60px;height:60px}.nfood .nfn{margin:4px 0 0}.nfood .mute{margin:8px 0 0}.nfood .btn{margin-top:10px;width:100%}
 .rmenu{margin:12px 0 2px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:2px solid var(--green);outline:1px solid var(--green);outline-offset:3px;text-align:left}
 .rmenu .mh{text-align:center;margin-bottom:6px}
 .rmenu .mh .disp{display:block;font-size:1.35rem;color:var(--green);line-height:1.1}
@@ -1610,7 +1610,7 @@ function plan(){
     return rows};
   const menuHtml=(o,rows)=>{
     const nn=new Set(o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[])),nws=o.items.concat(o.rep?[o.rep.x]:[]);
-    const newH=nws.map(x=>`<div class="nfood"><span class="tag">${o.rep&&x===o.rep.x?"Repetimos":"Alimento nuevo"}</span><b class="disp nfn">${esc(x.n)}</b>${offerText(x,pz)?`<p class="mute">${esc(offerText(x,pz))}</p>`:""}<button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-m="">Registrar cómo ha ido</button></div>`).join("");
+    const newH=nws.map(x=>`<div class="nfood"><div class="nfr">${ico(x.n)}<div><span class="tag">${o.rep&&x===o.rep.x?"Repetimos":"Alimento nuevo"}</span><b class="disp nfn">${esc(x.n)}</b></div></div>${offerText(x,pz)?`<p class="mute">${esc(offerText(x,pz))}</p>`:""}<button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-m="">Registrar cómo ha ido</button></div>`).join("");
     if(!rows.length){const mn=menuFor(o);return newH+(mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:"")}
     const withNew=rows.filter(([m,r])=>r.ings.some(n=>nn.has(n))),others=rows.filter(x=>!withNew.includes(x));
     const rc=([meal,r],tag)=>`<div class="course"><div class="cl">${esc(meal)}${tag?` <span class="tag">${tag}</span>`:""}<button class="chg" data-chg="${esc(meal)}" data-d="${o.ds}">Cambiar</button></div><div class="mr">${r.g}<p><span class="dn">${esc(r.n)}</span><br><span class="qs">${esc(r.q.join(" · "))}</span><em>${esc(r.how)}</em></p></div></div>`;
