@@ -1558,7 +1558,7 @@ function plan(){
     const doneNew=done.filter(f=>first[f]===ds);
     done.forEach(n=>{const a=info(n);if(a&&a.fe)lastFe=d;if(a&&ZN.has(a.n))lastZn=d;if(a&&a.a){lastA=d;if(first[n]===ds)rp={x:a,left:2,n:1}}});
     if(doneNew.length)lastNew=d;
-    const items=[];let rep=null,pre=null;
+    const items=[];let rep=null,pre=null;const noAl=[0,4,5,6].includes(dt.getDay());
     if(!doneNew.length&&rp&&rp.left>0){rp.left--;rp.n++;rep={x:rp.x,n:rp.n};lastA=d;lastNew=d}
     else if(!doneNew.length&&d-lastNew>=every){
       let best=null,bs=-1e9;const kn0=n=>known.some(k=>k.n===n),T0=Object.values(cc).reduce((a,b)=>a+b,0);
@@ -1571,10 +1571,10 @@ function plan(){
         if(x.fe&&goals.includes("iron")&&!extra)s+=3;
         s+=ease(x)*Math.max(0,1-T0/25);
         if(!extra){if(x.fe&&d-lastFe>=2)s+=Math.min(d-lastFe,6)*1.5;if(ZN.has(x.n)&&d-lastZn>=2)s+=Math.min(d-lastZn,6)*1.2}
-        {const oi=(p.ord||[]).indexOf(x.n);if(oi>=0&&!(x.a&&d-lastA<gap))s+=3000-oi*100}
+        {const oi=(p.ord||[]).indexOf(x.n);if(oi>=0&&!(x.a&&(d-lastA<gap||noAl)))s+=3000-oi*100}
         if(LATE.has(x.n)&&T0<30)s-=99;else if(!EZ0.has(x.n)&&!EZ1.has(x.n)&&!extra&&T0<20)s-=4;
         if(x.n==="Huevo"&&kn0("Aguacate")||x.n==="Aguacate"&&kn0("Huevo"))s+=3*Math.max(0,1-T0/25);
-        if(x.a&&d-lastA<gap)s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
+        if(x.a&&(d-lastA<gap||noAl))s-=99;else if(x.a&&!goals.includes("alg"))s-=1;
         if(x.c===prev)s-=2;
         if(extra)s-=(T0<12?9:3);
         if(s>bs){bs=s;best=x}});
