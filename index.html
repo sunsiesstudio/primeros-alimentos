@@ -302,7 +302,7 @@ details.gfull{margin-top:14px}
 .why p{margin:3px 0;font-size:.86rem;line-height:1.4}
 .wx{width:40px;height:44px;border:0;background:transparent;color:var(--mute);display:grid;place-items:center;cursor:pointer}#wk_addp{margin-top:10px}#wk_addp input{width:100%}.wrow{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:6px 0}.wgo{flex:1;display:flex;align-items:center;gap:10px;background:none;border:0;text-align:left;font:inherit;color:inherit;padding:4px 0;cursor:pointer;min-width:0}.wdn{width:46px;flex:none;font-size:.75rem;font-weight:700;text-transform:capitalize;color:var(--mute)}.wic{width:44px;flex:none}.wgo svg.fd{width:44px;height:44px}.wfn{display:flex;flex-direction:column;min-width:0}.wfn small{color:var(--mute);font-size:.75rem}.wmv{display:flex;gap:6px;flex:none}.wh{width:44px;height:44px;border:0;background:transparent;color:var(--mute);display:grid;place-items:center;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none}.wdrag{position:relative;z-index:3;background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,.2);border-radius:12px;transition:none}.wtarget{background:color-mix(in srgb,var(--blue) 10%,transparent)}.wrow{touch-action:pan-y}
 .recadd{display:flex;gap:8px;margin:6px 0 12px}.recadd input{flex:1;margin-top:0}.recadd .btn{flex:none}.recx{border:1.5px solid var(--line);background:transparent;border-radius:99px;padding:6px 12px;font:600 .8rem Montserrat,sans-serif;color:var(--ink);cursor:pointer}
-.nfood{margin:12px 0 4px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}.nfood .nfn{display:block;font-size:1.7rem;color:var(--green);line-height:1.1;margin:6px 0 4px}.nfood .nfr{display:flex;align-items:center;gap:12px}.nfood svg.fd{width:60px;height:60px}.nfood .nfn{margin:4px 0 0}.nfood .mute{margin:8px 0 0}.nfood .btn{margin-top:10px;width:100%}
+.nfood{margin:12px 0 4px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}.nfood .nfn{display:block;font-size:1.7rem;color:var(--green);line-height:1.1;margin:6px 0 4px}.nfood .nfr{display:flex;align-items:center;gap:14px}.nfood svg.fd{width:72px;height:72px;flex:none}.nfood .nfb{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px}.nfood .nfw{font-size:.88rem;line-height:1.3;color:var(--ink)}.nfood .nfg{display:flex;flex-wrap:wrap;gap:4px}.nfood .nfg:empty{display:none}.nfood .nfn{margin:4px 0 0}.nfood .mute{margin:8px 0 0}.nfood .btn{margin-top:10px;width:100%}
 .rmenu{margin:12px 0 2px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:2px solid var(--green);outline:1px solid var(--green);outline-offset:3px;text-align:left}
 .rmenu .mh{text-align:center;margin-bottom:6px}
 .rmenu .mh .disp{display:block;font-size:1.35rem;color:var(--green);line-height:1.1}
@@ -320,7 +320,7 @@ details.gfull{margin-top:14px}
 .mr{display:flex;gap:10px;align-items:center;margin:4px 0 6px}
 .mr .dn{font-weight:700;font-size:.98rem;line-height:1.25}
 .mr em{font-style:italic;font-size:.82rem;color:var(--mute)}
-.mk{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mk{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.course .mk{margin-top:10px}.course .mk .mt:first-child{flex:1 1 100%;min-height:50px;font-size:1rem;font-weight:700}.course .mk .mt:not(:first-child){flex:1 1 0;min-width:0;padding:6px 4px}
 .mt{border:1.5px solid var(--green);background:transparent;color:var(--green);border-radius:99px;padding:6px 12px;font:600 .8rem Montserrat,sans-serif;cursor:pointer;min-height:36px}
 .mt.on{background:var(--green);color:var(--onacc)}
 .fb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;font-size:.78rem;color:var(--mute)}
@@ -563,6 +563,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 
 <section id="v1">
 <div id="recent" class="hide"></div>
+  <h3 class="disp rcap" style="margin:4px 0 10px">Alimentos probados</h3>
   <div class="tools">
     <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
       <div class="vt" role="group" aria-label="Cambiar vista">
@@ -570,6 +571,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
         <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
       </div></div>
     <div class="seg" id="gm" role="group" aria-label="Agrupar alimentos"><button type="button" data-g="c" class="on">Por grupo</button><button type="button" data-g="n">Por nutriente</button></div>
+    <p class="mute" style="margin:0;font-size:.85rem">Los <b>alérgenos</b> aparecen en negrita.</p>
     <div class="chips" id="chips"></div>
   </div>
   <div class="board" id="board"></div>
@@ -1725,16 +1727,22 @@ function plan(){
     return rows};
   const menuHtml=(o,rows)=>{
     const nn=new Set(o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[])),nws=o.items.concat(o.rep?[o.rep.x]:[]);
-    const newH=nws.map(x=>`<div class="nfood"><div class="nfr">${ico(x.n)}<div><span class="tag">${o.rep&&x===o.rep.x?"Repetimos":"Alimento nuevo"}</span><b class="disp nfn">${esc(x.n)}</b></div></div>${offerText(x,pz)?`<p class="mute">${esc(offerText(x,pz))}</p>`:""}<button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-m="">Registrar cómo ha ido</button></div>`).join("");
+    const wy=whyHtml(o);
+    const newH=nws.map(x=>`<div class="nfood"><div class="nfr">${ico(x.n)}<div class="nfb"><span class="tag">${o.rep&&x===o.rep.x?"Repetimos":"Alimento nuevo"}</span><b class="disp nfn">${esc(x.n)}</b>${x===o.items[0]&&wy.why?`<span class="nfw">${esc(wy.why)}</span>`:""}${(o.rep&&x===o.rep.x)?"":`<span class="nfg">${goals.filter(g=>GS[g](x)&&g!=="alg").map(g=>`<span class="tag">${GL[g]}</span>`).join("")}</span>`}</div></div>${offerText(x,pz)?`<p class="mute">${esc(offerText(x,pz))}</p>`:""}<button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-m="">Registrar cómo ha ido</button></div>`).join("");
     if(!rows.length){const mn=menuFor(o);return newH+(mn?`<div class="menu"><b>Ideas para sus comidas</b>${mn}</div>`:"")}
     const withNew=rows.filter(([m,r])=>r.ings.some(n=>nn.has(n)));
-    const rc=([meal,r],tag)=>`<div class="course"><div class="cl">${esc(meal)}${tag?` <span class="tag">${tag}</span>`:""}<button class="chg" data-chg="${esc(meal)}" data-d="${o.ds}">Cambiar</button></div><div class="mr">${r.g}<p><span class="dn">${esc(r.n)}</span><br><span class="qs">${esc(r.q.join(" · "))}</span><em>${esc(r.how)}</em></p></div></div>`;
-    return newH+`<div class="rmenu"><div class="mh"><span class="disp">Menú del día</span><small>${nws.length?"Para integrar el alimento nuevo con lo que ya conoce":"Con lo que ya ha probado"}</small></div><div class="lw one"><div><b>Leche a demanda</b><span>Sin reducir las tomas</span></div></div><div class="orn">✦</div>`+rows.map(x=>rc(x,withNew.includes(x)?"con el nuevo":"")).join("")+`<div class="lw one wat"><div><b>Agua con cada comida</b><span>Máximo 60 ml por comida. En sorbos, en vaso abierto o taza, sin forzar. No sustituye a la leche.</span></div></div></div>`;
+    const VB={"Desayuno":"desayunado","Media mañana":"tomado la media mañana","Comida":"comido","Merienda":"merendado","Cena":"cenado"};
+    const mkH=(meal,r,o)=>{if(o.ds>t0)return"";const e=(S.ml[o.ds]||{})[meal],at=`data-d="${o.ds}" data-ml="${esc(meal)}"`;
+      if(!e)return `<div class="mk"><button type="button" class="mt" ${at}>Ha ${VB[meal]||"comido"}</button></div>`;
+      const al=r.ings.some(n=>(info(n)||{}).a);
+      return `<div class="mk"><button type="button" class="mt on" ${at} aria-label="Quitar marca">✓ Hecho</button>${MR.map(k=>`<button type="button" class="mt${e.r===k?" on":""}" ${at} data-fb="${k}">${RL[k]}</button>`).join("")}${al?`<button type="button" class="mt" ${at} data-fb="react">Reacción</button>`:""}</div>`};
+    const rc=([meal,r],tag)=>`<div class="course"><div class="cl">${esc(meal)}${tag?` <span class="tag">${tag}</span>`:""}<button class="chg" data-chg="${esc(meal)}" data-d="${o.ds}">Cambiar</button></div><div class="mr">${r.g}<p><span class="dn">${esc(r.n)}</span><br><span class="qs">${esc(r.q.join(" · "))}</span><em>${esc(r.how)}</em></p></div>${mkH(meal,r,o)}</div>`;
+    return newH+`<div class="rmenu"><div class="mh"><span class="disp">Menú del día</span><small>${rows.length} servicio${rows.length===1?"":"s"} · leche a demanda</small></div><div class="orn">✦</div>`+rows.map(x=>rc(x,withNew.includes(x)?"con el nuevo":"")).join("")+`<div class="lw one wat"><div><b>Agua con cada comida</b><span>Máximo 60 ml por comida. En sorbos, en vaso abierto o taza, sin forzar. No sustituye a la leche.</span></div></div></div>`;
   };
   const CW={"Frutas":"ninguna fruta","Verduras":"ninguna verdura","Proteínas":"ninguna proteína","Cereales":"ningún cereal","Lácteos":"ningún lácteo","Frutos secos":"ningún fruto seco","Condimentos":"ninguna hierba ni especia"};
   const CW1={"Frutas":["fruta","frutas"],"Verduras":["verdura","verduras"],"Proteínas":["proteína","proteínas"],"Cereales":["cereal","cereales"]};
   const whyHtml=o=>{
-    const nm=esc(S.nm||"tu bebé"),tl=`<b>Textura:</b> ${esc(texText(mo,tx))}`,hy=o.ds===t0?"Hoy":"El "+o.dt.toLocaleDateString("es-ES",{weekday:"long"});let head="";
+    const nm=esc(S.nm||"tu bebé"),tl=`<b>Textura:</b> ${esc(texText(mo,tx))}`,hy=o.ds===t0?"Hoy":"El "+o.dt.toLocaleDateString("es-ES",{weekday:"long"});let head="",why="";
     const x=o.items[0];
     if(x){const cnt=o.kn.filter(k=>k.c===x.c&&k!==x).length,R=[],used=new Set(),extra=x.c==="Frutos secos"||x.c==="Condimentos",add=(k,t)=>{if(!used.has(k)){used.add(k);R.push(t)}};
       if(x.a)add("a",`es un alérgeno (${(AGL[AG[x.n]]||"alérgeno").toLowerCase()}): lo ofrecemos 3 días seguidos, en poca cantidad y sin otros nuevos`);
@@ -1744,14 +1752,15 @@ function plan(){
       if(cnt===0)add("c",`todavía no ha probado ${CW[x.c]||"nada de este grupo"}`);else if(cnt<(TGT[x.c]||0)){const nn=(CW1[x.c]||["alimento","alimentos"])[cnt===1?0:1];add("c",`aún solo ha probado ${cnt} ${nn} y queremos más variedad`)}
       if(ZN.has(x.n))add("zn","aporta zinc");
       if(!R.length)R.push("suma variedad al menú sin repetir lo que ya conoce");
-      head=`${hy} toca ${bare(x.n)}, alimento nuevo: ${R[0]}.${R[1]?" Además, "+R[1]+".":""}`}
+      head=`${hy} toca ${bare(x.n)}, alimento nuevo: ${R[0]}.${R[1]?" Además, "+R[1]+".":""}`;
+      why=x.a?"Alérgeno: 3 días seguidos, en poca cantidad":R[0].charAt(0).toUpperCase()+R[0].slice(1)}
     else if(o.rep)head=`${hy} toca ${bare(o.rep.x.n)} por segunda vez, día ${o.rep.n} de 3: lo repetimos en poca cantidad para vigilar cómo le sienta.`;
     else if(o.drop)head=`Has cambiado el menú, así que lo de ${bareL(o.drop)} pasa a otro día.`;
     else if(o.done.length){const nf=o.done.filter(f=>first[f]===o.ds&&f!=="AOVE");head=nf.length?`${hy} ${nm} ha probado por primera vez ${bareL(nf)}.`:`${hy} ${nm} ha repetido alimentos que ya conoce.`}
     else head=`${hy} no hay alimento nuevo: repetimos lo que ya conoce para afianzarlo y dejamos ${every>1?"un par de días":"un día"} entre novedades.`;
     {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
       if((x||o.rep)&&cb.length)head+=` Lo mezclamos con ${cb.map(n=>esc(n==="AOVE"?n:n[0].toLowerCase()+n.slice(1))).join(", ").replace(/, ([^,]*)$/," y $1")}, que ya conoce.`}
-    return {head,tl}};
+    return {head,tl,why}};
   const shown=out.slice(0,show);shown.forEach(o=>{o.rows=menuRows(o);const ovd=(S.ov||{})[o.ds];if(ovd){const R=recipesFor(o.kn,mo,pz);o.rows=o.rows.map(([m,r])=>{const v=ovd[m];if(!v)return[m,r];const f=R.find(x=>x.n===v.n);return[m,f||{t:"solo",n:v.n,q:[],how:"Lo has cambiado tú",ings:(v.i&&v.i.length?v.i:inferIngs(v.n)).filter(n=>info(n)),g:fig("mash",0,0,false)}]});const inMenu=new Set(o.rows.flatMap(([m,r])=>r.ings));const dr=o.items.filter(x=>!inMenu.has(x.n)).map(x=>x.n).concat(o.rep&&!inMenu.has(o.rep.x.n)?[o.rep.x.n]:[]);o.items=o.items.filter(x=>inMenu.has(x.n));if(o.rep&&!inMenu.has(o.rep.x.n))o.rep=null;if(dr.length)o.drop=dr}if(!o.drop&&o.pre)o.drop=o.pre});shown.forEach(o=>o.items.forEach(x=>PLANNED[x.n]=o.ds));
   const wk={},wdy={};shown.forEach(o=>{const st=new Set(o.items.map(x=>x.n));o.rows.forEach(([m,r])=>r.ings.forEach(n=>st.add(n)));st.forEach(n=>{wk[n]=(wk[n]||0)+1;(wdy[n]=wdy[n]||[]).push(o.ds===t0?"hoy":o.dt.toLocaleDateString("es-ES",{weekday:"short"}).replace(".",""))})});
   const have=new Set((shown.length?shown[shown.length-1].kn:known).map(x=>x.n));
@@ -1794,7 +1803,7 @@ function plan(){
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
-    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}<p class="hd">${y.head}</p>${tg?`<p>${tg}</p>`:""}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${how}</div>`};
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}${o.items[0]?"":`<p class="hd">${y.head}</p>`}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${how}</div>`};
   {const pdn=n=>{pdate=n;subtab(1);plan();window.scrollTo({top:0})};
     const fm2=d=>d.toLocaleDateString("es-ES",{day:"numeric",month:"long"}),jn=a=>a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
     const rowOf=(o,dlab)=>{const x=o.items[0],dl=dlab;let body,mvb="";
