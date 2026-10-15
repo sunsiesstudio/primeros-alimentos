@@ -55,16 +55,6 @@ h1{font-size:clamp(1.8rem,7vw,2.8rem);color:var(--green);margin:0;line-height:1;
 .lz.gg .gtile:last-child:nth-child(odd){grid-column:1/-1}.lz.gg .gtile i{margin-bottom:2px}.lz.gg .gsafe:last-child:nth-child(odd){grid-column:1/-1}
 .lbd .gsteps{margin:0 0 12px}.lbd .gsteps li{display:grid;grid-template-columns:28px 1fr;column-gap:10px;row-gap:1px;align-items:center}.lbd .gsteps li:before{grid-row:1/3}.lbd .gsteps li b{grid-column:2}.lbd .gsteps li span{grid-column:2;font-size:.82rem;color:var(--mute)}.lbd .gsteps li:not(:has(span)):before{grid-row:1}
 .lbd .gband{margin:0 0 12px}
-.tkt{max-width:340px;margin-left:auto;margin-right:auto;background-image:linear-gradient(90deg,transparent 33%,rgba(0,0,0,.04) 33.3%,transparent 33.8%),linear-gradient(90deg,transparent 66%,rgba(0,0,0,.035) 66.3%,transparent 66.8%)}
-.tkt-h{border-bottom:1px solid var(--tk);padding-bottom:14px}.tkt-h h3{font:400 2rem/1.05 "Kaushan Script",cursive;letter-spacing:0;text-transform:none;margin:2px 0 8px}.tkt-h small{font-size:.7rem}
-.tkt .sl{display:grid;grid-template-columns:44px 1fr auto;column-gap:8px;align-items:baseline;padding:4px 0;font-size:.86rem;position:relative}
-.tkt .sl input{position:absolute;opacity:0;pointer-events:none}
-.tkt .sl .tq{font-weight:400}.tkt .sl .tn{font-weight:400;letter-spacing:.02em;min-width:0}.tkt .sl .td{font-size:.7rem;color:var(--tm);text-align:right;max-width:104px;line-height:1.2}
-.tkt .sl.cg1{margin-top:10px}.tkt .sl{min-height:0!important}
-.tkt .sl input:checked~span,.tkt .sl input:checked~b{text-decoration:line-through;opacity:.4}
-.tkt .trip{padding:10px 0 4px;border-bottom:1px solid var(--tk);margin:0}
-.tkt-tot{border-top:0;margin-top:12px;padding-top:0;font-size:1rem;letter-spacing:.04em}.tkt-tot b{font-size:1rem}.tkt-tot.sm{margin-top:2px;font-size:.9rem;font-weight:400}
-.tkt-g{letter-spacing:.24em;margin-top:0;font-size:.72rem}.tkt-n{display:none}
 .lfl{padding:10px 4px 4px;border-radius:16px;background:var(--bg);border:2px solid var(--line)}.lfl .gflow i svg{width:40px;height:40px}
 .gg1{display:grid;gap:8px}.gg1 .gsafe span{font-size:.84rem;line-height:1.4}
 .sprog{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin:14px 0 6px}.sprog i{display:block;height:100%;border-radius:99px;background:var(--green);transition:width .3s}
@@ -584,8 +574,6 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div id="pv2" class="hide"><div class="tkt"><div class="tkt-h"><h3 id="wk_t">Lista de la compra</h3><small id="wk_rng"></small></div><div id="shop"></div></div></div>
 </section>
 <section id="v3" class="hide"><div class="btns rtabs" id="rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" data-rt="st" role="tab">Estadísticas</button><button class="btn" data-rt="al" role="tab">Alérgenos</button></div>
-<div class="card hide" id="calcard"><div id="cal"></div><div class="leg"><span><i class="dot rc-love"></i>Le gustó</span><span><i class="dot rc-meh"></i>Regular</span><span><i class="dot rc-no"></i>No</span><span><i class="dot rc-react"></i>Reacción o alérgeno</span></div></div>
-<div id="cdet" class="hide"></div>
 <div class="card hide" id="progcard"><div class="tkh" style="margin-bottom:10px"><h3 class="disp">Estadísticas</h3></div><div id="prog"></div></div>
 <div class="card hide" id="nutcard"></div>
 <div class="tk hide" id="tkwrap">
@@ -1097,9 +1085,9 @@ let cm=new Date();cm=new Date(cm.getFullYear(),cm.getMonth(),1);let csel=today()
 let cpick=false;
 let rtab="st";
 function setRT(t){rtab=t;document.querySelectorAll("#rtabs [data-rt]").forEach(b=>{const on=b.dataset.rt===t;b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
-  $("progcard").classList.toggle("hide",t!=="st");$("calcard").classList.toggle("hide",t!=="st");$("cdet").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al");if(typeof renderSw==="function"&&curV===3)renderSw()}
+  $("progcard").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al");if(typeof renderSw==="function"&&curV===3)renderSw()}
 document.querySelectorAll("#rtabs [data-rt]").forEach(b=>b.onclick=()=>{setRT(b.dataset.rt);window.scrollTo({top:0})});
-function renderCal(){
+function renderCal(){if(!$("cal"))return;
   const t0=today(),byDay={};S.log.forEach((l,i)=>{(byDay[l.d]=byDay[l.d]||[]).push({...l,i})});
   const nowD=new Date(t0+"T00:00:00"),dow=(nowD.getDay()+6)%7,W=16;
   const st=new Date(nowD);st.setDate(st.getDate()-dow-7*(W-1));
@@ -1823,7 +1811,7 @@ function renderWeek(W){
   const lq=(x,q)=>{const lw=x.n.charAt(0).toLowerCase()+x.n.slice(1);return q?(/^[\d,]+ (g|kg)/.test(q)?q.replace(/^([\d,]+ (?:g|kg))/,"$1 de "+lw):q):x.n};
   const by={};shopCur.forEach(i=>{const x=info(i.n);if(x)(by[x.c]=by[x.c]||[]).push({...i,x})});
   const qsplit=m=>{const r=m.match(/^([\d,]+(?:\s?(?:g|kg|ml|l))?)\s+(?:de\s+)?(.+)$/i);return r?[r[1],r[2]]:["1",m]};
-  const tripH=SHOPORD.filter(c=>by[c]).map((c,ci)=>by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map((i,k)=>{const q=shopQty(i.x,i.s),m=lq(i.x,q),[qq,nn]=qsplit(m);return `<label class="sl${k===0&&ci>0?" cg1":""}"><input type="checkbox" data-sl="${esc(i.key)}"${S.sl[i.key]?" checked":""}><span class="tq">${esc(qq)}</span><b class="tn${i.x.a?" al":""}">${esc(nn.toUpperCase())}</b><span class="td">${esc(dl(i.dl).toUpperCase())}</span></label>`}).join("")).join("");
+  const tripH=SHOPORD.filter(c=>by[c]).map(c=>`<div class="cat">${esc(c)}</div>`+by[c].sort((a,b)=>a.n.localeCompare(b.n,"es")).map(i=>{const q=shopQty(i.x,i.s),m=lq(i.x,q);return `<label class="sl"><input type="checkbox" data-sl="${esc(i.key)}"${S.sl[i.key]?" checked":""}><span class="sn"><b${i.x.a?' class="al"':""}>${esc(m)}</b><span class="mute">${esc(dl(i.dl))}</span></span></label>`}).join("")).join("");
   const ckItem=c=>`<div class="ck"><b>${esc(c.n)}</b><span class="mute">${c.c} ración${c.c===1?"":"es"} · ${esc(dl(c.dl))}${!fz&&c.c>1&&c.di[c.di.length-1]-c.di[0]<=1?" · cocina doble y guarda en la nevera":""}</span></div>`;
   let cookH="";
   if(fz){cookH=`<p class="mute">Un día de cocina: cocina cada ingrediente por separado, reparte en raciones y congela. Al servir, mezcla los que toquen y saca la ración la noche antes.</p>`+W.comp.map(c=>`<div class="ck"><b>${esc(c.x.n)}</b><span class="mute">${c.s} ración${c.s===1?"":"es"} · ${esc(shopQty(c.x,c.s))}</span></div>`).join("")}
