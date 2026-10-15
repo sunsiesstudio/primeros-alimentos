@@ -409,6 +409,7 @@ details.rxa[open] summary{border-bottom:1px solid color-mix(in srgb,var(--terra)
 .tkc details.g summary:after{content:"";width:9px;height:9px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);transition:transform .15s;margin:0 4px 4px 4px}
 .tkc details.g[open] summary:after{transform:rotate(-135deg);margin:4px 4px 0 4px}
 .tkc .gb{padding:0 2px 14px}
+.fpc #q{margin:10px 0 6px;width:100%}.fpc #lst{display:block}.fpc #lst details.g:first-child{border-top:0}.fil{padding:0 2px 10px}.fit{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:6px 2px;background:none;border:0;border-top:1px dashed var(--line);color:var(--ink);font:inherit;font-size:.95rem;text-align:left;cursor:pointer}.fit:first-child{border-top:0}.fit>svg,.fit .fd{flex:none;width:30px;height:30px}.fit .nm{flex:1;min-width:0}.fit .nm.al{font-weight:700}.fit .tag{flex:none}
 .tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:8px;align-items:start}
 .info{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);background:transparent;font:700 .7rem/1 Montserrat,sans-serif;padding:0;margin-left:4px;vertical-align:middle;cursor:pointer}
 .pop{font-size:.82rem;color:var(--mute);background:color-mix(in srgb,var(--line) 40%,transparent);border-radius:10px;padding:8px 10px;margin:8px 0 0}
@@ -571,19 +572,18 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 
 <section id="v1">
 <div id="recent" class="hide"></div>
-  <div class="card tkc" style="margin-bottom:12px"><div class="tkh"><h3 class="disp" style="white-space:nowrap;font-size:min(1.6rem,6.2vw)">Alimentos probados</h3><span class="tkn" id="fp_n" style="white-space:nowrap"></span></div><div class="tkbar" aria-hidden="true"><i id="fp_b"></i></div></div>
-  <div class="tools">
-    <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
-      <div class="vt" role="group" aria-label="Cambiar vista">
+  <div class="card tkc fpc">
+    <div class="tkh"><h3 class="disp">Alimentos</h3><span class="tkn" id="fp_n"></span></div>
+    <div class="tkbar" aria-hidden="true"><i id="fp_b"></i></div>
+    <p class="mute">Toca un alimento para anotar cómo ha ido.</p>
+    <input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
+    <div id="lst"></div>
+  </div>
+  <div class="hide"><div class="vt" role="group" aria-label="Cambiar vista">
         <button id="vb" aria-label="Vista tablero" title="Tablero"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg></button>
         <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
-      </div></div>
-    <div class="seg" id="gm" role="group" aria-label="Agrupar alimentos"><button type="button" data-g="c" class="on">Por grupo</button><button type="button" data-g="n">Por nutriente</button></div>
-    <p class="mute" style="margin:0;font-size:.85rem">Los <b>alérgenos</b> aparecen en negrita.</p>
-    <div class="chips" id="chips"></div>
-  </div>
-  <div class="board" id="board"></div>
-  <div class="grid" id="lst"></div>
+      </div><div class="seg" id="gm"><button type="button" data-g="c" class="on">Por grupo</button><button type="button" data-g="n">Por nutriente</button></div><div class="chips" id="chips"></div></div>
+  <div class="board hide" id="board"></div>
 </section>
 <section id="v2" class="hide">
   <div class="btns rtabs" role="tablist" style="margin:0 0 12px"><button class="btn on" id="p3" role="tab">Semana</button><button class="btn" id="p1" role="tab">Menú</button><button class="btn" id="p2" role="tab">Ingredientes</button></div>
@@ -1112,19 +1112,19 @@ function board(){
   $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
   $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
   const nd=ALL.filter(x=>m[x.n]).length;
-  {const tt=ALL.filter(x=>!x.lim).length;$("fp_n").textContent=nd+"/"+tt;$("fp_b").style.width=Math.round(100*nd/Math.max(tt,1))+"%"}
+  {const tt=ALL.filter(x=>!x.lim).length;$("fp_n").textContent=nd+" de "+tt+" probados";$("fp_b").style.width=Math.round(100*nd/Math.max(tt,1))+"%"}
   $("prog").innerHTML=progHtml(nd);
   if(view==="list"){
     document.querySelectorAll("#gm [data-g]").forEach(b=>b.classList.toggle("on",b.dataset.g===gmode));
     const NG=["iron","zinc","fiber","protein","calcium","omega3"].map(k=>[GL[k],GCOL[k],GS[k]]);
-    $("lst").innerHTML=(gmode==="c"?C.map(c=>[c[0],c[1],x=>x.c===c[0]]):NG).map(c=>{
-      const it=ALL.filter(x=>c[2](x)&&!x.lim&&(!q||norm(x.n).includes(q)));
+    $("lst").innerHTML=C.map(c=>{
+      const it=ALL.filter(x=>x.c===c[0]&&!x.lim&&(!q||norm(x.n).includes(q)));
       if(!it.length)return"";
       const tn=it.filter(x=>m[x.n]).length;
-      return `<details class="grp" data-c="${esc(c[0])}"${q||LOPN.has(c[0])?" open":""}><summary><h2 class="disp" style="font-size:1.15rem;color:var(--blue)">${c[0]}</h2><span class="gc">${tn}/${it.length}</span></summary><div class="gb">`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
-        return `<button type="button" class="it${s?" done":""}${lk?" lk":""}" data-n="${esc(x.n)}" aria-pressed="${!!s}">${ico(x.n)}${STAR}<span class="kt"><span class="${x.a?"al":""}">${esc(x.n)}</span>${lk?`<span class="tag w">No antes de ${x.min} m</span>`:""}</span></button>`}).join("")+`</div></details>`}).join("");
+      return `<details class="g grp" data-c="${esc(c[0])}"${q||LOPN.has(c[0])?" open":""}><summary><b>${esc(c[0])}</b> <span class="tag${tn?" ok":""}">${tn} de ${it.length}</span></summary><div class="fil">`+it.map(x=>{const s=m[x.n],lk=!unlocked(x);
+        return `<button type="button" class="fit" data-n="${esc(x.n)}">${ico(x.n)}<span class="nm${x.a?" al":""}">${esc(x.n)}</span>${s?'<span class="tag ok">Probado</span>':lk?`<span class="tag w">Desde los ${x.min} m</span>`:""}</button>`}).join("")+`</div></details>`}).join("")||'<p class="mute" style="padding:12px 2px">No hay ningún alimento con ese nombre.</p>';
     $("lst").querySelectorAll("details.grp").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)LOPN.add(d.dataset.c);else LOPN.delete(d.dataset.c)}));
-    $("lst").querySelectorAll(".it").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
+    $("lst").querySelectorAll(".fit").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
     return;
   }
   const cols={todo:[],plan:[],done:[],lock:[]};
