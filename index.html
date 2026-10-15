@@ -563,7 +563,7 @@ button.ah{width:100%;text-align:left;background:none;border:0;padding:0;font:inh
 
 <section id="v1">
 <div id="recent" class="hide"></div>
-  <h3 class="disp rcap" style="margin:4px 0 10px">Alimentos probados</h3>
+  <div class="card tkc" style="margin-bottom:12px"><div class="tkh"><h3 class="disp" style="white-space:nowrap;font-size:min(1.6rem,6.2vw)">Alimentos probados</h3><span class="tkn" id="fp_n" style="white-space:nowrap"></span></div><div class="tkbar" aria-hidden="true"><i id="fp_b"></i></div></div>
   <div class="tools">
     <div class="srch"><input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
       <div class="vt" role="group" aria-label="Cambiar vista">
@@ -1089,6 +1089,7 @@ function board(){
   $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
   $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
   const nd=ALL.filter(x=>m[x.n]).length;
+  {const tt=ALL.filter(x=>!x.lim).length;$("fp_n").textContent=nd+"/"+tt;$("fp_b").style.width=Math.round(100*nd/Math.max(tt,1))+"%"}
   $("prog").innerHTML=progHtml(nd);
   if(view==="list"){
     document.querySelectorAll("#gm [data-g]").forEach(b=>b.classList.toggle("on",b.dataset.g===gmode));
@@ -1465,10 +1466,9 @@ function renderSchool(){
   const ev=[[CI.sal,"Sal","Nunca se añade"],[CI.azu,"Azúcar y zumos","Mejor la fruta entera"],[CI.miel,"Miel","Antes de 12 meses"],[ico("Almendra"),"Frutos secos enteros","Hasta los 4-5 años, solo molidos o en crema"],[ico("Uvas"),"Uvas y cherry enteros","Siempre abiertas o en cuartos"],[CI.pez,"Pescados grandes","Pez espada, emperador, cazón, tintorera, atún"],[CI.leche,"Leche de vaca como bebida","Antes de 12 meses"],[ico("Arroz"),"Bebida de arroz","Mejor evitarla"]];
   const evl=`<ul class="evl">${ev.map(x=>`<li>${x[0]}<span class="evt"><b>${esc(x[1])}</b><small>${esc(x[2])}</small></span><i class="evx" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></i></li>`).join("")}</ul>`;
   const emer=`<div class="card sosk2"><h3 class="disp" style="font-size:1.6rem;color:var(--green)">Por si acaso</h3><p class="mute">Si alguna vez hace falta, esto es lo que hay que hacer.</p><h3 class="sh">No tose, no llora, no respira</h3><p class="sosw">Atragantamiento. Actúa ya.</p><ol><li><b>112.</b> Llama o pide que llamen.</li><li><b>Mira la boca.</b> Si ves el objeto, sácalo sin empujarlo hacia dentro.</li><li><b>5 golpes en la espalda.</b> Boca abajo sobre tu antebrazo, cabeza más baja, entre los omóplatos.</li><li><b>5 compresiones en el pecho.</b> Boca arriba, en el centro del pecho, con dos dedos.</li><li><b>Repite</b> hasta que expulse el objeto. Si pierde el conocimiento, empieza la RCP.</li></ol><p class="sosn">Si tose con fuerza y hace ruido, es una arcada: es normal. Déjale toser, no le des golpes ni metas los dedos.</p><h3 class="sh" style="margin-top:14px">Reacción alérgica grave</h3><p class="sosw">Labios, lengua o cara hinchados, le cuesta respirar, vómitos repetidos o está muy decaído.</p><ol><li><b>112.</b> No esperes a ver si pasa.</li><li><b>Tumbado y vigilado</b> hasta que llegue la ayuda.</li></ol><a class="sosc" href="tel:112">Llamar al 112</a></div>`;
-  w.innerHTML=`<div class="card gh0"><h3 class="disp">Info</h3><p class="mute">Lo más básico, de un vistazo. Basado en las recomendaciones de la AEP. Pregunta siempre a tu pediatra.</p><div class="ahero">${["Aguacate","Zanahoria","Brócoli","Plátano","Huevo","Lentejas"].map(ico).join("")}</div></div>`+
-  blk("Texturas",ico("Zanahoria"),lzViz2([tx,LVZ.texturas[1]]))+
-  blk("Arcada o atragantamiento",gicoSvg("zinc"),fig([["Uvas","Uvas"],["Almendra","Frutos secos"],["Tomate","Cherry"],["Zanahoria","Zanahoria cruda"],["Manzana","Manzana cruda"],["Cacahuete","Cacahuete"]],"Lo que más atraganta: en tiras, rallado o cocinado blando.")+lzViz2([sg[0]]))+
-  blk("Reacción alérgica",ico("Huevo"),fig([["Huevo","Huevo"],["Yogur natural","Leche"],["Cacahuete","Cacahuete"],["Merluza","Pescado"],["Gambas","Marisco"],["Pan","Gluten"]],"Los alérgenos más comunes.")+lzViz2([al]))+
+  w.innerHTML=blk("Texturas",ico("Zanahoria"),lzViz2([tx,LVZ.texturas[1]]))+
+  blk("Arcada o atragantamiento",gicoSvg("zinc"),lzViz2([sg[0]])+fig([["Uvas","Uvas"],["Almendra","Frutos secos"],["Tomate","Cherry"],["Zanahoria","Zanahoria cruda"],["Manzana","Manzana cruda"],["Cacahuete","Cacahuete"]],"Lo que más atraganta: en tiras, rallado o cocinado blando."))+
+  blk("Reacción alérgica",ico("Huevo"),lzViz2([al])+fig([["Huevo","Huevo"],["Yogur natural","Leche"],["Cacahuete","Cacahuete"],["Merluza","Pescado"],["Gambas","Marisco"],["Pan","Gluten"]],"Los alérgenos más comunes."))+
   blk("Qué evitar",ico("Uvas"),evl+lzViz2([["b","Todo esto, hasta que tu pediatra diga lo contrario."]]))+emer;
 }
 let selA=2,selB=0;
