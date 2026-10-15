@@ -28,6 +28,7 @@ main{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
 h1{font-size:clamp(1.8rem,7vw,2.8rem);color:var(--green);margin:0;line-height:1;transform:rotate(-2deg)}
 .hero .logo{margin-top:6px}
 .rtabs{margin-bottom:22px!important}
+#fsw{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;gap:20px;border-bottom:1px solid var(--line);margin:4px 0 16px!important}#fsw::-webkit-scrollbar{display:none}#v2 .rtabs,#rtabs{display:none!important}#fsw .btn{white-space:nowrap;flex:none;min-height:44px;padding:8px 2px;border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;color:var(--mute);font-weight:700;margin-bottom:-1px}#fsw .btn.on{color:var(--blue);border-bottom-color:var(--blue);background:transparent}
 .meta{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}
 .meta label{flex:1;min-width:140px;font-size:.85rem}
 input,select,textarea{font:inherit;color:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-top:3px}
@@ -151,7 +152,7 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 .ptag{--c:var(--mute);display:inline-flex;align-items:center;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:99px;border:1.5px solid var(--c);color:var(--ink);background:color-mix(in srgb,var(--c) 16%,transparent)}
 .plh .ple{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--blue);text-decoration:none;flex:none}
 .remind{border:2px solid #e3b422;background:color-mix(in srgb,#e3b422 14%,transparent);border-radius:14px;padding:10px 14px;margin:0 0 14px;font-size:.88rem;display:flex;flex-direction:column;gap:6px}
-.snk{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:13;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:.88rem}.snk span{flex:1}.snk .x{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 50%,transparent);white-space:nowrap}
+.snk{position:fixed;left:12px;right:12px;bottom:calc(100px + env(safe-area-inset-bottom,0px));z-index:13;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:.88rem}.snk span{flex:1}.snk .x{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 50%,transparent);white-space:nowrap}
 .reto{border:2px solid var(--green);border-radius:14px;padding:10px 12px;margin:10px 0;background:color-mix(in srgb,var(--green) 8%,transparent)}.reto p{margin:4px 0}.reto .btn{margin-top:4px;max-width:240px}
 details.aep{margin-top:14px}.remind:empty{display:none}.remind p{margin:0}.remind b{font-weight:700}
 .dcard{padding:14px}.dcard h4.dd{margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -421,13 +422,13 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   .cd{min-height:52px}
 }
 @media (max-width:700px){
-  main{padding:8px max(14px,env(safe-area-inset-left)) calc(96px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-right))}
+  main{padding:8px max(14px,env(safe-area-inset-left)) calc(112px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-right))}
   .hero .logo{width:min(300px,76%);margin-top:0}
   .hero{margin-top:-22px}
-  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;margin:0;gap:2px;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--card) 92%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
-  .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:var(--mute);border-radius:14px;padding:6px 2px;min-height:54px;font-size:.72rem;font-weight:600}
+  .tabs{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:9;margin:0;gap:2px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--card) 72%,transparent);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent);box-shadow:0 8px 28px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.5)}
+  .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:var(--mute);border-radius:999px;padding:6px 2px;min-height:54px;font-size:.72rem;font-weight:600}
   .tabs button svg{display:block;width:28px;height:28px;stroke-width:2}
-  .tabs button.on{background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue)}
+  .tabs button.on{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--blue)}
   .board{grid-auto-columns:min(62vw,250px);gap:4px}
   .sheet{max-height:92vh;max-height:92dvh}
 }
@@ -482,8 +483,8 @@ body:has(.sheet:not(.hide))::after{content:"";position:fixed;inset:0;background:
   <div class="chips" id="bsw" style="justify-content:center;margin-top:8px"></div>
 </div>
 <div class="age" id="age"></div><div class="acc" id="err"></div>
-<div class="tabs"><button id="tf" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 15a3.4 3.4 0 01-.9-6.6A3.6 3.6 0 0112 5.3a3.6 3.6 0 015.4 3.1A3.4 3.4 0 0116.5 15z"/><path d="M10 15v5.5h4V15"/><path d="M9.5 10.5l1.5 1.5M14.5 10l-1.5 2"/></svg><span>Comida</span></button><button id="t3"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3.5"/><path d="M3 10.5h18M8 3v4M16 3v4"/><path d="M8.5 15h.01M12 15h.01M15.5 15h.01"/></svg><span>Registro</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></svg><span>Guía</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.8 10h.01M15.2 10h.01"/><path d="M8 14.2c1 1.8 2.5 2.8 4 2.8s3-1 4-2.8"/></svg><span>Perfil</span></button></div>
-<div class="btns rtabs" id="fsw" role="tablist" style="margin:0 0 12px"><button class="btn" id="t1" role="tab">Tablero</button><button class="btn on" id="t2" role="tab">Plan</button></div>
+<div class="tabs"><button id="nA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.2c-1.6-1.4-3.6-1.6-5-.6-1.9 1.4-2 4.6-.7 7.2 1.1 2.3 2.9 4.7 4.4 4.7.9 0 1.1-.5 1.3-.5s.4.5 1.3.5c1.5 0 3.3-2.4 4.4-4.7 1.3-2.6 1.2-5.8-.7-7.2-1.4-1-3.4-.8-5 .6z"/><path d="M12 8.2c0-2 .8-3.6 2.4-4.7"/></svg><span>Comida</span></button><button id="nB" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(35 12 12)"><ellipse cx="12" cy="6.6" rx="3.5" ry="4.6"/><path d="M12 11.4v10"/></g></svg><span>Plan</span></button><button id="t5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></svg><span>Guía</span></button><button id="t4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.8 10h.01M15.2 10h.01"/><path d="M8 14.2c1 1.8 2.5 2.8 4 2.8s3-1 4-2.8"/></svg><span>Perfil</span></button></div>
+<div class="btns rtabs" id="fsw" role="tablist"></div>
 
 <section id="v1" class="hide">
   <div class="tools">
@@ -1159,7 +1160,7 @@ let cm=new Date();cm=new Date(cm.getFullYear(),cm.getMonth(),1);let csel=today()
 let cpick=false;
 let rtab="cal";
 function setRT(t){rtab=t;document.querySelectorAll("#rtabs [data-rt]").forEach(b=>{const on=b.dataset.rt===t;b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
-  $("calcard").classList.toggle("hide",t!=="cal");$("progcard").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al")}
+  $("calcard").classList.toggle("hide",t!=="cal");$("progcard").classList.toggle("hide",t!=="st");$("nutcard").classList.toggle("hide",t!=="st");$("tkwrap").classList.toggle("hide",t!=="al");if(typeof renderSw==="function"&&curV===3)renderSw()}
 document.querySelectorAll("#rtabs [data-rt]").forEach(b=>b.onclick=()=>{setRT(b.dataset.rt);window.scrollTo({top:0})});
 $("chy").onclick=()=>{const t=new Date();cm=new Date(t.getFullYear(),t.getMonth(),1);csel=today();cpick=false;renderCal()};
 function renderCal(){
@@ -1381,9 +1382,13 @@ function obFinish(){
 $("q").oninput=board;
 const setView=v=>{view=v;if(v==="list")cat="Todos";try{localStorage.setItem("primeros_view",v)}catch(e){}render()};
 $("vb").onclick=()=>setView("board");$("vl").onclick=()=>setView("list");
-let lastFood=2;
-function tab(n){{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}if(n<=2)lastFood=n;$("fsw").classList.toggle("hide",n>2);$("tf").classList.toggle("on",n<=2);[1,2,3,4,5].forEach(i=>{$("v"+i).classList.toggle("hide",i!==n);$("t"+i).classList.toggle("on",i===n)});if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
-[1,2,3,4,5].forEach(i=>$("t"+i).onclick=()=>tab(i));$("tf").onclick=()=>tab(lastFood);
+let selA=0,selB=2;
+const SW=[["A","Lista",()=>tab(1)],["A","Calendario",()=>{setRT("cal");tab(3)}],["B","Semana",()=>{tab(2);subtab(3)}],["B","Menú",()=>{tab(2);subtab(1)}],["B","Ingredientes",()=>{tab(2);subtab(2)}],["B","Estadísticas",()=>{setRT("st");tab(3)}],["B","Alérgenos",()=>{setRT("al");tab(3)}]];
+let curV=2,psub=3;
+function swIdx(){if(curV===1)return 0;if(curV===3)return rtab==="cal"?1:rtab==="st"?5:6;if(curV===2)return psub===3?2:psub===1?3:4;return -1}
+function renderSw(){const k=swIdx(),g=k<0?null:SW[k][0],w=$("fsw");w.classList.toggle("hide",k<0);if(k<0)return;w.innerHTML=SW.map((x,i)=>x[0]===g?`<button type="button" class="btn${i===k?" on":""}" data-sw="${i}" role="tab" aria-selected="${i===k}">${x[1]}</button>`:"").join("");w.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{SW[+b.dataset.sw][2]();window.scrollTo(0,0)});const on=w.querySelector(".on");if(on&&on.scrollIntoView)w.scrollLeft=Math.max(0,on.offsetLeft-20)}
+function tab(n){curV=n;{const f=document.querySelector("footer.foot");if(f)f.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));$("t4").classList.toggle("on",n===4);$("t5").classList.toggle("on",n===5);const k=swIdx();if(k>=0){if(SW[k][0]==="A")selA=k;else selB=k}$("nA").classList.toggle("on",k>=0&&SW[k][0]==="A");$("nB").classList.toggle("on",k>=0&&SW[k][0]==="B");renderSw();if(n===1)board();if(n===2)plan();if(n===3){renderCal();renderTrack()}window.scrollTo(0,0)}
+renderSw();$("nA").onclick=()=>SW[selA][2]();$("nB").onclick=()=>SW[selB][2]();$("t4").onclick=()=>tab(4);$("t5").onclick=()=>tab(5);
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
 const FISH=new Set(["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha","Gambas","Mejillones"]);
@@ -1846,7 +1851,7 @@ const FAM=[
 {n:"Yogur con plátano y avena",base:["Yogur natural","Plátano","Avena"],extra:"frutos secos",baby:"Yogur natural sin azúcar, con plátano aplastado.",adult:"Con miel y frutos secos."},
 {n:"Pera asada con canela",base:["Pera"],extra:"canela",baby:"Cuña muy blanda, sin azúcar ni miel.",adult:"Con miel, nueces y yogur."}
 ];
-function subtab(n){[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",i!==n);$("p"+i).classList.toggle("on",i===n)})}
+function subtab(n){psub=n;[1,2,3].forEach(i=>{$("pv"+i).classList.toggle("hide",i!==n);$("p"+i).classList.toggle("on",i===n)})}
 [1,2,3].forEach(i=>$("p"+i).onclick=()=>subtab(i));
 
 const RCH3=["love","meh","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
