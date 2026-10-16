@@ -2505,7 +2505,7 @@ async function posterCanvas(W,H){
   MS.forEach(m0=>{const cx=bx0+bw*m0/100,on=tried>=m0;x.beginPath();x.arc(cx,by,20*u,0,7);x.fillStyle=on?"#fffdf6":BG;x.fill();x.lineWidth=2.5*u;x.strokeStyle=on?T:LINE;x.stroke();star(cx,by,13*u,on?T:"#cfcab3");
     x.fillStyle=on?INK:MU;x.font=`700 ${17*u}px Montserrat,sans-serif`;x.textAlign="center";x.fillText(String(m0),cx,by+42*u)});
   // rejilla (la leyenda va debajo, antes de la firma)
-  const foot=96*u,legH=96*u,gy0=by+70*u,gh=H-gy0-foot-legH,gw=W-2*P;let cols=Math.round(Math.sqrt(N*gw/gh*1.05));let rows=Math.ceil(N/cols);
+  const foot=96*u,legH=60*u,gy0=by+70*u,gh=H-gy0-foot-legH,gw=W-2*P;let cols=Math.round(Math.sqrt(N*gw/gh*1.05));let rows=Math.ceil(N/cols);
   while(rows*cols<N)cols++;const gap=8*u,cw=(gw-(cols-1)*gap)/cols,ch=Math.min((gh-(rows-1)*gap)/rows,cw*1.35);
   const gyS=gy0+(gh-(rows*ch+(rows-1)*gap))/2,isz=Math.min(cw*.62,ch*.52),gEnd=gyS+rows*ch+(rows-1)*gap;
   const ims=await Promise.all(foods.map(f=>svgImg(ico(f.n),Math.ceil(isz*2))));
@@ -2521,12 +2521,12 @@ async function posterCanvas(W,H){
     const nm=tFood(f.n),fsz=Math.max(8,13*cw/96);x.textAlign="center";x.fillStyle=ok?INK:"#9a9784";x.font=`${ok?700:500} ${fsz}px Montserrat,sans-serif`;
     const words=nm.split(" "),lines=[];let cur="";words.forEach(w=>{const t=cur?cur+" "+w:w;if(x.measureText(t).width>cw-8*u&&cur){lines.push(cur);cur=w}else cur=t});if(cur)lines.push(cur);
     const L=lines.slice(0,2),ly=Y+ch*.15+isz+fsz*1.15;L.forEach((l,k)=>{let s=l;while(x.measureText(s).width>cw-6*u&&s.length>3)s=s.slice(0,-2)+"…";x.fillText(s,X+cw/2,ly+k*fsz*1.12)})});
-  // leyenda
-  {const lgY=gEnd+44*u,cats=C.map(c=>[c[0],c[1]]);x.font=`600 ${20*u}px Montserrat,sans-serif`;
-    const it=cats.map(([n,col])=>{const t=(I18N.ui[n]?(LANG==="ca"?I18N.ui[n][0]:LANG==="en"?I18N.ui[n][1]:n):n);return{t,col,w:x.measureText(t).width+34*u}}),tw=it.reduce((a,b)=>a+b.w,0);let lx=W/2-tw/2;x.textAlign="left";
-    it.forEach(i=>{x.fillStyle=i.col;x.beginPath();x.arc(lx+8*u,lgY-7*u,8*u,0,7);x.fill();x.fillStyle=MU;x.fillText(i.t,lx+22*u,lgY);lx+=i.w});
-    const y2=lgY+36*u,its=[["s",TT("Probado","Provat","Tried")],["h",TT("Le encanta","Li encanta","Loves it")],["w",TT("Alergia o reacción","Al·lèrgia o reacció","Allergy or reaction")]],ws=its.map(t=>x.measureText(t[1]).width+44*u),tw2=ws.reduce((a,b)=>a+b,0);lx=W/2-tw2/2;
-    its.forEach(([kk,t],i)=>{const cx=lx+10*u,cy=y2-7*u;if(kk==="s")star(cx,cy,10*u,T);else if(kk==="h")heart(cx,cy,9*u,"#d9475a");else warnB(cx,cy,9*u);x.textAlign="left";x.fillStyle=MU;x.font=`600 ${20*u}px Montserrat,sans-serif`;x.fillText(t,lx+26*u,y2);lx+=ws[i]})}
+  // leyenda en una sola línea, que se ajusta al ancho
+  {const lgY=gEnd+40*u,its=C.map(c=>["c",(I18N.ui[c[0]]?(LANG==="ca"?I18N.ui[c[0]][0]:LANG==="en"?I18N.ui[c[0]][1]:c[0]):c[0]),c[1]]).concat([["s",TT("Probado","Provat","Tried")],["h",TT("Le encanta","Li encanta","Loves it")],["w",TT("Alergia","Al·lèrgia","Allergy")]]);
+    let fs=17*u,ws,tw;const mw=W-2*P;do{x.font=`600 ${fs}px Montserrat,sans-serif`;ws=its.map(t=>x.measureText(t[1]).width+fs*1.25+fs*.9);tw=ws.reduce((a,b)=>a+b,0)-fs*.9;if(tw<=mw)break;fs-=.5}while(fs>9);
+    let lx=W/2-tw/2;x.textAlign="left";const r=fs*.42;
+    its.forEach(([k,t,col],i)=>{const cx=lx+r,cy=lgY-fs*.35;if(k==="c"){x.fillStyle=col;x.beginPath();x.arc(cx,cy,r,0,7);x.fill()}else if(k==="s")star(cx,cy,r*1.3,T);else if(k==="h")heart(cx,cy,r*1.15,"#d9475a");else warnB(cx,cy,r*1.15);
+      x.textAlign="left";x.fillStyle=MU;x.font=`600 ${fs}px Montserrat,sans-serif`;x.fillText(t,lx+fs*1.25,lgY);lx+=ws[i]})}
   // pie con la marca
   const lg=document.getElementById("blogo");x.textAlign="center";x.fillStyle=MU;x.font=`500 ${20*u}px Montserrat,sans-serif`;
   const fy=H-foot/2+8*u,lbl=TT("Hecho con la app Primeros alimentos · ","Fet amb l'app Primers aliments · ","Made with the First foods app · ");
