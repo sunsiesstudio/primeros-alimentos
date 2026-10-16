@@ -1968,7 +1968,7 @@ function plan(){
       why=x.a?"Alérgeno: 3 días seguidos, en poca cantidad":R[0].charAt(0).toUpperCase()+R[0].slice(1)}
     else if(o.rep)head=`${hy} toca ${bare(o.rep.x.n)} por segunda vez, día ${o.rep.n} de 3: lo repetimos en poca cantidad para vigilar cómo le sienta.`;
     else if(o.drop)head=`Has cambiado el menú, así que lo de ${bareL(o.drop)} pasa a otro día.`;
-    else if(o.done.length){const nf=o.done.filter(f=>first[f]===o.ds&&f!=="AOVE");head=nf.length?`${hy} ${nm} ha probado por primera vez ${bareL(nf)}.`:`${hy} ${nm} ha repetido alimentos que ya conoce.`}
+    else if(o.done.length){head=""}
     else head=`${hy} no hay alimento nuevo: repetimos lo que ya conoce para afianzarlo y dejamos ${every>1?"un par de días":"un día"} entre novedades.`;
     {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
       if((x||o.rep)&&cb.length)head+=` Lo mezclamos con ${cb.map(n=>esc(n==="AOVE"?n:n[0].toLowerCase()+n.slice(1))).join(", ").replace(/, ([^,]*)$/," y $1")}, que ya conoce.`}
@@ -2015,7 +2015,7 @@ function plan(){
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
-    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}${o.items[0]?"":`<p class="hd">${y.head}</p>`}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${how}</div>`};
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}${o.items[0]||!y.head?"":`<p class="hd">${y.head}</p>`}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${how}</div>`};
   {const pdn=n=>{pdate=n;subtab(1);plan();window.scrollTo({top:0})};
     const fm2=d=>d.toLocaleDateString(LOC(),{day:"numeric",month:"long"}),jn=a=>a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
     const rowOf=(o,dlab)=>{const x=o.items[0],dl=dlab;let body,mvb="";
