@@ -2821,13 +2821,13 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
 const enterApp=()=>{$("gate").classList.add("hide");LDR.stop();const b=$("ein");if(b){b.disabled=false;b.textContent=b.dataset.t||b.textContent}
   try{document.activeElement&&document.activeElement.blur()}catch(e){}window.scrollTo(0,0);requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>window.scrollTo(0,0),400)};
 let WAITING=false;
-window.__auth=(u,d,pending)=>{USER=u;LOADED=!!u&&!pending;$("ob").classList.add("hide");obSkip=getSkip();
+window.__auth=(u,d,pending)=>{if(u)window.__wasIn=true;USER=u;LOADED=!!u&&!pending;$("ob").classList.add("hide");obSkip=getSkip();
   setDB(null);WAITING=false;
   if(u){let had=false;try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l){setDB(l);had=true}}catch(e){}
     $("err").textContent="";
     if(had||!pending)enterApp();
     else{WAITING=true;const b=$("ein");if(b){b.dataset.t=b.dataset.t||b.textContent;b.textContent="Entrando…";b.disabled=true}$("gate").classList.remove("hide")}}
-  else{const b=$("ein");if(b){b.disabled=false;if(b.dataset.t)b.textContent=b.dataset.t}$("gate").classList.remove("hide","busy");setTimeout(()=>LDR.gate(),0)}
+  else{const b=$("ein");if(b){b.disabled=false;if(b.dataset.t)b.textContent=b.dataset.t}$("gate").classList.remove("hide","busy");if(USER===null&&window.__wasIn){$("em").value="";$("pw").value=""}setTimeout(()=>LDR.gate(),0)}
   render()};
 window.__data=d=>{if(d){setDB(d);saveLocal()}
   LOADED=true;$("err").textContent="";render();if(WAITING){WAITING=false;enterApp()}if(!d&&anyData())save();askProfile()};
