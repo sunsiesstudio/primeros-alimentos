@@ -2763,7 +2763,7 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
     // en reposo se quedan quietos del todo; solo se despiertan si mueves el móvil o los tocas
     const flat=orientOK&&Math.hypot(ax,ay)<.1&&!drag;if(flat&&!sleep){sleep=true;sg=[ax,ay]}
     if(sleep){if(flat||(!drag&&Math.abs(ax-sg[0])<.06&&Math.abs(ay-sg[1])<.06)){raf=requestAnimationFrame(step);return}sleep=false;calm=0}
-    const topW=(()=>{if(mode!=="gate")return 0;const L=obstacles();return L.length?Math.min(H-120,Math.max(...L.map(o=>o.y+o.h))+6):0})();
+    const topW=0;
     B.forEach(b=>{b.px=b.x;b.py=b.y});
     B.forEach((b,i)=>{const k=.45+.95*(b.w??.5);b.vx+=ax*.34*k*dt;b.vy+=ay*.34*k*dt;if(Math.abs(ax)<.12)b.vx*=Math.pow(.8,dt);if(Math.abs(ay)<.12)b.vy*=Math.pow(.8,dt);
       if(drag){const dx=b.x-drag.x,dy=b.y-drag.y,d=Math.hypot(dx,dy);if(d<140&&d>1){const f=(140-d)/140*1.6;b.vx+=dx/d*f*dt;b.vy+=dy/d*f*dt}}
@@ -2787,9 +2787,10 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
     s(0,"Arándanos|Frambuesas|Mora|Piñones|Pistacho|Cacahuete|Anacardo|Avellana|Macadamia|Sésamo (tahini)|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino");
     const dc={Frutas:.5,Verduras:.5,Proteínas:.55,Cereales:.45,"Frutos secos":.1,Lácteos:.45,Condimentos:.08};
     return n=>{if(t[n]!==undefined)return t[n];const x=info(n);return x?(dc[x.c]??.5):.5}})();
+  const STARF='<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="var(--terra)"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" style="stroke:var(--bg);fill:none;stroke-width:.9;stroke-linecap:round"/></svg>';
   const NF=()=>Math.round(Math.max(10,Math.min(15,innerWidth/29)));
   const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(11,Math.min(17,Math.sqrt(W*H*.2/(n*Math.PI))/.86)),obs=obstacles(),free=(x,y)=>!obs.some(o=>x>o.x-R&&x<o.x+o.w+R&&y>o.y-R&&y<o.y+o.h+R);
-    B=pick(n).map(nm=>{const w=FW(nm),sc=.6+.9*w,Ri=R*sc,d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*Ri+"px";d.innerHTML=ico(nm);box.appendChild(d);
+    B=[...pick(n-1),"__star"].map(nm=>{const w=nm==="__star"?.45:FW(nm),sc=.6+.9*w,Ri=R*sc,d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*Ri+"px";d.innerHTML=nm==="__star"?STARF:ico(nm);box.appendChild(d);
       return{el:d,r:Ri*.86,R:Ri,w,m:sc*sc,...(()=>{let x,y,k=0;const yb=Math.max(H*.55,...obs.map(o=>o.y+o.h+R));do{x=R+Math.random()*(W-2*R);y=yb+Math.random()*Math.max(1,H-R-yb)}while(!free(x,y)&&++k<40);return{x,y}})(),in:1,w:.25+Math.random()*.5,p:Math.random()*7,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
   const run=()=>{cancelAnimationFrame(raf);t0=0;addEventListener("deviceorientation",onOri);raf=requestAnimationFrame(step)};
   const stop=()=>{mode=null;cancelAnimationFrame(raf);removeEventListener("deviceorientation",onOri);B.forEach(b=>b.el.remove());B=[]};
