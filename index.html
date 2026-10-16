@@ -857,7 +857,7 @@ document.documentElement.lang=LANG;
       <button class="pen" id="pen_ga" aria-label="Editar semanas de embarazo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
     <div class="prow"><div><div class="lab">País (para sugerir fruta y verdura de temporada)</div><div class="val" id="vw_pais"><span id="vpais"></span></div><div class="ed hide" id="ed_pais"><select id="pais" aria-label="País"></select><div class="btns"><button class="btn" id="x_pais">Cancelar</button><button class="btn p" id="ok_pais">Guardar</button></div></div></div><button class="pen" id="pen_pais" aria-label="Editar país"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
     <div class="prow"><div><div class="lab">Edad</div><div class="val" id="vage"></div></div></div>
-    <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div><button class="btn" id="go_al" style="flex:none;width:112px;padding:10px 0;text-align:center">Ver</button></div>
+    <div class="prow"><div><div class="lab">Alimentos probados</div><div class="val" id="vcnt"></div></div></div>
     <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div></div><button class="btn" id="go_tk" style="flex:none;width:112px;padding:10px 0;text-align:center">Ver</button></div>
     <div class="prow"><div><div class="lab">Resumen para pediatra o cuidadores</div></div><button class="btn" id="exp" style="flex:none;width:112px;padding:10px 0;text-align:center">Compartir</button></div>
     <div class="prow"><div><div class="lab">Póster de alimentos</div></div><button class="btn" id="pst_o" style="flex:none;width:112px;padding:10px 0;text-align:center">Crear</button></div>
@@ -2811,7 +2811,6 @@ window.__fail=code=>{LDR.hide();LOADED=false;$("err").textContent="No se pudo co
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
-$("go_al").onclick=()=>{SW[0][2]();window.scrollTo({top:0})};
 try{history.scrollRestoration="manual"}catch(e){}
 document.addEventListener("gesturestart",e=>e.preventDefault(),{passive:false});document.addEventListener("dblclick",e=>e.preventDefault(),{passive:false});
 $("pweye").onclick=()=>{const p=$("pw"),on=p.type==="password";p.type=on?"text":"password";const b=$("pweye");b.setAttribute("aria-pressed",on);b.setAttribute("aria-label",on?"Ocultar contraseña":"Mostrar contraseña")};
