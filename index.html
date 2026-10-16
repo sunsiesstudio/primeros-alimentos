@@ -596,6 +596,7 @@ input,select,textarea{font-size:16px!important}html{-webkit-text-size-adjust:100
 .ldt{z-index:2;filter:drop-shadow(0 0 10px var(--bg)) drop-shadow(0 0 4px var(--bg));position:absolute;left:50%;top:50%;width:min(320px,80vw);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none;transition:top .55s cubic-bezier(.3,.8,.3,1),width .55s cubic-bezier(.3,.8,.3,1)}.ldlogo{width:100%;height:auto;display:block;overflow:visible}.ldt small{color:var(--mute);font-size:.78rem;opacity:0;animation:ldin .4s .9s forwards}@keyframes ldin{to{opacity:1}}.ldstar{transform-box:fill-box;transform-origin:center;animation:ldst 2.4s ease-in-out infinite}@keyframes ldst{50%{rotate:14deg;scale:1.08}}#gate.busy>*:not(.logo){opacity:0;pointer-events:none;transition:opacity .25s}
 @media (prefers-reduced-motion:reduce){.ldw i,.ldt svg{animation:none}}
 .gfh{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:2;border:0;background:color-mix(in srgb,var(--card) 80%,transparent);color:var(--mute);font:600 .78rem Montserrat,sans-serif;padding:10px 16px;border-radius:99px;min-height:40px;cursor:pointer;backdrop-filter:blur(4px)}.gfb{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}#gate.gfx>div:not(.gfb){position:relative;z-index:1}
+.mtw{display:flex;justify-content:center;margin:10px 0 0}.mtoday{border:1.5px solid var(--terra);background:transparent;color:var(--terra);font:700 .85rem Montserrat,sans-serif;border-radius:99px;padding:8px 22px;min-height:40px;cursor:pointer}.mtoday.dim{opacity:.4}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -936,6 +937,7 @@ document.documentElement.lang=LANG;
 <div class="shhd">
   <button class="xc" id="mcal_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="mch2"><button type="button" class="mnav" id="mcal_p" aria-label="Mes anterior">‹</button><h3 class="disp" id="mcal_t"></h3><button type="button" class="mnav" id="mcal_n" aria-label="Mes siguiente">›</button></div>
+  <div class="mtw"><button type="button" class="mtoday" id="mcal_h">Hoy</button></div>
 </div>
   <div class="mcg" id="mcal_g"></div>
   <div class="mleg"><span><i class="d-new"></i>Alimento nuevo</span><span><i class="d-ok"></i>Ha comido</span><span><i class="d-pl"></i>Solo ha jugado o no ha querido</span><span><i class="d-rx"></i>Reacción</span><span><i class="d-dn"></i>Cómo ha ido el día</span></div>
@@ -2025,6 +2027,7 @@ function bindDayNote(){const c=document.querySelector(".dnote");if(!c)return;con
 let mcalM=null,mcalSel=null;
 function mcalOpen(){const t=new Date(today()+"T00:00:00");mcalM=new Date(t.getFullYear(),t.getMonth(),1);mcalSel=today();mcalDraw();$("mcal").classList.remove("hide")}
 function mcalDraw(){const y=mcalM.getFullYear(),mo=mcalM.getMonth(),fdm=firstDates(),t0=today();
+  {const t=new Date(today()+"T00:00:00"),off=mcalSel!==today()||mcalM.getMonth()!==t.getMonth()||mcalM.getFullYear()!==t.getFullYear();$("mcal_h").classList.toggle("dim",!off)}
   $("mcal_t").textContent=mcalM.toLocaleDateString(LOC(),{month:"long"}).replace(/^./,c=>c.toUpperCase())+" "+y;
   const w0=(new Date(y,mo,1).getDay()+6)%7,nd=new Date(y,mo+1,0).getDate(),hd=[...Array(7)].map((_,i)=>new Date(2024,0,1+i).toLocaleDateString(LOC(),{weekday:"narrow"}));
   let h=hd.map(x=>`<span class="mch">${x}</span>`).join("")+"<span></span>".repeat(w0);
@@ -2328,7 +2331,7 @@ function plan(){
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&today()!==lastDay){lastDay=today();pdate=null;render()}});
 setInterval(()=>{if(today()!==lastDay){lastDay=today();pdate=null;render()}},60000);
-$("mcal_x").onclick=()=>$("mcal").classList.add("hide");$("mcal_p").onclick=()=>{mcalM=new Date(mcalM.getFullYear(),mcalM.getMonth()-1,1);mcalDraw()};$("mcal_n").onclick=()=>{mcalM=new Date(mcalM.getFullYear(),mcalM.getMonth()+1,1);mcalDraw()};
+$("mcal_x").onclick=()=>$("mcal").classList.add("hide");$("mcal_h").onclick=()=>{const t=new Date(today()+"T00:00:00");mcalM=new Date(t.getFullYear(),t.getMonth(),1);mcalSel=today();mcalDraw()};$("mcal_p").onclick=()=>{mcalM=new Date(mcalM.getFullYear(),mcalM.getMonth()-1,1);mcalDraw()};$("mcal_n").onclick=()=>{mcalM=new Date(mcalM.getFullYear(),mcalM.getMonth()+1,1);mcalDraw()};
 $("nfsh_x").onclick=()=>$("nfsh").classList.add("hide");$("nfsh_s").onclick=()=>{const ds=nfDay,n=nfCur;$("nfsh").classList.add("hide");nfSet(ds,(d,sk)=>{delete d[ds];sk[ds]=[...new Set([...(sk[ds]||[]),n])].slice(-40)})};$("nfsh_q").oninput=nfDraw;
 $("pfx").onclick=$("pfbg").onclick=()=>{$("pfcard").open=false};
 $("mk").onclick=()=>{$("pfcard").open=false;if(S.prefs.gen)S.prefs.seed=(S.prefs.seed||1)+1;S.prefs.gen=true;planShown=7;save();plan()};
