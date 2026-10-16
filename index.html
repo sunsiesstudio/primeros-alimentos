@@ -244,6 +244,7 @@ details.gfull{margin-top:14px}
 .shq{margin:14px 0 6px;font-weight:700;font-size:.95rem;color:var(--ink)}.shq2{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}#sh .svp{margin-bottom:0}
 .nfood{position:relative}.nfed{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--blue);display:flex;align-items:center;justify-content:center;cursor:pointer}.nfsug{width:100%!important;max-width:none!important;flex:none!important;margin:4px 0 10px}#nfsh #nfsh_q{width:100%;margin-bottom:6px}#nfsh .nfhd{position:sticky;top:-16px;z-index:2;background:var(--card);margin:-16px -18px 0;padding:16px 18px 8px;border-bottom:1px solid var(--line)}#nfsh .nfhd .xc{top:14px;right:14px}#nfsh .fit .tag{font-size:.7rem}
 .shq3{margin-top:18px!important;font-size:.88rem!important;color:var(--mute)!important;font-weight:600!important}.shqs{font-weight:500;font-size:.78rem;color:var(--mute);margin-left:6px}#shp .pres:has(figure:nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr))}
+.shopen{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.shopen>*{margin-top:12px}.shopen>*:first-child{margin-top:0}.shopen label{display:block}
 .shmore .sml,.shmore[open] .smo{display:none}.shmore[open] .sml{display:inline}
 #stwrap #nutcard{margin:0}.nfd{display:flex;align-items:baseline;gap:8px;margin:12px 0}.nfd b{font:400 2rem "Luckiest Guy",system-ui,sans-serif;color:var(--green)}.nfd span{font-size:.9rem;color:var(--mute)}.ntip{border-radius:14px;padding:12px;margin:0 0 14px;background:color-mix(in srgb,var(--terra) 14%,transparent);border:1.5px solid color-mix(in srgb,var(--terra) 45%,transparent)}.ntip.ok{background:color-mix(in srgb,var(--green) 12%,transparent);border-color:color-mix(in srgb,var(--green) 45%,transparent)}.ntip b{display:block;font-size:.92rem}.ntip span{display:block;font-size:.85rem;color:var(--mute);margin-top:2px}
 .lngr{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:22px 0 4px;font-size:.82rem;color:var(--mute)}.lng{display:inline-flex;align-items:center;gap:2px}.lng button{background:none;border:0;color:var(--mute);font:500 .82rem Montserrat,sans-serif;padding:4px 6px;cursor:pointer;border-radius:6px}.lng button+button:before{content:"·";margin-right:8px;color:var(--mute);opacity:.5}.lng button.on{color:var(--ink);font-weight:700}
@@ -861,13 +862,13 @@ document.documentElement.lang=LANG;
     <label>¿Qué reacción?<select id="rxt"></select></label>
     <div class="warn hide" id="rxu"><p><b>Es urgente.</b> Llama al 112 o ve a urgencias. No esperes a que se pase.</p></div>
   </div>
-  <details class="shmore"><summary><span class="smo">Más detalles</span><span class="sml">Menos detalles</span></summary>
+  <div class="shmore shopen">
   <label>Probado por primera vez<input id="dt" type="date"></label>
   <label class="ndk"><input type="checkbox" id="dt_nd"> No recuerdo cuándo lo probó</label>
   <label id="howl">Cómo lo serviste<select id="how"></select></label>
   <input id="rxn" type="text" maxlength="300" placeholder="Notas (opcional)" aria-label="Notas">
   <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" class="x" id="fph_rm">Quitar foto</button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
-  </details>
+  </div>
   <div id="rest" class="hide"><b>¿Y el resto del menú de hoy?</b><p class="mute">Opcional. Toca lo que quieras anotar.</p><div id="restl"></div></div>
   <div class="btns"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
 </div></div>
