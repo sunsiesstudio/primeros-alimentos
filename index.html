@@ -2771,7 +2771,8 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
       if(d<m&&d>.01){const ov=(m-d)/2,nx=dx/d,ny=dy/d;p.x-=nx*ov;p.y-=ny*ov;q.x+=nx*ov;q.y+=ny*ov;const rv=(q.vx-p.vx)*nx+(q.vy-p.vy)*ny;if(rv<0){const im=rv*.6;p.vx+=nx*im;p.vy+=ny*im;q.vx-=nx*im;q.vy-=ny*im}}}
     B.forEach(b=>{b.el.style.transform=`translate(${(b.x-b.r).toFixed(1)}px,${(b.y-b.r).toFixed(1)}px) rotate(${b.a.toFixed(3)}rad)`});
     raf=requestAnimationFrame(step)};
-  const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(11,Math.min(22,Math.sqrt(W*H*.36/(n*Math.PI))/.86)),obs=obstacles(),free=(x,y)=>!obs.some(o=>x>o.x-R&&x<o.x+o.w+R&&y>o.y-R&&y<o.y+o.h+R);
+  const NF=()=>Math.round(Math.max(26,Math.min(44,innerWidth*innerHeight/9500)));
+  const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(11,Math.min(22,Math.sqrt(W*H*.2/(n*Math.PI))/.86)),obs=obstacles(),free=(x,y)=>!obs.some(o=>x>o.x-R&&x<o.x+o.w+R&&y>o.y-R&&y<o.y+o.h+R);
     B=pick(n).map(nm=>{const d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*R+"px";d.innerHTML=ico(nm);box.appendChild(d);
       return{el:d,r:R*.86,...(()=>{let x,y,k=0;do{x=R+Math.random()*(W-2*R);y=R+Math.random()*(H-2*R)}while(!free(x,y)&&++k<40);return{x,y}})(),in:1,w:.25+Math.random()*.5,p:Math.random()*7,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
   const run=()=>{cancelAnimationFrame(raf);t0=0;addEventListener("deviceorientation",onOri);raf=requestAnimationFrame(step)};
@@ -2781,12 +2782,12 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
   // fondo del login: alimentos alrededor del formulario
   const gate=()=>{const g=$("gate");if(!g||g.classList.contains("hide")||mode==="gate")return;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
     let gb=g.querySelector(".gfb");if(!gb){gb=document.createElement("div");gb.className="gfb";gb.setAttribute("aria-hidden","true");g.prepend(gb)}
-    if(mode==="load")moveTo(gb);else{stop();box=gb;mode="gate";make(Object.keys(ICOS).length,true)}mode="gate";g.classList.add("gfx");run()};
+    if(mode==="load")moveTo(gb);else{stop();box=gb;mode="gate";make(NF(),true)}mode="gate";g.classList.add("gfx");run()};
   // al entrar: el formulario se va, el logo baja al centro y los mismos alimentos siguen flotando mientras carga
   const show=()=>{if(mode==="load")return;clearTimeout(hideT);const el=$("ldr"),lb=el.querySelector(".ldb");el.classList.remove("hide","out");
     const lt=$("ldt"),g=$("gate"),gl=g&&!g.classList.contains("hide")&&g.querySelector(".logo");
     if(gl){const r=gl.getBoundingClientRect();g.classList.add("busy");lt.style.transition="none";lt.style.width=r.width+"px";lt.style.top=(r.top+r.height/2+r.height*.12)+"px";lt.offsetWidth;lt.style.transition="";requestAnimationFrame(()=>{lt.style.top="";lt.style.width=""})}
-    if(mode==="gate")moveTo(lb);else{stop();box=lb;make(Object.keys(ICOS).length)}
+    if(mode==="gate")moveTo(lb);else{stop();box=lb;make(NF())}
     mode="load";shownAt=Date.now();run()};
   const hide=fast=>{if(mode!=="load")return;const el=$("ldr"),left=fast?0:Math.max(0,1400-(Date.now()-shownAt));clearTimeout(hideT);
     hideT=setTimeout(()=>{const g=$("gate"),back=g&&!g.classList.contains("hide");
