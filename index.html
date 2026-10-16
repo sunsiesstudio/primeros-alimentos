@@ -2746,7 +2746,7 @@ render();
 
 // ===== Pantalla de carga: alimentos flotando como en una bolsa de agua sensorial =====
 const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK=false,drag=null,box=null,shownAt=0;
-  const pick=n=>{const sh=a=>a.sort(()=>Math.random()-.5),tried=sh(Object.keys(typeof S!=="undefined"&&S?stats():{}).filter(k=>ICOS[k])),fav=sh(["Aguacate","Plátano","Brócoli","Zanahoria","Fresas","Huevo","Manzana","Pera","Calabaza","Kiwi","Mango","Sandía","Uvas","Cerezas","Limón","Pollo","Salmón","Tomate","Guisantes","Arándanos"]),rest=sh(Object.keys(ICOS));const pool=[...new Set([...tried,...fav,...rest])];return pool.slice(0,n)};
+  const pick=n=>{const sh=a=>a.sort(()=>Math.random()-.5),fv=n2=>{const x=info(n2);return x&&(x.c==="Frutas"||x.c==="Verduras")},tried=sh(Object.keys(typeof S!=="undefined"&&S?stats():{}).filter(k=>ICOS[k]&&fv(k))),rest=sh(Object.keys(ICOS).filter(fv));return [...new Set([...tried,...rest])].slice(0,n)};
   let b0=null;const cl=v=>Math.max(-1,Math.min(1,v));
   const onOri=e=>{if(e.beta==null)return;orientOK=true;const be=Math.max(-90,Math.min(120,e.beta)),ga=Math.max(-90,Math.min(90,e.gamma||0));
     // se calibra con la postura en la que coges el móvil: así reposan abajo y con inclinarlo un poco hacia atrás suben
@@ -2787,7 +2787,7 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
     s(0,"Arándanos|Frambuesas|Mora|Piñones|Pistacho|Cacahuete|Anacardo|Avellana|Macadamia|Sésamo (tahini)|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino");
     const dc={Frutas:.5,Verduras:.5,Proteínas:.55,Cereales:.45,"Frutos secos":.1,Lácteos:.45,Condimentos:.08};
     return n=>{if(t[n]!==undefined)return t[n];const x=info(n);return x?(dc[x.c]??.5):.5}})();
-  const NF=()=>Math.round(Math.max(16,Math.min(24,innerWidth/18)));
+  const NF=()=>Math.round(Math.max(10,Math.min(15,innerWidth/29)));
   const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(11,Math.min(17,Math.sqrt(W*H*.2/(n*Math.PI))/.86)),obs=obstacles(),free=(x,y)=>!obs.some(o=>x>o.x-R&&x<o.x+o.w+R&&y>o.y-R&&y<o.y+o.h+R);
     B=pick(n).map(nm=>{const w=FW(nm),sc=.6+.9*w,Ri=R*sc,d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*Ri+"px";d.innerHTML=ico(nm);box.appendChild(d);
       return{el:d,r:Ri*.86,R:Ri,w,m:sc*sc,...(()=>{let x,y,k=0;const yb=Math.max(H*.55,...obs.map(o=>o.y+o.h+R));do{x=R+Math.random()*(W-2*R);y=yb+Math.random()*Math.max(1,H-R-yb)}while(!free(x,y)&&++k<40);return{x,y}})(),in:1,w:.25+Math.random()*.5,p:Math.random()*7,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
