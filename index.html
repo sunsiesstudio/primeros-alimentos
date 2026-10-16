@@ -595,7 +595,7 @@ input,select,textarea{font-size:16px!important}html{-webkit-text-size-adjust:100
 @keyframes ldbub{0%{bottom:-30px;transform:translateX(0)}50%{transform:translateX(12px)}100%{bottom:105%;transform:translateX(-8px)}}
 .ldt{z-index:2;filter:drop-shadow(0 0 10px var(--bg)) drop-shadow(0 0 4px var(--bg));position:absolute;left:50%;top:50%;width:min(320px,80vw);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none;transition:top .55s cubic-bezier(.3,.8,.3,1),width .55s cubic-bezier(.3,.8,.3,1)}.ldlogo{width:100%;height:auto;display:block;overflow:visible}.ldt small{color:var(--mute);font-size:.78rem;opacity:0;animation:ldin .4s .9s forwards}@keyframes ldin{to{opacity:1}}.ldstar{transform-box:fill-box;transform-origin:center;animation:ldst 2.4s ease-in-out infinite}@keyframes ldst{50%{rotate:14deg;scale:1.08}}#gate.busy>*:not(.logo){opacity:0;pointer-events:none;transition:opacity .25s}
 @media (prefers-reduced-motion:reduce){.ldw i,.ldt svg{animation:none}}
-.gfh{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:2;border:0;background:color-mix(in srgb,var(--card) 80%,transparent);color:var(--mute);font:600 .78rem Montserrat,sans-serif;padding:10px 16px;border-radius:99px;min-height:40px;cursor:pointer;backdrop-filter:blur(4px)}.gfb{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}#gate.gfx>div:not(.gfb){position:relative;z-index:1}
+.gfh{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:2;border:0;background:color-mix(in srgb,var(--card) 80%,transparent);color:var(--mute);font:600 .78rem Montserrat,sans-serif;padding:10px 16px;border-radius:99px;min-height:40px;cursor:pointer;backdrop-filter:blur(4px)}.gtyping .gfb{opacity:0}.gfb{transition:opacity .2s;position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}#gate.gfx>div:not(.gfb){position:relative;z-index:1}
 .mtw{display:flex;justify-content:center;margin:10px 0 0}.mtoday{border:1.5px solid var(--terra);background:transparent;color:var(--terra);font:700 .85rem Montserrat,sans-serif;border-radius:99px;padding:8px 22px;min-height:40px;cursor:pointer}.mtoday.dim{opacity:.4}
 .mch2{align-items:center}.mch2 h3{line-height:1!important;display:flex;align-items:center;justify-content:center;min-height:40px;padding:.14em 0 0!important;margin:0!important}.mnav{width:40px!important;height:40px!important;display:grid;place-items:center;padding:0;line-height:1;flex:none}
 .agx{padding:0 16px!important}.agxb{padding:4px 0 20px!important}.agxb label{margin-top:26px!important;font-weight:700;font-size:.92rem;color:var(--ink)}.agxb label:first-child{margin-top:8px!important}.agxb label input,.agxb label select{margin-top:10px!important;font-weight:500}.agxb label input[type=date]{width:100%}.agxb .ndk{margin-top:12px!important;font-weight:500}.agxb .agh{margin-top:30px!important;padding-top:22px!important;font-weight:700;color:var(--ink);font-size:.92rem}.agxb .agst{margin-top:12px!important}.agxb .agst+p{margin-top:10px!important}.agxb .agsave{margin-top:24px!important;width:100%}
@@ -2758,7 +2758,7 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
     // un hueco por cada bloque visible (logo, Google, email, botones) para que quepan por los lados
     return [...f.children].map(c=>{let r=c.getBoundingClientRect();if(c.tagName==="P"){const rg=document.createRange();rg.selectNodeContents(c);r=rg.getBoundingClientRect()}else if(c.id==="gbtn"&&c.firstElementChild)r=c.firstElementChild.getBoundingClientRect();if(!r.width||!r.height)return null;const ix=c.classList.contains("logo")?r.width*.05:0;return{x:r.left+ix-4,y:r.top-4,w:r.width-2*ix+8,h:r.height+8}}).filter(Boolean)};
   const obstacle=()=>{const L=obstacles();if(!L.length)return null;const x=Math.min(...L.map(o=>o.x)),y=Math.min(...L.map(o=>o.y)),x2=Math.max(...L.map(o=>o.x+o.w)),y2=Math.max(...L.map(o=>o.y+o.h));return{x,y,w:x2-x,h:y2-y}};
-  const step=ts=>{if(!mode)return;const dt=Math.min(32,ts-(t0||ts))/16.7;t0=ts;const tt=ts/1000;
+  const step=ts=>{if(!mode)return;if(mode==="gate"&&document.body.classList.contains("gtyping")){t0=ts;raf=requestAnimationFrame(step);return}const dt=Math.min(32,ts-(t0||ts))/16.7;t0=ts;const tt=ts/1000;
     let ax=gx,ay=gy;if(!orientOK){ax=0;ay=.6}
     // en reposo se quedan quietos del todo; solo se despiertan si mueves el móvil o los tocas
     const flat=orientOK&&Math.hypot(ax,ay)<.1&&!drag;if(flat&&!sleep){sleep=true;sg=[ax,ay]}
@@ -2814,7 +2814,11 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
   document.addEventListener("pointerdown",e=>{if(!mode)return;if(mode==="gate"&&e.target.closest("input,button,a,#gbtn"))return;ptr(e)},{passive:true});
   document.addEventListener("pointermove",e=>{if(drag)ptr(e)},{passive:true});
   ["pointerup","pointercancel"].forEach(t=>document.addEventListener(t,()=>{drag=null},{passive:true}));
-  addEventListener("resize",()=>{W=innerWidth;H=innerHeight});
+  // con el teclado abierto la pantalla se encoge: las frutas se esconden y no cambian de sitio
+  const typing=()=>{const a=document.activeElement;return !!(a&&a.closest&&a.closest("#gate")&&/^(INPUT|TEXTAREA)$/.test(a.tagName))};
+  addEventListener("resize",()=>{if(typing())return;W=innerWidth;H=innerHeight});
+  document.addEventListener("focusin",()=>{if(typing())document.body.classList.add("gtyping")});
+  document.addEventListener("focusout",()=>setTimeout(()=>{if(!typing())document.body.classList.remove("gtyping")},150));
   return{show,hide,ask,gate,stop:()=>{if(mode==="gate")stop()}}})();window.LDR=LDR;
 ["touchend","click"].forEach(t=>document.addEventListener(t,e=>{if(e.target.closest("#gate,#ldr")&&!e.target.closest("input"))LDR.ask()},true));
 // Al entrar no hay pantalla de carga: si este móvil ya tiene sus datos, la app se abre al momento;
