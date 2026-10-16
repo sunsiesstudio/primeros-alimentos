@@ -1400,7 +1400,7 @@ function canPieces(x){const p=presOf(x);
   const ok=x.c==="Frutas"||x.c==="Verduras"||(x.c==="Proteínas"&&!/^(Lentejas|Alubias|Garbanzos)/.test(x.n))||(x.c==="Cereales"&&/^(Pan|Pan integral|Pasta|Fideos)$/.test(x.n))||/^(Queso fresco|Queso tierno|Mozzarella)$/.test(x.n);
   return !!p&&ok&&!x.lim&&(pict(p.b[0],false)!=="mash"||pict(p.q[0],true)!=="mash")}
 function mashOnly(){const by={};S.log.forEach(l=>{if(l.r==="pre")return;(by[l.f]=by[l.f]||[]).push(l.how)});
-  return Object.keys(by).map(info).filter(x=>x&&canPieces(x)&&!blockedG(x)&&by[x.n].some(h=>MASHH.has(h))&&!by[x.n].some(h=>PCSH.has(h)))}
+  return Object.keys(by).map(info).filter(x=>x&&canPieces(x)&&!blockedG(x)&&unlocked(x)&&!rxBlocked(x)&&by[x.n].some(h=>MASHH.has(h))&&!by[x.n].some(h=>PCSH.has(h)))}
 let snkT=0;
 function snack(html,label,fn){const e=$("snk");e.innerHTML=`<span>${html}</span>${label?`<button type="button" class="x">${label}</button>`:""}<button type="button" class="x" aria-label="Cerrar">✕</button>`;e.classList.remove("hide");
   const bs=e.querySelectorAll("button");if(label)bs[0].onclick=()=>{e.classList.add("hide");fn()};bs[bs.length-1].onclick=()=>e.classList.add("hide");clearTimeout(snkT);snkT=setTimeout(()=>e.classList.add("hide"),12000)}
@@ -1859,7 +1859,8 @@ function plan(){
   let lastNew=lastFirst?-Math.max(0,Math.round((new Date(t0+"T00:00:00")-new Date(lastFirst+"T00:00:00"))/864e5)):-99;
   const start=new Date();start.setHours(0,0,0,0);
   const total=ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="",rp=null;
-  const known=Object.keys(m).map(info).filter(a=>a&&allowed(a,p));
+  // Lo ya probado solo se reutiliza si ya toca por edad (p. ej. si probó apio antes de los 12 meses, no vuelve a salir hasta entonces)
+  const known=Object.keys(m).map(info).filter(a=>a&&unlocked(a)&&allowed(a,p));
   const gapD=g=>{let last=null;S.log.forEach(l=>{if(l.r==="no"||l.r==="react")return;const x=info(l.f);if(x&&GS[g](x)&&(!last||l.d>last))last=l.d});return last?Math.max(0,Math.round((Date.parse(t0)-Date.parse(last))/864e5)):99};
   let lastFe=-gapD("iron"),lastZn=-gapD("zinc");
   for(let d=0;d<total;d++){
@@ -1900,7 +1901,7 @@ function plan(){
     out.push({dt,ds,done,items,rep,pre,di:d,kn:[...known]});
   }
   {let k=out.length;while(k>0&&!out[k-1].items.length&&!out[k-1].done.length)k--;out.length=k}
-  const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&allowed(a,p)&&x.c<15}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
+  const re=Object.values(m).filter(x=>{const a=info(x.n);return a&&unlocked(a)&&allowed(a,p)&&x.c<15}).sort((a,b)=>(a.last==="love")-(b.last==="love")||a.idx-b.idx);
   const fmt=dt=>{const s=dt.toLocaleDateString(LOC(),{weekday:"long",day:"numeric",month:"long"});return s.charAt(0).toUpperCase()+s.slice(1)};
   const dow0=(start.getDay()+6)%7,show=Math.min(out.length,7-dow0+(dow0>=3?7:0));
   const menuFor=o=>{const used=new Set();return SLOTS.map(([lab,fn],i)=>{
