@@ -625,6 +625,7 @@ input,select,textarea{font-size:16px!important}html{-webkit-text-size-adjust:100
 .shdt{border:0;background:none;padding:0;margin-left:auto;color:var(--mute);font:500 .8rem Montserrat,sans-serif;cursor:pointer;min-height:32px}.shdt u{color:var(--blue);font-weight:700}.shdi{margin-left:auto;max-width:170px;min-height:40px;padding:4px 8px}
 .obdp{display:grid;grid-template-columns:1fr 1.6fr 1.2fr;gap:8px}.obdp label{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--mute);text-align:left}.obdp select{width:100%;min-height:52px;font-weight:700}
 .ob .obbd{min-height:56px;font-size:1.1rem!important;font-weight:700;width:100%}
+.ob.obtyping .obhero{display:none}.ob.obtyping .obs0{justify-content:flex-start}.ob.obtyping .obs0 h2{margin-top:8px}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -1733,6 +1734,10 @@ const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
 function askProfile(){if(!S.bd&&!obSkip&&USER&&LOADED&&$("gate").classList.contains("hide"))openOb()}
 let OB=null;
+// con el teclado abierto en la bienvenida: se esconde el dibujo y el campo sube para que se vea
+document.addEventListener("focusin",e=>{const o=$("ob");if(!o||o.classList.contains("hide"))return;const t=e.target;if(!t.closest||!t.closest("#ob")||!/^(INPUT|TEXTAREA)$/.test(t.tagName)||t.type==="date")return;o.classList.add("obtyping");
+  const go=()=>{try{const vv=window.visualViewport,r=t.getBoundingClientRect(),vh=vv?vv.height:innerHeight;if(r.bottom>vh-20||r.top<60)o.scrollTop+=r.top-Math.max(70,vh*.3)}catch(_){}};setTimeout(go,60);setTimeout(go,350)});
+document.addEventListener("focusout",e=>{const o=$("ob");if(o)setTimeout(()=>{const a=document.activeElement;if(!(a&&a.closest&&a.closest("#ob")&&/^(INPUT|TEXTAREA)$/.test(a.tagName)))o.classList.remove("obtyping")},120)});
 function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:["iron","zinc"],sty:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
 function obSteps(){return OB.ya?[0,1,2,3,5]:[0,1,2,5]}
 function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
