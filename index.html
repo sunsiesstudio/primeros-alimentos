@@ -2746,19 +2746,19 @@ render();
 
 // ===== Pantalla de carga: alimentos flotando como en una bolsa de agua sensorial =====
 const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK=false,drag=null,box=null,shownAt=0;
-  const pick=n=>{const sh=a=>a.sort(()=>Math.random()-.5),tried=sh(Object.keys(typeof S!=="undefined"&&S?stats():{}).filter(k=>ICOS[k])),fav=sh(["Aguacate","Plátano","Brócoli","Zanahoria","Fresas","Huevo","Manzana","Pera","Calabaza","Kiwi","Mango","Sandía","Uvas","Cerezas","Limón","Pollo","Salmón","Tomate","Guisantes","Arándanos"]),rest=sh(Object.keys(ICOS));const pool=[...new Set([...tried,...fav,...rest])];const out=[];for(let i=0;i<n;i++)out.push(pool[i%pool.length]);return out};
+  const pick=n=>{const sh=a=>a.sort(()=>Math.random()-.5),tried=sh(Object.keys(typeof S!=="undefined"&&S?stats():{}).filter(k=>ICOS[k])),fav=sh(["Aguacate","Plátano","Brócoli","Zanahoria","Fresas","Huevo","Manzana","Pera","Calabaza","Kiwi","Mango","Sandía","Uvas","Cerezas","Limón","Pollo","Salmón","Tomate","Guisantes","Arándanos"]),rest=sh(Object.keys(ICOS));const pool=[...new Set([...tried,...fav,...rest])];return pool.slice(0,n)};
   let b0=null;const cl=v=>Math.max(-1,Math.min(1,v));
   const onOri=e=>{if(e.beta==null)return;orientOK=true;const be=Math.max(-90,Math.min(120,e.beta)),ga=Math.max(-90,Math.min(90,e.gamma||0));
     // se calibra con la postura en la que coges el móvil: así reposan abajo y con inclinarlo un poco hacia atrás suben
     if(b0===null)b0=be;else b0+=(be-b0)*.002;
-    gx=cl(ga/28);gy=cl(.55+(be-b0)/24);const l=Math.hypot(gx,gy);if(l>1){gx/=l;gy/=l}};
+    gx=cl(ga/24);gy=cl((be-b0)/20);const l=Math.hypot(gx,gy);if(l>1){gx/=l;gy/=l}};
   const obstacles=()=>{if(mode!=="gate")return[];const g=$("gate"),f=g&&g.querySelector(":scope>div:not(.gfb)");if(!f)return[];
     // un hueco por cada bloque visible (logo, Google, email, botones) para que quepan por los lados
     return [...f.children].map(c=>{let r=c.getBoundingClientRect();if(c.tagName==="P"){const rg=document.createRange();rg.selectNodeContents(c);r=rg.getBoundingClientRect()}else if(c.id==="gbtn"&&c.firstElementChild)r=c.firstElementChild.getBoundingClientRect();if(!r.width||!r.height)return null;const ix=c.classList.contains("logo")?r.width*.05:0;return{x:r.left+ix-4,y:r.top-4,w:r.width-2*ix+8,h:r.height+8}}).filter(Boolean)};
   const obstacle=()=>{const L=obstacles();if(!L.length)return null;const x=Math.min(...L.map(o=>o.x)),y=Math.min(...L.map(o=>o.y)),x2=Math.max(...L.map(o=>o.x+o.w)),y2=Math.max(...L.map(o=>o.y+o.h));return{x,y,w:x2-x,h:y2-y}};
   const step=ts=>{if(!mode)return;const dt=Math.min(32,ts-(t0||ts))/16.7;t0=ts;const tt=ts/1000;
-    let ax=gx,ay=gy;if(!orientOK){ax=Math.sin(tt*.7)*.14;ay=.8}
-    B.forEach((b,i)=>{b.vx+=(ax*.32+Math.sin(tt*1.3+i)*.025)*dt;b.vy+=(ay*.32-.06+Math.cos(tt*1.1+i*1.7)*.025)*dt;
+    let ax=gx,ay=gy;if(!orientOK){ax=Math.sin(tt*.3)*.06;ay=.04}
+    B.forEach((b,i)=>{b.vx+=(ax*.34+Math.sin(tt*b.w+b.p)*.045)*dt;b.vy+=(ay*.34+Math.cos(tt*b.w*.8+b.p*1.7)*.045)*dt;
       if(drag){const dx=b.x-drag.x,dy=b.y-drag.y,d=Math.hypot(dx,dy);if(d<140&&d>1){const f=(140-d)/140*1.6;b.vx+=dx/d*f*dt;b.vy+=dy/d*f*dt}}
       b.vx*=Math.pow(.955,dt);b.vy*=Math.pow(.955,dt);b.x+=b.vx*dt;b.y+=b.vy*dt;b.a+=(b.vx*.012+b.va)*dt;
       if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)*.35}if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)*.35}
@@ -2767,13 +2767,13 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
     obstacles().forEach(o=>B.forEach(b=>{const cx=Math.max(o.x,Math.min(b.x,o.x+o.w)),cy=Math.max(o.y,Math.min(b.y,o.y+o.h)),dx=b.x-cx,dy=b.y-cy,d=Math.hypot(dx,dy);
       if(d<b.r){if(d>.01){const p=b.r-d;b.x+=dx/d*p;b.y+=dy/d*p;const vn=b.vx*dx/d+b.vy*dy/d;if(vn<0){b.vx-=1.35*vn*dx/d;b.vy-=1.35*vn*dy/d}}
         else{const l=b.x-o.x,r=o.x+o.w-b.x,t=b.y-o.y,bt=o.y+o.h-b.y,m=Math.min(l,r,t,bt);if(m===l)b.x=o.x-b.r;else if(m===r)b.x=o.x+o.w+b.r;else if(m===t)b.y=o.y-b.r;else b.y=o.y+o.h+b.r}}}));
-    for(let i=0;i<B.length;i++)for(let j=i+1;j<B.length;j++){const p=B[i],q=B[j],dx=q.x-p.x,dy=q.y-p.y,d=Math.hypot(dx,dy),m=p.r+q.r;
+    for(let i=0;i<B.length;i++)for(let j=i+1;j<B.length;j++){const p=B[i],q=B[j],dx=q.x-p.x,m=p.r+q.r;if(dx>m||dx<-m)continue;const dy=q.y-p.y;if(dy>m||dy<-m)continue;const d=Math.hypot(dx,dy);
       if(d<m&&d>.01){const ov=(m-d)/2,nx=dx/d,ny=dy/d;p.x-=nx*ov;p.y-=ny*ov;q.x+=nx*ov;q.y+=ny*ov;const rv=(q.vx-p.vx)*nx+(q.vy-p.vy)*ny;if(rv<0){const im=rv*.6;p.vx+=nx*im;p.vy+=ny*im;q.vx-=nx*im;q.vy-=ny*im}}}
     B.forEach(b=>{b.el.style.transform=`translate(${(b.x-b.r).toFixed(1)}px,${(b.y-b.r).toFixed(1)}px) rotate(${b.a.toFixed(3)}rad)`});
     raf=requestAnimationFrame(step)};
-  const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(14,Math.min(22,W/20)),ob=below?obstacle():null,y0=ob?Math.min(H-R,ob.y+ob.h+R):0;
+  const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(11,Math.min(22,Math.sqrt(W*H*.36/(n*Math.PI))/.86)),obs=obstacles(),free=(x,y)=>!obs.some(o=>x>o.x-R&&x<o.x+o.w+R&&y>o.y-R&&y<o.y+o.h+R);
     B=pick(n).map(nm=>{const d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*R+"px";d.innerHTML=ico(nm);box.appendChild(d);
-      return{el:d,r:R*.86,x:R+Math.random()*(W-2*R),y:ob?y0+Math.random()*Math.max(1,H-R-y0):-R-Math.random()*H*.6,in:ob?1:0,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
+      return{el:d,r:R*.86,...(()=>{let x,y,k=0;do{x=R+Math.random()*(W-2*R);y=R+Math.random()*(H-2*R)}while(!free(x,y)&&++k<40);return{x,y}})(),in:1,w:.25+Math.random()*.5,p:Math.random()*7,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
   const run=()=>{cancelAnimationFrame(raf);t0=0;addEventListener("deviceorientation",onOri);raf=requestAnimationFrame(step)};
   const stop=()=>{mode=null;cancelAnimationFrame(raf);removeEventListener("deviceorientation",onOri);B.forEach(b=>b.el.remove());B=[]};
   const moveTo=nb=>{box=nb;B.forEach(b=>box.appendChild(b.el))};
@@ -2781,13 +2781,12 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
   // fondo del login: alimentos alrededor del formulario
   const gate=()=>{const g=$("gate");if(!g||g.classList.contains("hide")||mode==="gate")return;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
     let gb=g.querySelector(".gfb");if(!gb){gb=document.createElement("div");gb.className="gfb";gb.setAttribute("aria-hidden","true");g.prepend(gb)}
-    if(mode==="load")moveTo(gb);else{stop();box=gb;mode="gate";make(12,true)}mode="gate";g.classList.add("gfx");run()};
+    if(mode==="load")moveTo(gb);else{stop();box=gb;mode="gate";make(Object.keys(ICOS).length,true)}mode="gate";g.classList.add("gfx");run()};
   // al entrar: el formulario se va, el logo baja al centro y los mismos alimentos siguen flotando mientras carga
   const show=()=>{if(mode==="load")return;clearTimeout(hideT);const el=$("ldr"),lb=el.querySelector(".ldb");el.classList.remove("hide","out");
     const lt=$("ldt"),g=$("gate"),gl=g&&!g.classList.contains("hide")&&g.querySelector(".logo");
     if(gl){const r=gl.getBoundingClientRect();g.classList.add("busy");lt.style.transition="none";lt.style.width=r.width+"px";lt.style.top=(r.top+r.height/2+r.height*.12)+"px";lt.offsetWidth;lt.style.transition="";requestAnimationFrame(()=>{lt.style.top="";lt.style.width=""})}
-    if(mode==="gate")moveTo(lb);else{stop();box=lb;make(12)}
-    {const NL=Math.round(Math.min(60,Math.max(36,innerWidth*innerHeight/7000)));if(B.length<NL){const extra=NL-B.length;const keep=B;make(extra);B=keep.concat(B)}}
+    if(mode==="gate")moveTo(lb);else{stop();box=lb;make(Object.keys(ICOS).length)}
     mode="load";shownAt=Date.now();run()};
   const hide=fast=>{if(mode!=="load")return;const el=$("ldr"),left=fast?0:Math.max(0,1400-(Date.now()-shownAt));clearTimeout(hideT);
     hideT=setTimeout(()=>{const g=$("gate"),back=g&&!g.classList.contains("hide");
