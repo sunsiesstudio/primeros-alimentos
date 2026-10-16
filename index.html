@@ -2791,7 +2791,7 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
     mode="load";shownAt=Date.now();run()};
   const hide=fast=>{if(mode!=="load")return;const el=$("ldr"),left=fast?0:Math.max(0,1400-(Date.now()-shownAt));clearTimeout(hideT);
     hideT=setTimeout(()=>{const g=$("gate"),back=g&&!g.classList.contains("hide");
-      if(back){g.classList.remove("busy");gate()}
+      if(g)g.classList.remove("busy");if(back)gate()
       el.classList.add("out");setTimeout(()=>{if(mode==="load")stop();el.classList.add("hide")},420)},left)};
   let asked=false;const ask=()=>{if(asked||orientOK)return;try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==="function"){asked=true;DeviceOrientationEvent.requestPermission().then(s=>{if(s!=="granted")asked=false}).catch(()=>{asked=false})}}catch(e){}};
   document.addEventListener("pointerdown",e=>{if(!mode)return;if(mode==="gate"&&e.target.closest("input,button,a,#gbtn"))return;ptr(e)},{passive:true});
@@ -2800,7 +2800,7 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
   addEventListener("resize",()=>{W=innerWidth;H=innerHeight});
   return{show,hide,ask,gate,stop:()=>{if(mode==="gate")stop()}}})();window.LDR=LDR;
 ["touchend","click"].forEach(t=>document.addEventListener(t,e=>{if(e.target.closest("#gate,#ldr")&&!e.target.closest("input"))LDR.ask()},true));
-window.__auth=(u,d,pending)=>{USER=u;if(u&&pending)LDR.show();else if(u)LDR.hide();else{LDR.hide(true);setTimeout(()=>LDR.gate(),0)}LOADED=!!u&&!pending;$("ob").classList.add("hide");obSkip=getSkip();
+window.__auth=(u,d,pending)=>{USER=u;if(u&&pending)LDR.show();else if(u)LDR.hide();else{$("gate").classList.remove("busy");LDR.hide(true);setTimeout(()=>LDR.gate(),0)}LOADED=!!u&&!pending;$("ob").classList.add("hide");obSkip=getSkip();
   setDB(null);
   if(u){try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l)setDB(l)}catch(e){}
     $("err").textContent="Cargando tu progreso...";$("gate").classList.add("hide");try{document.activeElement&&document.activeElement.blur()}catch(e){}window.scrollTo(0,0);requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>window.scrollTo(0,0),400)}
