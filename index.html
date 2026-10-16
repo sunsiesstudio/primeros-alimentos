@@ -2746,7 +2746,7 @@ render();
 
 // ===== Pantalla de carga: alimentos flotando como en una bolsa de agua sensorial =====
 const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK=false,drag=null,box=null,shownAt=0;
-  const pick=n=>{const tried=Object.keys(typeof S!=="undefined"&&S?stats():{}).filter(k=>ICOS[k]),pool=[...new Set([...tried,...["Aguacate","Plátano","Brócoli","Zanahoria","Fresas","Huevo","Manzana","Pera","Calabaza","Kiwi","Mango","Sandía","Uvas","Cerezas","Limón","Pollo","Salmón","Tomate","Guisantes","Arándanos"]])].sort(()=>Math.random()-.5);return pool.slice(0,n)};
+  const pick=n=>{const sh=a=>a.sort(()=>Math.random()-.5),tried=sh(Object.keys(typeof S!=="undefined"&&S?stats():{}).filter(k=>ICOS[k])),fav=sh(["Aguacate","Plátano","Brócoli","Zanahoria","Fresas","Huevo","Manzana","Pera","Calabaza","Kiwi","Mango","Sandía","Uvas","Cerezas","Limón","Pollo","Salmón","Tomate","Guisantes","Arándanos"]),rest=sh(Object.keys(ICOS));const pool=[...new Set([...tried,...fav,...rest])];const out=[];for(let i=0;i<n;i++)out.push(pool[i%pool.length]);return out};
   let b0=null;const cl=v=>Math.max(-1,Math.min(1,v));
   const onOri=e=>{if(e.beta==null)return;orientOK=true;const be=Math.max(-90,Math.min(120,e.beta)),ga=Math.max(-90,Math.min(90,e.gamma||0));
     // se calibra con la postura en la que coges el móvil: así reposan abajo y con inclinarlo un poco hacia atrás suben
@@ -2786,8 +2786,8 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
   const show=()=>{if(mode==="load")return;clearTimeout(hideT);const el=$("ldr"),lb=el.querySelector(".ldb");el.classList.remove("hide","out");
     const lt=$("ldt"),g=$("gate"),gl=g&&!g.classList.contains("hide")&&g.querySelector(".logo");
     if(gl){const r=gl.getBoundingClientRect();g.classList.add("busy");lt.style.transition="none";lt.style.width=r.width+"px";lt.style.top=(r.top+r.height/2+r.height*.12)+"px";lt.offsetWidth;lt.style.transition="";requestAnimationFrame(()=>{lt.style.top="";lt.style.width=""})}
-    if(mode==="gate")moveTo(lb);else{stop();box=lb;make(16)}
-    if(B.length<16){const extra=16-B.length;const keep=B;make(extra);B=keep.concat(B)}
+    if(mode==="gate")moveTo(lb);else{stop();box=lb;make(12)}
+    {const NL=Math.round(Math.min(60,Math.max(36,innerWidth*innerHeight/7000)));if(B.length<NL){const extra=NL-B.length;const keep=B;make(extra);B=keep.concat(B)}}
     mode="load";shownAt=Date.now();run()};
   const hide=fast=>{if(mode!=="load")return;const el=$("ldr"),left=fast?0:Math.max(0,1400-(Date.now()-shownAt));clearTimeout(hideT);
     hideT=setTimeout(()=>{const g=$("gate"),back=g&&!g.classList.contains("hide");
