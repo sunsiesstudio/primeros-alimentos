@@ -2765,9 +2765,9 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
     if(sleep){if(flat||(!drag&&Math.abs(ax-sg[0])<.06&&Math.abs(ay-sg[1])<.06)){raf=requestAnimationFrame(step);return}sleep=false;calm=0}
     const topW=(()=>{if(mode!=="gate")return 0;const L=obstacles();return L.length?Math.min(H-120,Math.max(...L.map(o=>o.y+o.h))+6):0})();
     B.forEach(b=>{b.px=b.x;b.py=b.y});
-    B.forEach((b,i)=>{b.vx+=ax*.34*dt;b.vy+=ay*.34*dt;if(Math.abs(ax)<.12)b.vx*=Math.pow(.8,dt);if(Math.abs(ay)<.12)b.vy*=Math.pow(.8,dt);
+    B.forEach((b,i)=>{const k=.45+.95*(b.w??.5);b.vx+=ax*.34*k*dt;b.vy+=ay*.34*k*dt;if(Math.abs(ax)<.12)b.vx*=Math.pow(.8,dt);if(Math.abs(ay)<.12)b.vy*=Math.pow(.8,dt);
       if(drag){const dx=b.x-drag.x,dy=b.y-drag.y,d=Math.hypot(dx,dy);if(d<140&&d>1){const f=(140-d)/140*1.6;b.vx+=dx/d*f*dt;b.vy+=dy/d*f*dt}}
-      b.vx*=Math.pow(.94,dt);b.vy*=Math.pow(.94,dt);b.x+=b.vx*dt;b.y+=b.vy*dt;b.a+=b.vx*.012*dt;
+      {const dr=.91+.045*(b.w??.5);b.vx*=Math.pow(dr,dt);b.vy*=Math.pow(dr,dt)}b.x+=b.vx*dt;b.y+=b.vy*dt;b.a+=b.vx*.012*dt;
       if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)*.35}if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)*.35}
       const tw=topW+b.r;if(b.y>tw)b.in=1;if(b.y<tw&&b.in){b.y=tw;b.vy=Math.abs(b.vy)*.35}if(b.y>H-b.r){b.y=H-b.r;b.vy=-Math.abs(b.vy)*.35}});
     // en el login, los alimentos rodean el formulario y nunca lo tapan
@@ -2775,15 +2775,22 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
       if(d<b.r){if(d>.01){const p=b.r-d;b.x+=dx/d*p;b.y+=dy/d*p;if(dy<0&&ay>.2)b.x+=(b.x<o.x+o.w/2?-1:1)*.8*dt;const vn=b.vx*dx/d+b.vy*dy/d;if(vn<0){b.vx-=1.35*vn*dx/d;b.vy-=1.35*vn*dy/d}}
         else{const l=b.x-o.x,r=o.x+o.w-b.x,t=b.y-o.y,bt=o.y+o.h-b.y,m=Math.min(l,r,t,bt);if(m===l)b.x=o.x-b.r;else if(m===r)b.x=o.x+o.w+b.r;else if(m===t)b.y=o.y-b.r;else b.y=o.y+o.h+b.r}}}));
     for(let i=0;i<B.length;i++)for(let j=i+1;j<B.length;j++){const p=B[i],q=B[j],dx=q.x-p.x,m=p.r+q.r;if(dx>m||dx<-m)continue;const dy=q.y-p.y;if(dy>m||dy<-m)continue;const d=Math.hypot(dx,dy);
-      if(d<m&&d>.01){const ov=(m-d)/2,nx=dx/d,ny=dy/d;p.x-=nx*ov;p.y-=ny*ov;q.x+=nx*ov;q.y+=ny*ov;const rv=(q.vx-p.vx)*nx+(q.vy-p.vy)*ny;if(rv<0){const im=rv*.6;p.vx+=nx*im;p.vy+=ny*im;q.vx-=nx*im;q.vy-=ny*im}}}
+      if(d<m&&d>.01){const mp=p.m||1,mq=q.m||1,fp=mq/(mp+mq),fq=mp/(mp+mq),ov=m-d,nx=dx/d,ny=dy/d;p.x-=nx*ov*fp;p.y-=ny*ov*fp;q.x+=nx*ov*fq;q.y+=ny*ov*fq;const rv=(q.vx-p.vx)*nx+(q.vy-p.vy)*ny;if(rv<0){const im=rv*1.2;p.vx+=nx*im*fp;p.vy+=ny*im*fp;q.vx-=nx*im*fq;q.vy-=ny*im*fq}}}
     if(dt>.05)B.forEach(b=>{b.vx=(b.x-b.px)/dt;b.vy=(b.y-b.py)/dt});
     {const mv=B.reduce((m,b)=>Math.max(m,Math.abs(b.vx)+Math.abs(b.vy)),0);calm=mv<.06&&!drag?calm+1:0;if(calm>60){sleep=true;sg=[ax,ay]}}
-    B.forEach(b=>{const tx=Math.round(b.x-b.r),ty=Math.round(b.y-b.r),ta=Math.round(b.a*40)/40;if(tx!==b.tx||ty!==b.ty||ta!==b.ta){if(b.tx===undefined||Math.abs(tx-b.tx)+Math.abs(ty-b.ty)>1||ta!==b.ta){b.tx=tx;b.ty=ty;b.ta=ta;b.el.style.transform=`translate(${tx}px,${ty}px) rotate(${ta}rad)`}}});
+    B.forEach(b=>{const tx=Math.round(b.x-(b.R||b.r)),ty=Math.round(b.y-(b.R||b.r)),ta=Math.round(b.a*40)/40;if(tx!==b.tx||ty!==b.ty||ta!==b.ta){if(b.tx===undefined||Math.abs(tx-b.tx)+Math.abs(ty-b.ty)>1||ta!==b.ta){b.tx=tx;b.ty=ty;b.ta=ta;b.el.style.transform=`translate(${tx}px,${ty}px) rotate(${ta}rad)`}}});
     raf=requestAnimationFrame(step)};
+  const FW=(()=>{const t={},s=(w,l)=>l.split("|").forEach(n=>t[n]=w);
+    s(1,"Sandía|Melón|Calabaza|Piña|Coliflor|Repollo|Lombarda|Pan|Pan integral");
+    s(.75,"Coco|Mango|Patata|Boniato|Berenjena|Brócoli|Pomelo|Papaya|Lechuga|Pimiento rojo|Pimiento verde|Salmón|Merluza|Bacalao|Dorada|Lubina|Trucha|Rape|Ternera|Cerdo|Cordero|Pavo|Conejo|Pollo|Calabacín|Puerro|Apio|AOVE|Bebida de avena|Bebida de soja|Kéfir|Hinojo|Alcachofa|Acelgas|Borraja");
+    s(.25,"Fresas|Ciruela|Albaricoque|Higos|Dátiles|Cerezas|Uvas|Limón|Ajo|Champiñones|Setas|Rábano|Coles de Bruselas|Gambas|Mejillones|Castaña|Nuez|Nuez de Brasil|Nuez pecana|Almendra|Jengibre|Habas tiernas|Guisantes|Mandarina|Kiwi|Huevo|Maracuyá|Níspero|Tortitas de arroz");
+    s(0,"Arándanos|Frambuesas|Mora|Piñones|Pistacho|Cacahuete|Anacardo|Avellana|Macadamia|Sésamo (tahini)|Semillas de calabaza|Semillas de chía|Semillas de girasol|Semillas de lino");
+    const dc={Frutas:.5,Verduras:.5,Proteínas:.55,Cereales:.45,"Frutos secos":.1,Lácteos:.45,Condimentos:.08};
+    return n=>{if(t[n]!==undefined)return t[n];const x=info(n);return x?(dc[x.c]??.5):.5}})();
   const NF=()=>Math.round(Math.max(16,Math.min(24,innerWidth/18)));
   const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(11,Math.min(17,Math.sqrt(W*H*.2/(n*Math.PI))/.86)),obs=obstacles(),free=(x,y)=>!obs.some(o=>x>o.x-R&&x<o.x+o.w+R&&y>o.y-R&&y<o.y+o.h+R);
-    B=pick(n).map(nm=>{const d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*R+"px";d.innerHTML=ico(nm);box.appendChild(d);
-      return{el:d,r:R*.86,...(()=>{let x,y,k=0;const yb=Math.max(H*.55,...obs.map(o=>o.y+o.h+R));do{x=R+Math.random()*(W-2*R);y=yb+Math.random()*Math.max(1,H-R-yb)}while(!free(x,y)&&++k<40);return{x,y}})(),in:1,w:.25+Math.random()*.5,p:Math.random()*7,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
+    B=pick(n).map(nm=>{const w=FW(nm),sc=.6+.9*w,Ri=R*sc,d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*Ri+"px";d.innerHTML=ico(nm);box.appendChild(d);
+      return{el:d,r:Ri*.86,R:Ri,w,m:sc*sc,...(()=>{let x,y,k=0;const yb=Math.max(H*.55,...obs.map(o=>o.y+o.h+R));do{x=R+Math.random()*(W-2*R);y=yb+Math.random()*Math.max(1,H-R-yb)}while(!free(x,y)&&++k<40);return{x,y}})(),in:1,w:.25+Math.random()*.5,p:Math.random()*7,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
   const run=()=>{cancelAnimationFrame(raf);t0=0;addEventListener("deviceorientation",onOri);raf=requestAnimationFrame(step)};
   const stop=()=>{mode=null;cancelAnimationFrame(raf);removeEventListener("deviceorientation",onOri);B.forEach(b=>b.el.remove());B=[]};
   const moveTo=nb=>{box=nb;B.forEach(b=>box.appendChild(b.el))};
