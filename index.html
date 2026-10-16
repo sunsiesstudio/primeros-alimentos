@@ -2021,7 +2021,7 @@ function plan(){
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
-    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}${o.items[0]||!y.head?"":`<p class="hd">${y.head}</p>`}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${how}</div>`};
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}${o.items[0]||!y.head?"":`<p class="hd">${y.head}</p>`}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${""}</div>`};
   {const pdn=n=>{pdate=n;subtab(1);plan();window.scrollTo({top:0})};
     const fm2=d=>d.toLocaleDateString(LOC(),{day:"numeric",month:"long"}),jn=a=>a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
     const rowOf=(o,dlab)=>{const x=o.items[0],dl=dlab;let body,mvb="";
