@@ -2750,7 +2750,9 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
   let b0=null;const cl=v=>Math.max(-1,Math.min(1,v));
   const onOri=e=>{if(e.beta==null)return;orientOK=true;const be=Math.max(-90,Math.min(120,e.beta)),ga=Math.max(-90,Math.min(90,e.gamma||0));
     // se calibra con la postura en la que coges el móvil: así reposan abajo y con inclinarlo un poco hacia atrás suben
-    if(b0===null)b0=be;else b0+=(be-b0)*.002;
+    // con el móvil plano sobre la mesa no hay inclinación: las frutas se quedan quietas
+    if(Math.abs(be)<10&&Math.abs(ga)<10){gx=0;gy=0;return}
+    if(b0===null||b0<15)b0=Math.max(be,15);else b0+=(be-b0)*.002;
     gx=cl(ga/24);gy=cl(.6+(be-b0)/20);const l=Math.hypot(gx,gy);if(l>1){gx/=l;gy/=l}};
   const obstacles=()=>{if(mode!=="gate")return[];const g=$("gate"),f=g&&g.querySelector(":scope>div:not(.gfb)");if(!f)return[];
     // un hueco por cada bloque visible (logo, Google, email, botones) para que quepan por los lados
@@ -2759,7 +2761,8 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
   const step=ts=>{if(!mode)return;const dt=Math.min(32,ts-(t0||ts))/16.7;t0=ts;const tt=ts/1000;
     let ax=gx,ay=gy;if(!orientOK){ax=0;ay=.6}
     // en reposo se quedan quietos del todo; solo se despiertan si mueves el móvil o los tocas
-    if(sleep){if(!drag&&Math.abs(ax-sg[0])<.06&&Math.abs(ay-sg[1])<.06){raf=requestAnimationFrame(step);return}sleep=false;calm=0}
+    const flat=orientOK&&Math.hypot(ax,ay)<.1&&!drag;if(flat&&!sleep){sleep=true;sg=[ax,ay]}
+    if(sleep){if(flat||(!drag&&Math.abs(ax-sg[0])<.06&&Math.abs(ay-sg[1])<.06)){raf=requestAnimationFrame(step);return}sleep=false;calm=0}
     B.forEach(b=>{b.px=b.x;b.py=b.y});
     B.forEach((b,i)=>{b.vx+=ax*.34*dt;b.vy+=ay*.34*dt;if(Math.abs(ax)<.12)b.vx*=Math.pow(.8,dt);if(Math.abs(ay)<.12)b.vy*=Math.pow(.8,dt);
       if(drag){const dx=b.x-drag.x,dy=b.y-drag.y,d=Math.hypot(dx,dy);if(d<140&&d>1){const f=(140-d)/140*1.6;b.vx+=dx/d*f*dt;b.vy+=dy/d*f*dt}}
