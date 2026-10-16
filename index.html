@@ -2775,8 +2775,7 @@ const LDR=(()=>{let mode=null,raf=0,t0=0,B=[],gx=0,gy=1,W=0,H=0,hideT=0,orientOK
   // fondo del login: alimentos alrededor del formulario
   const gate=()=>{const g=$("gate");if(!g||g.classList.contains("hide")||mode==="gate")return;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
     let gb=g.querySelector(".gfb");if(!gb){gb=document.createElement("div");gb.className="gfb";gb.setAttribute("aria-hidden","true");g.prepend(gb)}
-    if(mode==="load")moveTo(gb);else{stop();box=gb;mode="gate";make(12,true)}mode="gate";
-    {let hn=g.querySelector(".gfh");const need=window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==="function"&&!orientOK;if(need&&!hn){hn=document.createElement("button");hn.type="button";hn.className="gfh";hn.textContent="Toca aquí y mueve el móvil";hn.onclick=()=>{ask();hn.remove()};g.appendChild(hn)}}g.classList.add("gfx");run()};
+    if(mode==="load")moveTo(gb);else{stop();box=gb;mode="gate";make(12,true)}mode="gate";g.classList.add("gfx");run()};
   // al entrar: el formulario se va, el logo baja al centro y los mismos alimentos siguen flotando mientras carga
   const show=()=>{if(mode==="load")return;clearTimeout(hideT);const el=$("ldr"),lb=el.querySelector(".ldb");el.classList.remove("hide","out");
     const lt=$("ldt"),g=$("gate"),gl=g&&!g.classList.contains("hide")&&g.querySelector(".logo");
