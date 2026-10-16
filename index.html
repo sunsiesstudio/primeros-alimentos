@@ -2763,12 +2763,13 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
     // en reposo se quedan quietos del todo; solo se despiertan si mueves el móvil o los tocas
     const flat=orientOK&&Math.hypot(ax,ay)<.1&&!drag;if(flat&&!sleep){sleep=true;sg=[ax,ay]}
     if(sleep){if(flat||(!drag&&Math.abs(ax-sg[0])<.06&&Math.abs(ay-sg[1])<.06)){raf=requestAnimationFrame(step);return}sleep=false;calm=0}
+    const topW=(()=>{if(mode!=="gate")return 0;const L=obstacles();return L.length?Math.min(H-120,Math.max(...L.map(o=>o.y+o.h))+6):0})();
     B.forEach(b=>{b.px=b.x;b.py=b.y});
     B.forEach((b,i)=>{b.vx+=ax*.34*dt;b.vy+=ay*.34*dt;if(Math.abs(ax)<.12)b.vx*=Math.pow(.8,dt);if(Math.abs(ay)<.12)b.vy*=Math.pow(.8,dt);
       if(drag){const dx=b.x-drag.x,dy=b.y-drag.y,d=Math.hypot(dx,dy);if(d<140&&d>1){const f=(140-d)/140*1.6;b.vx+=dx/d*f*dt;b.vy+=dy/d*f*dt}}
       b.vx*=Math.pow(.94,dt);b.vy*=Math.pow(.94,dt);b.x+=b.vx*dt;b.y+=b.vy*dt;b.a+=b.vx*.012*dt;
       if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)*.35}if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)*.35}
-      if(b.y>b.r)b.in=1;if(b.y<b.r&&b.in){b.y=b.r;b.vy=Math.abs(b.vy)*.35}if(b.y>H-b.r){b.y=H-b.r;b.vy=-Math.abs(b.vy)*.35}});
+      const tw=topW+b.r;if(b.y>tw)b.in=1;if(b.y<tw&&b.in){b.y=tw;b.vy=Math.abs(b.vy)*.35}if(b.y>H-b.r){b.y=H-b.r;b.vy=-Math.abs(b.vy)*.35}});
     // en el login, los alimentos rodean el formulario y nunca lo tapan
     obstacles().forEach(o=>B.forEach(b=>{const cx=Math.max(o.x,Math.min(b.x,o.x+o.w)),cy=Math.max(o.y,Math.min(b.y,o.y+o.h)),dx=b.x-cx,dy=b.y-cy,d=Math.hypot(dx,dy);
       if(d<b.r){if(d>.01){const p=b.r-d;b.x+=dx/d*p;b.y+=dy/d*p;if(dy<0&&ay>.2)b.x+=(b.x<o.x+o.w/2?-1:1)*.8*dt;const vn=b.vx*dx/d+b.vy*dy/d;if(vn<0){b.vx-=1.35*vn*dx/d;b.vy-=1.35*vn*dy/d}}
@@ -2779,7 +2780,7 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
     {const mv=B.reduce((m,b)=>Math.max(m,Math.abs(b.vx)+Math.abs(b.vy)),0);calm=mv<.06&&!drag?calm+1:0;if(calm>60){sleep=true;sg=[ax,ay]}}
     B.forEach(b=>{const tx=Math.round(b.x-b.r),ty=Math.round(b.y-b.r),ta=Math.round(b.a*40)/40;if(tx!==b.tx||ty!==b.ty||ta!==b.ta){if(b.tx===undefined||Math.abs(tx-b.tx)+Math.abs(ty-b.ty)>1||ta!==b.ta){b.tx=tx;b.ty=ty;b.ta=ta;b.el.style.transform=`translate(${tx}px,${ty}px) rotate(${ta}rad)`}}});
     raf=requestAnimationFrame(step)};
-  const NF=()=>Math.round(Math.max(26,Math.min(44,innerWidth*innerHeight/9500)));
+  const NF=()=>Math.round(Math.max(16,Math.min(24,innerWidth/18)));
   const make=(n,below)=>{W=innerWidth;H=innerHeight;const R=Math.max(11,Math.min(17,Math.sqrt(W*H*.2/(n*Math.PI))/.86)),obs=obstacles(),free=(x,y)=>!obs.some(o=>x>o.x-R&&x<o.x+o.w+R&&y>o.y-R&&y<o.y+o.h+R);
     B=pick(n).map(nm=>{const d=document.createElement("span");d.className="ldf";d.style.width=d.style.height=2*R+"px";d.innerHTML=ico(nm);box.appendChild(d);
       return{el:d,r:R*.86,...(()=>{let x,y,k=0;const yb=Math.max(H*.55,...obs.map(o=>o.y+o.h+R));do{x=R+Math.random()*(W-2*R);y=yb+Math.random()*Math.max(1,H-R-yb)}while(!free(x,y)&&++k<40);return{x,y}})(),in:1,w:.25+Math.random()*.5,p:Math.random()*7,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*2,a:Math.random()*6,va:(Math.random()-.5)*.01}})};
