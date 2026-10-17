@@ -679,6 +679,7 @@ input,select,textarea{font-size:16px!important}html{-webkit-text-size-adjust:100
 .rcing{display:flex!important;flex-direction:column;gap:8px!important}.rcing .rci{display:grid!important;grid-template-columns:30px 1fr auto;align-items:center;gap:10px;width:auto;max-width:none!important;min-width:0!important;text-align:left}
 .rcing .rci svg.fd{width:28px;height:28px}.rcing .rci small{font-size:.86rem;line-height:1.25}.rcing .rcq{font-weight:400!important;font-size:.86rem;color:var(--mute);margin:0;text-align:right}
 .tkt-logo{display:flex;flex-direction:column;align-items:center;gap:2px;margin:18px auto 4px}.tkt-logo .disp{color:var(--green);font-size:1.15rem;letter-spacing:.03em}
+.chgh{font-weight:700;font-size:1rem;margin:16px 0 8px}#chg_b.sep{margin-top:20px;padding-top:6px;border-top:1px dashed var(--line)}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -977,14 +978,14 @@ document.documentElement.lang=LANG;
 <div class="shhd">
   <button class="xc" id="chg_c" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="chg_t"></h3>
-  <div class="chgmd" id="chg_md" role="group" aria-label="Qué ha pasado"><button type="button" data-md="a" class="on">No me cuadra</button><button type="button" data-md="b">Le he dado otra cosa</button></div>
 </div>
   <div id="chg_a">
-    <p class="mute" style="margin:10px 0 6px">Elige otra propuesta:</p>
+    <p class="chgh">Otras ideas</p>
     <div id="chg_l" class="chgl"></div>
   </div>
-  <div id="chg_b" class="hide">
-    <label style="margin-top:10px">¿Qué le has dado?<textarea id="chg_x" rows="2" maxlength="120" placeholder="Por ejemplo: tortilla de patata con calabacín"></textarea></label>
+  <div id="chg_b">
+    <p class="chgh">¿Le has dado otra cosa?</p><p class="mute" style="margin:0 0 8px;font-size:.86rem">Escríbelo y lo anotamos como comido, con sus alimentos en el calendario y en los objetivos de la semana</p>
+    <label>Qué ha comido<textarea id="chg_x" rows="2" maxlength="120" placeholder="Por ejemplo: tortilla de patata con calabacín"></textarea></label>
     <p class="mute" style="margin:10px 0 6px" id="chg_dh">Anotaremos como comido:</p>
     <div id="chg_det" class="chgp chgdet"></div>
     <details class="chgadd"><summary>¿Falta algún alimento? Añádelo</summary>
@@ -2491,8 +2492,7 @@ function plan(){
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
     $("chg_x").value="";$("chg_s").value="";$("chg_b").querySelector(".chgadd").open=false;
-    const setMd=md=>{$("chg_md").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.md===md));$("chg_a").classList.toggle("hide",md!=="a");$("chg_b").classList.toggle("hide",md!=="b")};
-    $("chg_md").querySelectorAll("button").forEach(x=>x.onclick=()=>setMd(x.dataset.md));setMd(o.past||!alts.length?"b":"a");
+    $("chg_a").classList.toggle("hide",!!o.past||!alts.length);$("chg_b").classList.toggle("sep",!o.past&&!!alts.length);
     // Lo que le ha dado: lo que se reconoce en el texto + lo que se añade a mano − lo que se quita
     const sel=new Set(),rem=new Set(),mm=stats(),pool=ALL.filter(x=>unlocked(x)).sort((a,b)=>(mm[b.n]?1:0)-(mm[a.n]?1:0)||a.n.localeCompare(b.n,"es"));
     const fin=()=>[...new Set([...inferIngs($("chg_x").value).filter(n=>!rem.has(n)),...sel])];
