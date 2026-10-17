@@ -290,7 +290,7 @@ details.gfull{margin-top:14px}
 .shtab{flex:none;border:1.5px solid var(--line);border-bottom:0;background:transparent;color:var(--mute);border-radius:12px 12px 0 0;padding:8px 14px;font:600 .85rem Montserrat,sans-serif;cursor:pointer;margin-bottom:-1.5px;white-space:nowrap}
 .shtab.on{background:var(--card);color:var(--ink);border-color:var(--green);border-bottom:1.5px solid var(--card)}.shtab.new{border-style:dashed}.shst{font-style:normal;color:var(--terra);margin-right:4px}
 #shform.ro #shp,#shform.ro #svp,#shform.ro .rxq,#shform.ro #rxb,#shform.ro .shmore{pointer-events:none}#shform.ro>*:not(#shrob):not(#shnote):not(.warn):not(.risk){opacity:.6}#shform.ro .shqs,#shform.ro #fph_add,#shform.ro #rest{display:none!important}
-#shtag{margin-left:auto;align-self:center}#shnote{margin:10px 0 0;font-size:.9rem}
+#shtag{align-self:center;flex:none;margin-top:2px}.shtit{flex-wrap:wrap;row-gap:4px}#shnote{margin:10px 0 0;font-size:.9rem}
 #sh #dt:disabled{display:none}#shrob .btn{white-space:nowrap;padding:11px 14px}#shrob #shred{flex:0 0 38%}
 #rxg{display:grid;grid-template-columns:1fr 1fr;gap:8px}#rxg button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:6px 11px;font:600 .8rem Montserrat,sans-serif;min-height:40px!important}
 #rxg button:last-child:nth-child(odd){grid-column:1/-1}#rxg button.on{background:var(--green);border-color:var(--green);color:#fff}
@@ -1598,7 +1598,7 @@ function shHist(n,direct){const L=S.log.map((l,i)=>({...l,i})).filter(l=>l.f===n
   const isNew=direct||want==="new",selI=isNew?null:(typeof want==="number"&&L.some(l=>l.i===want)?want:L[L.length-1].i);
   const lab=l=>l.nd||(l.pre&&!l.dset)?TT("Sin fecha","Sense data","No date"):new Date(l.d+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short",...(l.d.slice(0,4)!==today().slice(0,4)?{year:"2-digit"}:{})});
   hs.innerHTML=`<div class="shtabs" role="tablist">${L.map((l,k)=>`<button type="button" role="tab" class="shtab${l.i===selI?" on":""}" data-ti="${l.i}" aria-selected="${l.i===selI}">${k===0?'<i class="shst">★</i>':""}${esc(lab(l))}</button>`).join("")}${isNew?`<button type="button" role="tab" class="shtab on new" aria-selected="true">${TT("Nuevo","Nou","New")}</button>`:""}</div>`;
-  hs.classList.remove("hide");
+  hs.classList.toggle("hide",L.length<2&&!isNew);
   hs.querySelectorAll("[data-ti]").forEach(b=>b.onclick=()=>{shWant=+b.dataset.ti;openSheet(cur)});
   {const t=hs.querySelector(".shtab.on");if(t)setTimeout(()=>t.scrollIntoView({inline:"center",block:"nearest"}),0)}
   if(isNew){shMode("new");return}
