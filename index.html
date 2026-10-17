@@ -1738,6 +1738,11 @@ const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
 const getSkip=()=>{try{return localStorage.getItem(SKK())==="1"}catch(e){return false}};
 function askProfile(){if(!S.bd&&!obSkip&&USER&&LOADED&&$("gate").classList.contains("hide"))openOb()}
 let OB=null;
+// cuando se abre el teclado en la bienvenida, el campo activo se coloca a la vista (sin pasarse)
+(()=>{const fit=()=>{const o=$("ob"),t=document.activeElement;if(!o||o.classList.contains("hide")||!t||!t.closest||!t.closest("#ob")||!/^(INPUT|TEXTAREA)$/.test(t.tagName)||t.type==="date")return;
+  const vv=window.visualViewport,top=vv?vv.offsetTop:0,hh=vv?vv.height:innerHeight,r=t.getBoundingClientRect();
+  if(r.top<top+8||r.bottom>top+hh-8){const want=top+hh*.42-r.height/2;o.scrollBy({top:r.top-want,behavior:"smooth"})}};
+  if(window.visualViewport)visualViewport.addEventListener("resize",()=>setTimeout(fit,30));document.addEventListener("focusin",()=>setTimeout(fit,320))})();
 function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:["iron","zinc"],sty:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
 function obSteps(){return OB.ya?[0,1,2,3,5]:[0,1,2,5]}
 function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
