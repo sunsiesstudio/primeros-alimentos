@@ -628,6 +628,7 @@ input,select,textarea{font-size:16px!important}html{-webkit-text-size-adjust:100
 
 .ob .obs0{justify-content:flex-start!important;flex:none!important;padding-top:4px}.ob .obs0 .obhero{height:120px;width:210px}.ob .obs0 .obhero .obst{width:74px;height:74px}.ob .obs0 .obf{width:36px;height:36px}.ob .obs0 h2{font-size:1.45rem}.ob>div:has(.obs0) .foot{margin-top:auto}
 .ob .foot{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom,0px));z-index:3;background:var(--bg);padding:12px 0 calc(18px + env(safe-area-inset-bottom,0px));margin-bottom:calc(-18px - env(safe-area-inset-bottom,0px))}
+.ob:has(#ob_nm:focus) .foot,.ob:has(#ob_q:focus) .foot{display:none}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -1767,7 +1768,7 @@ function drawOb(){
   const sk=i===0?'<button class="skip" id="ob_skip">Saltar</button>':[3,4,7,8,9,10].includes(i)?'<button class="skip" id="ob_pass">Saltar</button>':"<span></span>";
   $("ob").innerHTML=`<div><div class="obnav">${i>0?'<button class="skip" id="ob_back">‹ Atrás</button>':"<span></span>"}${sk}</div><div class="obpg" aria-hidden="true"><i style="width:${Math.round(100*(st.indexOf(i)+1)/st.length)}%"></i><span style="left:${Math.round(100*(st.indexOf(i)+1)/st.length)}%">${OBSTAR}</span></div><div class="mid${[3,4,6].includes(i)?" top":""} obs${i}">${hero}<h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":i===3?"Ya he marcado todos":"Siguiente"}</button>${i===0?'<button class="skip" id="ob_out">Cerrar sesión</button>':""}</div></div>`;
   const o=$("ob");
-  if($("ob_nm"))$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};
+  if($("ob_nm")){$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};$("ob_nm").setAttribute("enterkeyhint","next");$("ob_nm").onkeydown=e=>{if(e.key==="Enter"&&OB.nm.trim()){e.preventDefault();e.target.blur();$("ob_next").click()}}}
   if($("ob_bd")){const f=e=>{const v=e.target.value;OB.bd=v&&v<=today()?v:"";$("ob_next").disabled=!OB.bd;const a=$("ob_age");if(a)a.innerHTML=obAgeH(obMonths(OB.bd))};$("ob_bd").oninput=f;$("ob_bd").onchange=f}
   o.querySelectorAll("[data-ya]").forEach(b=>b.onclick=()=>{OB.ya=b.dataset.ya==="1";if(!OB.ya)OB.fo.clear();drawOb()});
   if($("ob_q"))$("ob_q").oninput=e=>{OB.q=e.target.value;const p=e.target.selectionStart;drawOb();const n=$("ob_q");n.focus();n.setSelectionRange(p,p)};
