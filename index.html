@@ -688,6 +688,7 @@ input,select,textarea{font-size:16px!important}html{-webkit-text-size-adjust:100
 select,textarea,input:not([type=checkbox]):not([type=radio]){font-weight:400}.obdp select{font-weight:700}#pfcard .pf .flab{font-weight:600!important}.ms>summary{font-weight:400}
 .fzn svg{width:14px!important;height:14px!important;flex:none;margin:0!important}.fzn{display:flex;align-items:center;gap:5px;margin-top:6px;font-size:.8rem;color:var(--blue);font-weight:600}.fznote{margin:12px 0 0;font-size:.86rem;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--blue) 8%,transparent)}
 .ggi{display:flex;flex-direction:column;gap:8px}.gir{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:14px}.gir .gic{width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--green) 10%,transparent);display:grid;place-items:center}.gir .gic svg{width:28px;height:28px}.gir b{display:block;margin-bottom:2px}.gir span{color:var(--mute);font-size:.9rem;line-height:1.4}
+.chgo{display:flex;align-items:center;justify-content:space-between;gap:8px}.chgsv{color:var(--terra);flex:none;display:flex}#chg_det:not(:empty){margin-top:10px}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -992,15 +993,15 @@ document.documentElement.lang=LANG;
     <div id="chg_l" class="chgl"></div>
   </div>
   <div id="chg_b">
-    <p class="chgh">¿Le has dado otra cosa?</p><p class="mute" style="margin:0 0 8px;font-size:.86rem">Escríbelo y lo anotamos como comido, con sus alimentos en el calendario y en los objetivos de la semana</p>
-    <label>Qué ha comido<textarea id="chg_x" rows="2" maxlength="120" placeholder="Por ejemplo: tortilla de patata con calabacín"></textarea></label>
-    <p class="mute" style="margin:10px 0 6px" id="chg_dh">Anotaremos como comido:</p>
+    <p class="chgh">¿Le has dado otra cosa?</p>
+    <label><textarea id="chg_x" rows="2" maxlength="120" placeholder="Por ejemplo: tortilla de patata con calabacín"></textarea></label>
+    <p class="mute hide" id="chg_dh"></p>
     <div id="chg_det" class="chgp chgdet"></div>
-    <details class="chgadd"><summary>¿Falta algún alimento? Añádelo</summary>
+    <details class="chgadd hide"><summary>¿Falta algún alimento? Añádelo</summary>
       <input id="chg_s" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
       <div id="chg_p" class="chgp"></div>
     </details>
-    <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button" style="width:100%;flex:1 1 100%">Guardar y anotar como comido</button></div>
+    <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button" style="width:100%;flex:1 1 100%">Guardar</button></div>
   </div>
 </div></div>
 <div class="sheet hide full" id="sh" role="dialog" aria-label="Registrar alimento"><div>
@@ -2511,16 +2512,20 @@ function plan(){
   $("days").querySelectorAll("button[data-dm]").forEach(b=>b.onclick=()=>{const d=b.dataset.d,k=b.dataset.dm;S.prefs.dm=S.prefs.dm||{};const v=S.prefs.dm[d]={...(S.prefs.dm[d]||{})};if(v[k])delete v[k];else v[k]=1;if(!v.e&&!v.q)delete S.prefs.dm[d];save();plan()});
   $("days").querySelectorAll("button[data-chg]").forEach(b=>b.onclick=()=>{
     const d=b.dataset.d,m=b.dataset.chg,o=shown.find(x=>x.ds===d),row=o&&o.rows.find(([mm])=>mm===m);if(!row)return;
-    const cur=row[1],seen=new Set([cur.n]),alts=recipesFor(o.kn,mo,pz).filter(r=>r.meals.includes(m)&&!seen.has(r.n)&&seen.add(r.n)).slice(0,4),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
+    const cur=row[1],seen=new Set([cur.n]),alts=(()=>{const RR=recipesFor(o.kn,mo,pz),kn=new Set(o.kn.map(x=>x.n)),fv=(S.fav||[]).filter(f=>f.n!==cur.n&&f.i.every(n=>kn.has(n))).map(f=>RR.find(r=>r.n===f.n)||{t:"fijo",n:f.n,ings:f.i.slice(),q:[],how:""}).slice(0,2);fv.forEach(r=>seen.add(r.n));
+      const pool=RR.filter(r=>r.meals.includes(m)&&!seen.has(r.n)&&!(r.ings||[]).some(n=>!kn.has(n))),sd=(d.split("-").join("")|0)+m.length,sh=pool.map((r,i)=>({r,k:(i*37+sd*13)%101})).sort((a,b)=>a.k-b.k).map(x=>x.r),out=[],ut=new Set(),ui=new Set();
+      for(const r of sh){if(out.length>=4-fv.length)break;const mi=(r.ings||[])[0];if(ut.has(r.t)||ui.has(mi))continue;out.push(r);ut.add(r.t);ui.add(mi)}
+      for(const r of sh){if(out.length>=4-fv.length)break;if(!out.includes(r))out.push(r)}
+      return [...fv.map(r=>({...r,sv:1})),...out]})(),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
-    $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
+    $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}${r.sv?'<span class="chgsv" aria-label="Receta guardada"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg></span>':""}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
     $("chg_x").value="";$("chg_s").value="";$("chg_b").querySelector(".chgadd").open=false;
     $("chg_a").classList.toggle("hide",!!o.past||!alts.length);$("chg_b").classList.toggle("sep",!o.past&&!!alts.length);
     // Lo que le ha dado: lo que se reconoce en el texto + lo que se añade a mano − lo que se quita
     const sel=new Set(),rem=new Set(),mm=stats(),pool=ALL.filter(x=>unlocked(x)).sort((a,b)=>(mm[b.n]?1:0)-(mm[a.n]?1:0)||a.n.localeCompare(b.n,"es"));
     const fin=()=>[...new Set([...inferIngs($("chg_x").value).filter(n=>!rem.has(n)),...sel])];
     const paint=()=>{const F=fin(),q=norm($("chg_s").value.trim()),L=pool.filter(x=>!F.includes(x.n)&&(q?norm(x.n).includes(q):true)).slice(0,q?60:30);
-      $("chg_dh").textContent=F.length?"Anotaremos como comido:":"Escribe qué le has dado y aquí saldrán los alimentos.";
+      
       $("chg_det").innerHTML=F.map(n=>`<button type="button" class="pk on" data-n="${esc(n)}" aria-label="Quitar ${esc(n)}">${esc(n)} ✕</button>`).join("");
       $("chg_det").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;if(sel.has(n))sel.delete(n);else rem.add(n);paint()});
       $("chg_p").innerHTML=L.map(x=>`<button type="button" class="pk" data-n="${esc(x.n)}">+ ${esc(x.n)}</button>`).join("")||'<p class="mute">No encuentro ese alimento.</p>';
