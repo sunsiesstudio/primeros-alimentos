@@ -1101,6 +1101,7 @@ const C=[
 // Grupos de alérgenos y alimentos de la lista que contienen cada uno
 const AGD={gluten:["Avena","Bebida de avena","Cebada","Centeno","Cuscús","Espelta","Harina de trigo","Pan","Pasta","Sémola de trigo"],huevo:["Huevo"],pescado:["Bacalao","Dorada","Lenguado","Lubina","Merluza","Rape","Salmón","Sardinas","Trucha"],crustaceos:["Gambas"],moluscos:["Mejillones"],cacahuete:["Cacahuete"],frutoscascara:["Almendra","Anacardo","Avellana","Macadamia","Nuez","Nuez de Brasil","Nuez pecana","Pistacho"],sesamo:["Sésamo (tahini)"],soja:["Tofu","Tempeh","Bebida de soja","Yogur de soja"],apio:["Apio"],lacteos:["Kéfir","Mantequilla","Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural"]};
 const AG={};Object.keys(AGD).forEach(g=>AGD[g].forEach(n=>AG[n]=g));
+function agKeys(){const tl=l=>LANG==="es"?l:(((I18N.ui||{})[l]||[])[LANG==="ca"?0:1]||l);return Object.keys(AGD).sort((a,b)=>tl(AGL[a]).localeCompare(tl(AGL[b]),LOC()))}
 const cleanAl=o=>{const r={};if(o&&typeof o==="object")Object.keys(o).forEach(g=>{if((AGD[g]||(isX(g)&&ALL.some(x=>x.n===g.slice(2))))&&(o[g]==="alergia"||o[g]==="sospecha"||o[g]==="preguntar"))r[g]=o[g]});return r};
 const cleanRx=a=>Array.isArray(a)?a.filter(r=>r&&(AGD[r.g]||(isX(r.g)&&ALL.some(x=>x.n===r.g.slice(2))))&&typeof r.d==="string").map(r=>({id:r.id||uid(),g:r.g,d:r.d,r:String(r.r||"").slice(0,120),n:String(r.n||"").slice(0,300),...(r.nd?{nd:true}:{}),...(typeof r.f==="string"&&gFoods(r.g).includes(r.f)?{f:r.f}:{})})):[];
 const validPh=v=>typeof v==="string"&&v.length<400000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(v)?v:"";
@@ -1799,7 +1800,7 @@ async function buildPng(){
   if(aq.length){sec("Para preguntar al pediatra");flow(aq.map(k=>[gLab(k),"#9a6a12","#f6e7c4"]))}
   // alergenos
   sec("Alérgenos");
-  flow(Object.keys(AGD).map(k=>{const i=gInfo(k),rx=i.rxs.filter(r=>r.r&&r.r!==RXO[0]).length+i.reactLog.length;
+  flow(agKeys().map(k=>{const i=gInfo(k),rx=i.rxs.filter(r=>r.r&&r.r!==RXO[0]).length+i.reactLog.length;
     const rf=[...new Set([...i.rxs.filter(r=>r.r&&r.r!==RXO[0]&&r.f).map(r=>r.f),...i.reactLog.map(l=>l.f)])];return rx?[AGL[k]+": reacción"+(rf.length?" ("+rf.join(", ").toLowerCase()+")":""),"#b3382a","#f3ddd6"]:i.tried.length?[AGL[k]+": probado","#3b7a55","#dfeadf"]:[AGL[k]+": no probado","#7a766a","#e4e0cf"]}));
   // alimentos
   const tot=ALL.filter(x=>m[x.n]).length;
@@ -1840,7 +1841,7 @@ let OB=null;
   if(window.visualViewport)visualViewport.addEventListener("resize",()=>setTimeout(fit,30));document.addEventListener("focusin",()=>setTimeout(fit,320))})();
 function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:["iron","zinc"],sty:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
 function obSteps(){return OB.ya?[0,1,2,3,5]:[0,1,2,5]}
-function obGroups(){return Object.keys(AGD).filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
+function obGroups(){return agKeys().filter(g=>AGD[g].some(n=>OB.fo.has(n)))}
 const obOpt=(k,v,t,sm,on)=>`<button type="button" class="gcard eatc${on?" on":""}" data-ok="${k}" data-ov="${v}"><span class="kt"><b>${t}</b><small>${sm}</small></span></button>`;
 const OBSTAR='<svg class="obst" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="var(--terra)"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" style="stroke:var(--bg);fill:none;stroke-width:.9;stroke-linecap:round"/></svg>';
 const obHero=(fs,cl)=>`<div class="obhero${cl?" "+cl:""}">${OBSTAR}${fs.map((f,k)=>`<span class="obf obf${k}">${ico(f)}</span>`).join("")}</div>`;
@@ -2954,7 +2955,7 @@ function habitsHtml(){
 function bindBoost(){const b=$("nboost");if(b)b.onclick=()=>{const d=new Date();d.setDate(d.getDate()+7);S.prefs.boost={g:b.dataset.g,until:dstr(d)};planShown=7;save();render();snack("Menú adaptado ✓")}}
 document.addEventListener("click",e=>{const a=e.target.closest(".iidx a");if(!a)return;e.preventDefault();const t=document.querySelector(a.getAttribute("href"));a.closest("details").open=false;if(t)window.scrollTo({top:t.getBoundingClientRect().top+scrollY-12,behavior:"smooth"})});
 function renderTrack(){
-  S.agx=S.agx||[];const base=Object.keys(AGD),al=S.al||{};
+  S.agx=S.agx||[];const base=agKeys(),al=S.al||{};
   const xs=[...new Set([...S.agx,...Object.keys(al).filter(isX).map(k=>k.slice(2)),...S.rx.filter(r=>isX(r.g)).map(r=>r.g.slice(2)),...S.log.filter(l=>l.r==="react"&&!AG[l.f]&&info(l.f)).map(l=>l.f)])];
   const gs=[...base,...xs.map(f=>"x:"+f)],infos={};gs.forEach(g=>infos[g]=gInfo(g));
   const tr=base.filter(g=>infos[g].tried.length).length,alt=Object.keys(al).map(g=>gLab(g)+(al[g]==="alergia"?" (confirmada)":al[g]==="sospecha"?" (sospecha)":" (preguntar al pediatra)"));
