@@ -2006,7 +2006,7 @@ calcium:'<g transform="rotate(-40 24 24)"><rect class="o" x="12" y="19" width="2
 protein:'<path class="o" d="M6 8Q6 5 9 5H16Q19 5 19 8V21C22 10 40 10 43 26V37Q43 42 38 42H12Q6 42 6 36z" fill="#f2c07a"/><path class="o" d="M19 21c0 5 3 9 8 9" fill="none"/><path d="M9 9v6M26 17c4-2 8-1 11 3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>',
 zinc:'<path class="o" d="M24 4l16 6v12c0 12-8 19-16 22C16 41 8 34 8 22V10z" fill="#7ab0d9"/><path class="o w" d="M16 24l6 6 11-12" fill="none" stroke-width="3"/>',
 alg:SH.nutpea(),verd:SH.broc("#4a8a4a")};
-const EVL={viaje:"Viaje",cumple:"Cumpleaños o fiesta",fuera:"Comemos fuera"},evOf=ds=>((S.prefs||{}).ev||{})[ds]||"";
+const EVL={viaje:"Viaje",cumple:"Cumpleaños o fiesta",fuera:"Comemos fuera"},evOf=ds=>"";
 const gdAt=(ds,m)=>{const g=S.gd;return !!(g&&g.on&&g.ml.includes(m)&&g.wd.includes(new Date(ds+"T00:00:00").getDay())&&!evOf(ds))};
 const gdIngs=ds=>{const t=((S.gd||{}).menu||{})[ds];return t?inferIngs(t):[]};
 const isFav=n=>(S.fav||[]).some(f=>f.n===n);
@@ -2424,7 +2424,7 @@ function plan(){
       const xx=x||(o.rep&&o.rep.x),gt=xx?goals.filter(g=>g!=="alg"&&GS[g](xx)).slice(0,3):[],why=xx&&xx.a?"3 días seguidos y en poca cantidad":"";
       const chips=xx?`<span class="wch">${gt.map(g=>`${ntag(g)}`).join("")}${xx.a?'<span class="tag w">alérgeno</span>':""}</span>`:"";
       const mn="";
-      return `<div class="wrow"><button class="wgo" data-go="${o.ds}"><span class="wdn">${esc(dl)}</span>${xx?ico(xx.n):(o.done.filter(f=>first[f]===o.ds)[0]?ico(o.done.filter(f=>first[f]===o.ds)[0]):'<span class="wic"></span>')}<span class="wfn">${body}${chips}${why?`<small class="wwhy">${esc(why)}</small>`:""}${mn}</span></button>${mvb}${o.ds>=t0?`<div class="wpw" data-plw="${o.ds}"><button type="button" class="wpl${evOf(o.ds)?" on":""}" data-pl="${o.ds}">${evOf(o.ds)?esc(EVL[evOf(o.ds)]):"+ Plan especial"}</button><div class="wpo hide">${Object.keys(EVL).map(k=>`<button type="button" class="dmb${evOf(o.ds)===k?" on":""}" data-plk="${k}" data-d="${o.ds}">${esc(EVL[k])}</button>`).join("")}${evOf(o.ds)?`<button type="button" class="x" data-plk="" data-d="${o.ds}">Quitar</button>`:""}</div></div>`:""}</div>`};
+      return `<div class="wrow"><button class="wgo" data-go="${o.ds}"><span class="wdn">${esc(dl)}</span>${xx?ico(xx.n):(o.done.filter(f=>first[f]===o.ds)[0]?ico(o.done.filter(f=>first[f]===o.ds)[0]):'<span class="wic"></span>')}<span class="wfn">${body}${chips}${why?`<small class="wwhy">${esc(why)}</small>`:""}${mn}</span></button>${mvb}</div>`};
     const pastRow=(ds,dl)=>{const nf=[...new Set(S.log.filter(l=>l.d===ds&&first[l.f]===ds&&l.r!=="no").map(l=>l.f))];
       return `<div class="wrow"><button class="wgo" data-go="${ds}"><span class="wdn">${esc(dl)}</span>${nf.length?ico(nf[0]):'<span class="wic"></span>'}<span class="wfn">${nf.length?`<b>${nf.map(esc).join(", ")}</b><small>✓ Probado</small>`:'<b class="mute">Sin alimento nuevo</b>'}</span></button></div>`};
     const mon=new Date(start);mon.setDate(start.getDate()-dow0);
@@ -2434,7 +2434,7 @@ function plan(){
         if(ds<t0){if(!S.log.some(l=>l.d===ds&&!l.pre))continue;S.log.filter(l=>l.d===ds&&first[l.f]===ds&&l.r!=="no").map(l=>l.f).filter((f,k,a)=>a.indexOf(f)===k).forEach(cnt);rows.push(pastRow(ds,dl))}
         else{const o=shown.find(z=>z.ds===ds);if(!o)continue;o.items.forEach(x=>cnt(x.n));rows.push(rowOf(o,dl))}}
       const foc=Object.keys(fc).sort((a,b)=>fc[b]-fc[a]).slice(0,3).map(g=>String(GL[g]).toLowerCase()),e=new Date(mon);e.setDate(mon.getDate()+off+6);const b0=new Date(mon);b0.setDate(mon.getDate()+off);
-      return `<div class="card wkd"><h3 class="disp">${off?"Semana que viene":"Esta semana"}</h3><p class="mute wkr">Del ${b0.getDate()} al ${fm2(e)}</p><p class="wkaim">${n?`Probamos <b>${n} alimento${n===1?"":"s"} nuevo${n===1?"":"s"}</b>${foc.length?`, con foco en <b>${jn(foc)}</b>`:""}.`:""}</p>${rows.join("")}</div>`};
+      return `<div class="card wkd"><h3 class="disp">${off?"Semana que viene":"Esta semana"}</h3><p class="mute wkr">Del ${b0.getDate()} al ${fm2(e)}</p><p class="wkaim">${n?`Probamos ${n} alimento${n===1?"":"s"} nuevo${n===1?"":"s"}${foc.length?`, con foco en ${jn(foc)}`:""}.`:""}</p>${rows.join("")}</div>`};
     const mv=shown.filter(o=>o.items.length&&o.ds>=t0).map(o=>o.items[0].n);
     $("pv3").innerHTML=`${wkAdd?`<div class="card" id="wk_addc"><div id="wk_addp"><p style="margin:0 0 8px"><b>Cambiar ${esc(wkRep)} por otro alimento</b> <button type="button" class="recx" id="wk_cx">Cancelar</button></p><div class="chips" id="wk_cat"></div><input type="search" id="wk_q" placeholder="Buscar alimento" aria-label="Buscar alimento" value="${esc(wkQ)}"><div class="chips" id="wk_res"></div></div></div>`:""}${weekCard(0)}${dow0>=3?weekCard(7):""}<div class="shbtns"><button type="button" class="btn" id="wk_shop">${SVG_CART}<span>Lista de la compra</span></button></div>${(p.ord||[]).length||(p.skip||[]).length?'<div class="btns" style="margin:0 0 12px"><button class="btn" id="wk_rst">Restablecer</button></div>':""}`;
     $("pv3").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>pdn(b.dataset.go));
