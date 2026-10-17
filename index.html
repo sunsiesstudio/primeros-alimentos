@@ -2389,7 +2389,7 @@ function plan(){
       head=`${hy} toca ${bare(x.n)}, alimento nuevo: ${R[0]}.${R[1]?" Además, "+R[1]+".":""}`;
       why=x.a?"Alérgeno: 3 días seguidos, en poca cantidad":R[0].charAt(0).toUpperCase()+R[0].slice(1)}
     else if(o.rep)head=`${hy} toca ${bare(o.rep.x.n)} por segunda vez, día ${o.rep.n} de 3: lo repetimos en poca cantidad para vigilar cómo le sienta.`;
-    else if(o.drop)head=`Has cambiado el menú, así que lo de ${bareL(o.drop)} pasa a otro día.`;
+    else if(o.drop)head="";
     else if(o.done.length){head=""}
     else head=`${hy} no hay alimento nuevo: repetimos lo que ya conoce para afianzarlo y dejamos ${every>1?"un par de días":"un día"} entre novedades.`;
     {const nw=new Set(o.items.map(i=>i.n).concat(o.rep?[o.rep.x.n]:[])),kn=new Set(o.kn.map(k=>k.n)),cb=[...new Set((o.rows||[]).flatMap(([m,r])=>r.ings))].filter(n=>kn.has(n)&&!nw.has(n)).slice(0,3);
