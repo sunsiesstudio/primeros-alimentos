@@ -711,6 +711,7 @@ select,textarea,input:not([type=checkbox]):not([type=radio]){font-weight:400}.ob
 .sitad{display:flex;gap:8px;margin-top:14px}.sitad input{flex:1;min-width:0;margin:0}.sitad .btn{flex:none;width:auto;padding:0 18px;min-height:44px}
 .wfn{flex:1 1 auto!important}.wfn .wch{flex-wrap:wrap}.wrow .wmv,.wrow .ned,.wrow>button:not(.wgo){flex:none}
 .xadd{margin:14px 0 4px;text-align:center}.xab{border:1.5px dashed var(--line);background:transparent;color:var(--blue);font:600 .9rem Montserrat,sans-serif;border-radius:99px;padding:10px 18px;cursor:pointer}.xal{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+.tag.sus{background:#f3d36b;color:#5a4300;font-weight:600;border-color:transparent}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -3109,7 +3110,7 @@ function renderTrack(){
   $("tk_sum").textContent=alt.length?"Marcados: "+alt.join(", ")+".":"Toca un alérgeno para anotar una reacción.";
   $("tk").innerHTML=gs.map((g,gi)=>{
     const i=infos[g],st=al[g]||"",cx=isX(g);
-    const chips=st?`<span class="tag w">${{preguntar:"Preguntar",sospecha:"Sospecha",alergia:"Alergia"}[st]||ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción</span>':`<span class="tag${i.tried.length?" ok":""}">${i.tried.length?"Probado":"Sin probar"}</span>`;
+    const chips=st?`<span class="tag ${st==="alergia"?"w":"sus"}">${{preguntar:"Preguntar",sospecha:"Sospecha",alergia:"Alergia"}[st]||ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción</span>':`<span class="tag${i.tried.length?" ok":""}">${i.tried.length?"Probado":"Sin probar"}</span>`;
     const foods=i.foods.map(n=>i.m[n]?`<b>${esc(n)}</b> (${i.m[n].c}x)`:esc(n)).join(", ");
     const items=[...i.rxs.map(r=>({d:r.d,nd:r.nd,t:(r.f?"<b>"+esc(r.f)+"</b>: ":"")+esc(r.f?(r.r||"Reacción").charAt(0).toLowerCase()+(r.r||"Reacción").slice(1):(r.r||"Reacción"))+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,nd:l.nd,id:"log:"+l.i,t:"<b>"+esc(l.f)+"</b>"+(l.rt?": "+esc(l.rt.charAt(0).toLowerCase()+l.rt.slice(1)):": tuvo reacción")+(l.rn?". "+esc(l.rn):"")}))].sort((a,b)=>a.d<b.d?1:-1);
     const stI=st?`<div class="rxi"><div class="rxt"><small>${TT("Marcado","Marcat","Marked")}</small><span><b>${esc(ALST[st])}</b></span></div><button class="x" data-clrst="${esc(g)}">Borrar</button></div>`:"";
