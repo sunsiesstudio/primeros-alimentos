@@ -2265,6 +2265,7 @@ function plan(){
   const first={};S.log.forEach(l=>{if(!first[l.f]||l.d<first[l.f])first[l.f]=l.d});
   const t0=today(),lastFirst=Object.values(first).sort().pop();
   let lastNew=lastFirst?-Math.max(0,Math.round((new Date(t0+"T00:00:00")-new Date(lastFirst+"T00:00:00"))/864e5)):-99;
+  let lastPrt=-99;{const fd0=firstDates(),T0=new Date(t0+"T00:00:00");Object.keys(fd0).forEach(n=>{const x=info(n);if(x&&x.c==="Proteínas"&&fd0[n]<=t0){const o=-Math.round((T0-new Date(fd0[n]+"T00:00:00"))/864e5);if(o>lastPrt)lastPrt=o}})}const FZP=p.fz==="freeze"||p.fz==="split";
   const start=new Date();start.setHours(0,0,0,0);
   const total=ALL.length*every,gap=Math.max(every,goals.includes("alg")?2:3),out=[];let lastA=-9,prev="",rp=null;
   // Lo ya probado solo se reutiliza si ya toca por edad (p. ej. si probó apio antes de los 12 meses, no vuelve a salir hasta entonces)
@@ -2276,7 +2277,7 @@ function plan(){
     const done=[...new Set(S.log.filter(l=>l.d===ds).map(l=>l.f))];
     const doneNew=done.filter(f=>first[f]===ds);
     done.forEach(n=>{const a=info(n);if(a&&a.fe)lastFe=d;if(a&&ZN.has(a.n))lastZn=d;if(a&&a.a){lastA=d;if(first[n]===ds&&unlocked(a)&&allowed(a,p)&&!blockedG(a))rp={x:a,left:2,n:1}}});
-    if(doneNew.length)lastNew=d;
+    if(doneNew.length){lastNew=d;if(doneNew.some(n=>(info(n)||{}).c==="Proteínas"))lastPrt=d}
     const items=[];let rep=null,pre=null;const noAl=[0,4,5,6].includes(dt.getDay());
     if(!doneNew.length&&rp&&rp.left>0){rp.left--;rp.n++;rep={x:rp.x,n:rp.n};lastA=d;lastNew=d}
     else if(!doneNew.length&&d-lastNew>=every&&!evOf(ds)){
@@ -2284,6 +2285,7 @@ function plan(){
       const nfs=(p.nfs&&p.nfs[ds])||[],nfd=p.nfd&&p.nfd[ds];
       pool.forEach(x=>{
         if(nfs.includes(x.n))return;
+        if(FZP&&x.c==="Proteínas"&&d-lastPrt<4)return;
         const extra=x.c==="Frutos secos"||x.c==="Condimentos";
         const des=Math.max(TGT[x.c]||0,(SH[x.c]||0)*(T0+1)),cnt=cc[x.c]||0;
         let s=rnd()*1.5+Math.min(Math.max(0,des-cnt),3)*2.5+(inDesp(x.n)?3:0);{const bo=p.boost;if(bo&&bo.until>=t0&&GS[bo.g]&&GS[bo.g](x))s+=8}{const se=inSeason(x);if(se===true)s+=7;else if(se===false)s-=12}
@@ -2305,7 +2307,7 @@ function plan(){
       if(best&&S.ov&&S.ov[ds]){const mo0=ag?ag.mo:8,R0=recipesFor([...known,best],mo0,pinzaNow()),ovd=S.ov[ds],ing=v=>{if(!v)return[];const f=R0.find(r=>r.n===v.n);return f?f.ings:(v.i||[])},
         slot=mealsFor(mo0).find(k=>R0.some(r=>r.meals.includes(k)&&r.ings.includes(best.n)));
         if(slot&&ovd[slot]&&!Object.keys(ovd).some(k=>ing(ovd[k]).includes(best.n))){drp=true;pre=[best.n]}}
-      if(best&&!drp){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a){lastA=d;rp={x:best,left:2,n:1}}lastNew=d;if(best.fe)lastFe=d;if(ZN.has(best.n))lastZn=d;known.push(best);items.push(best)}
+      if(best&&!drp){pool=pool.filter(x=>x!==best);cc[best.c]=(cc[best.c]||0)+1;prev=best.c;if(best.a){lastA=d;rp={x:best,left:2,n:1}}lastNew=d;if(best.c==="Proteínas")lastPrt=d;if(best.fe)lastFe=d;if(ZN.has(best.n))lastZn=d;known.push(best);items.push(best)}
     }
     out.push({dt,ds,done,items,rep,pre,di:d,kn:[...known]});
   }
