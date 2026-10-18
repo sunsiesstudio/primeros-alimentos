@@ -723,6 +723,7 @@ select,textarea,input:not([type=checkbox]):not([type=radio]){font-weight:400}.ob
 .ccrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.ccb{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:transparent;display:grid;place-items:center;cursor:pointer;padding:0;opacity:.45;filter:grayscale(1)}.ccb.on{opacity:1;filter:none;border-color:#9a6a3c;background:color-mix(in srgb,#9a6a3c 12%,transparent)}
 .ccsug{margin-top:14px;width:100%;font-size:.86rem}
 .rcact{position:absolute;top:6px;right:6px;display:flex;gap:2px}.rcact .rsave{position:static!important;color:var(--ink)}.rcact .fved{color:var(--blue)!important}.rcfi .mr{padding-right:0!important}
+.obnl{display:flex;align-items:center;gap:4px}.obx{width:40px;height:40px;border:0;background:transparent;color:var(--ink);display:grid;place-items:center;border-radius:50%;cursor:pointer;margin-left:-8px}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -1669,7 +1670,7 @@ function renderCal(){if(!$("cal"))return;
 }
 const bname=(b,i)=>b.nm||"Bebé "+(i+1);
 function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=today();planShown=7;savedMsg();save();render()}
-function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing=null;cat="Todos";csel=today();planShown=7;savedMsg();save();render();obSkip=false;openOb()}
+function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing=null;cat="Todos";csel=today();planShown=7;savedMsg();save();render();obSkip=false;openOb();OB.add=1;drawOb()}
 function renderBabies(){
   const chip=(b,i)=>`<button class="${i===DB.cur?"on":""}" data-i="${i}">${esc(bname(b,i))}</button>`;
   $("bchips").innerHTML=DB.babies.map(chip).join("")+'<button class="addb" id="badd">+ Añadir bebé</button>';
@@ -1684,8 +1685,8 @@ $("cfi").oninput=()=>{$("cfok").disabled=$("cfi").value.trim().toUpperCase()!==$
 $("cfx").onclick=()=>$("cf").classList.add("hide");
 $("cfok").onclick=async()=>{if($("cfok").disabled||!cfAct)return;$("cfok").disabled=true;try{await cfAct();$("cf").classList.add("hide")}catch(e){const c=e&&e.code;if(c==="need-pw"){$("cfpw").classList.remove("hide");$("cfe").textContent="Escribe tu contraseña para confirmar que eres tú.";setTimeout(()=>$("cfpwi").focus(),50)}else $("cfe").textContent=c==="auth/wrong-password"||c==="auth/invalid-credential"||c==="auth/invalid-login-credentials"?"Contraseña incorrecta.":c==="auth/popup-closed-by-user"||c==="auth/cancelled-popup-request"?"Elige tu cuenta de Google para confirmar.":c==="auth/popup-blocked"?"Tu navegador ha bloqueado la ventana de Google. Vuelve a tocar Eliminar cuenta.":"No se pudo eliminar ("+((e&&(c||e.message))||"error")+").";$("cfok").disabled=false}};
 $("bdel").onclick=()=>{const n=S.nm||"este bebé";
-  cfOpen("¿Eliminar el perfil de "+n+"?","Se borran sus alimentos, alergias, reacciones y la foto. No se puede deshacer.","","Eliminar perfil",()=>{
-    DB.babies.splice(DB.cur,1);const empty=!DB.babies.length;if(empty)DB.babies.push(newBaby());DB.cur=Math.max(0,Math.min(DB.cur,DB.babies.length-1));S=DB.babies[DB.cur];editing=null;save();render();if(empty){obSkip=false;openOb()}})};
+  cfOpen("¿Eliminar el perfil de "+n+"?","Se borran sus alimentos, alergias, reacciones y la foto. No se puede deshacer.","ELIMINAR","Eliminar perfil",()=>{
+    DB.babies.splice(DB.cur,1);const empty=!DB.babies.length;if(empty)DB.babies.push(newBaby());DB.cur=Math.max(0,Math.min(DB.cur,DB.babies.length-1));S=DB.babies[DB.cur];editing=null;save();render();window.scrollTo({top:0,behavior:"smooth"});document.querySelectorAll(".scr,main,#app").forEach(e=>{try{e.scrollTop=0}catch(_){}});if(empty){obSkip=false;openOb()}})};
 $("adel").onclick=()=>cfOpen("¿Eliminar tu cuenta?","Se borran tu cuenta y todos los perfiles de bebé con sus datos. No se puede deshacer.","ELIMINAR","Eliminar cuenta",async()=>{
   const k=LKEY();clearTimeout(ST);
   if(window.cloud&&window.cloud.deleteAccount)await window.cloud.deleteAccount(snap(),$("cfpwi").value);
@@ -1960,7 +1961,7 @@ function drawOb(){
   if(i===5){title="¿Qué tipo de dieta sigue?";h=`<div class="obdiet">${[["om","De todo",["Pollo","Salmón","Brócoli"]],["veg","Vegetariana",["Huevo","Queso tierno","Brócoli"]],["vgn","Vegana",["Lentejas","Tofu","Aguacate"]]].map(o=>`<button type="button" class="obc obd${OB.diet===o[0]?" on":""}" data-dv="${o[0]}"><span class="obci">${o[2].map(f=>`<i>${ico(f)}</i>`).join("")}</span><b>${o[1]}</b></button>`).join("")}</div><p class="mute">Lo puedes cambiar cuando quieras en el plan.</p>`}
   if(i===6){title="¿Qué objetivos quieres cubrir?";h='<p class="mute">Elige los que quieras. Con esto generamos el plan, y puedes cambiarlo cuando quieras.</p><div class="ocl">'+GOALS.map(g=>goalCard(g,OB.goals.includes(g[0]))).join("")+"</div>"}
   const sk=i===0?'<button class="skip" id="ob_skip">Saltar</button>':[3,4,7,8,9,10].includes(i)?'<button class="skip" id="ob_pass">Saltar</button>':"<span></span>";
-  $("ob").innerHTML=`<div class="obw${i}"><div class="obnav">${i>0?'<button class="skip" id="ob_back">‹ Atrás</button>':"<span></span>"}${sk}</div><div class="obpg" aria-hidden="true"><i style="width:${Math.round(100*(st.indexOf(i)+1)/st.length)}%"></i><span style="left:${Math.round(100*(st.indexOf(i)+1)/st.length)}%">${OBSTAR}</span></div><div class="mid${[3,4,6].includes(i)?" top":""} obs${i}">${hero}<h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":i===3?"Ya he marcado todos":"Siguiente"}</button>${i===0?'<button class="skip" id="ob_out">Cerrar sesión</button>':""}</div></div>`;
+  $("ob").innerHTML=`<div class="obw${i}"><div class="obnav"><span class="obnl">${OB.add?'<button class="obx" id="ob_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>':""}${i>0?'<button class="skip" id="ob_back">‹ Atrás</button>':""}</span>${sk}</div><div class="obpg" aria-hidden="true"><i style="width:${Math.round(100*(st.indexOf(i)+1)/st.length)}%"></i><span style="left:${Math.round(100*(st.indexOf(i)+1)/st.length)}%">${OBSTAR}</span></div><div class="mid${[3,4,6].includes(i)?" top":""} obs${i}">${hero}<h2 class="disp">${title}</h2>${h}</div><div class="foot"><button class="btn p" id="ob_next"${ok?"":" disabled"}>${last?"Empezar":i===3?"Ya he marcado todos":"Siguiente"}</button>${i===0?'<button class="skip" id="ob_out">Cerrar sesión</button>':""}</div></div>`;
   const o=$("ob");
   if($("ob_nm")){$("ob_nm").oninput=e=>{OB.nm=e.target.value;$("ob_next").disabled=!OB.nm.trim()};$("ob_nm").setAttribute("enterkeyhint","next");$("ob_nm").onkeydown=e=>{if(e.key==="Enter"&&OB.nm.trim()){e.preventDefault();e.target.blur();$("ob_next").click()}}}
   if($("ob_bd")){const f=e=>{const v=e.target.value;OB.bd=v&&v<=today()?v:"";$("ob_next").disabled=!OB.bd;const a=$("ob_age");if(a)a.innerHTML=obAgeH(obMonths(OB.bd))};$("ob_bd").oninput=f;$("ob_bd").onchange=f}
@@ -1981,6 +1982,7 @@ function drawOb(){
   o.querySelectorAll(".ag:not([data-k]) button").forEach(b=>b.onclick=()=>{const g=b.parentNode.dataset.g;if(b.dataset.v)OB.al[g]=b.dataset.v;else delete OB.al[g];const sc=o.scrollTop;drawOb();o.scrollTop=sc});
   $("ob_next").onclick=()=>{if(last)return obFinish();OB.s=st[st.indexOf(i)+1];drawOb();o.scrollTop=0};
   if($("ob_pass"))$("ob_pass").onclick=()=>{if(i===3)OB.fo.clear();else if(i===4)OB.al={};else if(i===7)OB.eat="";else if(i===8)OB.meals=0;else if(i===10)OB.sty="";else OB.app="";const n=obSteps();OB.s=n[n.indexOf(i)+1]!==undefined?n[n.indexOf(i)+1]:n.find(k=>k>i);drawOb();o.scrollTop=0};
+  if($("ob_x"))$("ob_x").onclick=()=>{const b=DB.babies[DB.cur];$("ob").classList.add("hide");if(b&&DB.babies.length>1&&!(b.log||[]).length){DB.babies.splice(DB.cur,1);DB.cur=Math.max(0,DB.babies.length-1);S=DB.babies[DB.cur]}save();render()};
   if($("ob_back"))$("ob_back").onclick=()=>{OB.s=st[st.indexOf(i)-1];drawOb();o.scrollTop=0};
   if($("ob_skip"))$("ob_skip").onclick=()=>{obSkip=true;try{localStorage.setItem(SKK(),"1")}catch(e){}$("ob").classList.add("hide")};
   if($("ob_out"))$("ob_out").onclick=()=>{$("ob").classList.add("hide");if(window.cloud)window.cloud.logout();else{window.__auth(null)}};
