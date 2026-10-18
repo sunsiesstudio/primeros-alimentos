@@ -3061,13 +3061,13 @@ function renderTrack(){
   $("tk_sum").textContent=alt.length?"Marcados: "+alt.join(", ")+".":"Toca un alérgeno para anotar una reacción.";
   $("tk").innerHTML=gs.map((g,gi)=>{
     const i=infos[g],st=al[g]||"",cx=isX(g);
-    const chips=(st?`<span class="tag w">${ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción anotada</span>':"")+` <span class="tag${i.tried.length?" ok":""}">${i.tried.length?"Probado":"Sin probar"}</span>`;
+    const chips=st?`<span class="tag w">${{preguntar:"Preguntar",sospecha:"Sospecha",alergia:"Alergia"}[st]||ALST[st]}</span>`:i.anyRx?'<span class="tag w">Reacción</span>':`<span class="tag${i.tried.length?" ok":""}">${i.tried.length?"Probado":"Sin probar"}</span>`;
     const foods=i.foods.map(n=>i.m[n]?`<b>${esc(n)}</b> (${i.m[n].c}x)`:esc(n)).join(", ");
     const items=[...i.rxs.map(r=>({d:r.d,nd:r.nd,t:(r.f?"<b>"+esc(r.f)+"</b>: ":"")+esc(r.f?(r.r||"Reacción").charAt(0).toLowerCase()+(r.r||"Reacción").slice(1):(r.r||"Reacción"))+(r.n?". "+esc(r.n):""),id:r.id})),...i.reactLog.map(l=>({d:l.d,nd:l.nd,id:"log:"+l.i,t:"<b>"+esc(l.f)+"</b>"+(l.rt?": "+esc(l.rt.charAt(0).toLowerCase()+l.rt.slice(1)):": tuvo reacción")+(l.rn?". "+esc(l.rn):"")}))].sort((a,b)=>a.d<b.d?1:-1);
     const list=items.length?`<div class="rxl">${items.map(r=>`<div class="rxi"><div class="rxt"><small>${r.nd?"Fecha no recordada":fd(r.d)}</small><span>${r.t}</span></div>${r.id?`<button class="x" data-del="${r.id}">Borrar</button>`:""}</div>`).join("")}</div>`:"";
     const fchips=i.foods.map(n=>`<button type="button" class="agc${i.m[n]?" on":""}" data-food="${esc(n)}">${i.m[n]?"✓ ":""}${esc(n)}</button>`).join("");
     return `${cx&&g==="x:"+xs[0]?`<h3 class="agoh">Otros alimentos</h3>`:""}<details class="g" id="g_${esc(g)}" data-g="${esc(g)}"${tkSet.has(g)?" open":""}><summary><span class="cico">${ico(cx?g.slice(2):AGI[g]||AGD[g][0])}</span><b>${esc(gLab(g))}</b> ${chips}</summary><div class="gb agb">
-      ${!st&&rxActive("g:"+g)?rxBox("g:"+g):`<p>${procTxt(i,st)}</p>`}
+      ${!st&&rxActive("g:"+g)?rxBox("g:"+g):`<p>${procTxt(i,st)}</p>`}${st?`<button type="button" class="agrm" data-clrst="${esc(g)}">Quitar la marca de ${esc(ALST[st].toLowerCase())}</button>`:""}
       ${i.foods.length>1?`<p class="agh">Alimentos con ${esc(gLab(g).toLowerCase())}. Toca uno para anotarlo</p>
       <div class="agf">${fchips}</div>`:""}${list}
       <details class="agx"${st||items.length?"":""}><summary>¿Ha tenido una reacción?</summary><div class="agxb">
@@ -3087,6 +3087,7 @@ function renderTrack(){
 }
 $("tk").addEventListener("click",e=>{
   const fb=e.target.closest("[data-food]");if(fb){openSheet(fb.dataset.food);return}
+  const cs=e.target.closest("[data-clrst]");if(cs){delete (S.al||{})[cs.dataset.clrst];save();render();snack(TT("Marca quitada","Marca treta","Mark removed"));return}
   const rm=e.target.closest("[data-rmx]");if(rm){const f=rm.dataset.rmx;S.agx=(S.agx||[]).filter(n=>n!==f);tkSet.delete("x:"+f);save();render();return}
   const sb=e.target.closest("[data-stb]");if(sb){const g=sb.dataset.stb;if(sb.dataset.v)S.al[g]=sb.dataset.v;else delete S.al[g];tkSet.add(g);save();render();return}
   const b=e.target.closest("[data-save],[data-del]");if(!b)return;
