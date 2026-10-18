@@ -704,6 +704,8 @@ select,textarea,input:not([type=checkbox]):not([type=radio]){font-weight:400}.ob
 .msit{text-align:left!important}.msitx{display:block;margin-top:8px;border:0;background:transparent;padding:0;color:var(--blue);font:600 .82rem Montserrat,sans-serif;text-decoration:underline;cursor:pointer}
 .skw{display:flex;align-items:center;gap:14px;margin:10px 0 6px}.skw b{display:block;font-size:1rem;margin-bottom:2px}.skw small{color:var(--mute);font-size:.84rem}
 .fzopt{display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap}
+.sumb{display:grid!important;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mh .mck{margin-left:0!important;margin-right:auto!important;align-self:flex-start;padding-left:0}.skw small .mskip{display:inline!important;margin:0!important;padding:0!important;font-size:.84rem}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -1075,6 +1077,15 @@ document.documentElement.lang=LANG;
 </div>
   <div class="chgmd hide" id="shs_md" role="group" aria-label="Compra y despensa"><button type="button" data-md="c" class="on">Lista de la compra</button><button type="button" data-md="d">Despensa</button></div>
   <div id="shs_c"></div><div id="shs_d" class="hide"></div>
+</div></div>
+<div class="sheet hide full" id="sum" role="dialog" aria-label="Resumen"><div>
+<div class="shhd">
+  <button class="xc" id="sum_x" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h3 class="disp">Resumen</h3>
+</div>
+  <p class="mute" style="margin:4px 0 10px">Para el pediatra o quien lo cuide</p>
+  <div class="pstw"><img id="sum_pv" alt="Vista previa del resumen"></div>
+  <div class="tkt-b shft sumb" style="margin-top:12px"><button class="btn p" id="sum_pdf" type="button">PDF</button><button class="btn p" id="sum_png" type="button">PNG</button><button class="btn" id="sum_txt" type="button">Texto</button></div>
 </div></div>
 <div class="sheet hide full" id="pst" role="dialog" aria-label="Póster de alimentos"><div>
 <div class="shhd">
@@ -1872,14 +1883,24 @@ async function buildPng(){
   if(ALL.some(x=>m[x.n]&&m[x.n].last==="react")){g.fillStyle="#c0392b";g.beginPath();g.arc(P+14,y+16,14,0,7);g.fill();g.fillStyle="#2b2a26";g.font='500 24px '+FF;g.fillText("Hubo reacción anotada",P+40,y+4);y+=56}
   g.fillStyle="#6b675a";g.font='500 22px '+FF;g.fillText("Anotado por la familia en Primeros alimentos. No sustituye al pediatra.",P,y+10);y+=P+20;
   const out=document.createElement("canvas");out.width=W;out.height=y;out.getContext("2d").drawImage(cv,0,0);
+  if(arguments[0]==="canvas")return out;
   return new Promise(r=>out.toBlob(r,"image/png"));
 }
-$("exp").onclick=async()=>{const b0=$("exp"),t0=b0.innerHTML;b0.classList.add("busy");b0.disabled=true;
-  try{const blob=await buildPng();if(!blob)throw 0;const f=new File([blob],"primeros-alimentos-"+(S.nm||"bebe").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png",{type:"image/png"});
-    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Primeros alimentos"})}catch(e){}}
-    else{const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}}
-  catch(e){snack("No se pudo crear la imagen")}
-  b0.innerHTML=t0;b0.classList.remove("busy");b0.disabled=false};
+function sumText(){const fdS=d=>new Date(d+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"}),m=stats(),ra=age(true),L=[TT("Primeros alimentos de ","Primers aliments de ","First foods of ")+(S.nm||"mi bebé"),(ra?ra.mo+" meses · ":"")+new Date().toLocaleDateString(LOC(),{day:"numeric",month:"long",year:"numeric"}),""];
+  const al=Object.keys(S.al||{});L.push("ALERGIAS");L.push(al.length?al.map(k=>"- "+gLab(k)+": "+ALST[S.al[k]].toLowerCase()).join("\n"):"- Ninguna indicada");L.push("");
+  const rx=[];agKeys().forEach(k=>{const i=gInfo(k);i.rxs.filter(r=>r.r&&r.r!==RXO[0]).forEach(r=>rx.push("- "+(r.nd?"Fecha no recordada":fdS(r.d))+": "+(r.f||AGL[k])+", "+r.r.toLowerCase()+(r.n?". "+r.n:"")));i.reactLog.forEach(l=>rx.push("- "+(l.nd?"Fecha no recordada":fdS(l.d))+": "+l.f+(l.rt?", "+l.rt.toLowerCase():", reacción")))});
+  S.log.filter(l=>l.r==="react"&&!AG[l.f]).forEach(l=>rx.push("- "+(l.nd?"Fecha no recordada":fdS(l.d))+": "+l.f+(l.rt?", "+l.rt.toLowerCase():", reacción")));
+  if(rx.length){L.push("REACCIONES");L.push(...[...new Set(rx)]);L.push("")}
+  L.push("ALÉRGENOS");agKeys().forEach(k=>{const i=gInfo(k);L.push("- "+AGL[k]+": "+(i.tried.length?"probado":"sin probar"))});L.push("");
+  const tot=ALL.filter(x=>m[x.n]);L.push("ALIMENTOS PROBADOS ("+tot.length+")");C.forEach(c=>{const xs=tot.filter(x=>x.c===c[0]);if(xs.length)L.push(c[0]+": "+xs.map(x=>x.n.toLowerCase()).join(", "))});
+  L.push("");L.push("Anotado por la familia en Primeros alimentos. No sustituye al pediatra.");return L.join("\n")}
+let sumCv=null;
+const sumFn=e=>"primeros-alimentos-"+(S.nm||"bebe").toLowerCase().replace(/[^a-z0-9]+/g,"-")+"."+e;
+$("exp").onclick=async()=>{$("sum_pv").removeAttribute("src");$("sum").classList.remove("hide");try{sumCv=await buildPng("canvas");$("sum_pv").src=sumCv.toDataURL("image/png")}catch(e){snack("No se pudo crear la imagen")}};
+$("sum_x").onclick=()=>$("sum").classList.add("hide");
+$("sum_png").onclick=async e=>{if(!sumCv)return;const b=await new Promise(r=>sumCv.toBlob(r,"image/png"));await shareBlob(b,sumFn("png"))};
+$("sum_pdf").onclick=async e=>{if(!sumCv)return;const d=sumCv.toDataURL("image/jpeg",.92),bin=atob(d.split(",")[1]),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);const pw=595.28;await shareBlob(jpegPdf(u8,sumCv.width,sumCv.height,pw,pw*sumCv.height/sumCv.width),sumFn("pdf"))};
+$("sum_txt").onclick=e=>shareText(sumText(),e.currentTarget,TT("Texto","Text","Text"));
 
 let obSkip=false;
 const SKK=()=>"primeros_skip_"+(USER?USER.uid:"anon");
