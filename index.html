@@ -706,6 +706,7 @@ select,textarea,input:not([type=checkbox]):not([type=radio]){font-weight:400}.ob
 .fzopt{display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap}
 .sumb{display:grid!important;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .mh .mck{margin-left:0!important;margin-right:auto!important;align-self:flex-start;padding-left:0}.skw small .mskip{display:inline!important;margin:0!important;padding:0!important;font-size:.84rem}
+#fph_pv{position:relative;display:block!important;width:fit-content;max-width:100%}#fph_pv.hide{display:none!important}#fph_img{width:auto!important;max-width:100%;height:auto!important;max-height:240px;border-radius:16px!important;display:block;cursor:zoom-in}#fph_rm{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0}#shform.ro #fph_rm{display:none}.phbox{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:20px}.phbox img{max-width:100%;max-height:100%;border-radius:12px;object-fit:contain}.phbox button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:16px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;display:grid;place-items:center}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -1051,7 +1052,7 @@ document.documentElement.lang=LANG;
   <hr class="shdiv">
   <label id="howl">Cómo se lo has dado<select id="how"></select></label>
   <input id="rxn" type="text" maxlength="300" placeholder="Notas (opcional)" aria-label="Notas">
-  <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" class="x" id="fph_rm">Quitar foto</button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
+  <div id="fph"><input type="file" id="fph_in" accept="image/*" class="hide"><button type="button" class="x" id="fph_add">+ Añadir foto (opcional)</button><div id="fph_pv" class="hide"><img id="fph_img" alt="Foto del plato"><button type="button" id="fph_rm" aria-label="Quitar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><p class="mute" id="fph_e" style="color:var(--red);margin:4px 0 0"></p></div>
   </div>
   <div id="shdelw" class="hide"><button type="button" class="shdel" id="shdel"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Borrar este registro</button><div class="shdelq hide" id="shdelq"><span>¿Seguro que quieres borrarlo?</span><div><button type="button" class="btn" id="shdeln">No</button><button type="button" class="btn p shdely" id="shdely">Sí, borrar</button></div></div></div>
   <div id="rest" class="hide"><b>¿Y el resto del menú de hoy?</b><p class="mute">Opcional. Toca lo que quieras anotar.</p><div id="restl"></div></div>
@@ -1813,7 +1814,8 @@ const resizeFit=(f,max,q)=>new Promise((ok,no)=>{try{const u=URL.createObjectURL
 let curPh="";
 function fphUi(){$("fph_add").classList.toggle("hide",!!curPh);$("fph_pv").classList.toggle("hide",!curPh);if(curPh)$("fph_img").src=curPh}
 $("fph_add").onclick=()=>$("fph_in").click();
-$("fph_rm").onclick=()=>{curPh="";$("fph_e").textContent="";fphUi()};
+$("fph_rm").onclick=e=>{e.stopPropagation();curPh="";$("fph_e").textContent="";fphUi()};
+$("fph_img").onclick=()=>{const o=document.createElement("div");o.className="phbox";o.innerHTML=`<img alt="" src="${$("fph_img").src}"><button type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;o.onclick=()=>o.remove();document.body.appendChild(o)};
 $("fph_in").onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;$("fph_e").textContent="";
   resizeFit(f,480,.62).then(url=>{const v=validPh(url);if(!v)throw 0;let tot=0;try{tot=JSON.stringify(DB).length}catch(_){}
     if(tot+v.length>900000){$("fph_e").textContent="Ya hay muchas fotos guardadas. Borra alguna del Registro para añadir más.";return}
