@@ -784,6 +784,9 @@ details.rxa[open]>summary:after{transform:rotate(-135deg);margin:4px 4px 0 10px}
 #go_tk{width:auto!important;min-height:40px!important;padding:8px 16px!important;font-size:.85rem!important;font-weight:700}
 .mshare{display:flex;gap:10px;margin:18px 0 4px;flex-wrap:wrap}
 .mshare .btn{flex:1 1 150px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 12px;font-size:.88rem;max-width:none}
+.agadd{margin:24px 0 24px;padding:24px 0 0;border-top:1px solid var(--line)}
+.agadd .agh{margin:0 0 12px!important;padding:0!important;border:0!important;font-size:1rem!important;font-weight:700!important;color:var(--ink)!important}
+.agadd select{margin:0!important}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -3300,7 +3303,7 @@ function renderTrack(){
       </div></details>${cx&&S.agx.includes(g.slice(2))&&!st&&!items.length?`<button type="button" class="agrm" data-rmx="${esc(g.slice(2))}">Quitar de la lista</button>`:""}
     </div></details>`}).join("");
   {const opts=ALL.filter(x=>!AG[x.n]&&!xs.includes(x.n)&&!x.lim).map(x=>x.n).sort((a,b)=>a.localeCompare(b,"es"));
-   $("tk").innerHTML+=`<div class="agadd"><p class="agh">¿Sospechas de otro alimento?</p><p class="mute">Por ejemplo, si el plátano le dejó la cara roja. Añádelo para anotar reacciones y marcarlo como los alérgenos.</p><label>Añadir alimento<select id="agx_add"><option value="">Elige un alimento</option>${opts.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("")}</select></label></div>`}
+   $("tk").innerHTML+=`<div class="agadd"><p class="agh">¿Sospechas de otro alimento?</p><select id="agx_add" aria-label="Añadir alimento"><option value="">Elige un alimento</option>${opts.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("")}</select></div>`}
 }
 const tkSnap=()=>({al:{...(S.al||{})},agx:[...(S.agx||[])],rx:(S.rx||[]).map(x=>({...x})),log:(S.log||[]).map(l=>({...l}))});
 const tkSn=(msg,sn)=>snack(msg,TT("Deshacer","Desfés","Undo"),()=>{S.al=sn.al;S.agx=sn.agx;S.rx=sn.rx;S.log=sn.log;save();render()});
