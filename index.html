@@ -3480,6 +3480,7 @@ async function gdPdf(file){await loadJs("https://cdnjs.cloudflare.com/ajax/libs/
   for(let i=1;i<=Math.min(doc.numPages,4);i++){const pg=await doc.getPage(i),tc=await pg.getTextContent();let lastY=null,line="";tc.items.forEach(it=>{const y=Math.round(it.transform[5]);if(lastY!==null&&Math.abs(y-lastY)>4){txt+=line.trim()+"\n";line=""}line+=it.str+" ";lastY=y});txt+=line.trim()+"\n"}
   if(txt.replace(/\s/g,"").length<20){const pg=await doc.getPage(1),vp=pg.getViewport({scale:2}),c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;txt=await gdOcr(c)}
   return txt}
+const GDUP=false; // subir/escribir el menú de la escuela: desactivado por ahora
 let gdEdit=null;
 const gdSum=()=>{const g=S.gd||{};if(!g.on)return TT("No va","No hi va","Doesn't go");const d=WDN.filter(([l,n])=>(g.wd||[]).includes(n)).map(x=>x[0]).join(", ");return (d||TT("Ningún día","Cap dia","No days"))+" · "+((g.ml||[]).join(", ")||TT("no come allí","no hi menja","no meals"))};
 function gdProf(){const v=$("vgd");if(!v)return;S.gd=S.gd||cleanGd(null);v.textContent=gdSum();renderGd()}
@@ -3487,7 +3488,7 @@ function gdProfEd(){const e=$("ed_gd"),g=S.gd=S.gd||cleanGd(null);let t={on:g.on
   const draw=()=>{e.innerHTML=`<p class="gdl">${TT("¿Va a la escuela infantil?","Va a la llar?","Goes to nursery?")}</p><div class="gdc gdm"><button type="button" class="dmb${t.on?" on":""}" data-gon="1">Sí</button><button type="button" class="dmb${t.on?"":" on"}" data-gon="0">No</button></div>
     ${t.on?`<p class="gdl">${TT("Qué días va","Quins dies hi va","Days")}</p><div class="gdc">${WDN.map(([l,n])=>`<button type="button" class="dmb${t.wd.includes(n)?" on":""}" data-gwd="${n}">${l}</button>`).join("")}</div>
     <p class="gdl">${TT("Qué come allí","Què hi menja","Meals there")}</p><div class="gdc gdm">${GDM.map(m=>`<button type="button" class="dmb${t.ml.includes(m)?" on":""}" data-gml="${esc(m)}">${esc(m)}</button>`).join("")}</div>
-    <p class="gdl">${TT("Menú de la escuela","Menú de la llar","Nursery menu")}</p>${t.up?`<div class="gdc gdm gdup3"><button type="button" class="dmb" data-gup="gd_pdf">PDF</button><button type="button" class="dmb" data-gup="gd_img">${TT("Imagen","Imatge","Image")}</button><button type="button" class="dmb" data-gup="gd_txt">${TT("Texto","Text","Text")}</button></div>`:`<button type="button" class="btn gdupb" id="gd_upb"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span>${TT("Añadir menú","Afegeix el menú","Add menu")}</span></button>`}`:""}
+    ${!GDUP?"":`<p class="gdl">${TT("Menú de la escuela","Menú de la llar","Nursery menu")}</p>`}${!GDUP?"":t.up?`<div class="gdc gdm gdup3"><button type="button" class="dmb" data-gup="gd_pdf">PDF</button><button type="button" class="dmb" data-gup="gd_img">${TT("Imagen","Imatge","Image")}</button><button type="button" class="dmb" data-gup="gd_txt">${TT("Texto","Text","Text")}</button></div>`:`<button type="button" class="btn gdupb" id="gd_upb"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span>${TT("Añadir menú","Afegeix el menú","Add menu")}</span></button>`}`:""}
     <div class="btns"><button class="btn" id="x_gd">Cancelar</button><button class="btn p" id="ok_gd">Guardar</button></div>`;
     e.querySelectorAll("[data-gon]").forEach(b=>b.onclick=()=>{t.on=b.dataset.gon==="1";draw()});
     if($("gd_upb"))$("gd_upb").onclick=()=>{g.on=t.on;g.wd=t.wd;g.ml=t.ml;save();plan();close();setTimeout(()=>{const x=$("gd_txt");if(x){x.click();const c=$("gdcard");if(c)c.scrollIntoView({block:"start",behavior:"smooth"})}},60)};
@@ -3498,7 +3499,7 @@ function gdProfEd(){const e=$("ed_gd"),g=S.gd=S.gd||cleanGd(null);let t={on:g.on
   const close=()=>{e.classList.add("hide");$("vgd").classList.remove("hide");$("pen_gd").classList.remove("hide");gdProf()};
   draw();e.classList.remove("hide");$("vgd").classList.add("hide");$("pen_gd").classList.add("hide");$("gdcard").classList.add("hide")}
 function renderGd(){const c=$("gdcard");if(!c)return;S.gd=S.gd||cleanGd(null);const g=S.gd,t0=today();
-  c.classList.toggle("hide",!g.on);if(!g.on){c.innerHTML="";return}
+  c.classList.toggle("hide",!g.on||!GDUP);if(!g.on||!GDUP){c.innerHTML="";return}
   const up=Object.keys(g.menu).filter(d=>d>=t0).sort(),last=up[up.length-1],fdl=d=>new Date(d+"T00:00:00").toLocaleDateString(LOC(),{weekday:"short",day:"numeric",month:"short"});
   const prev=gdEdit?Object.keys(gdEdit).sort():[];
   c.innerHTML=`<h5 class="nsub">${TT("Menú de la escuela infantil","Menú de la llar","Nursery menu")}</h5><p class="mute gdp">${last?TT(`Tienes menú hasta el ${fdl(last)}.`,`Tens menú fins al ${fdl(last)}.`,`Menu loaded until ${fdl(last)}.`):TT("Aún no has subido ningún menú.","Encara no has pujat cap menú.","No menu uploaded yet.")}</p>
