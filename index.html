@@ -1046,6 +1046,7 @@ document.documentElement.lang=LANG;
   </div></div></details>
 <div class="card" id="nutcard"></div></div>
   <div id="rcwrap" class="hide"></div>
+  <div id="fzwrap" class="hide"><h3 class="sec" style="margin-top:28px">Congelador y despensa</h3><div class="card" id="fzbox"></div></div>
   <div id="pvw" class="hide">
 <div id="pv3"></div>
 <div id="prog"></div>
@@ -1095,8 +1096,6 @@ document.documentElement.lang=LANG;
     <div class="prow"><div><div class="lab">Alergias</div><div class="val" id="valg"></div></div><button class="btn" id="go_tk" style="flex:none">Ver</button></div>
     <div class="prow"><div style="flex:1;min-width:0"><div class="lab">Escuela infantil</div><div class="val" id="vgd"></div><div class="ed hide" id="ed_gd"></div></div><button class="pen" id="pen_gd" aria-label="Editar escuela infantil"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><div id="gdcard" class="hide"></div>
   </div>
-  <h3 class="sec" style="margin-top:28px">Congelador y despensa</h3>
-  <div class="card" id="fzbox"></div>
   <h3 class="sec" style="margin-top:28px">Para compartir</h3>
   <div class="stiles"><button type="button" class="stile" id="exp"><span class="sti"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg></span><b>Resumen</b><small>Para el pediatra o quien lo cuide: lo que ha probado, alergias y reacciones</small></button><button type="button" class="stile" id="pst_o"><span class="sti"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="9" r="1.6"/><circle cx="15" cy="9" r="1.6"/><circle cx="9" cy="15" r="1.6"/><circle cx="15" cy="15" r="1.6"/></svg></span><b>Póster de alimentos</b><small>Todos los que ha probado, para imprimir o enviar</small></button></div>
   <h3 class="sec" style="margin-top:28px">Ajustes</h3>
@@ -1830,7 +1829,7 @@ function mashOnly(){const by={};S.log.forEach(l=>{if(l.r==="pre")return;(by[l.f]
 let snkT=0;
 function savedFx(){try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}snack('<span class="okfx">✓</span> Guardado')}
 document.addEventListener("click",e=>{const l=e.target.closest("#snk .snkl");if(!l)return;e.preventDefault();$("snk").classList.add("hide");document.querySelectorAll(".sheet:not(.hide) .xc").forEach(x=>x.click());tab(2);subtab(3);window.scrollTo({top:0})});
-document.addEventListener("click",e=>{const l=e.target.closest("#snk .snkf");if(!l)return;e.preventDefault();$("snk").classList.add("hide");tab(4);setTimeout(()=>{const b=$("fzbox");if(b)b.scrollIntoView({behavior:"smooth",block:"center"})},60)});
+document.addEventListener("click",e=>{const l=e.target.closest("#snk .snkf");if(!l)return;e.preventDefault();$("snk").classList.add("hide");tab(2);subtab(3);setTimeout(()=>{const b=$("fzbox");if(b)b.scrollIntoView({behavior:"smooth",block:"center"})},60)});
 function snack(html,label,fn){const e=$("snk");e.innerHTML=`<span>${html}</span>${label?`<button type="button" class="x">${label}</button>`:""}<button type="button" class="x" aria-label="Cerrar">✕</button>`;e.classList.remove("hide");
   const bs=e.querySelectorAll("button");if(label)bs[0].onclick=()=>{e.classList.add("hide");fn()};bs[bs.length-1].onclick=()=>e.classList.add("hide");clearTimeout(snkT);snkT=setTimeout(()=>e.classList.add("hide"),12000)}
 let curMeal="",curSv="solo";
@@ -1925,7 +1924,7 @@ function renderFzBox(){const el=$("fzbox");if(!el)return;S.frz=S.frz||[];S.pan=S
   $("fz_ok").onclick=()=>{const n=$("fz_n").value.trim(),u=+$("fz_u").value;if(!n){$("fz_n").focus();return}const id=(($("fz_w").value==="f")?"f":"p")+Date.now().toString(36);
     if($("fz_w").value==="f"){const x=(()=>{const y=new Date(t+"T00:00:00");y.setDate(y.getDate()+30);return dstr(y)})();S.frz.push({id,k:"man_"+id,n,r:{t:"fijo",n,q:[],how:"",ings:[],meals:["Comida","Cena"]},d:t,x,u})}else S.pan.push({id,n,u});
     refr();snack(TT("Guardado","Desat","Saved"))}}
-function renderProfile(){renderFzBox();
+function renderProfile(){
   {const e=$("pais");if(e){if(!e.options.length){e.innerHTML=allPaises().map(([c,n])=>`<option value="${c}">${esc(n)}</option>`).join("");e.onchange=()=>{DB.babies.forEach(b=>b.pais=e.value);save();render();snack(TT("Cambios guardados","Canvis desats","Changes saved"))}}e.value=S.pais||"ES"}}
   if(!$("pmsg").textContent)savedMsg();
   const a=age();
@@ -3137,7 +3136,7 @@ const FAM=[
 {n:"Pera asada con canela",base:["Pera"],extra:"canela",baby:"Cuña muy blanda, sin azúcar ni miel.",adult:"Con miel, nueces y yogur."}
 ];
 function centerWk(){const wk=document.querySelector("#days .wk"),on=wk&&wk.querySelector(".wd.on");if(on&&wk.clientWidth)wk.scrollLeft=on.offsetLeft-(wk.clientWidth-on.offsetWidth)/2}
-function subtab(n){n=n===2||n===3?n:1;psub=n;setTimeout(vSave,0);$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==2);$("rcwrap").classList.toggle("hide",n!==3);if(n===3)renderFav();if(typeof renderSw==="function")renderSw();if(n===1)centerWk()}
+function subtab(n){n=n===2||n===3?n:1;psub=n;setTimeout(vSave,0);$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==2);$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==3);if(n===3){renderFav();renderFzBox()}if(typeof renderSw==="function")renderSw();if(n===1)centerWk()}
 
 
 const RCH3=["love","ok","meh","play","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
