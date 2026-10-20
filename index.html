@@ -847,8 +847,6 @@ input[type=search]:not(:placeholder-shown){padding-right:48px!important;backgrou
 .pk.on,.dmb.on,.mpick button.on,#shs .shwk button.on,#rxg button.on,.chk.on,.mt.on,.ob .ag button.on,.mkp.on,.rct button.on,.chgmd button.on,.wd.td.on,.agst button.on,.btn.p,.dnote .pk.on{background:var(--acc)!important;border-color:var(--acc)!important;color:var(--onacc)!important}
 .mck.on .mcb,.vdp.on i,.wd.td.on b{background:var(--acc)!important;border-color:var(--acc)!important;color:var(--onacc)!important}
 .shcut{margin:0 0 14px}.shch{margin:0 0 8px;font-size:.95rem}.cgnote{margin:8px 0 0;font-size:.84rem}.shcut .cgi{margin:0}.pbend{margin:14px 0 0!important}.gx .lbd{padding:0!important}.gx .ah{margin-bottom:12px!important}.gx .lbd>*{margin-top:0!important;margin-bottom:0!important}.gx .lbd>*+*{margin-top:12px!important}.gx .lbd>*>:last-child{margin-bottom:0!important}.gx.gred{padding:15px!important}.gx .lbd>.gsub,.gx .lbd>h5{margin-top:16px!important}.wd.td.on small{color:#fff!important}.wd.td:not(.on){border-color:var(--acc)}.wd.td:not(.on) small,.wd.td:not(.on) b{color:var(--acc)}.wd.td:not(.on) b{box-shadow:inset 0 0 0 2px var(--acc)}.cgc{border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--ink) 5%,var(--card));padding:12px 16px 16px;display:grid;gap:12px}.cgw{width:100%;height:auto;display:block;max-height:150px}.cgw .dm{stroke:var(--mute);stroke-width:1.6;fill:none;stroke-linecap:round}.cgw .dt{fill:var(--ink);font:700 12px Montserrat,sans-serif}.cgf{display:grid;gap:8px;justify-items:start}.cgf p{margin:0;font-size:.88rem;line-height:1.4;color:var(--mute)}#sh .rcv>summary,#sh .rcfav .rcv>summary{padding-left:0!important}
-.shft .shtr{flex:none!important;width:46px;min-width:46px;padding:0!important;display:grid;place-items:center;color:#c0392b;border-color:color-mix(in srgb,#c0392b 55%,transparent)!important}
-#shrob{gap:8px}#shrob .btn{min-width:0;padding-left:10px;padding-right:10px;white-space:nowrap}#shrob .btn.shtr{padding:0!important}#shrob #shred{flex:0 1 auto}#shrob #shren{flex:1 1 auto}
 .shnr .shtags{position:relative;top:-4px}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -1217,7 +1215,7 @@ document.documentElement.lang=LANG;
   <div id="shdelw" class="hide"><button type="button" class="shdel" id="shdel"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Borrar este registro</button><div class="shdelq hide" id="shdelq"><span>¿Seguro que quieres borrarlo?</span><div><button type="button" class="btn" id="shdeln">No</button><button type="button" class="btn p shdely" id="shdely">Sí, borrar</button></div></div></div>
   <div id="rest" class="hide"><b>¿Y el resto del menú de hoy?</b><p class="mute">Opcional. Toca lo que quieras anotar.</p><div id="restl"></div></div>
   <div class="btns shft"><button class="btn" id="cx">Cancelar</button><button class="btn p" id="ok">Guardar</button></div>
-  <div class="btns shft hide" id="shrob"><button class="btn shtr" id="shtr" aria-label="Borrar registro" title="Borrar registro"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><button class="btn" id="shred">Editar</button><button class="btn p" id="shren">Registrar de nuevo</button></div>
+  <div class="btns shft hide" id="shrob"><button class="btn" id="shred">Editar</button><button class="btn p" id="shren">Registrar de nuevo</button></div>
   </div>
 </div></div>
 
@@ -1897,8 +1895,7 @@ function shHist(n,direct){const L=S.log.map((l,i)=>({...l,i})).filter(l=>l.f===n
   const l=L.find(z=>z.i===selI);fillForm(l);shMode("ro");$("shnote").classList.toggle("hide",!l.pre);
   $("shred").onclick=()=>{curEdit=l.i;shMode("edit")};
   $("shren").onclick=()=>{shWant="new";openSheet(cur)};
-  $("shdel").onclick=()=>{$("shdel").classList.add("hide");$("shdelq").classList.remove("hide");$("shdelq").scrollIntoView({block:"center",behavior:"smooth"})};
-  $("shtr").onclick=()=>{const k=l.i,it=S.log[k];if(!it||it.f!==cur)return;S.log.splice(k,1);save();render();snack(TT("Registro borrado","Registre esborrat","Entry deleted"),TT("Deshacer","Desfés","Undo"),()=>{S.log.splice(k,0,it);save();render();if(!$("sh").classList.contains("hide"))openSheet(cur)});openSheet(cur)};
+  $("shdel").onclick=()=>{const k=l.i,it=S.log[k];if(!it||it.f!==cur)return;S.log.splice(k,1);save();render();snack(TT("Registro borrado","Registre esborrat","Entry deleted"),TT("Deshacer","Desfés","Undo"),()=>{S.log.splice(k,0,it);save();render();if(!$("sh").classList.contains("hide"))openSheet(cur)});openSheet(cur)};
   $("shdeln").onclick=()=>{$("shdelq").classList.add("hide");$("shdel").classList.remove("hide")};
   $("shdely").onclick=()=>{const k=l.i;if(S.log[k]&&S.log[k].f===cur){S.log.splice(k,1);save();render();snack(TT("Registro borrado","Registre esborrat","Entry deleted"))}openSheet(cur)};
 }
