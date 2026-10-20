@@ -2222,13 +2222,13 @@ const lzBlocks=B=>B.map(b=>{
   if(b[0]==="s")return `<ol class="gsteps lz">${b[1].map(x=>`<li><b>${esc(x[0])}</b>${x[1]?`<span>${esc(x[1])}</span>`:""}</li>`).join("")}</ol>`;
   return ""}).join("");
 const CUTAL={"Cerezas":["Uvas","Sin hueso y en cuartos a lo largo, nunca enteras."],"Sandía":["Melón","Sin piel ni pepitas, en tiras gruesas."],"Mandarina":["Naranja","Gajos sin piel ni pepitas, partidos por la mitad."],"Nectarina":["Melocotón","Muy madura y sin hueso, en gajos."]};
-function cutHtml(n){let m=cutHtml.m;if(!m){m=cutHtml.m={};cutData().forEach(g=>g[1].forEach(x=>m[x[0]]=x))}let x=m[n];if(!x&&CUTAL[n]){const b=m[CUTAL[n][0]];if(b)x=[n,b[1],b[2],CUTAL[n][1]]}if(!x)return"";return `<div class="shcut"><h5 class="shch">Cómo cortarlo y cocinarlo</h5><div class="cgc"><svg class="cgw" viewBox="0 0 300 134" aria-hidden="true">${x[1]}</svg><div class="cgf"><span class="cgp${x[2]==="crudo"?" raw":""}">${x[2]==="crudo"?"Crudo":"Cocción: "+x[2]}</span><p>${x[3]}</p></div></div></div>`}
+function cutHtml(n){let m=cutHtml.m;if(!m){m=cutHtml.m={};cutData().forEach(g=>g[1].forEach(x=>m[x[0]]=x))}let x=m[n];if(!x&&CUTAL[n]){const b=m[CUTAL[n][0]];if(b)x=[n,b[1],b[2],CUTAL[n][1]]}if(!x)return"";return `<div class="shcut"><h5 class="shch">Cómo cortarlo y cocinarlo</h5><div class="cgc"><svg class="cgw" viewBox="0 0 300 ${(/^<!--h=(\d+)-->/.exec(x[1])||[0,134])[1]}" aria-hidden="true">${x[1]}</svg><div class="cgf"><span class="cgp${x[2]==="crudo"?" raw":""}">${x[2]==="crudo"?"Crudo":"Cocción: "+x[2]}</span><p>${x[3]}</p></div></div></div>`}
 function cutData(){
   let gid=0;
   const dm=d=>`<path class="dm" d="${d}"/>`,tx=(x,y,t,a)=>`<text class="dt" x="${x}" y="${y}" text-anchor="${a||"middle"}">${t}</text>`;
   const grad=(id,c)=>`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset=".55" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></linearGradient>`;
   const rad=(id,c)=>`<radialGradient id="${id}" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="${c[0]}"/><stop offset=".6" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></radialGradient>`;
-  const sh='<ellipse cx="150" cy="124" rx="120" ry="5" fill="#000" opacity=".16"/>';
+  const sh='<ellipse cx="150" cy="124" rx="120" ry="5" fill="#000" opacity=".16"/>',shAt=y=>`<ellipse cx="150" cy="${y}" rx="120" ry="4" fill="#000" opacity=".16"/>`;
   const ruler=(x1,x2,y,L)=>dm(`M${x1} ${y}H${x2}M${x1} ${y-5}V${y+5}M${x2} ${y-5}V${y+5}`)+tx((x1+x2)/2,y+14,L);
   const S={
     stick:(c,L,T,o={})=>{const id="g"+(gid++);L=typeof L==="number"?L+" cm":L;let h=`<defs>${grad(id,c)}</defs>${sh}`;
@@ -2239,10 +2239,14 @@ function cutData(){
         if(o.rings)for(let r=0;r<5;r++)h+=`<path d="M${x+24+r*34} ${y+8}v9" stroke="${c[2]}" stroke-width="1.6" stroke-linecap="round" opacity=".35"/>`;
         if(o.seeds)for(let r=0;r<4;r++)h+=`<circle cx="${x+40+r*40}" cy="${y+12}" r="1.8" fill="${o.seeds}" opacity=".7"/>`}
       return h+dm("M234 10v26M229 10h10M229 36h10")+tx(244,27,T,"start")+ruler(24,220,104,L)},
-    avocado:L=>{const a="g"+(gid++),b="g"+(gid++);let h=`<defs><radialGradient id="${a}" cx=".5" cy=".62" r=".6"><stop offset="0" stop-color="#f4f2a4"/><stop offset=".6" stop-color="#cfe07a"/><stop offset="1" stop-color="#9cbf48"/></radialGradient><linearGradient id="${b}" x1="0" x2="1"><stop offset="0" stop-color="#f1f0a0"/><stop offset=".55" stop-color="#cfe07a"/><stop offset="1" stop-color="#9cbf48"/></linearGradient></defs>${sh}`;
-      h+=`<path d="M62 8C88 8 100 40 100 68C100 98 84 114 62 114C40 114 24 98 24 68C24 40 36 8 62 8Z" fill="#2f4a22"/><path d="M62 15C83 15 93 42 93 68C93 94 80 107 62 107C44 107 31 94 31 68C31 42 41 15 62 15Z" fill="url(#${a})"/><circle cx="62" cy="80" r="16" fill="#7a4a28"/><circle cx="57" cy="74" r="5" fill="#b07a4a" opacity=".7"/>`;
-      [[138,-12],[188,0],[238,12]].forEach(([x,r])=>{h+=`<g transform="translate(${x} 22) rotate(${r} 0 40)"><path d="M0 0C54 16 54 64 0 80C20 60 20 20 0 0Z" fill="url(#${b})"/><path d="M0 0C54 16 54 64 0 80" fill="none" stroke="#2f4a22" stroke-width="4" stroke-linecap="round"/></g>`});
-      return h+tx(150,124,"gajos de "+L+" de grosor")},
+    slices:(o,L)=>{const a="g"+(gid++),b="g"+(gid++),f=o.flesh;let h=`<!--h=132--><defs><radialGradient id="${a}" cx=".5" cy="${o.pear?".62":".5"}" r=".6"><stop offset="0" stop-color="${f[0]}"/><stop offset=".6" stop-color="${f[1]}"/><stop offset="1" stop-color="${f[2]}"/></radialGradient><linearGradient id="${b}" x1="0" x2="1"><stop offset="0" stop-color="${f[0]}"/><stop offset=".55" stop-color="${f[1]}"/><stop offset="1" stop-color="${f[2]}"/></linearGradient></defs>${shAt(116)}`;
+      if(o.pear)h+=`<path d="M62 8C88 8 100 40 100 68C100 98 84 114 62 114C40 114 24 98 24 68C24 40 36 8 62 8Z" fill="${o.skin}"/><path d="M62 15C83 15 93 42 93 68C93 94 80 107 62 107C44 107 31 94 31 68C31 42 41 15 62 15Z" fill="url(#${a})"/>`+(o.pit?`<circle cx="62" cy="80" r="${o.pit[1]}" fill="${o.pit[0]}"/><circle cx="${62-o.pit[1]/3}" cy="${80-o.pit[1]/3}" r="${o.pit[1]/3}" fill="#fff" opacity=".25"/>`:"");
+      else h+=`<circle cx="62" cy="62" r="50" fill="${o.skin}"/><circle cx="62" cy="62" r="44" fill="url(#${a})"/>`+(o.pit?`<ellipse cx="62" cy="62" rx="${o.pit[1]}" ry="${o.pit[1]*1.15}" fill="${o.pit[0]}"/><ellipse cx="${62-o.pit[1]/3}" cy="${62-o.pit[1]/2.5}" rx="${o.pit[1]/3}" ry="${o.pit[1]/2.4}" fill="#fff" opacity=".25"/>`:"")+(o.core?`<circle cx="62" cy="62" r="8" fill="${o.core}" opacity=".8"/>`:"");
+      [[138,-12],[188,0],[238,12]].forEach(([x,r])=>{h+=`<g transform="translate(${x} 22) rotate(${r} 0 40)"><path d="M0 0C54 16 54 64 0 80C20 60 20 20 0 0Z" fill="url(#${b})"/><path d="M0 0C54 16 54 64 0 80" fill="none" stroke="${o.skin}" stroke-width="4" stroke-linecap="round"/></g>`});
+      return h+tx(150,128,/cm/.test(L)?"gajos de "+L+" de grosor":L)},
+    segs:(c,sk,L)=>{const a="g"+(gid++);let h=`<!--h=124--><defs><radialGradient id="${a}" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="${c[0]}"/><stop offset=".7" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></radialGradient></defs>${shAt(106)}`;
+      [[78,58],[170,58]].forEach(([cx,cy])=>{h+=`<circle cx="${cx}" cy="${cy}" r="44" fill="${sk}"/><circle cx="${cx}" cy="${cy}" r="39" fill="#fff8e0"/><circle cx="${cx}" cy="${cy}" r="35" fill="url(#${a})"/>`+[...Array(9)].map((_,q)=>{const t=q*6.283/9;return `<path d="M${cx} ${cy}L${cx+Math.cos(t)*35} ${cy+Math.sin(t)*35}" stroke="#fff8e0" stroke-width="2.4" opacity=".85"/>`}).join("")+`<circle cx="${cx}" cy="${cy}" r="4" fill="#fff8e0"/>`});
+      return h+tx(124,118,L)},
     spears:(c,L,o={})=>{const id="g"+(gid++);let h=`<defs>${grad(id,c)}</defs>${sh}`;
       for(let k=0;k<3;k++){const y=14+k*26,x=24+k*6;h+=`<rect x="${x}" y="${y}" width="190" height="12" rx="6" fill="url(#${id})"/><rect x="${x+8}" y="${y+2}" width="150" height="3" rx="1.5" fill="#fff" opacity=".3"/>`+(o.tip?`<ellipse cx="${x+186}" cy="${y+6}" rx="9" ry="7" fill="${o.tip}"/>`:"")}
       return h+ruler(24,224,104,L)},
@@ -2254,12 +2258,12 @@ function cutData(){
     wedge:(c,sk,L,o={})=>{const id="g"+(gid++);let h=`<defs>${grad(id,c)}</defs>${sh}`;
       [[22,0],[102,0],[182,0]].forEach(([x])=>{h+=`<path d="M${x} 18Q${x+40} 106 ${x+78} 18Z" fill="${sk}"/><path d="M${x+7} 21Q${x+40} 88 ${x+71} 21Z" fill="url(#${id})"/><path d="M${x+18} 26Q${x+40} 54 ${x+60} 26" stroke="#fff" stroke-opacity=".38" stroke-width="3" fill="none" stroke-linecap="round"/>`+(o.seed?`<ellipse cx="${x+40}" cy="48" rx="3" ry="5" fill="${o.seed}"/>`:"")});
       return h+tx(150,122,/cm/.test(L)?"gajos de "+L+" de grosor":L)},
-    half:(c,sk,L,o={})=>{const id="g"+(gid++);let h=`<defs>${rad(id,c)}</defs>${sh}`;
+    half:(c,sk,L,o={})=>{const id="g"+(gid++);let h=`<!--h=122--><defs>${rad(id,c)}</defs>${shAt(106)}`;
       [[78,58],[170,58]].forEach(([cx,cy])=>{h+=`<circle cx="${cx}" cy="${cy}" r="42" fill="${sk}"/><circle cx="${cx}" cy="${cy}" r="36" fill="url(#${id})"/>`+(o.core?`<circle cx="${cx}" cy="${cy}" r="11" fill="${o.core}" opacity=".85"/>`:"")+[...Array(o.n===undefined?10:o.n)].map((_,q)=>{const a=q*6.283/(o.n===undefined?10:o.n);return `<ellipse cx="${cx+Math.cos(a)*24}" cy="${cy+Math.sin(a)*24}" rx="1.8" ry="3" fill="${o.seed||"#222"}" transform="rotate(${a*57.3+90} ${cx+Math.cos(a)*24} ${cy+Math.sin(a)*24})"/>`}).join("")});
-      return h+tx(124,122,L)},
-    quarter:(c,L)=>{const id="g"+(gid++);let h=`<defs>${rad(id,c)}</defs>${sh}`;
+      return h+tx(124,116,L)},
+    quarter:(c,L)=>{const id="g"+(gid++);let h=`<!--h=114--><defs>${rad(id,c)}</defs>${shAt(98)}`;
       for(let k=0;k<4;k++){const x=40+k*52;h+=`<ellipse cx="${x}" cy="56" rx="17" ry="38" fill="url(#${id})"/><path d="M${x} 20V92" stroke="#fff" stroke-opacity=".4" stroke-width="2.5"/><ellipse cx="${x-5}" cy="38" rx="3" ry="8" fill="#fff" opacity=".25"/>`}
-      return h+tx(124,122,L)},
+      return h+tx(124,108,L)},
     cubes:(c,L)=>{const id="g"+(gid++);let h=`<defs>${rad(id,c)}</defs>${sh}`;
       [[40,56],[88,40],[136,60],[64,92],[116,96],[168,88],[184,46]].forEach(([x,y])=>h+=`<rect x="${x-14}" y="${y-14}" width="28" height="28" rx="10" fill="url(#${id})"/><rect x="${x-8}" y="${y-9}" width="12" height="5" rx="2.5" fill="#fff" opacity=".35"/>`);
       return h+dm("M222 22v82M217 22h10M217 104h10")+tx(232,66,L,"start")}
@@ -2268,28 +2272,28 @@ function cutData(){
   return [
     ["Fruta cruda: muy madura y blanda",[
       ["Plátano",S.stick(["#fbe27a","#f2cf4a","#d9aa2a"],8,"3 cm",{skin:"#8a6a1f",face:"#fff3b8"}),R,"Medio plátano, con un trozo de piel como asa para que no se escurra."],
-      ["Aguacate",S.avocado("2 cm"),R,"Gajos gruesos y muy maduro. Si resbala, rebózalo en avena molida."],
-      ["Pera",S.wedge(["#f6efc0","#e6d98c","#cfc06a"],"#b5c46a","1,5 cm",{seed:"#6b4a2b"}),R,"Pelada y muy madura, en gajos. Si está dura, 5-8 min al vapor."],
-      ["Melocotón",S.wedge(["#ffd3a4","#f6a96b","#e98a58"],"#e87a50","1,5 cm"),R,"Muy maduro, pelado y sin hueso, en gajos."],
+      ["Aguacate",S.slices({pear:1,skin:"#2f4a22",flesh:["#f4f2a4","#cfe07a","#9cbf48"],pit:["#7a4a28",16]},"2 cm"),R,"Gajos gruesos y muy maduro. Si resbala, rebózalo en avena molida."],
+      ["Pera",S.slices({pear:1,skin:"#a9bc4a",flesh:["#f6efc0","#e6d98c","#cfc06a"],pit:["#6b4a2b",5]},"1,5 cm"),R,"Pelada y muy madura, en gajos. Si está dura, 5-8 min al vapor."],
+      ["Melocotón",S.slices({skin:"#e87a50",flesh:["#ffd3a4","#f6a96b","#e98a58"],pit:["#a8785a",14]},"1,5 cm"),R,"Muy maduro, pelado y sin hueso, en gajos."],
       ["Mango",S.stick(["#ffd27a","#f2a33a","#d9811c"],6,"1,5 cm",{face:"#ffe3a0"}),R,"Tiras de mango maduro. El hueso con pulpa, solo para chupar y vigilado."],
       ["Melón",S.stick(["#ffd9b0","#f4b07a","#e08f55"],6,"2 cm",{skin:"#9bbf6a",face:"#ffe6c8"}),R,"Sin piel ni pepitas, en tiras gruesas."],
       ["Kiwi",S.half(["#c7e86a","#9ccb4d","#6ea62f"],"#7a5a3a","2 cm",{core:"#f3f7d2",seed:"#1d1d1d",n:14}),R,"Pelado, en mitades o rodajas gruesas de 2 cm."],
       ["Fresas",S.half(["#ff8a9a","#e4506a","#b83047"],"#c93a52","mitades",{core:"#ffd9de",seed:"#f6e48a",n:9}),R,"En mitades, y en cuartos si son grandes. Sin hojas."],
       ["Uvas",S.quarter(["#b79ae0","#7a5aa8","#52387f"],"a lo largo"),R,"En cuartos a lo largo, nunca enteras."],
-      ["Naranja",S.wedge(["#ffd27a","#f6a53a","#e5851a"],"#ee8a2a","sin piel",{}),R,"Gajos pelados, sin pepitas ni membrana, partidos por la mitad."],
-      ["Albaricoque",S.wedge(["#ffd9a0","#f9b45e","#ea9030"],"#f0a040","1,5 cm",{seed:"#6b4a2b"}),R,"Muy maduro y sin hueso, en gajos."],
-      ["Caqui",S.wedge(["#ffc78a","#f6993a","#e0761a"],"#ef8a2a","1,5 cm"),R,"Muy maduro y blando, sin piel ni semillas, en gajos."],
-      ["Chirimoya",S.wedge(["#f4f7e6","#e3ecc4","#c8d79c"],"#a9c27a","1,5 cm",{seed:"#2b2420"}),R,"Sin piel y sin pepitas, en trozos blandos."],
-      ["Ciruela",S.wedge(["#ffe39a","#f3c04f","#dba02a"],"#6a3b86","1,5 cm"),R,"Muy madura y sin hueso, en gajos finos. Si la piel es dura, pélala."],
+      ["Naranja",S.segs(["#ffd27a","#f6a53a","#e5851a"],"#ee8a2a","mitades"),R,"Gajos pelados, sin pepitas ni membrana, partidos por la mitad."],
+      ["Albaricoque",S.slices({skin:"#e8902a",flesh:["#ffd9a0","#f9b45e","#ea9030"],pit:["#c9a070",13]},"1,5 cm"),R,"Muy maduro y sin hueso, en gajos."],
+      ["Caqui",S.slices({skin:"#e0761a",flesh:["#ffc78a","#f6993a","#e8821e"]},"1,5 cm"),R,"Muy maduro y blando, sin piel ni semillas, en gajos."],
+      ["Chirimoya",S.slices({skin:"#6f8a3a",flesh:["#f4f7e6","#e3ecc4","#c8d79c"],pit:["#2b2420",7]},"1,5 cm"),R,"Sin piel y sin pepitas, en trozos blandos."],
+      ["Ciruela",S.slices({skin:"#5a2f78",flesh:["#ffe39a","#f3c04f","#dba02a"],pit:["#b89060",12]},"1,5 cm"),R,"Muy madura y sin hueso, en gajos finos. Si la piel es dura, pélala."],
       ["Frambuesas",S.half(["#ff7f95","#e0364f","#a82238"],"#c42a42","mitades",{core:"#ffd9de",seed:"#f3e08a",n:12}),R,"En mitades o aplastadas."],
       ["Higos",S.half(["#e9879a","#b43a58","#6e2040"],"#5a3a6a","mitades",{core:"#f6c3cf",seed:"#f3e08a",n:12}),R,"Muy maduros, en mitades o cuartos."],
-      ["Membrillo cocido",S.wedge(["#ffe9a6","#f1cd6a","#d9a93a"],"#c9a23a","1 cm"),"hervido 25-30 min","Gajos finos, cocidos hasta que estén muy blandos."],
-      ["Níspero",S.wedge(["#ffd694","#f6a948","#e08a20"],"#e8932a","1,5 cm",{seed:"#6b4a2b"}),R,"Maduro, sin piel ni huesos, en gajos."],
+      ["Membrillo cocido",S.slices({skin:"#c9a23a",flesh:["#ffe9a6","#f1cd6a","#d9a93a"],core:"#b08a5a"},"1 cm"),"hervido 25-30 min","Gajos finos, cocidos hasta que estén muy blandos."],
+      ["Níspero",S.slices({skin:"#d9831a",flesh:["#ffd694","#f6a948","#e08a20"],pit:["#6b4a2b",10]},"1,5 cm"),R,"Maduro, sin piel ni huesos, en gajos."],
       ["Papaya",S.stick(["#ffc07a","#f48a3a","#d8651a"],6,"2 cm",{face:"#ffd9a8"}),R,"Muy madura, sin piel ni semillas, en tiras gruesas."],
       ["Piña",S.stick(["#fff0a0","#f6d855","#d9b52a"],6,"1 cm",{face:"#fffbd0"}),R,"Muy madura, sin el centro duro, en tiras finas."],
-      ["Pomelo",S.wedge(["#ffc0c0","#f58a8a","#e0585a"],"#f1a05a","sin piel"),R,"Gajos sin piel ni membrana, partidos por la mitad."]]],
+      ["Pomelo",S.segs(["#ffc0c0","#f58a8a","#e0585a"],"#e8a060","mitades"),R,"Gajos sin piel ni membrana, partidos por la mitad."]]],
     ["Fruta dura: hay que cocinarla",[
-      ["Manzana",S.wedge(["#fbf2c8","#f1e3a3","#dcc97a"],"#d9534f","1 cm",{seed:"#6b4a2b"}),"vapor 8-10 min","Gajos finos de 1 cm, hasta que se aplaste con los dedos. Cruda, solo rallada muy fina."]]],
+      ["Manzana",S.slices({skin:"#c93a3a",flesh:["#fbf2c8","#f1e3a3","#dcc97a"],core:"#b08a5a"},"1 cm"),"vapor 8-10 min","Gajos finos de 1 cm, hasta que se aplaste con los dedos. Cruda, solo rallada muy fina."]]],
     ["Verdura: cocida hasta que se aplaste",[
       ["Zanahoria",S.stick(["#ffb468","#f08a2e","#d06a14"],6,"1,5 cm",{rings:1,face:"#ffc98a"}),"vapor 15-20 min","Bastones como patatas fritas, 6 cm de largo."],
       ["Calabacín",S.stick(["#d9eaa0","#a8cc6a","#7aa43e"],6,"1,5 cm",{skin:"#3f6b2a",seeds:"#6b8a3a",face:"#eaf3c0"}),"vapor 8-10 min","Con piel, en bastones. Se hace rápido y queda muy blando."],
@@ -2302,7 +2306,7 @@ function cutData(){
       ["Judías verdes",S.spears(["#a8d070","#7fae4d","#5a8a30"],"6-8 cm"),"vapor 10-12 min","Enteras, sin puntas, muy tiernas."],
       ["Espárragos",S.spears(["#b9d680","#9cc060","#6f9a38"],"6 cm",{tip:"#7a7aa0"}),"vapor 5-8 min","Solo la punta tierna. El tallo duro, fuera."],
       ["Pimiento rojo",S.stick(["#f7806e","#d94a3a","#a82a1f"],6,"2 cm",{face:"#ffa593"}),"asado 30 min","Asado a 200 °C y sin piel, en tiras."],
-      ["Alcachofa",S.wedge(["#e6efb8","#bdd07a","#8fa84a"],"#6f8a3a","1,5 cm"),"vapor 20-25 min","Solo el corazón, en cuñas, cocido hasta que esté muy blando."],
+      ["Alcachofa",S.slices({skin:"#6f8a3a",flesh:["#e6efb8","#bdd07a","#8fa84a"]},"1,5 cm"),"vapor 20-25 min","Solo el corazón, en cuñas, cocido hasta que esté muy blando."],
       ["Champiñones",S.half(["#f1e4d0","#d9c4a6","#b89c78"],"#a58a66","láminas gruesas",{n:0}),"plancha 6-8 min","Laminados gruesos y bien hechos, nunca crudos."],
       ["Setas",S.half(["#f1e4d0","#d2bd9c","#ae9270"],"#9a7f5c","láminas gruesas",{n:0}),"plancha 6-8 min","Laminadas gruesas y bien hechas, nunca crudas."],
       ["Chirivía",S.stick(["#fff1cc","#f1dfa6","#d9c27a"],6,"1,5 cm",{face:"#fff8e0"}),"vapor 15-20 min","Bastones como patatas fritas, 6 cm de largo."],
@@ -2313,7 +2317,7 @@ function cutData(){
       ["Maíz tierno",S.cubes(["#fff08a","#f6d44a","#d9b020"],"~1 cm"),"vapor 10-15 min","Solo los granos, aplastados. Nunca la mazorca entera."],
       ["Pepino",S.stick(["#e4f2c4","#b6d88a","#8cb85e"],6,"2 cm",{skin:"#4f8a3a",face:"#f2fadc"}),R,"Pelado en bastones gruesos y solo si está tierno. Si está duro, rállalo o cuécelo."],
       ["Pimiento verde",S.stick(["#a8d880","#6fae3e","#4a8a24"],6,"2 cm",{face:"#c7e8a0"}),"asado 30 min","Asado a 200 °C y sin piel, en tiras."],
-      ["Tomate",S.wedge(["#ff9a85","#e8523f","#c0392b"],"#b8342a","sin piel",{seed:"#f3e3a0"}),"crudo, pelado","Muy maduro, sin piel ni pepitas, en cuartos."],
+      ["Tomate",S.slices({skin:"#b8342a",flesh:["#ffb09a","#e8523f","#c0392b"],core:"#f3e3a0"},"sin piel"),"crudo, pelado","Muy maduro, sin piel ni pepitas, en cuartos."],
       ["Guisantes",S.cubes(["#c6e690","#8fc060","#5f9a38"],"1 cm"),"vapor 5 min","Aplastados al principio. Desde los 9 meses, enteros y blandos."]]]];
 }
 function cutGuide(){
