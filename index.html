@@ -2226,7 +2226,8 @@ const lzBlocks=B=>B.map(b=>{
   if(b[0]==="s")return `<ol class="gsteps lz">${b[1].map(x=>`<li><b>${esc(x[0])}</b>${x[1]?`<span>${esc(x[1])}</span>`:""}</li>`).join("")}</ol>`;
   return ""}).join("");
 const CUTAL={"Sandía":["Melón","Sin piel ni pepitas, en tiras gruesas."],"Mandarina":["Naranja","Gajos sin piel ni pepitas, partidos por la mitad."],"Nectarina":["Melocotón","Muy madura y sin hueso, en gajos."]};
-function cutHtml(n){let m=cutHtml.m;if(!m){m=cutHtml.m={};cutData().forEach(g=>g[1].forEach(x=>m[x[0]]=x))}let x=m[n];if(!x&&CUTAL[n]){const b=m[CUTAL[n][0]];if(b)x=[n,b[1],b[2],CUTAL[n][1]]}if(!x)return"";return `<div class="shcut"><h5 class="shch">Cómo cortarlo y cocinarlo</h5><div class="cgc"><svg class="cgw" viewBox="0 0 300 ${(/^<!--h=(\d+)-->/.exec(x[1])||[0,134])[1]}" aria-hidden="true">${x[1]}</svg><div class="cgf"><span class="cgp${x[2]==="crudo"?" raw":""}">${x[2]==="crudo"?"Crudo":"Cocción: "+x[2]}</span><p>${x[3]}</p></div></div></div>`}
+function cutHtml(n){if(!CUTSHOW)return"";let m=cutHtml.m;if(!m){m=cutHtml.m={};cutData().forEach(g=>g[1].forEach(x=>m[x[0]]=x))}let x=m[n];if(!x&&CUTAL[n]){const b=m[CUTAL[n][0]];if(b)x=[n,b[1],b[2],CUTAL[n][1]]}if(!x)return"";return `<div class="shcut"><h5 class="shch">Cómo cortarlo y cocinarlo</h5><div class="cgc"><svg class="cgw" viewBox="0 0 300 ${(/^<!--h=(\d+)-->/.exec(x[1])||[0,134])[1]}" aria-hidden="true">${x[1]}</svg><div class="cgf"><span class="cgp${x[2]==="crudo"?" raw":""}">${x[2]==="crudo"?"Crudo":"Cocción: "+x[2]}</span><p>${x[3]}</p></div></div></div>`}
+const CUTSHOW=false;
 function cutData(){
   let gid=0;
   const dm=d=>`<path class="dm" d="${d}"/>`,tx=(x,y,t,a)=>`<text class="dt" x="${x}" y="${y}" text-anchor="${a||"middle"}">${t}</text>`;
