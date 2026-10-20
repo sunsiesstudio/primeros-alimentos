@@ -1046,6 +1046,7 @@ document.documentElement.lang=LANG;
   </div></div></details>
 <div class="card" id="nutcard"></div></div>
   <div id="rcwrap" class="hide"></div>
+  <div id="fzwrap" class="hide"><h3 class="sec" style="margin-top:28px">Congelador</h3><div class="card" id="fzbox"></div></div>
   <div id="pvw" class="hide">
 <div id="pv3"></div>
 <div id="prog"></div>
@@ -1909,6 +1910,15 @@ if(curMeal){const dm=S.ml[d0]=S.ml[d0]||{};if(!dm[curMeal]){dm[curMeal]={d:true}
   else if(rv==="react"&&g){tkSet.add(g);setRT("al");tab(3);setTimeout(()=>{const e=document.getElementById("g_"+g);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},60)}
 };
 let editing=null;
+function renderFzBox(){const el=$("fzbox");if(!el)return;S.frz=S.frz||[];S.frzA=S.frzA||{};const fm=x=>new Date(x+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"}),t=today();
+  const fl=S.frz.map(it=>`<div class="fzit"><div><b>${esc(it.n)}</b><small>${TT("hasta el ","fins al ","until ")}${fm(it.x)}${it.x<t?TT(" · caducado"," · caducat"," · expired"):""}</small></div><div class="fzq"><button type="button" data-fq="${it.id}" data-s="-1" aria-label="-1">−</button><span>${it.u}</span><button type="button" data-fq="${it.id}" data-s="1" aria-label="+1">+</button></div><button type="button" class="pen" data-fdel="${it.id}" aria-label="${TT("Quitar","Treure","Remove")}">✕</button></div>`).join("");
+  el.innerHTML=(fl||`<p class="fze">${TT("Aún no hay nada. Se añade al marcar que has congelado raciones, o añádelo tú.","Encara no hi ha res. S'afegeix en marcar que has congelat racions, o afegeix-ho tu.","Nothing yet. It's added when you mark portions as frozen, or add it yourself.")}</p>`)+(S.frz.length?`<button type="button" class="btn" id="fz_all" style="width:100%;margin-top:12px">${TT("Vaciar congelador","Buidar el congelador","Empty the freezer")}</button>`:"")+`<div class="fzgap"></div><p class="fzh">${TT("Añadir","Afegir","Add")}</p><div class="fzadd"><input id="fz_n" maxlength="60" placeholder="${TT("Ej. Lentejas con verduras","Ex. Llenties amb verdures","E.g. Lentil and veg stew")}" aria-label="${TT("Nombre","Nom","Name")}"><select id="fz_u" aria-label="${TT("Raciones","Racions","Portions")}">${Array.from({length:12},(_,i)=>i+1).map(n=>`<option value="${n}">${n} ${n===1?TT("ración","ració","portion"):TT("raciones","racions","portions")}</option>`).join("")}</select><button type="button" class="btn p" id="fz_ok">${TT("Añadir","Afegir","Add")}</button></div>`;
+  const refr=()=>{save();renderFzBox();render()};
+  el.querySelectorAll("[data-fq]").forEach(b=>b.onclick=()=>{const it=S.frz.find(x=>x.id===b.dataset.fq);if(!it)return;const old=it.u;it.u=Math.max(1,Math.min(20,it.u+ +b.dataset.s));refr();snack(TT("Cambios guardados","Canvis desats","Changes saved"),TT("Deshacer","Desfés","Undo"),()=>{it.u=old;refr()})});
+  el.querySelectorAll("[data-fdel]").forEach(b=>b.onclick=()=>{const i=S.frz.findIndex(x=>x.id===b.dataset.fdel);if(i<0)return;const it=S.frz[i],as=Object.entries(S.frzA).filter(([k,v])=>v===it.id);S.frz.splice(i,1);as.forEach(([k])=>delete S.frzA[k]);refr();snack(TT("Quitado del congelador","Tret del congelador","Removed from the freezer"),TT("Deshacer","Desfés","Undo"),()=>{S.frz.splice(Math.min(i,S.frz.length),0,it);as.forEach(([k,v])=>S.frzA[k]=v);refr()})});
+  const fa=$("fz_all");if(fa)fa.onclick=()=>{const old=S.frz.slice(),oa={...S.frzA};S.frz=[];S.frzA={};refr();snack(TT("Congelador vaciado","Congelador buidat","Freezer emptied"),TT("Deshacer","Desfés","Undo"),()=>{S.frz=old;S.frzA=oa;refr()})};
+  $("fz_ok").onclick=()=>{const n=$("fz_n").value.trim(),u=+$("fz_u").value;if(!n){$("fz_n").focus();return}const id="f"+Date.now().toString(36),y=new Date(t+"T00:00:00");y.setDate(y.getDate()+30);
+    S.frz.push({id,k:"man_"+id,n,r:{t:"fijo",n,q:[],how:"",ings:[],meals:["Comida","Cena"]},d:t,x:dstr(y),u});refr();snack(TT("Guardado en tu congelador","Desat al congelador","Saved to your freezer"))}}
 function renderProfile(){
   {const e=$("pais");if(e){if(!e.options.length){e.innerHTML=allPaises().map(([c,n])=>`<option value="${c}">${esc(n)}</option>`).join("");e.onchange=()=>{DB.babies.forEach(b=>b.pais=e.value);save();render();snack(TT("Cambios guardados","Canvis desats","Changes saved"))}}e.value=S.pais||"ES"}}
   if(!$("pmsg").textContent)savedMsg();
@@ -3121,7 +3131,7 @@ const FAM=[
 {n:"Pera asada con canela",base:["Pera"],extra:"canela",baby:"Cuña muy blanda, sin azúcar ni miel.",adult:"Con miel, nueces y yogur."}
 ];
 function centerWk(){const wk=document.querySelector("#days .wk"),on=wk&&wk.querySelector(".wd.on");if(on&&wk.clientWidth)wk.scrollLeft=on.offsetLeft-(wk.clientWidth-on.offsetWidth)/2}
-function subtab(n){n=n===2||n===3?n:1;psub=n;setTimeout(vSave,0);$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==2);$("rcwrap").classList.toggle("hide",n!==3);if(n===3)renderFav();if(typeof renderSw==="function")renderSw();if(n===1)centerWk()}
+function subtab(n){n=n===2||n===3?n:1;psub=n;setTimeout(vSave,0);$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==2);$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==3);if(n===3){renderFav();renderFzBox()}if(typeof renderSw==="function")renderSw();if(n===1)centerWk()}
 
 
 const RCH3=["love","ok","meh","play","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
