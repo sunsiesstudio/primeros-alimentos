@@ -1119,6 +1119,10 @@ document.documentElement.lang=LANG;
     <p class="chgh">Otras ideas</p>
     <div id="chg_l" class="chgl"></div>
   </div>
+  <div id="chg_f" class="hide">
+    <p class="chgh">Del congelador</p>
+    <div id="chg_fl" class="chgl"></div>
+  </div>
   <div id="chg_b">
     <p class="chgh">¿Le has dado otra cosa?</p>
     <label><textarea id="chg_x" rows="2" maxlength="120" placeholder="Por ejemplo: tortilla de patata con calabacín"></textarea></label>
@@ -2774,9 +2778,13 @@ function plan(){
       const pool=RR.filter(r=>r.meals.includes(m)&&!seen.has(r.n)&&!(r.ings||[]).some(n=>!kn.has(n))),sd=(d.split("-").join("")|0)+m.length,sh=pool.map((r,i)=>({r,k:(i*37+sd*13)%101})).sort((a,b)=>a.k-b.k).map(x=>x.r),out=[],ut=new Set(),ui=new Set();
       for(const r of sh){if(out.length>=4-fv.length)break;const mi=(r.ings||[])[0];if(ut.has(r.t)||ui.has(mi))continue;out.push(r);ut.add(r.t);ui.add(mi)}
       for(const r of sh){if(out.length>=4-fv.length)break;if(!out.includes(r))out.push(r)}
-      const fzA=(m==="Comida"||m==="Cena")?(window.__FZS||[]).filter(it=>it.left>0&&it.d<d&&d<=it.x&&it.n!==cur.n).slice(0,2).map(it=>({...it.r,n:it.n,ings:it.r.ings||[],fzi:it.id})):[];fzA.forEach(r=>seen.add(r.n));return [...fzA,...fv.filter(r=>!fzA.some(z=>z.n===r.n)).map(r=>({...r,sv:1})),...out]})(),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
+      const fzA=[];fzA.forEach(r=>seen.add(r.n));return [...fzA,...fv.filter(r=>!fzA.some(z=>z.n===r.n)).map(r=>({...r,sv:1})),...out]})(),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${r.fzi?'<span class="chgfz" aria-label="Del congelador"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M4 7l16 10M20 7L4 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></svg></span>':""}${esc(r.n)}${r.fzi?`<small class="chgfzt">${TT("Del congelador","Del congelador","From the freezer")}</small>`:""}${r.sv?'<span class="chgsv" aria-label="Receta guardada"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg></span>':""}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
+    {const fzl=(window.__FZS||[]).filter(it=>it.left>0&&it.d<d&&d<=it.x&&it.n!==cur.n),fmt=x=>new Date(x+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"});
+      $("chg_f").classList.toggle("hide",!!o.past);
+      $("chg_fl").innerHTML=fzl.length?fzl.map((it,i)=>`<button class="chgo" data-fz="${i}"><span><span class="chgfz" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M4 7l16 10M20 7L4 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></svg></span>${esc(it.n)}<small class="chgfzt">${TT(`Quedan ${it.left} · caduca el ${fmt(it.x)}`,`Queden ${it.left} · caduca el ${fmt(it.x)}`,`${it.left} left · expires ${fmt(it.x)}`)}</small></span></button>`).join(""):`<p class="mute">${TT("Cuando congeles raciones, las verás aquí.","Quan congelis racions, les veuràs aquí.","Portions you freeze will show up here.")}</p>`;
+      $("chg_fl").querySelectorAll("[data-fz]").forEach(bb=>bb.onclick=()=>{const it=fzl[+bb.dataset.fz];dropMeal(d,m);setOv(d,m,{n:it.n,i:(it.r.ings||[]).slice()});S.frzA=S.frzA||{};S.frzA[d+"|"+m]=it.id;$("chg").classList.add("hide");save();render()})}
     $("chg_x").value="";$("chg_s").value="";$("chg_b").querySelector(".chgadd").open=false;
     $("chg_a").classList.toggle("hide",!!o.past||!alts.length);$("chg_b").classList.toggle("sep",!o.past&&!!alts.length);
     // Lo que le ha dado: lo que se reconoce en el texto + lo que se añade a mano − lo que se quita
