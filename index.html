@@ -2853,8 +2853,6 @@ function plan(){
       if(!t){$("chg_x").focus();return}t=t.charAt(0).toUpperCase()+t.slice(1);
       {const pd=potitos().find(z=>norm(z.n)===norm(t));if(pd){pd.q=(pd.q||1)-1;if(pd.q<=0)S.desp=S.desp.filter(z=>z!==pd)}}
       dropMeal(d,m);setOv(d,m,ii.length?{n:t,i:ii}:{n:t});
-      const e=S.ml[d]=S.ml[d]||{};e[m]={d:true};
-      const sm=stats(),fdm=firstDates();ii.filter(n=>!S.log.some(l=>l.d===d&&l.f===n)).forEach(n=>S.log.push({f:n,how:ii.length>1?"En receta":(pz?"Trozos":"Tiras"),r:mealR(n,ii,!fdm[n],null,sm[n]&&sm[n].last),d,ml:m,sv:ii.length>1?"rec":"solo",m:1}));
       $("chg").classList.add("hide");save();render()};});
 
 }
