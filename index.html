@@ -3302,22 +3302,24 @@ function renderTrack(){
   {const opts=ALL.filter(x=>!AG[x.n]&&!xs.includes(x.n)&&!x.lim).map(x=>x.n).sort((a,b)=>a.localeCompare(b,"es"));
    $("tk").innerHTML+=`<div class="agadd"><p class="agh">¿Sospechas de otro alimento?</p><p class="mute">Por ejemplo, si el plátano le dejó la cara roja. Añádelo para anotar reacciones y marcarlo como los alérgenos.</p><label>Añadir alimento<select id="agx_add"><option value="">Elige un alimento</option>${opts.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("")}</select></label></div>`}
 }
+const tkSnap=()=>({al:{...(S.al||{})},agx:[...(S.agx||[])],rx:(S.rx||[]).map(x=>({...x})),log:(S.log||[]).map(l=>({...l}))});
+const tkSn=(msg,sn)=>snack(msg,TT("Deshacer","Desfés","Undo"),()=>{S.al=sn.al;S.agx=sn.agx;S.rx=sn.rx;S.log=sn.log;save();render()});
 $("tk").addEventListener("click",e=>{
   const fb=e.target.closest("[data-food]");if(fb){openSheet(fb.dataset.food);return}
-  const cs=e.target.closest("[data-clrst]");if(cs){delete (S.al||{})[cs.dataset.clrst];save();render();snack(TT("Marca quitada","Marca treta","Mark removed"));return}
-  const rm=e.target.closest("[data-rmx]");if(rm){const f=rm.dataset.rmx;S.agx=(S.agx||[]).filter(n=>n!==f);tkSet.delete("x:"+f);save();render();return}
-  const sb=e.target.closest("[data-stb]");if(sb){const g=sb.dataset.stb;if(sb.dataset.v)S.al[g]=sb.dataset.v;else delete S.al[g];tkSet.add(g);save();render();return}
+  const cs=e.target.closest("[data-clrst]");if(cs){const sn=tkSnap();delete (S.al||{})[cs.dataset.clrst];save();render();tkSn(TT("Marca quitada","Marca treta","Mark removed"),sn);return}
+  const rm=e.target.closest("[data-rmx]");if(rm){const sn=tkSnap(),f=rm.dataset.rmx;S.agx=(S.agx||[]).filter(n=>n!==f);tkSet.delete("x:"+f);save();render();tkSn(TT("Quitado de la lista","Tret de la llista","Removed from the list"),sn);return}
+  const sb=e.target.closest("[data-stb]");if(sb){const sn=tkSnap(),g=sb.dataset.stb;if(sb.dataset.v)S.al[g]=sb.dataset.v;else delete S.al[g];tkSet.add(g);save();render();tkSn(TT("Marca guardada","Marca desada","Mark saved"),sn);return}
   const b=e.target.closest("[data-save],[data-del]");if(!b)return;
-  if(b.dataset.del){const d=b.dataset.del;if(d.startsWith("log:")){const i=+d.slice(4);if(S.log[i])S.log.splice(i,1)}else S.rx=S.rx.filter(r=>r.id!==d);const g0=b.closest("details.g");if(g0)tkSet.add(g0.dataset.g);save();render();return}
+  if(b.dataset.del){const sn=tkSnap(),d=b.dataset.del;if(d.startsWith("log:")){const i=+d.slice(4);if(S.log[i])S.log.splice(i,1)}else S.rx=S.rx.filter(r=>r.id!==d);const g0=b.closest("details.g");if(g0)tkSet.add(g0.dataset.g);save();render();tkSn(TT("Registro eliminado","Registre eliminat","Entry deleted"),sn);return}
   const g=b.dataset.save,det=b.closest("details.g"),sel=det.querySelector("[data-sel]"),dt=det.querySelector("[data-d]"),nt=det.querySelector("[data-n]");
   if(!sel.value){sel.focus();return}
-  {const nd=det.querySelector("[data-nd]").checked;const fx=det.querySelector("[data-fx]"),fv=fx&&fx.value;S.rx.push({id:uid(),g,d:nd?noDate():(dt.value||today()),r:sel.value,n:nt.value.trim().slice(0,300),...(nd?{nd:true}:{}),...(fv?{f:fv}:{})})}
-  tkSet.add(g);save();render();
+  const snS=tkSnap();{const nd=det.querySelector("[data-nd]").checked;const fx=det.querySelector("[data-fx]"),fv=fx&&fx.value;S.rx.push({id:uid(),g,d:nd?noDate():(dt.value||today()),r:sel.value,n:nt.value.trim().slice(0,300),...(nd?{nd:true}:{}),...(fv?{f:fv}:{})})}
+  tkSet.add(g);save();render();tkSn(TT("Reacción guardada","Reacció desada","Reaction saved"),snS);
 });
 $("tk").addEventListener("change",e=>{
   const t=e.target;
-  if(t.id==="agx_add"&&t.value){const f=t.value;S.agx=S.agx||[];if(!S.agx.includes(f))S.agx.push(f);tkSet.add("x:"+f);save();render();setTimeout(()=>{const d=[...document.querySelectorAll("#tk details.g")].find(x=>x.dataset.g==="x:"+f);if(d)d.scrollIntoView({behavior:"smooth",block:"start"})},50);return}
-  if(t.dataset.st!==undefined){const g=t.dataset.st;if(t.value)S.al[g]=t.value;else delete S.al[g];tkSet.add(g);save();render();return}
+  if(t.id==="agx_add"&&t.value){const f=t.value;S.agx=S.agx||[];const sn=tkSnap();if(!S.agx.includes(f))S.agx.push(f);tkSet.add("x:"+f);save();render();tkSn(TT("Alimento añadido","Aliment afegit","Food added"),sn);setTimeout(()=>{const d=[...document.querySelectorAll("#tk details.g")].find(x=>x.dataset.g==="x:"+f);if(d)d.scrollIntoView({behavior:"smooth",block:"start"})},50);return}
+  if(t.dataset.st!==undefined){const sn=tkSnap(),g=t.dataset.st;if(t.value)S.al[g]=t.value;else delete S.al[g];tkSet.add(g);save();render();tkSn(TT("Marca guardada","Marca desada","Mark saved"),sn);return}
   if(t.dataset.nd!==undefined){const d=t.closest("details.g").querySelector("[data-d]");d.disabled=t.checked;return}
   if(t.dataset.sel!==undefined){const u=t.closest("details.g").querySelector("[data-urg]");u.classList.toggle("hide",t.value!==URG)}
 });
