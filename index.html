@@ -1879,8 +1879,11 @@ function fillForm(l){const fs=[...$("shp").querySelectorAll("figure")],hs=(l.hw|
   if(l.r==="react"&&l.rt)$("rxt").value=l.rt;$("rxn").value=l.rn||"";curPh=validPh(l.ph)?l.ph:"";fphUi();
   const nd=!!l.nd||(l.pre&&!l.dset);$("dt_nd").checked=nd;$("dt").disabled=nd;$("dt").value=nd?"":l.d;$("dtq").textContent="¿Cuándo lo probó?";
   $("shnote").classList.toggle("hide",!l.pre);$("shnote").textContent=l.pre?TT("Ya lo había probado. Si te acuerdas, puedes añadir cómo lo tomó y qué tal le fue.","Ja ho havia provat. Si te'n recordes, pots afegir com ho va prendre i com li va anar.","Already tried before. If you remember, you can add how they had it and how it went."):""}
+let shBase=null;
+function shSig(){return [...$("shform").querySelectorAll("button,figure,input,select,textarea,img")].filter(e=>!e.closest("#shdelw,#shrob,.shft")).map(e=>(e.id||e.tagName)+"|"+(e.matches("input[type=file]")?"":e.className)+"|"+(e.getAttribute("aria-pressed")||"")+"|"+(e.type==="checkbox"?e.checked:(e.value||""))+"|"+(e.tagName==="IMG"?(e.src||"").length:"")).join("§")}
+["click","input","change"].forEach(ev=>document.addEventListener(ev,e=>{if(shBase!==null&&e.target.closest&&e.target.closest("#shform"))setTimeout(()=>{if(shBase!==null)$("ok").disabled=shSig()===shBase},0)},true));
 function shMode(m){const f=$("shform");f.classList.toggle("ro",m==="ro");$("shrob").classList.toggle("hide",m!=="ro");f.querySelector(".shft:not(#shrob)").classList.toggle("hide",m==="ro");
-  $("ok").textContent=m==="edit"?"Guardar cambios":"Guardar";if(m==="edit")$("ok").disabled=false;if(m!=="ro")$("shnote").classList.add("hide");$("shdelw").classList.toggle("hide",m!=="edit");$("shdelq").classList.add("hide");$("shdel").classList.remove("hide")}
+  $("ok").textContent=m==="edit"?"Guardar cambios":"Guardar";shBase=null;if(m==="edit"){$("ok").disabled=true;setTimeout(()=>{shBase=shSig();$("ok").disabled=true},60)}if(m!=="ro")$("shnote").classList.add("hide");$("shdelw").classList.toggle("hide",m!=="edit");$("shdelq").classList.add("hide");$("shdel").classList.remove("hide")}
 function shHist(n,direct){const L=S.log.map((l,i)=>({...l,i})).filter(l=>l.f===n).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.i-b.i),hs=$("shhist"),want=shWant;shWant=null;
   $("dtq").textContent=L.length?"¿Cuándo lo volvió a probar?":"¿Cuándo lo probó por primera vez?";
   curEdit=null;curFromH=false;{const st=stats()[n],fv=!!(L.length&&st&&st.last==="love");$("shtag").classList.toggle("hide",!L.length||fv);$("shfav").classList.toggle("hide",!fv)}$("shnote").classList.add("hide");
