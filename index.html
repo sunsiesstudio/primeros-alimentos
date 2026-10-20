@@ -745,7 +745,7 @@ details.rxa[open]>summary:after{transform:rotate(-135deg);margin:4px 4px 0 10px}
 #mr_d:empty{display:none}
 #mr_d{margin:0}
 .dnvd{margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
-.dnvd .mwat.mck.vitd{margin-top:0!important}.dnq{font-weight:700;margin:0 0 10px}
+.dnvd .mwat.mck.vitd{margin-top:0!important}.dnq{font-weight:700;margin:0 0 10px}.dnvd .dnc{flex-wrap:nowrap}.dnvd .dnc .dmb{flex:1 1 0;min-width:0;min-height:44px;font-size:.9rem;padding:8px 10px}
 .sheet.full .nfhd{top:0;margin-top:0;padding-top:calc(54px + env(safe-area-inset-top,0px))}
 .sheet.full .nfhd .xc{top:calc(50px + env(safe-area-inset-top,0px))}
 #nfsh .fit{padding:14px 2px!important;min-height:64px!important}
@@ -1852,6 +1852,7 @@ function mashOnly(){const by={};S.log.forEach(l=>{if(l.r==="pre")return;(by[l.f]
 let snkT=0;
 function savedFx(){try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}snack('<span class="okfx">✓</span> Guardado')}
 document.addEventListener("click",e=>{const l=e.target.closest("#snk .snkl");if(!l)return;e.preventDefault();$("snk").classList.add("hide");document.querySelectorAll(".sheet:not(.hide) .xc").forEach(x=>x.click());tab(2);subtab(3);window.scrollTo({top:0})});
+document.addEventListener("click",e=>{const l=e.target.closest("#snk .snkf");if(!l)return;e.preventDefault();$("snk").classList.add("hide");tab(2);subtab(3);setTimeout(()=>{const b=$("fzbox");if(b)b.scrollIntoView({behavior:"smooth",block:"center"})},80)});
 function snack(html,label,fn){const e=$("snk");e.innerHTML=`<span>${html}</span>${label?`<button type="button" class="x">${label}</button>`:""}<button type="button" class="x" aria-label="Cerrar">✕</button>`;e.classList.remove("hide");
   const bs=e.querySelectorAll("button");if(label)bs[0].onclick=()=>{e.classList.add("hide");fn()};bs[bs.length-1].onclick=()=>e.classList.add("hide");clearTimeout(snkT);snkT=setTimeout(()=>e.classList.add("hide"),12000)}
 let curMeal="",curSv="solo";
@@ -2661,7 +2662,7 @@ function plan(){
     const fzEnd=(d,ings)=>{const x=new Date(d+"T00:00:00");x.setDate(x.getDate()+fzLife(ings));return dstr(x)};
     window.__fzEnd=fzEnd;
     const fzCk=(r,meal,o)=>fzCk0(r);
-    const fzOK=(r,meal,o)=>!(!o||!FZ||o.ds>t0||(meal!=="Comida"&&meal!=="Cena")||r.fz==="thaw"||r.fzid||r.t==="guarde"||r.t==="vacio")&&!(r.ings||[]).includes("Huevo")&&!["solo","fruta","yogur","queso","tostada","chia"].includes(r.t);
+    const fzOK=(r,meal,o)=>!(!o||!FZ||o.ds>t0||(meal!=="Comida"&&meal!=="Cena")||r.fz==="thaw"||r.fzid||(S.frzA&&S.frzA[o.ds+"|"+meal])||r.t==="guarde"||r.t==="vacio")&&!(r.ings||[]).includes("Huevo")&&!["solo","fruta","yogur","queso","tostada","chia"].includes(r.t);
     const fzReg=(k,r,u,quiet)=>{const d=k.slice(0,10),old=(S.frz||[]).find(it=>it.k===k);S.frz=(S.frz||[]).filter(it=>it.k!==k);if(old)Object.keys(S.frzA||{}).forEach(z=>{if(S.frzA[z]===old.id)delete S.frzA[z]});if(u>0){const {fz,fzc,fzk,fzon,fzTop,fzid,fzr,fzd,...r0}=r;S.frz.push({id:"f"+Date.now().toString(36),k,n:r.n,r:JSON.parse(JSON.stringify(r0)),d,x:window.__fzEnd(d,r0.ings),u})}save();if(!quiet){plan();snack(u>0?TT(`Guardado en tu congelador`,`Desat al teu congelador`,`Saved to your freezer`):TT("Quitado del congelador","Tret del congelador","Removed from the freezer"))}};
     window.__fzReg=fzReg;window.__fzOK=fzOK;
     const fzSel=(r,meal,o,mini)=>{if(!fzOK(r,meal,o))return"";const k0=o.ds+"|"+meal,stk=(S.frz||[]).find(it=>it.k===k0);(window.__fzr=window.__fzr||{})[k0]=r;
@@ -2816,7 +2817,7 @@ function plan(){
         {const o=shown.find(x=>x.ds===d),row=o&&o.rows.find(([mm])=>mm===m),src=d+"|"+m;S.fav=S.fav||[];
          if(false&&row&&row[1].t!=="vacio"){if(e[m].r==="love"){if(!isFav(row[1].n)){S.fav.push({n:row[1].n,i:row[1].ings.slice(),src,r:rSnap(row[1])});snack(TT("Le ha encantado: guardada en Recetas","Li ha encantat: desada a Receptes","Loved it: saved to Recipes"))}}else S.fav=S.fav.filter(f=>!(f.n===row[1].n&&f.src===src))}}}}
     else if(e[m]){const v=(S.ov[d]||{})[m];dropMeal(d,m);if(v&&v.a)setOv(d,m,null)}
-    else{e[m]={d:true};{const kk=d+"|"+m,it=(S.frz||[]).find(x=>x.id===(S.frzA||{})[kk]);S.frzE=S.frzE||{};if(it&&!S.frzE[kk]){it.u=Math.max(0,it.u-1);S.frzE[kk]=1}}const o=shown.find(x=>x.ds===d),row=o&&o.rows.find(([mm])=>mm===m);
+    else{e[m]={d:true};{const kk=d+"|"+m,it=(S.frz||[]).find(x=>x.id===(S.frzA||{})[kk]);S.frzE=S.frzE||{};if(it&&!S.frzE[kk]){it.u=Math.max(0,it.u-1);S.frzE[kk]=1;setTimeout(()=>{const left=it.u;snack(TT(`Una ración menos en tu <a class="snkf" href="#">congelador</a> · quedan ${left}`,`Una ració menys al teu <a class="snkf" href="#">congelador</a> · en queden ${left}`,`One portion less in your <a class="snkf" href="#">freezer</a> · ${left} left`),TT("Deshacer","Desfés","Undo"),()=>{if(S.frzE&&S.frzE[kk]){it.u+=1;delete S.frzE[kk];save();plan()}})},0)}}const o=shown.find(x=>x.ds===d),row=o&&o.rows.find(([mm])=>mm===m);
       if(row){const nn=new Set(o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]));
         {const sm=stats(),fdm=firstDates(),ig=row[1].ings;ig.filter(n=>!S.log.some(l=>l.d===d&&l.f===n)).forEach(n=>S.log.push({f:n,how:howOf(row[1]),r:mealR(n,ig,!fdm[n]||nn.has(n),null,sm[n]&&sm[n].last),d,ml:m,m:1,sv:ig.length>1?"rec":"solo"}))}
         {const ex=(S.ov[d]||{})[m];if(!ex)setOv(d,m,{n:row[1].n,a:1,i:row[1].ings.slice()});else if(!ex.i&&row[1].ings.length)ex.i=row[1].ings.slice()}}}
