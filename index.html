@@ -2752,7 +2752,7 @@ function plan(){
   const covered=(n,di)=>bought[n]!==undefined&&di-bought[n]<lifeN(n);
   const buy=(n,di)=>{if(!covered(n,di)){bought[n]=di;buys[n]=(buys[n]||0)+1;(evs[n]=evs[n]||[]).push(di)}};
   const menuRows=o=>{
-    const R=recipesFor(o.kn,mo,pz),ms0=mealsFor(mo),xm0=(p.xm||{})[o.ds]||[],ms=MEALS.filter(m=>ms0.includes(m)||xm0.includes(m)),usedN=new Set(),usedK=new Set(),rows=[],nn=o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]);
+    const R=recipesFor(o.kn,mo,pz),ms0=mealsFor(mo),xm0=(p.xm||{})[o.ds]||[],ms=MEALS.filter(m=>ms0.includes(m)||xm0.includes(m)),usedN=new Set(),usedK=new Set(),usedI=new Set(),rows=[],nn=o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]);
     nn.forEach(n=>buy(n,o.di));hist[o.di]=new Set();
     const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
     const hasRec=Object.values(p.rec||{}).some(a=>a&&a.length),newSlot=nn.length?(FZ&&[...nn].every(n=>!isPrt(n))?[...ms.filter(m=>m!=="Comida"&&m!=="Cena"),...ms.filter(m=>m==="Comida"||m==="Cena")]:hasRec?[...ms.filter(m=>m==="Comida"||m==="Cena"),...ms.filter(m=>m!=="Comida"&&m!=="Cena")]:ms).find(m=>!gdAt(o.ds,m)&&R.some(r=>ok(r,m)&&hasNew(r))):null;
@@ -2765,6 +2765,7 @@ function plan(){
       const mixes=L.filter(r=>r.t!=="solo");if(mixes.length)L=mixes;
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!usedN.has(r.n)&&!hasNew(r));
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
+      {const L4=L.filter(r=>!(r.ings||[]).some(n=>usedI.has(n)&&!/^(AOVE|Aceite.*|Agua|Limón.*|Ajo|Cebolla|Perejil|Sal|Canela)$/.test(n)));if(L4.length)L=L4}
       if(!L.length)return;
       const rec=new Set([1,2,3].flatMap(k=>[...(hist[o.di-k]||[])]));
       const SK=sits(o.ds),dmo={...((p.dm||{})[o.ds]||{}),...(SK.includes("e")?{e:1}:{}),...(SK.includes("v")?{q:1}:{}),...(["viaje","fuera"].includes(evOf(o.ds))?{q:1}:{})},LAXF=/^(Pera|Ciruela|Kiwi|Melocotón|Nectarina|Albaricoque|Higos|Mango|Papaya|Uvas|Fresas|Frambuesas|Moras?|Avena|Calabacín|Brócoli|Lentejas|Garbanzos|Alubias|AOVE|Aceite)/,ASTF=/^(Plátano|Arroz|Manzana asada|Membrillo|Zanahoria|Harina de arroz|Tapioca)/;
@@ -2781,7 +2782,7 @@ function plan(){
       else if(fzAv.length){const n=fzAv[0];FZN[n]=(FZN[n]||0)+1;FZR[n].ck.u++;rr={...FZR[n].r,fz:"thaw",fzd:FZD[n]}}
       else if(fzM&&fzOK(r)){const d0=FZD[r.n];const fk=o.ds+"|"+meal;if((p.fzo||{})[fk]){rr={...r,fz:"one",fzk:fk}}else if(d0===undefined||d0===o.di||o.di-d0>8||(FZN[r.n]||0)>=3){const stk=S.frz.find(it=>it.k===fk);FZD[r.n]=o.di;FZN[r.n]=0;const ck={u:stk?stk.u:0};if(!stk)FZR[r.n]={r,ml:meal,ck};rr={...r,fz:"cook",fzc:ck,fzk:fk,fzon:!!stk}}else{FZN[r.n]=(FZN[r.n]||0)+1;if(FZR[r.n])FZR[r.n].ck.u++;rr={...r,fz:"thaw",fzd:d0}}}
       rr.ings.forEach(n=>{VL[n]=o.di});if(rr.fz!=="thaw")rr.ings.forEach(n=>buy(n,o.di));hist[o.di].add(rr.n);
-      usedN.add(rr.n);if(rr.k)usedK.add(rr.k);rows.push([meal,rr]);
+      usedN.add(rr.n);if(rr.k)usedK.add(rr.k);(rr.ings||[]).forEach(n=>usedI.add(n));rows.push([meal,rr]);
     });
     return rows};
   const dck=(o,k,ic,tx,cl,ck)=>{if(!ck)return `<span class="mwat${cl?" "+cl:""}">${ic}${tx}</span>`;const on=!!(((S.prefs.dck||{})[o.ds]||{})[k]);return `<button type="button" class="mwat mck${on?" on":""}${cl?" "+cl:""}" data-dck="${k}" data-d="${o.ds}" aria-pressed="${on}"><span class="mcb">${on?"✓":""}</span>${ic}${tx}</button>`};
