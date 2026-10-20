@@ -852,6 +852,12 @@ input[type=search]:not(:placeholder-shown){padding-right:48px!important;backgrou
 .tag{border:1px solid color-mix(in srgb,currentColor 40%,transparent)}.tag.ok{border-color:color-mix(in srgb,var(--green) 65%,var(--ink))}.tag.tnew{border:0}
 #sh #svp button.on,#sh #rxg button.on{background:var(--green)!important;border-color:var(--green)!important;color:var(--onacc)!important}
 .pen{background:transparent!important;color:var(--mute)!important}
+:root{--sec:#3e4cd0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sec:#8c97ff}}
+:root[data-theme="dark"]{--sec:#8c97ff}
+.btn:not(.p):not(.rd):not(.on):not(.hide){border-color:var(--sec);color:var(--sec)}
+#so{border-color:var(--sec)!important;color:var(--sec)!important}
+.btn.ibt,.pen{border:0!important;background:transparent!important;color:var(--mute)!important}.btn.ibt svg,.pen svg{width:20px!important;height:20px!important}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
