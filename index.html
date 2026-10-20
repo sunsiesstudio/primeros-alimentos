@@ -805,6 +805,8 @@ details.rxa[open]>summary:after{transform:rotate(-135deg);margin:4px 4px 0 10px}
 :root[data-theme="light"]{color-scheme:light}
 .thm{max-width:none!important;margin:8px 0 0!important}
 .thm .btn{flex:1 1 0;min-width:0;padding-left:8px;padding-right:8px}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+input[type=search]:not(:placeholder-shown){padding-right:48px!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%238a8a7a'/%3E%3Cpath d='M8 8l8 8M16 8l-8 8' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:22px 22px}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -2898,6 +2900,7 @@ async function menuImg(ds){const it=(window.__mnuD||{})[ds]||[];try{await Promis
   x.textAlign="center";x.fillStyle=MU;x.font=SF(400,26);x.fillText(TT("Sin sal ni azúcar · AOVE para cocinar","Sense sal ni sucre · AOVE per cuinar","No salt or sugar · olive oil for cooking"),W/2,H-150);
   x.fillStyle=GR;x.font=DF(46);x.fillText(TT("Primeros alimentos","Primers aliments","First foods"),W/2,H-90);
   return c}
+document.addEventListener("click",e=>{const i=e.target;if(!i||i.tagName!=="INPUT"||i.type!=="search"||!i.value)return;const r=i.getBoundingClientRect();if(e.clientX>r.right-52){e.preventDefault();i.value="";i.dispatchEvent(new Event("input",{bubbles:true}));i.focus()}});
 function applyTheme(m){const h=document.documentElement;if(m==="light"||m==="dark")h.setAttribute("data-theme",m);else h.removeAttribute("data-theme");
   try{if(m==="light"||m==="dark")localStorage.setItem("pa_theme",m);else localStorage.removeItem("pa_theme")}catch(e){}
   const ms=[...document.querySelectorAll('meta[name="theme-color"]')];ms.forEach(x=>{const dark=/dark/.test(x.dataset.o||x.getAttribute("media")||"");if(!x.dataset.o)x.dataset.o=x.getAttribute("media")||"";if(m==="light"||m==="dark")x.setAttribute("media",(m==="dark")===dark?"all":"not all");else x.setAttribute("media",x.dataset.o)});
