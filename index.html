@@ -2221,8 +2221,8 @@ const lzBlocks=B=>B.map(b=>{
   if(b[0]==="no")return `<div class="lno lz">${b[1].map(x=>`<span>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',14)}${esc(x)}</span>`).join("")}</div>`;
   if(b[0]==="s")return `<ol class="gsteps lz">${b[1].map(x=>`<li><b>${esc(x[0])}</b>${x[1]?`<span>${esc(x[1])}</span>`:""}</li>`).join("")}</ol>`;
   return ""}).join("");
-const CUTAL={"Cerezas":"Uvas","Arándanos":"Uvas","Sandía":"Melón","Mandarina":"Naranja","Nectarina":"Melocotón","Ciruela":"Melocotón"};
-function cutHtml(n){let m=cutHtml.m;if(!m){m=cutHtml.m={};cutData().forEach(g=>g[1].forEach(x=>m[x[0]]=x))}const x=m[n]||m[CUTAL[n]];if(!x)return"";return `<div class="shcut"><h5 class="shch">Cómo cortarlo y cocinarlo</h5><div class="cgc"><svg class="cgw" viewBox="0 0 300 134" aria-hidden="true">${x[1]}</svg><div class="cgf"><span class="cgp${x[2]==="crudo"?" raw":""}">${x[2]==="crudo"?"Crudo":"Cocción: "+x[2]}</span><p>${x[3]}</p></div></div></div>`}
+const CUTAL={"Cerezas":["Uvas","Sin hueso y en cuartos a lo largo, nunca enteras."],"Sandía":["Melón","Sin piel ni pepitas, en tiras gruesas."],"Mandarina":["Naranja","Gajos sin piel ni pepitas, partidos por la mitad."],"Nectarina":["Melocotón","Muy madura y sin hueso, en gajos."]};
+function cutHtml(n){let m=cutHtml.m;if(!m){m=cutHtml.m={};cutData().forEach(g=>g[1].forEach(x=>m[x[0]]=x))}let x=m[n];if(!x&&CUTAL[n]){const b=m[CUTAL[n][0]];if(b)x=[n,b[1],b[2],CUTAL[n][1]]}if(!x)return"";return `<div class="shcut"><h5 class="shch">Cómo cortarlo y cocinarlo</h5><div class="cgc"><svg class="cgw" viewBox="0 0 300 134" aria-hidden="true">${x[1]}</svg><div class="cgf"><span class="cgp${x[2]==="crudo"?" raw":""}">${x[2]==="crudo"?"Crudo":"Cocción: "+x[2]}</span><p>${x[3]}</p></div></div></div>`}
 function cutData(){
   let gid=0;
   const dm=d=>`<path class="dm" d="${d}"/>`,tx=(x,y,t,a)=>`<text class="dt" x="${x}" y="${y}" text-anchor="${a||"middle"}">${t}</text>`;
@@ -2268,17 +2268,17 @@ function cutData(){
       ["Pera",S.wedge(["#f6efc0","#e6d98c","#cfc06a"],"#b5c46a","1,5 cm",{seed:"#6b4a2b"}),R,"Pelada y muy madura, en gajos. Si está dura, 5-8 min al vapor."],
       ["Melocotón",S.wedge(["#ffd3a4","#f6a96b","#e98a58"],"#e87a50","1,5 cm"),R,"Muy maduro, pelado y sin hueso, en gajos."],
       ["Mango",S.stick(["#ffd27a","#f2a33a","#d9811c"],6,"1,5 cm",{face:"#ffe3a0"}),R,"Tiras de mango maduro. El hueso con pulpa, solo para chupar y vigilado."],
-      ["Melón",S.stick(["#ffd9b0","#f4b07a","#e08f55"],6,"2 cm",{skin:"#9bbf6a",face:"#ffe6c8"}),R,"Melón y sandía, sin piel ni pepitas, en tiras gruesas."],
+      ["Melón",S.stick(["#ffd9b0","#f4b07a","#e08f55"],6,"2 cm",{skin:"#9bbf6a",face:"#ffe6c8"}),R,"Sin piel ni pepitas, en tiras gruesas."],
       ["Kiwi",S.half(["#c7e86a","#9ccb4d","#6ea62f"],"#7a5a3a","2 cm",{core:"#f3f7d2",seed:"#1d1d1d",n:14}),R,"Pelado, en mitades o rodajas gruesas de 2 cm."],
       ["Fresas",S.half(["#ff8a9a","#e4506a","#b83047"],"#c93a52","mitades",{core:"#ffd9de",seed:"#f6e48a",n:9}),R,"En mitades, y en cuartos si son grandes. Sin hojas."],
-      ["Uvas",S.quarter(["#b79ae0","#7a5aa8","#52387f"],"a lo largo"),R,"Uvas, cerezas y arándanos en cuartos a lo largo. Cerezas sin hueso. Arándanos aplastados."],
+      ["Uvas",S.quarter(["#b79ae0","#7a5aa8","#52387f"],"a lo largo"),R,"En cuartos a lo largo, nunca enteras."],
       ["Naranja",S.wedge(["#ffd27a","#f6a53a","#e5851a"],"#ee8a2a","sin piel",{}),R,"Gajos pelados, sin pepitas ni membrana, partidos por la mitad."]]],
     ["Fruta dura: hay que cocinarla",[
       ["Manzana",S.wedge(["#fbf2c8","#f1e3a3","#dcc97a"],"#d9534f","1 cm",{seed:"#6b4a2b"}),"vapor 8-10 min","Gajos finos de 1 cm, hasta que se aplaste con los dedos. Cruda, solo rallada muy fina."]]],
     ["Verdura: cocida hasta que se aplaste",[
       ["Zanahoria",S.stick(["#ffb468","#f08a2e","#d06a14"],6,"1,5 cm",{rings:1,face:"#ffc98a"}),"vapor 15-20 min","Bastones como patatas fritas, 6 cm de largo."],
       ["Calabacín",S.stick(["#d9eaa0","#a8cc6a","#7aa43e"],6,"1,5 cm",{skin:"#3f6b2a",seeds:"#6b8a3a",face:"#eaf3c0"}),"vapor 8-10 min","Con piel, en bastones. Se hace rápido y queda muy blando."],
-      ["Brócoli",S.floret(["#8bc16a","#5e9a4c","#3a7433"],"5-6 cm"),"vapor 8-10 min","Ramitos con un tallo largo de asa. Lo mismo con la coliflor."],
+      ["Brócoli",S.floret(["#8bc16a","#5e9a4c","#3a7433"],"5-6 cm"),"vapor 8-10 min","Ramitos con un tallo largo de asa."],
       ["Coliflor",S.floret(["#fffbe8","#efe8c8","#cfc59a"],"5-6 cm"),"vapor 8-10 min","Ramitos con tallo. Que no se deshaga al cogerlo."],
       ["Patata",S.stick(["#f6e3b0","#e9cf8c","#cfae5e"],6,"1,5 cm",{skin:"#9a7440",face:"#fff1c9"}),"vapor 15-20 min","Bastones gruesos. En el horno, 25 min a 200 °C."],
       ["Boniato",S.stick(["#f4b27a","#e08a4a","#bd6420"],6,"1,5 cm",{skin:"#8a3f2a",face:"#ffc99a"}),"vapor 15-20 min","Bastones gruesos. En el horno, 25 min a 200 °C."],
