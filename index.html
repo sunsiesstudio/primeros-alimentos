@@ -2221,7 +2221,7 @@ const lzBlocks=B=>B.map(b=>{
   if(b[0]==="no")return `<div class="lno lz">${b[1].map(x=>`<span>${lzSvg('<path d="M6 6l12 12M18 6L6 18"/>',14)}${esc(x)}</span>`).join("")}</div>`;
   if(b[0]==="s")return `<ol class="gsteps lz">${b[1].map(x=>`<li><b>${esc(x[0])}</b>${x[1]?`<span>${esc(x[1])}</span>`:""}</li>`).join("")}</ol>`;
   return ""}).join("");
-const CUTAL={"Cerezas":["Uvas","Sin hueso y en cuartos a lo largo, nunca enteras."],"Sandía":["Melón","Sin piel ni pepitas, en tiras gruesas."],"Mandarina":["Naranja","Gajos sin piel ni pepitas, partidos por la mitad."],"Nectarina":["Melocotón","Muy madura y sin hueso, en gajos."]};
+const CUTAL={"Sandía":["Melón","Sin piel ni pepitas, en tiras gruesas."],"Mandarina":["Naranja","Gajos sin piel ni pepitas, partidos por la mitad."],"Nectarina":["Melocotón","Muy madura y sin hueso, en gajos."]};
 function cutHtml(n){let m=cutHtml.m;if(!m){m=cutHtml.m={};cutData().forEach(g=>g[1].forEach(x=>m[x[0]]=x))}let x=m[n];if(!x&&CUTAL[n]){const b=m[CUTAL[n][0]];if(b)x=[n,b[1],b[2],CUTAL[n][1]]}if(!x)return"";return `<div class="shcut"><h5 class="shch">Cómo cortarlo y cocinarlo</h5><div class="cgc"><svg class="cgw" viewBox="0 0 300 ${(/^<!--h=(\d+)-->/.exec(x[1])||[0,134])[1]}" aria-hidden="true">${x[1]}</svg><div class="cgf"><span class="cgp${x[2]==="crudo"?" raw":""}">${x[2]==="crudo"?"Crudo":"Cocción: "+x[2]}</span><p>${x[3]}</p></div></div></div>`}
 function cutData(){
   let gid=0;
@@ -2279,6 +2279,7 @@ function cutData(){
       ["Melón",S.stick(["#ffd9b0","#f4b07a","#e08f55"],6,"2 cm",{skin:"#9bbf6a",face:"#ffe6c8"}),R,"Sin piel ni pepitas, en tiras gruesas."],
       ["Kiwi",S.half(["#c7e86a","#9ccb4d","#6ea62f"],"#7a5a3a","2 cm",{core:"#f3f7d2",seed:"#1d1d1d",n:14}),R,"Pelado, en mitades o rodajas gruesas de 2 cm."],
       ["Fresas",S.half(["#ff8a9a","#e4506a","#b83047"],"#c93a52","mitades",{core:"#ffd9de",seed:"#f6e48a",n:9}),R,"En mitades, y en cuartos si son grandes. Sin hojas."],
+      ["Cerezas",S.slices({skin:"#7a1424",flesh:["#ff8a95","#d6293f","#a01a2e"],pit:["#d9b88a",11]},"en cuartos, sin hueso"),R,"Sin hueso y en cuartos a lo largo, nunca enteras."],
       ["Uvas",S.quarter(["#b79ae0","#7a5aa8","#52387f"],"a lo largo"),R,"En cuartos a lo largo, nunca enteras."],
       ["Naranja",S.segs(["#ffd27a","#f6a53a","#e5851a"],"#ee8a2a","mitades"),R,"Gajos pelados, sin pepitas ni membrana, partidos por la mitad."],
       ["Albaricoque",S.slices({skin:"#e8902a",flesh:["#ffd9a0","#f9b45e","#ea9030"],pit:["#c9a070",13]},"1,5 cm"),R,"Muy maduro y sin hueso, en gajos."],
