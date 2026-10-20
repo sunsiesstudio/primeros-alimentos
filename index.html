@@ -843,7 +843,7 @@ input[type=search]:not(:placeholder-shown){padding-right:48px!important;backgrou
 #fzbox #fz_all{display:block;width:100%;margin:12px 0 0!important;padding:12px 0 0!important;border:0!important;border-top:1px solid #a9cfe3!important;border-radius:0}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #fzbox #fz_all{border-top-color:#3f6a82!important}}
 :root[data-theme="dark"] #fzbox #fz_all{border-top-color:#3f6a82!important}
-.dnnl{display:flex;flex-direction:column;gap:8px;margin-top:12px}.dnni{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;border-left:3px solid var(--blue);background:color-mix(in srgb,var(--blue) 12%,transparent);font-size:.92rem;line-height:1.35;overflow-wrap:anywhere}.dnni .dnrm{flex:none;margin:-2px -4px 0 0;padding:2px 6px;font-size:1.1rem}.mr{gap:16px!important}.course .rcv>summary,.rcfav .rcv>summary,.rcv>summary{padding-left:56px!important}.btn.ibt,#fzbox .fzhd .btn.ibt{width:34px!important;height:34px!important;min-height:34px!important;padding:0!important;border-radius:50%!important;display:inline-grid!important;place-items:center;flex:none}.btn.ibt svg{display:block}.shnut .ntags{display:contents!important;margin:0!important;padding:0!important}.shnut .tag.nt{margin:0!important}.shnr{display:flex;align-items:center;flex-wrap:wrap;column-gap:10px;row-gap:4px}.shnr .shtags{flex-wrap:wrap}.shnr .shtags .tag{align-self:center;margin:0}</style>
+.dnnl{display:flex;flex-direction:column;gap:8px;margin-top:12px}.dnni{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;border-left:3px solid var(--blue);background:color-mix(in srgb,var(--blue) 12%,transparent);font-size:.92rem;line-height:1.35;overflow-wrap:anywhere}.dnni .dnrm{flex:none;margin:-2px -4px 0 0;padding:2px 6px;font-size:1.1rem}.mr{gap:16px!important}.course .rcv>summary,.rcfav .rcv>summary,.rcv>summary{padding-left:56px!important}.btn.ibt,#fzbox .fzhd .btn.ibt{width:34px!important;height:34px!important;min-height:34px!important;padding:0!important;border-radius:50%!important;display:inline-grid!important;place-items:center;flex:none}.btn.ibt svg{display:block}.shnut .ntags{display:contents!important;margin:0!important;padding:0!important}.shnut .tag.nt{margin:0!important}.shnr{display:flex;align-items:center;flex-wrap:wrap;column-gap:10px;row-gap:4px}.shnr .shtags{flex-wrap:wrap}.shnr .shtags .tag{align-self:center;margin:0}.favf{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:var(--r,20px);background:var(--card)}.favh{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:1.05rem}.favh em{font-style:normal;margin-left:auto;font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:99px;background:color-mix(in srgb,var(--terra) 18%,transparent);color:var(--terra)}.favn{margin:0;font-size:.88rem}.favf .obt{min-height:92px}</style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
@@ -1037,7 +1037,7 @@ document.documentElement.lang=LANG;
     <div class="tkbar" aria-hidden="true"><i id="fp_b"></i></div>
     <p class="mute">Toca un alimento para anotar cómo ha ido.</p>
     <input id="q" type="search" placeholder="Buscar alimento" aria-label="Buscar alimento">
-    <div id="lst"></div>
+    <div id="lst"></div><div id="favf" class="favf hide"></div>
   </div>
   <div class="hide"><div class="vt" role="group" aria-label="Cambiar vista">
         <button id="vb" aria-label="Vista tablero" title="Tablero"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg></button>
@@ -1742,7 +1742,7 @@ function paintRecent(){const w=$("recent");if(!w)return;const seen=new Set(),L=[
 function board(){
   const m=stats(),q=norm($("q").value.trim());
   FIRSTD={};S.log.forEach(l=>{if(!FIRSTD[l.f]||l.d<FIRSTD[l.f])FIRSTD[l.f]=l.d});
-  $("chips").classList.toggle("hide",view==="list");$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
+  $("chips").classList.toggle("hide",view==="list");{const ff=$("favf");if(ff&&view!=="list")ff.classList.add("hide")}$("board").classList.toggle("hide",view==="list");$("lst").classList.toggle("hide",view!=="list");
   $("vb").classList.toggle("on",view==="board");$("vl").classList.toggle("on",view==="list");
   $("vb").setAttribute("aria-pressed",view==="board");$("vl").setAttribute("aria-pressed",view==="list");
   const nd=ALL.filter(x=>m[x.n]).length;
@@ -1759,6 +1759,10 @@ function board(){
         return `<button type="button" class="fit" data-n="${esc(x.n)}">${ico(x.n)}<span class="nm${x.a?" al":""}">${esc(x.n)}</span>${rxBlocked(x)?'<span class="fok frx" role="img" aria-label="Tuvo reacción">!</span>':s&&s.last==="love"?'<span class="fok" role="img" aria-label="Le encantó"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z" fill="var(--terra)"/></svg></span>':s?'<span class="fok" role="img" aria-label="Probado"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="var(--green)"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="var(--bg,#1f221f)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>':lk?`<span class="tag w">Desde los ${x.min} m</span>`:""}</button>`}).join("")+`</div></details>`}).join("")||'<p class="mute" style="padding:12px 2px">No hay ningún alimento con ese nombre.</p>';
     $("lst").querySelectorAll("details.grp").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)LOPN.add(d.dataset.c);else LOPN.delete(d.dataset.c)}));
     $("lst").querySelectorAll(".fit").forEach(b=>b.onclick=()=>openSheet(b.dataset.n));
+    {const fv=ALL.filter(x=>(m[x.n]||{}).last==="love"&&(!q||norm(x.n).includes(q))).sort((a,b)=>a.n.localeCompare(b.n,"es")),H='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z" fill="var(--terra)"/></svg>';
+      $("favf").classList.toggle("hide",!!q&&!fv.length);
+      $("favf").innerHTML=`<h3 class="favh">${H}<span>${TT("Favoritos","Preferits","Favourites")}</span><em>${fv.length}</em></h3>`+(fv.length?`<div class="obg">${fv.map(x=>`<button type="button" class="obt" data-n="${esc(x.n)}">${ico(x.n)}<span>${esc(x.n)}</span></button>`).join("")}</div>`:`<p class="mute favn">${TT("Aquí aparecerán los alimentos que le encanten.","Aquí apareixeran els aliments que li encantin.","Foods that they love will show up here.")}</p>`);
+      $("favf").querySelectorAll(".obt").forEach(b=>b.onclick=()=>openSheet(b.dataset.n))}
     return;
   }
   const cols={todo:[],plan:[],done:[],lock:[]};
