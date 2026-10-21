@@ -1,0 +1,16 @@
+{
+  "appId": "com.sunsiesstudio.primerosalimentos",
+  "appName": "Primeros alimentos",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#eeead8",
+    "limitsNavigationsToAppBoundDomains": false
+  },
+  "plugins": {
+    "FirebaseAuthentication": {
+      "skipNativeAuth": true,
+      "providers": ["apple.com", "google.com"]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "primeros-alimentos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Primeros alimentos: guía de introducción de alimentos para bebés (web + app de iOS con Capacitor)",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "ios:setup": "node scripts/ios-setup.mjs"
+  }
+}
