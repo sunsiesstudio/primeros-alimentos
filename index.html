@@ -865,6 +865,7 @@ input[type=search]:not(:placeholder-shown){padding-right:48px!important;backgrou
 .prow:has(#vgd),#gdcard{display:none!important}
 #bchips button{border-color:var(--sec)!important;color:var(--sec)!important;min-height:38px!important;padding:7px 18px!important;font-size:.95rem!important}#bchips button.on{background:var(--sec)!important;color:var(--onacc)!important}
 #pname{display:none}
+body[data-v="4"] #bsw{display:none}#bchips button.addb{padding:0!important;width:38px;min-width:38px;font-size:1.3rem!important;line-height:1;display:inline-grid;place-items:center}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -1844,7 +1845,7 @@ function switchBaby(i){DB.cur=i;S=DB.babies[i];editing=null;cat="Todos";csel=tod
 function addBaby(){DB.babies.push(newBaby());DB.cur=DB.babies.length-1;S=DB.babies[DB.cur];editing=null;cat="Todos";csel=today();planShown=7;savedMsg();save();render();obSkip=false;openOb();OB.add=1;drawOb()}
 function renderBabies(){
   const chip=(b,i)=>`<button class="${i===DB.cur?"on":""}" data-i="${i}">${esc(bname(b,i))}</button>`;
-  $("bchips").innerHTML=DB.babies.map(chip).join("")+'<button class="addb" id="badd">+ Añadir bebé</button>';
+  $("bchips").innerHTML=DB.babies.map(chip).join("")+'<button class="addb" id="badd" aria-label="Añadir bebé" title="Añadir bebé">+</button>';
   $("bsw").innerHTML=DB.babies.length>1?DB.babies.map(chip).join(""):"";
   document.querySelectorAll("#bchips button[data-i],#bsw button[data-i]").forEach(b=>b.onclick=()=>switchBaby(+b.dataset.i));
   $("badd").onclick=addBaby;
@@ -2400,7 +2401,7 @@ function vRestore(){let o=null;try{o=JSON.parse(sessionStorage.getItem("pa_view"
 addEventListener("pagehide",vSave);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")vSave()});
 function swIdx(){if(curV===1)return 0;if(curV===3)return 1;if(curV===2)return psub===3?4:psub===2?2:3;return -1}
 function renderSw(){const k=swIdx(),g=k<0?null:SW[k][0],w=$("fsw");w.classList.toggle("hide",k<0);if(k<0)return;w.innerHTML=SW.map((x,i)=>x[0]===g?`<button type="button" class="btn${i===k?" on":""}${x[1]==="Menú del día"?" swm":""}" data-sw="${i}" role="tab" aria-selected="${i===k}">${x[1]}</button>`:"").join("");w.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{SW[+b.dataset.sw][2]();window.scrollTo(0,0)});const on=w.querySelector(".on");if(on&&on.scrollIntoView)w.scrollLeft=Math.max(0,on.offsetLeft-20)}
-function tab(n){curV=n;{const br=$("byrow");if(br)br.classList.toggle("hide",n!==4);const an=$("aepn");if(an)an.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));$("t4").classList.toggle("on",n===4);$("t5").classList.toggle("on",n===5);const k=swIdx();if(k>=0){if(SW[k][0]==="A")selA=k;else selB=k}$("nA").classList.toggle("on",k>=0&&SW[k][0]==="A");$("nB").classList.toggle("on",k>=0&&SW[k][0]==="B");renderSw();if(n===1){board();paintRecent()}if(n===2){plan();renderNut();paintProg()}if(n===3){renderCal();renderTrack();paintProg()}if(n===5)renderSchool();window.scrollTo(0,0);vSave()}
+function tab(n){curV=n;document.body.dataset.v=n;{const br=$("byrow");if(br)br.classList.toggle("hide",n!==4);const an=$("aepn");if(an)an.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));$("t4").classList.toggle("on",n===4);$("t5").classList.toggle("on",n===5);const k=swIdx();if(k>=0){if(SW[k][0]==="A")selA=k;else selB=k}$("nA").classList.toggle("on",k>=0&&SW[k][0]==="A");$("nB").classList.toggle("on",k>=0&&SW[k][0]==="B");renderSw();if(n===1){board();paintRecent()}if(n===2){plan();renderNut();paintProg()}if(n===3){renderCal();renderTrack();paintProg()}if(n===5)renderSchool();window.scrollTo(0,0);vSave()}
 renderSw();$("nA").onclick=()=>SW[3][2]();$("nB").onclick=()=>SW[selB][2]();$("t4").onclick=()=>tab(4);$("t5").onclick=()=>tab(5);
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
