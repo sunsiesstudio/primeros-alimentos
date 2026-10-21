@@ -1133,7 +1133,7 @@ document.documentElement.lang=LANG;
 </section>
 <section id="v4" class="hide">
   <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_fr">Encuadrar</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
-  <h3 class="sec">Detalles del bebé</h3>
+  <h3 class="sec" id="prdet">Detalles del bebé</h3>
   <div class="card">
     <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
       <div class="ed hide" id="ed_nm"><input id="nm" placeholder="Nombre del bebé" maxlength="40" aria-label="Nombre del bebé"><div class="btns"><button class="btn" id="x_nm">Cancelar</button><button class="btn p" id="ok_nm">Guardar</button></div></div></div>
@@ -2002,6 +2002,7 @@ function renderProfile(){
   $("av").innerHTML=S.ph?`<img src="${S.ph}" alt="">`:esc((S.nm||"?").trim().charAt(0).toUpperCase()||"?");
   $("ph_add").textContent=S.ph?"Cambiar foto":"Añadir foto";$("ph_del").classList.toggle("hide",!S.ph);$("ph_fr").classList.toggle("hide",!S.ph);
   $("vnm").textContent=S.nm||"Sin nombre";
+  {const h=$("prdet"),a=age(1);if(h){const n=S.nm||"";h.textContent=a&&a.mo>=24?(n?TT("Detalles de "+n,"Detalls de "+n,n+"'s details"):TT("Detalles","Detalls","Details")):TT("Detalles del bebé","Detalls del nadó","Baby details")}}
   $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
   const wk=d=>d<7?`${d} día${d===1?"":"s"}`:`${Math.floor(d/7)} semana${Math.floor(d/7)===1?"":"s"}`,ra=age(true);
   $("vage").textContent=ra?wk(ra.days)+(a&&a.pre?` · corregida: ${a.days>=0?wk(a.days)+" ("+a.mo+" m)":"aún antes de la fecha prevista"}`:` (${ra.mo} mes${ra.mo===1?"":"es"})`):"Sin calcular";
