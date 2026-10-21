@@ -884,9 +884,8 @@ button.nst{font:inherit;color:inherit;cursor:pointer;text-align:left;border:0!im
 (function(){var C=window.Capacitor;if(!(C&&C.isNativePlatform&&C.isNativePlatform()))return;
 document.documentElement.classList.add("native");
 document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var u;try{u=new URL(a.getAttribute("href"),location.href)}catch(x){return}
-if(!/^https?:$/.test(u.protocol))return;
-if(u.origin!==location.origin){e.preventDefault();location.href=u.href;return}
-if(a.target==="_blank"){e.preventDefault();location.href=u.href}},true)})();
+if(u.protocol===location.protocol&&u.host===location.host){if(a.target==="_blank"){e.preventDefault();location.href=u.href}return}
+if(/^https?:$/.test(u.protocol)){e.preventDefault();location.href=u.href}},true)})();
 </script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
