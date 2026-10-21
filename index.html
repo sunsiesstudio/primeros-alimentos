@@ -860,6 +860,7 @@ input[type=search]:not(:placeholder-shown){padding-right:48px!important;backgrou
 .btn.ibt,.pen{border:0!important;background:transparent!important;color:var(--mute)!important}.btn.ibt svg,.pen svg{width:20px!important;height:20px!important}
 .cgr{grid-template-columns:1fr!important;gap:10px!important;padding:14px 16px 16px!important}.cgr .cgs{max-height:140px}.cgr .cgs .dt{font-size:13px}.cgr b{font-size:1rem}
 .dnote.lock>*:not(.dnhd){opacity:.4!important;filter:grayscale(.75)}
+.soak{display:flex;gap:12px;align-items:flex-start;margin:12px 0 0;padding:12px 14px;border-radius:14px;border:1px solid color-mix(in srgb,var(--sec) 45%,transparent);background:color-mix(in srgb,var(--sec) 10%,transparent);color:var(--ink)}.soak svg{flex:none;color:var(--sec);margin-top:1px}.soak p{margin:0;font-size:.88rem;line-height:1.4}.soak b{display:block;margin-bottom:2px}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -2896,7 +2897,11 @@ function plan(){
     const reto=ro.map(x=>`<div class="reto"><b>¡Anímate con ${w}!</b><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></div>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
-    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':o.past?' <span class="tag">Pasado</span>':""}${o.items[0]||!y.head||o.past?"":`<p class="hd">${y.head}</p>`}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${""}</div>`};
+    const soakH=(()=>{if(o.past)return"";const d=new Date(o.ds+"T00:00:00");d.setDate(d.getDate()+1);const nds=dstr(d),nx=shown.find(x=>x.ds===nds);if(!nx)return"";
+      const L=[...new Set(nx.rows.flatMap(([mm,r])=>(r.ings||[]).filter(n=>/^(Garbanzos|Alubias|Judías secas|Alubia)/.test(n))))];if(!L.length)return"";
+      const nm=L.map(n=>n.toLowerCase()),fe=L.every(n=>/^Alubia/.test(n)),pl=L.length>1||/s$/.test(L[0]);
+      return `<div class="soak"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/></svg><p><b>${TT("Esta noche, a remojo","Aquesta nit, a remull","Soak tonight")}</b> ${TT(`Mañana toca ${nm.join(" y ")}: déja${pl?(fe?"las":"los"):(fe?"la":"lo")} en remojo en agua fría unas 8-12 horas.`,`Demà toca ${nm.join(" i ")}: ${pl?(fe?"deixa-les":"deixa'ls"):(fe?"deixa-la":"deixa-ho")} en remull amb aigua freda unes 8-12 hores.`,`Tomorrow's menu has ${nm.join(" and ")}: soak ${pl?"them":"it"} in cold water for about 8-12 hours.`)}</p></div>`})();
+    return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':o.past?' <span class="tag">Pasado</span>':""}${soakH}${o.items[0]||!y.head||o.past?"":`<p class="hd">${y.head}</p>`}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${""}</div>`};
   {const pdn=n=>{pdate=n;subtab(1);plan();window.scrollTo({top:0})};
     const fm2=d=>d.toLocaleDateString(LOC(),{day:"numeric",month:"long"}),jn=a=>a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
     const rowOf=(o,dlab)=>{const x=o.items[0],dl=dlab;let body,mvb="";
