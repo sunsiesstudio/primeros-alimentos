@@ -862,6 +862,7 @@ input[type=search]:not(:placeholder-shown){padding-right:48px!important;backgrou
 .dnote.lock>*:not(.dnhd){opacity:.4!important;filter:grayscale(.75)}
 .soak{display:flex;gap:12px;align-items:flex-start;margin:12px 0 0;padding:12px 14px;border-radius:14px;border:1px solid color-mix(in srgb,var(--sec) 45%,transparent);background:color-mix(in srgb,var(--sec) 10%,transparent);color:var(--ink)}.soak svg{flex:none;color:var(--sec);margin-top:1px}.soak p{margin:0;font-size:.88rem;line-height:1.4}.soak b{display:block;margin-bottom:2px}
 .soaktag{display:inline-flex;align-items:center;padding:3px 10px!important;font-size:.74rem!important;font-weight:700}
+.prow:has(#vgd),#gdcard{display:none!important}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -2428,8 +2429,9 @@ protein:'<path class="o" d="M6 8Q6 5 9 5H16Q19 5 19 8V21C22 10 40 10 43 26V37Q43
 zinc:'<path class="o" d="M24 4l16 6v12c0 12-8 19-16 22C16 41 8 34 8 22V10z" fill="#7ab0d9"/><path class="o w" d="M16 24l6 6 11-12" fill="none" stroke-width="3"/>',
 alg:SH.nutpea(),verd:SH.broc("#4a8a4a")};
 const EVL={viaje:"Viaje",cumple:"Cumpleaños o fiesta",fuera:"Comemos fuera"},evOf=ds=>"";
-const gdAt=(ds,m)=>{const g=S.gd;return !!(g&&g.on&&g.ml.includes(m)&&g.wd.includes(new Date(ds+"T00:00:00").getDay())&&!evOf(ds))};
-const gdIngs=ds=>{const t=((S.gd||{}).menu||{})[ds];return t?inferIngs(t):[]};
+const GDON=false; // escuela infantil desactivada por ahora
+const gdAt=(ds,m)=>{const g=S.gd;return !!(GDON&&g&&g.on&&g.ml.includes(m)&&g.wd.includes(new Date(ds+"T00:00:00").getDay())&&!evOf(ds))};
+const gdIngs=ds=>{if(!GDON)return[];const t=((S.gd||{}).menu||{})[ds];return t?inferIngs(t):[]};
 const isFav=n=>(S.fav||[]).some(f=>f.n===n);
 const gicoSvg=id=>`<svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true">${GICO[id]}</svg>`;
 const goalCard=(g,on)=>`<label class="gcard"><input type="checkbox" value="${g[0]}"${on?" checked":""}>${gicoSvg(g[0])}<span class="kt"><b>${g[2]}</b><small>${g[3]}</small></span></label>`;
