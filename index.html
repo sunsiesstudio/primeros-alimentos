@@ -1041,6 +1041,14 @@ button.prow.ckrow{width:100%;background:none;border-left:0;border-right:0;border
 
 #fzbox .btn{border-color:#3e4cd0!important;color:#3e4cd0!important}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #fzbox .btn:not(.p):not(.ibt){border-color:#8c97ff!important;color:#8c97ff!important}}:root[data-theme="dark"] #fzbox .btn:not(.p):not(.ibt){border-color:#8c97ff!important;color:#8c97ff!important}#fzbox .fzhd{margin-top:0!important}#fzbox #fz_open{min-height:40px!important;padding:6px 14px!important;margin:0!important}#fzbox .btn.p{background:var(--terra)!important;border-color:var(--terra)!important;color:#fff!important}#fzbox .btn.ibt{border-color:var(--line)!important;color:var(--ink)!important}
 #fzbox:has(#fz_form:not(.hide)) .fze{display:none}
+
+#days .wd.on{background:var(--acc)!important;color:var(--onacc)!important;border-radius:18px!important;opacity:1!important}
+#days .wd.on small,#days .wd.on b{color:var(--onacc)!important;background:transparent!important;box-shadow:none!important}
+#days .wd.on i.nw{background:var(--onacc)!important}
+#days .wd.td:not(.on){box-shadow:inset 0 0 0 2px var(--acc);border-radius:18px!important;opacity:1}
+#days .wd.td:not(.on) b{box-shadow:none!important}
+.mtoday.dim{opacity:1}
+.lz.lfl{margin-bottom:16px}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -1752,7 +1760,7 @@ const saveLocal=()=>{try{localStorage.setItem(LKEY(),JSON.stringify(snap()))}cat
 const dirtyK=()=>LKEY()+"_dirty",isDirty=()=>{try{return !!localStorage.getItem(dirtyK())}catch(e){return false}},setDirty=v=>{try{v?localStorage.setItem(dirtyK(),"1"):localStorage.removeItem(dirtyK())}catch(e){}};
 let PEND=false;
 const flushNow=()=>{if(!USER||!window.cloud||!LOADED)return;clearTimeout(ST);PEND=false;const k=dirtyK();
-  return window.cloud.save(snap()).then(()=>{if(!PEND)try{localStorage.removeItem(k)}catch(e){}$("err").textContent=""}).catch(()=>{$("err").textContent="Guardado en este dispositivo, pero no se pudo guardar en tu cuenta."})};
+  return window.cloud.save(snap()).then(()=>{if(!PEND)try{localStorage.removeItem(k)}catch(e){}$("err").textContent=""}).catch(()=>{if(!window.__svErr){window.__svErr=1;snack(TT("Guardado en este dispositivo, pero no se pudo guardar en tu cuenta.","Desat en aquest dispositiu, però no s'ha pogut desar al teu compte.","Saved on this device, but couldn't save to your account."))}})};
 const save=()=>{if(!USER)return;saveLocal();setDirty(true);if(!window.cloud||!LOADED)return;clearTimeout(ST);PEND=true;
   ST=setTimeout(flushNow,400)};
 const flushSave=()=>{if(PEND)flushNow()};
@@ -3182,7 +3190,7 @@ function plan(){
   $("days").innerHTML=useful?`<div class="wkrow"><button type="button" class="calb" id="calb" aria-label="Ver calendario"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button>${strip}</div>`+dayWrap(sd,pastO?dayCard(pastO):dayCard(shown.find(o=>o.ds===sd)||shown[0]))+'<div class="dside"><div id="rxside" class="card rxside hide"></div>'+(sd<=t0?dayNote(sd):"")+(sd===t0?soakFor(sd):"")+'</div>':'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-pd]").forEach(b=>b.onclick=()=>{pdate=b.dataset.pd;rxKey=null;plan()});
   if($("calb"))$("calb").onclick=mcalOpen;bindDayNote();rxRestore();
-  requestAnimationFrame(centerWk);
+  requestAnimationFrame(centerWk);setTimeout(centerWk,250);
   $("days").querySelectorAll("button[data-n]").forEach(b=>b.onclick=()=>b.dataset.pc?openSheet(b.dataset.n,b.dataset.d,undefined,true):openSheet(b.dataset.n,b.dataset.d,(b.dataset.m||"").split("|").filter(Boolean)));
   const howOf=r=>r.t==="pure"?"Puré o aplastado":["solo","tortilla","burger","pescado","tofu","tortita"].includes(r.t)?(pz?"Trozos":"Tiras"):"Mezclado en papilla o yogur";
   const dropMeal=(d,m)=>{{const kk=d+"|"+m;if(S.frzE&&S.frzE[kk]){const it=(S.frz||[]).find(x=>x.id===(S.frzA||{})[kk]);if(it)it.u+=1;delete S.frzE[kk]}}S.log=S.log.filter(l=>!(l.d===d&&l.ml===m&&!l.sh&&(l.m||!l.sv)));if(S.ml[d]){delete S.ml[d][m];if(!Object.keys(S.ml[d]).length)delete S.ml[d]}};
@@ -3231,11 +3239,11 @@ function plan(){
       const fzA=[];fzA.forEach(r=>seen.add(r.n));return [...fzA,...fv.filter(r=>!fzA.some(z=>z.n===r.n)).map(r=>({...r,sv:1})),...out]})(),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${r.fzi?'<span class="chgfz" aria-label="Del congelador"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M4 7l16 10M20 7L4 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></svg></span>':""}${esc(r.n)}${r.fzi?`<small class="chgfzt">${TT("Del congelador","Del congelador","From the freezer")}</small>`:""}${r.sv?'<span class="chgsv" aria-label="Receta guardada"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg></span>':""}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
-    {const fzl=(m==="Comida"||m==="Cena"?window.__FZS||[]:[]).filter(it=>it.left>0&&(it.loc==="desp"?it.d<=d:it.d<d)&&d<=it.x&&!(S.frzA&&S.frzA[d+"|"+m]===it.id)).sort((a,b)=>({nev:0,"":1,desp:2}[a.loc||""])-({nev:0,"":1,desp:2}[b.loc||""])||(a.x<b.x?-1:1)),fmt=x=>new Date(x+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"});
+    {const fzOth=it=>Object.keys(S.frzA||{}).filter(k=>S.frzA[k]===it.id&&k!==d+"|"+m&&!(S.frzE&&S.frzE[k])).sort(),fzl=(window.__FZS||[]).filter(it=>it.u>0&&(it.loc==="desp"?it.d<=d:it.d<d)&&d<=it.x&&!(S.frzA&&S.frzA[d+"|"+m]===it.id)).sort((a,b)=>({nev:0,"":1,desp:2}[a.loc||""])-({nev:0,"":1,desp:2}[b.loc||""])||(a.x<b.x?-1:1)),fmt=x=>new Date(x+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"});
       $("chg_f").classList.toggle("hide",!!o.past);
-      $("chg_fl").innerHTML=fzl.length?fzl.map((it,i)=>`<button class="chgo fzo fzl-${it.loc||"fz"}" data-fz="${i}"><span><span class="chgfz" aria-hidden="true">${fzIco(it.loc)}</span>${esc(it.n)}<small class="chgfzt"><b>${fzLab(it.loc)}</b> · ${it.loc==="nev"?TT(`caduca ${it.x===d?"hoy":"el "+fmt(it.x)}`,`caduca ${it.x===d?"avui":"el "+fmt(it.x)}`,`expires ${it.x===d?"today":fmt(it.x)}`):TT(`quedan ${it.left} · caduca el ${fmt(it.x)}`,`queden ${it.left} · caduca el ${fmt(it.x)}`,`${it.left} left · expires ${fmt(it.x)}`)}</small></span></button>`).join(""):`<p class="mute">${TT("Aquí verás lo que tienes en el congelador, la nevera y los potitos sin abrir.","Aquí veuràs el que tens al congelador, la nevera i els potets sense obrir.","Your freezer, fridge and unopened jars will show up here.")}</p>`;
+      $("chg_fl").innerHTML=fzl.length?fzl.map((it,i)=>`<button class="chgo fzo fzl-${it.loc||"fz"}" data-fz="${i}"><span><span class="chgfz" aria-hidden="true">${fzIco(it.loc)}</span>${esc(it.n)}<small class="chgfzt"><b>${fzLab(it.loc)}</b> · ${it.left<=0&&fzOth(it).length?TT("ya está en el menú del ","ja és al menú del ","already planned for ")+new Date(fzOth(it)[0].slice(0,10)+"T00:00:00").toLocaleDateString(LOC(),{weekday:"long",day:"numeric"})+" · ":""}${it.loc==="nev"?TT(`caduca ${it.x===d?"hoy":"el "+fmt(it.x)}`,`caduca ${it.x===d?"avui":"el "+fmt(it.x)}`,`expires ${it.x===d?"today":fmt(it.x)}`):TT(`quedan ${it.u} · caduca el ${fmt(it.x)}`,`queden ${it.u} · caduca el ${fmt(it.x)}`,`${it.u} left · expires ${fmt(it.x)}`)}</small></span></button>`).join(""):`<p class="mute">${TT("Aquí verás lo que tienes en el congelador, la nevera y los potitos sin abrir.","Aquí veuràs el que tens al congelador, la nevera i els potets sense obrir.","Your freezer, fridge and unopened jars will show up here.")}</p>`;
       $("chg_go").onclick=()=>{$("chg").classList.add("hide");goFz()};
-      $("chg_fl").querySelectorAll("[data-fz]").forEach(bb=>bb.onclick=()=>{const it=fzl[+bb.dataset.fz];dropMeal(d,m);setOv(d,m,{n:it.n,i:(it.r.ings||[]).slice()});S.frzA=S.frzA||{};S.frzA[d+"|"+m]=it.id;$("chg").classList.add("hide");save();render()})}
+      $("chg_fl").querySelectorAll("[data-fz]").forEach(bb=>bb.onclick=()=>{const it=fzl[+bb.dataset.fz];if(it.left<=0){const o2=fzOth(it);if(o2.length)delete S.frzA[o2[o2.length-1]]}dropMeal(d,m);setOv(d,m,{n:it.n,i:(it.r.ings||[]).slice()});S.frzA=S.frzA||{};S.frzA[d+"|"+m]=it.id;$("chg").classList.add("hide");save();render()})}
     $("chg_x").value="";$("chg_s").value="";$("chg_b").querySelector(".chgadd").open=false;
     $("chg_a").classList.toggle("hide",!!o.past);$("chg_b").classList.toggle("sep",!o.past&&!!alts.length);
     // Lo que le ha dado: lo que se reconoce en el texto + lo que se añade a mano − lo que se quita
@@ -3567,9 +3575,9 @@ function rxRestore(){if(!rxKey||!rxDesk())return;const d=[...document.querySelec
 document.addEventListener("toggle",e=>{const d=e.target;if(!(d instanceof HTMLDetailsElement)||!d.matches("#days details.rcv")||!rxDesk())return;if(d.open){if(!d.classList.contains("rxon"))rxOpen(d)}else if(d.classList.contains("rxon"))rxClose()},true);
 addEventListener("resize",()=>{if(!rxDesk()&&rxKey){const d=document.querySelector("#days details.rcv.rxon");rxClose();if(d)d.open=true}});
 function centerWk(){const wk=document.querySelector("#days .wk"),on=wk&&wk.querySelector(".wd.on");if(!on||!wk.clientWidth)return;
-  {wk.style.removeProperty("padding-left");wk.style.removeProperty("padding-right");
+  {wk.style.scrollSnapType="none";wk.style.removeProperty("padding-left");wk.style.removeProperty("padding-right");
     const r=wk.getBoundingClientRect(),o=on.getBoundingClientRect(),c=o.left+o.width/2-r.left+wk.scrollLeft,h=wk.clientWidth/2,pl=Math.max(0,h-c),cw=wk.lastElementChild.getBoundingClientRect().right-r.left+wk.scrollLeft,pr=Math.max(0,c+h-cw);
-    wk.style.setProperty("padding-left",pl+"px","important");wk.style.setProperty("padding-right",pr+"px","important");wk.scrollLeft=c+pl-h}}
+    wk.style.setProperty("padding-left",pl+"px","important");wk.style.setProperty("padding-right",pr+"px","important");void wk.scrollWidth;wk.scrollLeft=c+pl-h;clearTimeout(centerWk.t);centerWk.t=setTimeout(()=>{wk.style.scrollSnapType=""},400)}}
 addEventListener("resize",()=>centerWk());
 function subtab(n){n=n===2||n===3?n:1;psub=n;setTimeout(vSave,0);$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==2);$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==3);if(n===3){renderFav();renderFzBox()}if(typeof renderSw==="function")renderSw();if(n===1)centerWk()}
 
@@ -3977,7 +3985,7 @@ window.__auth=(u,d,pending)=>{if(u)window.__wasIn=true;USER=u;LOADED=!!u&&!pendi
   render()};
 window.__data=d=>{const dirty=isDirty();if(d&&!dirty){setDB(d);saveLocal()}
   LOADED=true;$("err").textContent="";render();if(WAITING){WAITING=false;enterApp()}if((!d||dirty)&&anyData())save();askProfile()};
-window.__fail=code=>{LOADED=false;$("err").textContent="No se pudo conectar con tu cuenta ("+code+"). Tus datos se guardan en este dispositivo.";render();if(WAITING){WAITING=false;enterApp()}askProfile()};
+window.__fail=code=>{LOADED=false;$("err").textContent="";setTimeout(()=>snack(TT("No se pudo conectar con tu cuenta. Mientras tanto, lo que anotes se guarda en este dispositivo.","No s'ha pogut connectar amb el teu compte. Mentrestant, el que anotis es desa en aquest dispositiu.","Couldn't connect to your account. Meanwhile, what you log is saved on this device."),TT("Reintentar","Torna-ho a provar","Retry"),()=>location.reload()),400);render();if(WAITING){WAITING=false;enterApp()}askProfile()};
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
@@ -3995,18 +4003,18 @@ const fail=m=>{gm.textContent=m};
 window.addEventListener("error",e=>fail("Error: "+(e.message||"desconocido")));
 window.addEventListener("unhandledrejection",e=>fail("Error: "+((e.reason&&(e.reason.code||e.reason.message))||"desconocido")));
 gm.textContent="Cargando...";
-let initializeApp,getAuth,initializeAuth,indexedDBLocalPersistence,OAuthProvider,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,EmailAuthProvider,reauthenticateWithCredential,reauthenticateWithPopup,getFirestore,doc,getDoc,setDoc,deleteDoc;
+let initializeApp,getAuth,initializeAuth,indexedDBLocalPersistence,OAuthProvider,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,EmailAuthProvider,reauthenticateWithCredential,reauthenticateWithPopup,getFirestore,initializeFirestore,doc,getDoc,setDoc,deleteDoc;
 try{
   ({initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"));
   ({getAuth,initializeAuth,indexedDBLocalPersistence,OAuthProvider,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,EmailAuthProvider,reauthenticateWithCredential,reauthenticateWithPopup}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
-  ({getFirestore,doc,getDoc,setDoc,deleteDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
+  ({getFirestore,initializeFirestore,doc,getDoc,setDoc,deleteDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
 }catch(e){fail("No se pudo cargar Firebase: "+(e&&e.message));throw e}
 const CFG={apiKey:"AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ",authDomain:"primeros-alimentos.firebaseapp.com",projectId:"primeros-alimentos",appId:"1:210048481917:web:f7a4e8f31d067a7152cf14"};
 const CLIENT_ID="210048481917-ul8kftm5f33lsfc3f5lskj4au5mvm9tk.apps.googleusercontent.com";
 // App de iOS (Capacitor): el login de Google/Apple va por el plugin nativo y Firebase web recibe la credencial
 const NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 const FA=NATIVE?((window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication)||(()=>{const call=m=>o=>window.Capacitor.nativePromise("FirebaseAuthentication",m,o||{});return{signInWithApple:call("signInWithApple"),signInWithGoogle:call("signInWithGoogle"),signOut:call("signOut")}})()):null;
-const app=initializeApp(CFG),auth=NATIVE?initializeAuth(app,{persistence:indexedDBLocalPersistence}):getAuth(app),db=getFirestore(app);
+const app=initializeApp(CFG),auth=NATIVE?initializeAuth(app,{persistence:indexedDBLocalPersistence}):getAuth(app),db=NATIVE?initializeFirestore(app,{experimentalForceLongPolling:true}):getFirestore(app);
 const isCancel=e=>/cancel|1001|-5\b|12501/i.test(String((e&&(e.code||e.message))||e));
 // Pide a iOS una credencial nueva (Google o Apple) y la convierte en credencial de Firebase web
 const nativeCred=async pid=>{
@@ -4071,7 +4079,7 @@ onAuthStateChanged(auth,async u=>{
   if(!u){window.__auth(null);return}
   window.__auth(u,null,true);
   try{
-    const snap=await Promise.race([getDoc(doc(db,"users",u.uid)),new Promise((_,no)=>setTimeout(()=>no({code:"timeout"}),8000))]);
+    const snap=await Promise.race([getDoc(doc(db,"users",u.uid)),new Promise((_,no)=>setTimeout(()=>no({code:"timeout"}),15000))]);
     window.__data(snap.exists()?snap.data():null);
   }catch(e){window.__fail((e&&e.code)||"error")}
 });
