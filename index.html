@@ -1025,6 +1025,8 @@ details.rxa[open]{padding-bottom:12px}
 .fzls{width:auto;min-width:0;margin-right:6px}
 .fzn.fzl-nev,.fzn.fzl-desp,.fzn.fzl-fz{color:var(--lc)!important}
 .chgo.fzo{background:var(--lb)!important;border-color:transparent!important}.chgo.fzo .chgfz{color:var(--lc)}.chgo.fzo .chgfzt b{color:var(--lc)}
+
+.chghl{display:flex;align-items:center;justify-content:space-between;gap:8px}.chglk{display:inline-flex;align-items:center;gap:2px;border:0;background:none;padding:6px 0;color:var(--blue);font:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -1353,7 +1355,7 @@ document.documentElement.lang=LANG;
     <div id="chg_l" class="chgl"></div>
   </div>
   <div id="chg_f" class="hide">
-    <p class="chgh">De casa</p>
+    <p class="chgh chghl">De casa <button type="button" class="chglk" id="chg_go">Ver mi despensa<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></p>
     <div id="chg_fl" class="chgl"></div>
   </div>
   <div id="chg_b">
@@ -3217,6 +3219,7 @@ function plan(){
     {const fzl=(m==="Comida"||m==="Cena"?window.__FZS||[]:[]).filter(it=>it.left>0&&(it.loc==="desp"?it.d<=d:it.d<d)&&d<=it.x&&!(S.frzA&&S.frzA[d+"|"+m]===it.id)).sort((a,b)=>({nev:0,"":1,desp:2}[a.loc||""])-({nev:0,"":1,desp:2}[b.loc||""])||(a.x<b.x?-1:1)),fmt=x=>new Date(x+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"});
       $("chg_f").classList.toggle("hide",!!o.past);
       $("chg_fl").innerHTML=fzl.length?fzl.map((it,i)=>`<button class="chgo fzo fzl-${it.loc||"fz"}" data-fz="${i}"><span><span class="chgfz" aria-hidden="true">${fzIco(it.loc)}</span>${esc(it.n)}<small class="chgfzt"><b>${fzLab(it.loc)}</b> · ${it.loc==="nev"?TT(`caduca ${it.x===d?"hoy":"el "+fmt(it.x)}`,`caduca ${it.x===d?"avui":"el "+fmt(it.x)}`,`expires ${it.x===d?"today":fmt(it.x)}`):TT(`quedan ${it.left} · caduca el ${fmt(it.x)}`,`queden ${it.left} · caduca el ${fmt(it.x)}`,`${it.left} left · expires ${fmt(it.x)}`)}</small></span></button>`).join(""):`<p class="mute">${TT("Aquí verás lo que tienes en el congelador, la nevera y los potitos sin abrir.","Aquí veuràs el que tens al congelador, la nevera i els potets sense obrir.","Your freezer, fridge and unopened jars will show up here.")}</p>`;
+      $("chg_go").onclick=()=>{$("chg").classList.add("hide");goFz()};
       $("chg_fl").querySelectorAll("[data-fz]").forEach(bb=>bb.onclick=()=>{const it=fzl[+bb.dataset.fz];dropMeal(d,m);setOv(d,m,{n:it.n,i:(it.r.ings||[]).slice()});S.frzA=S.frzA||{};S.frzA[d+"|"+m]=it.id;$("chg").classList.add("hide");save();render()})}
     $("chg_x").value="";$("chg_s").value="";$("chg_b").querySelector(".chgadd").open=false;
     $("chg_a").classList.toggle("hide",!!o.past);$("chg_b").classList.toggle("sep",!o.past&&!!alts.length);
