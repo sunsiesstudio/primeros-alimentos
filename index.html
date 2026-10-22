@@ -8,15 +8,18 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>try{var _t=localStorage.getItem("pa_theme");if(_t==="light"||_t==="dark")document.documentElement.setAttribute("data-theme",_t)}catch(e){}</script>
-<!-- Microsoft Clarity: solo en la web (no en la app de iOS) -->
+<!-- Microsoft Clarity: solo en la web (no en la app de iOS) y solo si se aceptan las cookies -->
 <script type="text/javascript">
-if(/^https?:$/.test(location.protocol)&&!/^(localhost|127\.|\[::1\])/.test(location.hostname)){
+window.PA_WEB=/^https?:$/.test(location.protocol)&&!/^(localhost|127\.|\[::1\])/.test(location.hostname);
+window.paClarity=function(){if(!window.PA_WEB||window.__clarityOn)return;window.__clarityOn=1;
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "z1oeup14xo");
-}
+    window.clarity("consent");
+};
+try{if(localStorage.getItem("pa_ck")==="y")window.paClarity()}catch(e){}
 </script>
 <meta name="theme-color" content="#eeead8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131614" media="(prefers-color-scheme: dark)">
@@ -1027,6 +1030,12 @@ details.rxa[open]{padding-bottom:12px}
 .chgo.fzo{background:var(--lb)!important;border-color:transparent!important}.chgo.fzo .chgfz{color:var(--lc)}.chgo.fzo .chgfzt b{color:var(--lc)}
 
 .chghl{display:flex;align-items:center;justify-content:space-between;gap:8px}.chglk{display:inline-flex;align-items:center;gap:2px;border:0;background:none;padding:6px 0;color:var(--blue);font:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
+
+.ckb{position:fixed;z-index:40;left:12px;right:12px;bottom:calc(88px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:0 10px 32px rgba(0,0,0,.18)}
+.ckb p{margin:0 0 12px;font-size:.86rem;line-height:1.45}.ckb p b{display:block;margin-bottom:2px;font-size:.95rem}.ckb a{color:var(--blue)}
+.ckbb{display:flex;gap:8px}.ckbb .btn{flex:1;min-height:42px;margin:0}
+button.prow.ckrow{width:100%;background:none;border-left:0;border-right:0;border-bottom:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+@media (min-width:1100px){html:not(.native) .ckb{left:auto;right:24px;bottom:24px;max-width:420px}}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -1326,7 +1335,7 @@ document.documentElement.lang=LANG;
   <p class="mute hide" id="pmsg" style="display:none"></p>
   <h3 class="sec" style="margin-top:28px">Términos y privacidad</h3>
   <p class="priv" style="margin:0 0 14px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><span>Tus datos son privados: se guardan en este móvil y en tu cuenta, solo tú puedes verlos y nunca se comparten.</span></p>
-  <div class="card legal"><a class="prow lgl" href="terms.html" style="border-top:0"><span>Términos de uso</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><a class="prow lgl" href="privacy.html"><span>Política de privacidad</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></div>
+  <div class="card legal"><a class="prow lgl" href="terms.html" style="border-top:0"><span>Términos de uso</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><a class="prow lgl" href="privacy.html"><span>Política de privacidad</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><button type="button" class="prow lgl ckrow" id="ck_set"><span>Cookies</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
 <div class="btns" style="max-width:none;margin:28px 0 0"><button class="btn" id="so" style="width:100%;flex:1 1 100%;max-width:none">Cerrar sesión</button></div>
   <h3 class="sec" style="color:var(--red)">Zona de peligro</h3>
   <div class="card danger">
@@ -1457,6 +1466,7 @@ document.documentElement.lang=LANG;
 <div class="ldr hide" id="ldr" aria-live="polite"><div class="ldw" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><div class="ldb" aria-hidden="true"></div><div class="ldt" id="ldt"><svg class="ldlogo" viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos"><defs><path id="ARC3" d="M10,185 Q320,10 630,185"/></defs><text class="disp" text-anchor="middle" style="font-size:56px;fill:var(--green)"><textPath href="#ARC3" startOffset="50%">Primeros alimentos</textPath></text><g class="ldstar" transform="translate(279 112) scale(3.4)" style="fill:var(--terra)"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" style="stroke:var(--bg);fill:none;stroke-width:.9;stroke-linecap:round"/></g></svg></div></div>
 <div class="ob hide" id="ob" role="dialog" aria-label="Bienvenida"></div>
 <div class="snk hide" id="snk" role="status"></div>
+<div class="ckb hide" id="ckb" role="dialog" aria-labelledby="ckb_t"><p id="ckb_t"><b>¿Nos ayudas a mejorar?</b> Usamos cookies de analítica (Microsoft Clarity) para ver cómo se usa la web, sin guardar lo que escribes. Solo si aceptas. <a href="privacy.html">Más información</a></p><div class="ckbb"><button type="button" class="btn" id="ckb_no">Rechazar</button><button type="button" class="btn p" id="ckb_ok">Aceptar</button></div></div>
 <div class="sheet hide" id="cr" role="dialog" aria-label="Encuadrar foto" style="z-index:14"><div>
   <h3 class="disp">Encuadrar foto</h3>
   <p class="mute" style="margin:4px 0 10px">Arrastra para mover y usa el control para acercar.</p>
@@ -4060,6 +4070,16 @@ onAuthStateChanged(auth,async u=>{
     window.__data(snap.exists()?snap.data():null);
   }catch(e){window.__fail((e&&e.code)||"error")}
 });
+</script>
+<script>
+(function(){const b=document.getElementById("ckb");if(!b)return;
+  const get=()=>{try{return localStorage.getItem("pa_ck")}catch(e){return null}},set=v=>{try{localStorage.setItem("pa_ck",v)}catch(e){}};
+  const show=()=>{if(window.PA_WEB)b.classList.remove("hide")},hide=()=>b.classList.add("hide");
+  document.getElementById("ckb_ok").onclick=()=>{set("y");hide();window.paClarity()};
+  document.getElementById("ckb_no").onclick=()=>{set("n");hide();if(window.clarity&&window.__clarityOn)window.clarity("consent",false)};
+  const r=document.getElementById("ck_set");if(r){if(!window.PA_WEB)r.style.display="none";r.onclick=show}
+  if(!get())setTimeout(show,800);
+})();
 </script>
 </body>
 </html>
