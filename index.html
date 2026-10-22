@@ -977,6 +977,18 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]):focus-visible,tex
   html:not(.native) #v2:has(>#rcwrap:not(.hide))>#fzwrap{grid-column:2;position:sticky;top:24px}
   html:not(.native) #v2:has(>#rcwrap:not(.hide))>#rcwrap>.card,html:not(.native) #v2:has(>#rcwrap:not(.hide))>#fzwrap>.card{margin:0}
 }
+
+/* Feedback TestFlight 5 */
+.dnote{padding-bottom:24px!important}
+.dwrap{position:relative}
+.dwrap.lock>.dwtop{position:absolute;top:12px;right:12px;margin:0;z-index:2}
+.dwrap.lock>.dwtop .dned{width:38px;height:38px;min-height:0!important;padding:0!important;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--blue);display:flex;align-items:center;justify-content:center}
+.dwrap.lock .dday>b.disp{display:inline-block;max-width:calc(100% - 50px)}
+@media (max-width:700px){
+  .tabs{left:20px!important;right:20px!important;bottom:max(8px,calc(env(safe-area-inset-bottom,0px) - 16px))!important;padding:4px!important}
+  .tabs button{min-height:46px!important;padding:4px 2px!important;gap:2px!important;font-size:.64rem!important}
+  .tabs button svg{width:23px!important;height:23px!important}
+}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -3490,11 +3502,10 @@ function rxRestore(){if(!rxKey||!rxDesk())return;const d=[...document.querySelec
 document.addEventListener("toggle",e=>{const d=e.target;if(!(d instanceof HTMLDetailsElement)||!d.matches("#days details.rcv")||!rxDesk())return;if(d.open){if(!d.classList.contains("rxon"))rxOpen(d)}else if(d.classList.contains("rxon"))rxClose()},true);
 addEventListener("resize",()=>{if(!rxDesk()&&rxKey){const d=document.querySelector("#days details.rcv.rxon");rxClose();if(d)d.open=true}});
 function centerWk(){const wk=document.querySelector("#days .wk"),on=wk&&wk.querySelector(".wd.on");if(!on||!wk.clientWidth)return;
-  if(innerWidth>=1100&&!document.documentElement.classList.contains("native")){wk.style.removeProperty("padding-left");wk.style.removeProperty("padding-right");
+  {wk.style.removeProperty("padding-left");wk.style.removeProperty("padding-right");
     const r=wk.getBoundingClientRect(),o=on.getBoundingClientRect(),c=o.left+o.width/2-r.left+wk.scrollLeft,h=wk.clientWidth/2,pl=Math.max(0,h-c),cw=wk.lastElementChild.getBoundingClientRect().right-r.left+wk.scrollLeft,pr=Math.max(0,c+h-cw);
-    wk.style.setProperty("padding-left",pl+"px","important");wk.style.setProperty("padding-right",pr+"px","important");wk.scrollLeft=c+pl-h;return}
-  wk.scrollLeft=on.offsetLeft-(wk.clientWidth-on.offsetWidth)/2}
-addEventListener("resize",()=>{if(innerWidth>=1100)centerWk()});
+    wk.style.setProperty("padding-left",pl+"px","important");wk.style.setProperty("padding-right",pr+"px","important");wk.scrollLeft=c+pl-h}}
+addEventListener("resize",()=>centerWk());
 function subtab(n){n=n===2||n===3?n:1;psub=n;setTimeout(vSave,0);$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==2);$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==3);if(n===3){renderFav();renderFzBox()}if(typeof renderSw==="function")renderSw();if(n===1)centerWk()}
 
 
