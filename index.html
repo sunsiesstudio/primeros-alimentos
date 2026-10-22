@@ -920,6 +920,39 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]):focus-visible,tex
 .fzrow.fzon .fzl{color:var(--green);font-weight:700}
 .fzrow .fzmv{display:block;margin-top:4px;padding:0;min-height:0;font:600 .8rem Montserrat,sans-serif;color:var(--blue);background:none;border:0;text-decoration:underline;cursor:pointer;text-align:left}
 .fzloc{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:99px;font-size:.7rem;font-weight:700;color:var(--blue);border:1px solid color-mix(in srgb,var(--blue) 45%,transparent)}
+
+/* escritorio: barra lateral */
+@media (min-width:1100px){
+  html:not(.native) main{max-width:none;margin:0;padding:30px 44px 60px calc(264px + 44px)}
+  html:not(.native) main>section,html:not(.native) main>#fsw,html:not(.native) main>#err,html:not(.native) main>.foot{max-width:1280px;margin-left:auto!important;margin-right:auto!important}
+  html:not(.native) main::before{content:"";position:fixed;left:0;top:0;bottom:0;width:264px;background:var(--card);border-right:1px solid var(--line);z-index:8}
+  html:not(.native) .hero{position:fixed;left:0;top:18px;width:264px;margin:0;z-index:9;padding:0 22px}
+  html:not(.native) .hero .logo{width:100%;margin:0}
+  html:not(.native) .hero #ttl{font-size:1.9rem!important;margin-top:-4px}
+  html:not(.native) .tabs{position:fixed;left:16px;top:200px;width:232px;z-index:9;flex-direction:column;gap:4px;margin:0}
+  html:not(.native) .tabs button{flex:none;display:flex;align-items:center;gap:14px;border:0;background:transparent;color:var(--mute);border-radius:14px;padding:12px 16px;min-height:52px;font-size:1rem;font-weight:700;text-align:left}
+  html:not(.native) .tabs button svg{display:block;width:26px;height:26px;flex:none}
+  html:not(.native) .tabs button:hover{background:color-mix(in srgb,var(--ink) 5%,transparent);color:var(--ink)}
+  html:not(.native) .tabs button.on{background:color-mix(in srgb,var(--blue) 13%,transparent);color:var(--blue)}
+  html:not(.native) .rtabs{justify-content:flex-start}
+  /* Menú del día: dias arriba, dia + nota al lado */
+  html:not(.native) #days{grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);gap:18px}
+  html:not(.native) #days>.wkrow{grid-column:1/-1}
+  html:not(.native) #days>.dnote{margin:0;position:sticky;top:24px}
+  /* Semana: plan y nutrientes a un lado, menus al otro */
+  html:not(.native) #v2:has(#pvw:not(.hide) #pv3:not(.hide)){display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:18px;align-items:start}
+  html:not(.native) #v2:has(#pvw:not(.hide) #pv3:not(.hide))>*{grid-column:1/-1}
+  html:not(.native) #v2:has(#pvw:not(.hide) #pv3:not(.hide))>#stwrap{grid-column:1;position:sticky;top:24px;margin:0}
+  html:not(.native) #v2:has(#pvw:not(.hide) #pv3:not(.hide))>#pvw{grid-column:2}
+  /* Registro e Info en dos columnas */
+  html:not(.native) .fpc #lst{columns:2;column-gap:28px}
+  html:not(.native) .fpc #lst details.g{break-inside:avoid}
+  html:not(.native) #school{columns:2;column-gap:18px}
+  html:not(.native) #school>*{break-inside:avoid;display:block}
+  html:not(.native) #school>.iidx{column-span:all}
+  html:not(.native) #v4{max-width:880px!important}
+  html:not(.native) .sheet{left:264px}
+}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
