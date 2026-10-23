@@ -2162,7 +2162,7 @@ $("adel").onclick=()=>cfOpen("¿Eliminar tu cuenta?","Se borran tu cuenta y todo
   const k=LKEY();clearTimeout(ST);
   if(window.cloud&&window.cloud.deleteAccount)await window.cloud.deleteAccount(snap(),$("cfpwi").value);
   try{localStorage.removeItem(k)}catch(e){}
-  if(!(window.cloud&&window.cloud.deleteAccount)){setDB(null);USER=null;$("gate").classList.remove("hide");render()}});
+  if(!(window.cloud&&window.cloud.deleteAccount)){setDB(null);USER=null;$("gate").classList.remove("hide");render();setTimeout(()=>window.LDR&&LDR.gate(),0)}});
 function render(){(S.frz||[]).forEach(it=>{if(!it.loc&&fzNev(it.r||{t:"own",n:it.n})){it.loc="nev";it.x=fzNevEnd(it.d)}});
   if(backfill())save();
   head();renderProfile();renderBabies();renderPlanForm();plan();
@@ -4113,7 +4113,7 @@ window.__auth=(u,d,pending)=>{if(u)window.__wasIn=true;USER=u;LOADED=!!u&&!pendi
   if(u){let had=false;try{const l=JSON.parse(localStorage.getItem(LKEY()));if(l){setDB(l);had=true}}catch(e){}
     $("err").textContent="";
     if(had||!pending)enterApp();
-    else{WAITING=true;const b=$("ein");if(b){b.dataset.t=b.dataset.t||b.textContent;b.textContent="Entrando…";b.disabled=true}$("gate").classList.remove("hide")}}
+    else{WAITING=true;const b=$("ein");if(b){b.dataset.t=b.dataset.t||b.textContent;b.textContent="Entrando…";b.disabled=true}$("gate").classList.remove("hide");setTimeout(()=>LDR.gate(),0)}}
   else{btnReset();$("gate").classList.remove("hide","busy");if(USER===null&&window.__wasIn){$("em").value="";$("pw").value="";$("pw2").value="";$("pw2w").classList.add("hide")}setTimeout(()=>LDR.gate(),0)}
   render()};
 window.__data=d=>{const dirty=isDirty();if(d&&!dirty){setDB(d);saveLocal()}
