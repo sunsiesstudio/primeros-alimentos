@@ -1398,13 +1398,13 @@ document.documentElement.lang=LANG;
 <div id="school" data-keepdot></div>
 </section>
 <section id="v4" class="hide">
-  <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_fr">Encuadrar</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
+  <div style="text-align:center;margin:6px 0 14px"><div class="avw"><button type="button" class="avatar disp" id="av" data-clarity-mask="true" aria-label="Foto del bebé"></button><button type="button" class="phe" id="ph_edit" aria-label="Editar foto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div><input type="file" id="ph_in" accept="image/*" class="hide"><div class="phm hide" id="phm"><button type="button" class="x" id="ph_add">Cambiar foto</button><button type="button" class="x hide" id="ph_fr">Encuadrar</button><button type="button" class="x hide" id="ph_del">Quitar foto</button></div><h2 class="disp" id="pname" data-clarity-mask="true" style="margin:0;color:var(--green);font-size:2rem"></h2><div class="chips" id="bchips" style="justify-content:center;margin-top:10px"></div></div>
   <h3 class="sec" id="prdet">Detalles del bebé</h3>
   <div class="card">
-    <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm"><span id="vnm"></span></div>
+    <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm" data-clarity-mask="true"><span id="vnm"></span></div>
       <div class="ed hide" id="ed_nm"><input id="nm" placeholder="Nombre del bebé" maxlength="40" aria-label="Nombre del bebé"><div class="btns"><button class="btn" id="x_nm">Cancelar</button><button class="btn p" id="ok_nm">Guardar</button></div></div></div>
       <button class="pen" id="pen_nm" aria-label="Editar nombre"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
-    <div class="prow"><div><div class="lab">Fecha de nacimiento</div><div class="val" id="vw_bd"><span id="vbd"></span></div>
+    <div class="prow"><div><div class="lab">Fecha de nacimiento</div><div class="val" id="vw_bd" data-clarity-mask="true"><span id="vbd"></span></div>
       <div class="ed hide" id="ed_bd"><input id="bd" type="date" aria-label="Fecha de nacimiento"><div class="btns"><button class="btn" id="x_bd">Cancelar</button><button class="btn p" id="ok_bd">Guardar</button></div></div></div>
       <button class="pen" id="pen_bd" aria-label="Editar fecha de nacimiento"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button></div>
     <div class="prow"><div><div class="lab">Semanas de embarazo al nacer</div><div class="val" id="vw_ga"><span id="vga"></span></div>
@@ -1561,7 +1561,7 @@ document.documentElement.lang=LANG;
 <div class="sheet hide" id="cr" role="dialog" aria-label="Encuadrar foto" style="z-index:14"><div>
   <h3 class="disp">Encuadrar foto</h3>
   <p class="mute" style="margin:4px 0 10px">Arrastra para mover y usa el control para acercar.</p>
-  <div id="cr_v"><img id="cr_img" alt="" draggable="false"></div>
+  <div id="cr_v" data-clarity-mask="true"><img id="cr_img" alt="" draggable="false"></div>
   <input type="range" id="cr_z" min="1" max="4" step="0.01" value="1" aria-label="Zoom" style="width:100%;margin:12px 0 0">
   <div class="btns" style="margin-top:12px"><button class="btn" id="cr_x">Cancelar</button><button class="btn p" id="cr_ok">Guardar</button></div>
 </div></div>
