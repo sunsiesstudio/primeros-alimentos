@@ -1066,7 +1066,6 @@ details.aep.rxa{margin-bottom:16px}
 #fzbox .fzqty{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:600}
 #fzbox .fzqty .fzst{display:inline-flex;align-items:center;gap:12px}#fzbox .fzqty .fzst button{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--ink);font:700 1.1rem Montserrat,sans-serif;cursor:pointer}#fzbox .fzqty .fzst b{min-width:20px;text-align:center}
 #fzbox #fz_ok{width:100%}
-@media (min-width:700px){.wkrow{padding-right:var(--cbw,52px)}}
 
 .dnsv{margin:14px 0 0;font-size:.78rem;color:var(--mute);text-align:right;transition:color .3s}.dnsv.on{color:var(--green);font-weight:700}
 
@@ -3686,7 +3685,7 @@ document.addEventListener("toggle",e=>{const d=e.target;if(!(d instanceof HTMLDe
 addEventListener("resize",()=>{if(!rxDesk()&&rxKey){const d=document.querySelector("#days details.rcv.rxon");rxClose();if(d)d.open=true}});
 function centerWk(){const wk=document.querySelector("#days .wk"),on=wk&&wk.querySelector(".wd.on");if(!on||!wk.clientWidth)return;
   {wk.style.scrollSnapType="none";wk.style.removeProperty("padding-left");wk.style.removeProperty("padding-right");
-    const r=wk.getBoundingClientRect(),o=on.getBoundingClientRect(),c=o.left+o.width/2-r.left+wk.scrollLeft,h=wk.clientWidth/2,pl=Math.max(0,h-c),cw=wk.lastElementChild.getBoundingClientRect().right-r.left+wk.scrollLeft,pr=Math.max(0,c+h-cw);
+    const r=wk.getBoundingClientRect(),o=on.getBoundingClientRect(),c=o.left+o.width/2-r.left+wk.scrollLeft,rw=(document.querySelector("#days .dday")||wk.closest(".wkrow")||wk).getBoundingClientRect(),h=Math.min(wk.clientWidth,Math.max(0,rw.left+rw.width/2-r.left)),pl=Math.max(0,h-c),cw=wk.lastElementChild.getBoundingClientRect().right-r.left+wk.scrollLeft,pr=Math.max(0,(wk.clientWidth-h)-(cw-c));
     wk.style.setProperty("padding-left",pl+"px","important");wk.style.setProperty("padding-right",pr+"px","important");void wk.scrollWidth;wk.scrollLeft=c+pl-h;clearTimeout(centerWk.t);centerWk.t=setTimeout(()=>{wk.style.scrollSnapType=""},400)}}
 addEventListener("resize",()=>centerWk());
 function subtab(n){n=n===2||n===3?n:1;psub=n;setTimeout(vSave,0);$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==2);$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==3);if(n===3){renderFav();renderFzBox()}if(typeof renderSw==="function")renderSw();if(n===1)centerWk()}
