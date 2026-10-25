@@ -1233,7 +1233,7 @@ html.pain:not(.authed) #gate{display:none!important}html.pain:not(.authed) body>
 .pparty{position:fixed;inset:0;z-index:90;display:grid;place-items:center;background:color-mix(in srgb,var(--bg) 70%,transparent);padding:20px}.ppc{position:absolute;inset:0;overflow:hidden;pointer-events:none}.ppc i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:ppfall linear infinite}@keyframes ppfall{to{top:110%;transform:rotate(540deg)}}.ppb{position:relative;max-width:340px;width:100%;text-align:center;background:var(--card);border-radius:24px;padding:28px 22px 22px;box-shadow:0 12px 40px rgba(0,0,0,.18);animation:ppin .4s cubic-bezier(.3,1.4,.5,1)}@keyframes ppin{from{transform:scale(.7);opacity:0}}.ppb h3{margin:12px 0 6px;color:var(--terra);font-size:1.7rem}.ppb p{margin:0 0 18px;color:var(--mute);line-height:1.45}.ppbt{display:flex;flex-direction:column;gap:10px}.ppbt .btn{width:100%;max-width:none}
 .shft::after{content:"";position:absolute;left:-40px;right:-40px;top:100%;height:80px;background:var(--card)}
 .ppx{position:absolute;top:12px;right:12px}.ppb p{margin-bottom:4px!important}.mgh>*:not(.ppc){position:relative;z-index:1}.mgh .ppc{position:absolute;inset:0;overflow:hidden;pointer-events:none}.mgh .ppc i{width:8px;height:11px;animation-iteration-count:1;animation-fill-mode:forwards}.mgtip2{margin-top:12px!important;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--terra) 12%,transparent)}.mgtip2 b{display:block;color:var(--terra);margin-bottom:2px}
-.pfh{padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--terra) 10%,transparent);margin:-2px 0 4px}.pfh p{margin:0;font-size:.85rem;line-height:1.45}.pfh .btn{margin-top:10px;min-height:40px;width:auto;padding:0 18px}.wrb{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;font:inherit;color:inherit;cursor:pointer;padding:14px;margin:0 0 14px;border-radius:16px;background:color-mix(in srgb,var(--terra) 14%,var(--card))}.wrb b{display:block;font-size:.92rem}.wrb small{color:var(--mute);font-size:.78rem}.wrfi{flex:none;display:flex}.wrfi i{width:38px;height:38px;border-radius:50%;background:var(--card);display:grid;place-items:center;margin-right:-10px;box-shadow:0 0 0 2px color-mix(in srgb,var(--terra) 14%,var(--card));padding:5px}.wrfi i svg{width:100%;height:100%}.wrb:not(.seen) .wrfi{animation:wrp 1.6s ease-in-out infinite}.wrb>span:last-child{margin-left:10px}.wri{flex:none;width:42px;height:42px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center}.wrb:not(.seen) .wri{animation:wrp 1.6s ease-in-out infinite}@keyframes wrp{50%{transform:scale(1.1)}}.wrimg{width:100%;max-width:360px;display:block;margin:0 auto;border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.12)}.wrbt{margin-top:16px}
+.pfh{padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--terra) 10%,transparent);margin:-2px 0 4px}.pfh p{margin:0;font-size:.85rem;line-height:1.45}.pfh .btn{margin-top:10px;min-height:40px;width:auto;padding:0 18px}.wrb{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;font:inherit;color:inherit;cursor:pointer;padding:14px;margin:0 0 14px;border-radius:16px;background:color-mix(in srgb,var(--terra) 14%,var(--card))}.wrb b{display:block;font-size:.92rem}.wrb small{color:var(--mute);font-size:.78rem}.wrfi{flex:none;display:flex}.wrfi svg{display:block}.wrfi i{width:38px;height:38px;border-radius:50%;background:var(--card);display:grid;place-items:center;margin-right:-10px;box-shadow:0 0 0 2px color-mix(in srgb,var(--terra) 14%,var(--card));padding:5px}.wrfi i svg{width:100%;height:100%}.wrb:not(.seen) .wrfi{animation:wrp 1.6s ease-in-out infinite}.wrb>span:last-child{margin-left:10px}.wri{flex:none;width:42px;height:42px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center}.wrb:not(.seen) .wri{animation:wrp 1.6s ease-in-out infinite}@keyframes wrp{50%{transform:scale(1.1)}}.wrimg{width:100%;max-width:360px;display:block;margin:0 auto;border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.12)}.wrbt{margin-top:16px}
 #gsh_b .mgsb>p{margin:12px 0 0}#gsh_b .mgsb>p.mgfl{margin:28px 0 12px}#gsh_b .mgsb>p.mgtip2{margin-top:14px}
 </style>
 <script>
@@ -1559,18 +1559,9 @@ document.documentElement.lang=LANG;
   <button class="xc" id="chg_c" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h3 class="disp" id="chg_t"></h3>
 </div>
-  <div id="chg_a">
-    <p class="chgh">Otras ideas</p>
-    <input type="search" id="chg_q" class="chgq" placeholder="Buscar en mis recetas y más" autocomplete="off" aria-label="Buscar receta">
-    <div id="chg_l" class="chgl"></div>
-  </div>
-  <div id="chg_f" class="hide">
-    <p class="chgh chghl">De casa <button type="button" class="chglk" id="chg_go">Ver mi despensa<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></p>
-    <div id="chg_fl" class="chgl"></div>
-  </div>
   <div id="chg_b">
-    <p class="chgh">¿Le has dado otra cosa?</p>
-    <label><textarea id="chg_x" rows="2" maxlength="120" placeholder="Por ejemplo: tortilla de patata con calabacín"></textarea></label>
+    <p class="chgh">¿Qué le has dado?</p>
+    <label><textarea id="chg_x" rows="2" maxlength="120" placeholder="Busca o escribe lo que le has dado"></textarea></label>
     <p class="mute hide" id="chg_dh"></p>
     <div id="chg_det" class="chgp chgdet"></div>
     <details class="chgadd hide"><summary>¿Falta algún alimento? Añádelo</summary>
@@ -1579,6 +1570,16 @@ document.documentElement.lang=LANG;
     </details>
     <div class="btns" style="margin-top:12px"><button class="btn p" id="chg_ok" type="button" style="width:100%;flex:1 1 100%">Guardar</button></div>
   </div>
+  <div id="chg_a">
+    <p class="chgh">Ideas</p>
+    <input type="search" id="chg_q" class="chgq hide" placeholder="Buscar en mis recetas y más" autocomplete="off" aria-label="Buscar receta">
+    <div id="chg_l" class="chgl"></div>
+  </div>
+  <div id="chg_f" class="hide">
+    <p class="chgh chghl">De casa <button type="button" class="chglk" id="chg_go">Ver mi despensa<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></p>
+    <div id="chg_fl" class="chgl"></div>
+  </div>
+</div>
 </div></div>
 <div class="sheet hide full" id="sh" role="dialog" aria-label="Registrar alimento"><div>
 <div class="shhd">
@@ -3565,13 +3566,13 @@ function plan(){
       const fzA=[];fzA.forEach(r=>seen.add(r.n));return [...fzA,...fv.filter(r=>!fzA.some(z=>z.n===r.n)).map(r=>({...r,sv:1})),...out]})(),isT=d===today(),hasOv=!!((S.ov||{})[d]||{})[m];
     $("chg_t").textContent="Cambiar "+m.toLowerCase();
     $("chg_l").innerHTML=alts.length?alts.map((r,i)=>`<button class="chgo" data-i="${i}">${r.fzi?'<span class="chgfz" aria-label="Del congelador"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M4 7l16 10M20 7L4 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></svg></span>':""}${esc(r.n)}${r.fzi?`<small class="chgfzt">${TT("Del congelador","Del congelador","From the freezer")}</small>`:""}${r.sv?'<span class="chgsv" aria-label="Receta guardada"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg></span>':""}</button>`).join(""):'<p class="mute">No hay más ideas con lo que ya conoce.</p>';
-    {const fzOth=it=>Object.keys(S.frzA||{}).filter(k=>S.frzA[k]===it.id&&k!==d+"|"+m&&!(S.frzE&&S.frzE[k])).sort(),fzl=(window.__FZS||[]).filter(it=>it.u>0&&(it.d<=d||d<today())&&(d<=it.x||d<today())&&!(S.frzA&&S.frzA[d+"|"+m]===it.id)).sort((a,b)=>({nev:0,"":1,desp:2}[a.loc||""])-({nev:0,"":1,desp:2}[b.loc||""])||(a.x<b.x?-1:1)),fmt=x=>new Date(x+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"});
+    {const fzOth=it=>Object.keys(S.frzA||{}).filter(k=>S.frzA[k]===it.id&&k!==d+"|"+m&&!(S.frzE&&S.frzE[k])).sort(),fzl=(window.__FZS||[]).filter(it=>{const ms=it.r&&it.r.meals,ig=(it.r&&it.r.ings)||[],prt=ig.some(n=>MEAT.has(n)||FISH.has(n)||/^(Lentejas|Garbanzos|Alubias|Huevo|Tofu)/.test(n)),main=m==="Comida"||m==="Cena";return ms&&ms.length&&ms.length<5?ms.includes(m):prt?main:true}).filter(it=>it.u>0&&(it.d<=d||d<today())&&(d<=it.x||d<today())&&!(S.frzA&&S.frzA[d+"|"+m]===it.id)).sort((a,b)=>({nev:0,"":1,desp:2}[a.loc||""])-({nev:0,"":1,desp:2}[b.loc||""])||(a.x<b.x?-1:1)),fmt=x=>new Date(x+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"});
       $("chg_f").classList.remove("hide");
       $("chg_fl").innerHTML=fzl.length?fzl.map((it,i)=>`<button class="chgo fzo fzl-${it.loc||"fz"}" data-fz="${i}"><span><span class="chgfz" aria-hidden="true">${fzIco(it.loc)}</span>${esc(it.n)}<small class="chgfzt"><b>${fzLab(it.loc)}</b> · ${it.left<=0&&fzOth(it).length?TT("ya está en el menú del ","ja és al menú del ","already planned for ")+new Date(fzOth(it)[0].slice(0,10)+"T00:00:00").toLocaleDateString(LOC(),{weekday:"long",day:"numeric"})+" · ":""}${it.loc==="nev"?TT(`${it.x===d?"consumir hoy":"consumir antes del "+fmt(it.x)}`,`caduca ${it.x===d?"avui":"el "+fmt(it.x)}`,`expires ${it.x===d?"today":fmt(it.x)}`):(it.x>="9999"?TT(`quedan ${it.left>0?it.left:it.u}`,`queden ${it.left>0?it.left:it.u}`,`${it.left>0?it.left:it.u} left`):TT(`quedan ${it.u} · consumir antes del ${fmt(it.x)}`,`queden ${it.u} · caduca el ${fmt(it.x)}`,`${it.u} left · expires ${fmt(it.x)}`))}</small></span></button>`).join(""):`<p class="mute">${TT("Aquí verás lo que tienes en el congelador, la nevera y los potitos sin abrir.","Aquí veuràs el que tens al congelador, la nevera i els potets sense obrir.","Your freezer, fridge and unopened jars will show up here.")}</p>`;
       $("chg_go").onclick=()=>{$("chg").classList.add("hide");goFz()};
       $("chg_fl").querySelectorAll("[data-fz]").forEach(bb=>bb.onclick=()=>{const it=fzl[+bb.dataset.fz];if(it.left<=0){const o2=fzOth(it);if(o2.length)delete S.frzA[o2[o2.length-1]]}dropMeal(d,m);setOv(d,m,{n:it.n,i:(it.r.ings||[]).slice()});S.frzA=S.frzA||{};S.frzA[d+"|"+m]=it.id;$("chg").classList.add("hide");save();render()})}
     $("chg_x").value="";$("chg_s").value="";$("chg_b").querySelector(".chgadd").open=false;
-    $("chg_a").classList.toggle("hide",!!o.past);$("chg_b").classList.toggle("sep",!o.past&&!!alts.length);
+    $("chg_a").classList.toggle("hide",!!o.past);$("chg_b").classList.remove("sep");
     // Lo que le ha dado: lo que se reconoce en el texto + lo que se añade a mano − lo que se quita
     const sel=new Set(),rem=new Set(),mm=stats(),pool=ALL.filter(x=>unlocked(x)).sort((a,b)=>(mm[b.n]?1:0)-(mm[a.n]?1:0)||a.n.localeCompare(b.n,"es"));
     const fin=()=>[...new Set([...inferIngs($("chg_x").value).filter(n=>!rem.has(n)),...sel])];
@@ -3581,7 +3582,7 @@ function plan(){
       $("chg_det").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;if(sel.has(n))sel.delete(n);else rem.add(n);paint()});
       $("chg_p").innerHTML=L.map(x=>`<button type="button" class="pk" data-n="${esc(x.n)}">+ ${esc(x.n)}</button>`).join("")||'<p class="mute">No encuentro ese alimento.</p>';
       $("chg_p").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;sel.add(n);rem.delete(n);paint()})};
-    $("chg_s").oninput=paint;$("chg_x").oninput=paint;paint();
+    $("chg_s").oninput=paint;$("chg_x").oninput=()=>{paint();const q=$("chg_q");if(q){q.value=$("chg_x").value;if(q.oninput)q.oninput()}};paint();
     $("chg").classList.remove("hide");
     const bindL=lst=>$("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=lst[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n,i:r.ings.slice()});{const z=r.fzi?null:stockFor(r.n,d);if(r.fzi||z){S.frzA=S.frzA||{};S.frzA[d+"|"+m]=r.fzi||z.id}}$("chg").classList.add("hide");save();render()});
     bindL(alts);
@@ -3590,7 +3591,7 @@ function plan(){
         const hit=r=>norm(r.n).includes(q)||(r.ings||[]).some(n=>norm(n).includes(q)),seen=new Set([cur.n]),res=[];
         (S.fav||[]).forEach(f=>{if(seen.has(f.n)||!hit({n:f.n,ings:f.i}))return;seen.add(f.n);res.push({...(RR2.find(r=>r.n===f.n)||{t:"fijo",n:f.n,ings:f.i.slice(),q:[],how:""}),sv:1})});
         RR2.forEach(r=>{if(res.length>=10||seen.has(r.n)||!r.meals.includes(m)||!hit(r))return;seen.add(r.n);res.push(r)});
-        $("chg_l").innerHTML=res.length?res.slice(0,10).map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}${r.sv?SV:""}</button>`).join(""):`<p class="mute">${TT("No encuentro nada con eso.","No trobo res amb això.","Nothing found.")}</p>`;bindL(res)}}
+        $("chg_l").innerHTML=res.length?res.slice(0,10).map((r,i)=>`<button class="chgo" data-i="${i}">${esc(r.n)}${r.sv?SV:""}</button>`).join(""):`<p class="mute">${TT("Nada parecido en tus ideas: guárdalo arriba como plato nuevo","Res semblant a les teves idees: desa-ho a dalt com a plat nou","Nothing similar: save it above as a new dish")}</p>`;bindL(res)}}
     $("chg_ok").onclick=()=>{const ii=fin();let t=$("chg_x").value.trim().replace(/\s+/g," ").slice(0,80);
       if(!t&&ii.length){const lo=ii.map(n=>n.toLowerCase());t=(lo.length>1?lo.slice(0,-1).join(", ")+" y "+lo[lo.length-1]:lo[0])}
       if(!t){$("chg_x").focus();return}t=t.charAt(0).toUpperCase()+t.slice(1);
@@ -4073,7 +4074,7 @@ function wrData(){const {mon,sun}=wrLast(),days=[];for(let i=0;i<7;i++){const x=
   const cc=days.reduce((a,d)=>{const v=(S.dn||{})[d];if(!v)return a;return a+(+v.cc||((v.t||[]).includes("caca")?1:0))},0);
   const sk=days.reduce((a,d)=>a+Object.keys(((S.prefs||{}).skm||{})[d]||{}).length,0);
   const L=(S.log||[]).filter(l=>days.includes(l.d)&&!l.pre),pu=L.length?L.filter(l=>/pur|triturad|papilla|aplast/i.test(l.how||"")).length/L.length:0;return{mon,sun,all:[...all],nw,love,iron:hit("iron"),fib:hit("fiber"),cc,sk,pu,nL:L.length}}
-function wrBanner(){const {k,sun}=wrLast(),D=wrData();if(!D.all.length)return"";const seen=((S.prefs||{}).wr||"")>=k;return `<button type="button" class="wrb${seen?" seen":""}" id="wr_open"><span class="wrfi">${D.all.slice(0,3).map(n=>`<i>${ico(n)}</i>`).join("")}</span><span><b>${TT(`El resumen semanal de ${esc(S.nm||"tu bebé")} ya está listo`,`El resum setmanal de ${esc(S.nm||"el teu nadó")} ja és a punt`,`${esc(S.nm||"Your baby")}'s weekly recap is ready`)}</b><small>${(()=>{const D=wrData();return TT(`${D.all.length} alimentos · ${D.nw.length} nuevos`,`${D.all.length} aliments · ${D.nw.length} nous`,`${D.all.length} foods · ${D.nw.length} new`)})()}</small></span></button>`}
+function wrBanner(){const {k,sun}=wrLast(),D=wrData();if(!D.all.length)return"";const seen=((S.prefs||{}).wr||"")>=k;return `<button type="button" class="wrb${seen?" seen":""}" id="wr_open"><span class="wrfi"><svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><rect x="9" y="5" width="30" height="38" rx="6" fill="var(--card)" stroke="var(--terra)" stroke-width="2.5"/><path d="M16 31l5-7 5 4 6-9" fill="none" stroke="var(--green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polygon points="24,8.5 25.5,12 29,12.3 26.3,14.6 27.2,18 24,16.2 20.8,18 21.7,14.6 19,12.3 22.5,12" fill="var(--terra)"/></svg></span><span><b>${TT(`El resumen semanal de ${esc(S.nm||"tu bebé")} ya está listo`,`El resum setmanal de ${esc(S.nm||"el teu nadó")} ja és a punt`,`${esc(S.nm||"Your baby")}'s weekly recap is ready`)}</b><small>${(()=>{const D=wrData();return TT(`${D.all.length} alimentos · ${D.nw.length} nuevos`,`${D.all.length} aliments · ${D.nw.length} nous`,`${D.all.length} foods · ${D.nw.length} new`)})()}</small></span></button>`}
 async function wrCanvas(){const D=wrData(),W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;const g=cv.getContext("2d");
   try{await Promise.all([document.fonts.load('80px "Luckiest Guy"'),document.fonts.load('700 40px Montserrat'),document.fonts.load('500 36px Montserrat')])}catch(e){}
   const HF='"Luckiest Guy",Arial Black,sans-serif',FF='Montserrat,Arial,sans-serif',rr=(x,y,w,h,r)=>{g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()};
@@ -4094,8 +4095,13 @@ async function wrCanvas(){const D=wrData(),W=1080,H=1920,cv=document.createEleme
   let y0=780+Math.ceil(gk.length/2)*150+30;g.textAlign="center";
   const show=(D.nw.length?D.nw:D.love).slice(0,4);if(show.length){g.fillStyle="#262626";g.font=`700 40px ${FF}`;g.fillText(D.nw.length?TT("Ha probado por primera vez","Ha provat per primer cop","First tastes"):TT("Le ha encantado","Li ha encantat","Loved"),W/2,y0+30);
     const sz=150,gap=40,tw=show.length*sz+(show.length-1)*gap;let x0=(W-tw)/2;for(const n of show){rr(x0,y0+60,sz,sz,36);g.fillStyle="#f7f4e8";g.fill();const im=await svgImg(ico(n),110);if(im)g.drawImage(im,x0+20,y0+80,110,110);g.fillStyle="#262626";g.font=`600 28px ${FF}`;g.fillText(n.length>12?n.slice(0,11)+"…":n,x0+sz/2,y0+250);x0+=sz+gap}y0+=280}
-  {const a=age(),mo=a?a.mo:0,tips=[];if(mo>=8&&D.pu>.6&&D.nL>=5)tips.push(["#c96a47",TT("Casi todo fue puré:","Gairebé tot va ser puré:","Mostly purée:"),TT("a por grumos y trocitos","grumolls i trossets","try lumps and pieces")]);if(D.sk>=4)tips.push(["#6aa4d8",TT(`Se saltó ${D.sk} comidas:`,`Es va saltar ${D.sk} àpats:`,`Skipped ${D.sk} meals:`),TT("prueba a moverlas de hora","prova de canviar-les d'hora","try moving them")]);
-    for(const [c,b1,b2] of tips.slice(0,Math.max(0,Math.floor((1740-y0)/112)))){rr(110,y0,860,100,34);g.fillStyle="#f7f4e8";g.fill();g.fillStyle=c;g.beginPath();g.arc(170,y0+50,20,0,7);g.fill();g.textAlign="left";g.fillStyle="#262626";g.font=`700 32px ${FF}`;g.fillText(b1,215,y0+44);g.font=`500 30px ${FF}`;g.fillStyle="#6b6a5c";g.fillText(b2,215,y0+80);g.textAlign="center";y0+=112}}
+  {const a=age(),mo=a?a.mo:0,nm=S.nm||TT("tu bebé","el teu nadó","your baby"),L=[];
+    if(D.nw.length)L.push(TT(`¡${nm} ha probado ${D.nw.length} ${D.nw.length===1?"alimento nuevo":"alimentos nuevos"} esta semana!`,`${nm} ha provat ${D.nw.length} aliments nous aquesta setmana!`,`${nm} tried ${D.nw.length} new foods this week!`));
+    if(D.iron>=5)L.push(TT("Ha tomado hierro casi todos los días, genial.","Ha pres ferro gairebé cada dia, genial.","Iron almost every day, great."));
+    if(mo>=8&&D.pu>.6&&D.nL>=5)L.push(TT("Casi todo ha sido puré: la semana que viene prueba a triturar menos y a dejar algún trocito blando.","Gairebé tot ha estat puré: la setmana que ve prova de triturar menys i deixar algun trosset tou.","Mostly purée: next week try blending less and leaving soft bits."));
+    if(D.sk>=4)L.push(TT(`Se saltó ${D.sk} comidas. Si le cuesta, prueba a moverlas de hora o a ofrecer menos cantidad.`,`Es va saltar ${D.sk} àpats. Si li costa, prova de canviar-los d'hora.`,`Skipped ${D.sk} meals. Try moving them or smaller portions.`));
+    g.textAlign="center";const wrap=(t,y,mw)=>{const w=t.split(" ");let ln="",yy=y;for(const x of w){const tt=ln?ln+" "+x:x;if(g.measureText(tt).width>mw&&ln){g.fillText(ln,W/2,yy);ln=x;yy+=44}else ln=tt}if(ln)g.fillText(ln,W/2,yy);return yy+62};
+    let yy=y0+50;for(const t of L){if(yy>1700)break;g.fillStyle=t.startsWith("¡")?"#4a8760":"#4a4a40";g.font=(t.startsWith("¡")?"700 ":"500 ")+`34px ${FF}`;yy=wrap(t,yy,860)}}
   {const nm0=S.nm;S.nm="";try{drawAppLogo(g,W/2,1765,400,"#4a8760","#c96a47","#eeead8")}catch(e){}S.nm=nm0}return cv}
 async function openWR(){S.prefs.wr=wrLast().k;save();$("gsh_t").textContent=TT("Resumen semanal","Resum setmanal","Weekly recap");$("gsh_b").innerHTML=`<p class="mute">${TT("Preparando…","Preparant…","Preparing…")}</p>`;$("gsh").classList.remove("hide");
   const cv=await wrCanvas(),u=cv.toDataURL("image/png");$("gsh_b").innerHTML=`<img src="${u}" alt="" class="wrimg"><div class="btns wrbt"><button type="button" class="btn" id="wr_dl">${TT("Descargar","Descarrega","Download")}</button><button type="button" class="btn p" id="wr_sh">${TT("Compartir","Comparteix","Share")}</button></div>`;
