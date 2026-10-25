@@ -1237,7 +1237,7 @@ html.pain:not(.authed) #gate{display:none!important}html.pain:not(.authed) body>
 #gsh_b .mgsb>p{margin:12px 0 0}#gsh_b .mgsb>p.mgfl{margin:16px 0 10px}#gsh_b .mgsb>p.mgtip2{margin-top:16px}
 .mgfb{border:0;font:inherit;color:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;width:62px;flex:none;padding:10px 4px;border-radius:14px;background:var(--card)}.mgfb i{width:40px;height:40px;display:grid;place-items:center}.mgfb svg{width:100%;height:100%}.mgfb small{font-size:.7rem;text-align:center;line-height:1.15}.mgh h3{text-align:center!important;width:100%;letter-spacing:0;padding:0!important;margin-left:0!important;margin-right:0!important}.mgh{display:flex;flex-direction:column;align-items:center}
 .mgtx i{color:var(--green)}.mgtx span.on i{color:var(--terra)}
-#pst .pstw img,#pst_pv{max-height:calc(100vh - 300px - env(safe-area-inset-top,0px));width:auto;max-width:100%;object-fit:contain;display:block;margin:0 auto;touch-action:none}.mgtx em{background:var(--mute)!important;opacity:.5}.mgk{color:var(--bg)!important}
+#pst .pstw img,#pst_pv,#sum_pv{max-height:calc(100vh - 300px - env(safe-area-inset-top,0px));width:auto;max-width:100%;object-fit:contain;display:block;margin:0 auto;touch-action:none}#sum,#pst{overflow-x:hidden}#sum>div,#pst>div{max-width:100%;overflow-x:hidden}.sumb{display:flex;gap:8px}.sumb .btn{flex:1 1 0;min-width:0;padding-left:8px;padding-right:8px}.mgtx em{background:var(--mute)!important;opacity:.5}.mgk{color:var(--bg)!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -3780,7 +3780,7 @@ const posterTitle=()=>{const n=S.nm||"";return LANG==="en"?(n?n+"'s first foods"
 async function posterCanvas(W,H){DKX=isDarkX();
   try{await Promise.all([document.fonts.load('40px "Luckiest Guy"'),document.fonts.load('700 20px Montserrat'),document.fonts.load('500 20px Montserrat')])}catch(e){}
   const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d"),u=W/1080;
-  const m=stats(),foods=ALL.filter(f=>!f.lim||m[f.n]),N=foods.length,tried=foods.filter(f=>m[f.n]).length;
+  const m=stats(),foods=ALL.filter(f=>!f.lim||m[f.n]).slice().sort((p,q)=>tFood(p.n).localeCompare(tFood(q.n),"es",{sensitivity:"base"})),N=foods.length,tried=foods.filter(f=>m[f.n]).length;
   const G=KX("#4a8760"),T=KX("#c96a47"),INK=KX("#262626"),MU=KX("#6b6a5c"),BG=KX("#eeead8"),CARD=KX("#f7f4e8"),LINE=KX("#d8d3bc");
   x.fillStyle=BG;x.fillRect(0,0,W,H);
   const rr=(X,Y,w,h,r)=>{x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath()};
@@ -4088,7 +4088,7 @@ async function wrCanvas(){DKX=isDarkX();const D=wrData(),W=1080,H=1920,cv=docume
   g.textAlign="center";g.fillStyle=KX("#4a8760");g.font=`88px ${HF}`;g.fillText(TT("LA SEMANA","LA SETMANA","THE WEEK"),W/2,180);g.fillStyle=KX("#c96a47");g.font=`106px ${HF}`;g.fillText((TT("DE ","DE ","OF ")+(S.nm||"")).toUpperCase(),W/2,296);
   const fd=d=>d.toLocaleDateString(LOC(),{day:"numeric",month:"long"});g.fillStyle=KX("#6b6a5c");g.font=`500 38px ${FF}`;g.fillText(fd(D.mon)+" – "+fd(D.sun),W/2,366);
   // progreso total
-  {const m=stats(),foods=ALL.filter(f=>!f.lim||m[f.n]),N=foods.length,tr=foods.filter(f=>m[f.n]).length;g.fillStyle=KX("#262626");g.font=`700 40px ${FF}`;g.fillText(TT(`${tr} de ${N} alimentos probados`,`${tr} de ${N} aliments provats`,`${tr} of ${N} foods tried`),W/2,450);
+  {const m=stats(),foods=ALL.filter(f=>!f.lim||m[f.n]).slice().sort((p,q)=>tFood(p.n).localeCompare(tFood(q.n),"es",{sensitivity:"base"})),N=foods.length,tr=foods.filter(f=>m[f.n]).length;g.fillStyle=KX("#262626");g.font=`700 40px ${FF}`;g.fillText(TT(`${tr} de ${N} alimentos probados`,`${tr} de ${N} aliments provats`,`${tr} of ${N} foods tried`),W/2,450);
     rr(140,478,800,26,13);g.fillStyle=KX("#ddd7bf");g.fill();rr(140,478,Math.max(26,800*tr/N),26,13);g.fillStyle=KX("#4a8760");g.fill();
     g.fillStyle=KX("#6b6a5c");g.font=`500 34px ${FF}`;g.fillText(TT(`Esta semana ha comido ${D.all.length} alimentos distintos`,`Aquesta setmana ha menjat ${D.all.length} aliments diferents`,`${D.all.length} different foods this week`),W/2,560)}
   const dv=y=>{g.strokeStyle=KX("#d6cfb4");g.lineWidth=3;g.setLineDash([2,14]);g.lineCap="round";g.beginPath();g.moveTo(140,y);g.lineTo(940,y);g.stroke();g.setLineDash([])};dv(615);
