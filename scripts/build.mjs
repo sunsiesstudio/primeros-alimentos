@@ -35,7 +35,7 @@ for (const f of files) {
 
 // Configuración que lee la app al arrancar, con la lista de plugins nativos
 const cfg = JSON.parse(readFileSync(join(root, "capacitor.config.json"), "utf8"));
-cfg.packageClassList = ["FirebaseAuthenticationPlugin"];
+cfg.packageClassList = ["FirebaseAuthenticationPlugin", "SharePlugin", "FilesystemPlugin"];
 writeFileSync(join(appDir, "capacitor.config.json"), JSON.stringify(cfg, null, "\t") + "\n");
 // El proyecto de Xcode espera también un config.xml (de Cordova), aunque no usemos plugins de Cordova
 writeFileSync(join(appDir, "config.xml"), `<?xml version='1.0' encoding='utf-8'?>
@@ -61,6 +61,6 @@ if (existsSync(join(root, "android/app"))) {
   acfg.plugins = acfg.plugins || {};
   acfg.plugins.FirebaseAuthentication = { ...(acfg.plugins.FirebaseAuthentication || {}), providers: ["google.com"] };
   writeFileSync(join(andDir, "capacitor.config.json"), JSON.stringify(acfg, null, "\t") + "\n");
-  writeFileSync(join(andDir, "capacitor.plugins.json"), JSON.stringify([{ pkg: "@capacitor-firebase/authentication", classpath: "io.capawesome.capacitorjs.plugins.firebase.authentication.FirebaseAuthenticationPlugin" }], null, "\t") + "\n");
+  writeFileSync(join(andDir, "capacitor.plugins.json"), JSON.stringify([{ pkg: "@capacitor-firebase/authentication", classpath: "io.capawesome.capacitorjs.plugins.firebase.authentication.FirebaseAuthenticationPlugin" }, { pkg: "@capacitor/share", classpath: "com.capacitorjs.plugins.share.SharePlugin" }, { pkg: "@capacitor/filesystem", classpath: "com.capacitorjs.plugins.filesystem.FilesystemPlugin" }], null, "\t") + "\n");
   console.log("Web copiada a android/app/src/main/assets/public.");
 }
