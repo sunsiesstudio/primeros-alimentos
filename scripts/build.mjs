@@ -46,3 +46,21 @@ writeFileSync(join(appDir, "config.xml"), `<?xml version='1.0' encoding='utf-8'?
 
 console.log(`Web copiada a ios/App/App/public (${files.length - missing.length} archivos).`);
 if (missing.length) console.warn("Aviso, faltan: " + missing.join(", "));
+
+// ===== Android =====
+const andDir = join(root, "android/app/src/main/assets");
+if (existsSync(join(root, "android/app"))) {
+  const aout = join(andDir, "public");
+  rmSync(aout, { recursive: true, force: true });
+  mkdirSync(aout, { recursive: true });
+  for (const f of files) {
+    const src = join(root, f);
+    if (existsSync(src)) cpSync(src, join(aout, f));
+  }
+  const acfg = JSON.parse(readFileSync(join(root, "capacitor.config.json"), "utf8"));
+  acfg.plugins = acfg.plugins || {};
+  acfg.plugins.FirebaseAuthentication = { ...(acfg.plugins.FirebaseAuthentication || {}), providers: ["google.com"] };
+  writeFileSync(join(andDir, "capacitor.config.json"), JSON.stringify(acfg, null, "\t") + "\n");
+  writeFileSync(join(andDir, "capacitor.plugins.json"), JSON.stringify([{ pkg: "@capacitor-firebase/authentication", classpath: "io.capawesome.capacitorjs.plugins.firebase.authentication.FirebaseAuthenticationPlugin" }], null, "\t") + "\n");
+  console.log("Web copiada a android/app/src/main/assets/public.");
+}

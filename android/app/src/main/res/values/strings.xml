@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Primeros alimentos</string>
+    <string name="title_activity_main">Primeros alimentos</string>
+    <string name="package_name">com.sunsiesstudio.primerosalimentos</string>
+    <string name="custom_url_scheme">com.sunsiesstudio.primerosalimentos</string>
+</resources>
