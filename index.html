@@ -3077,6 +3077,13 @@ function recipesFor0(kn,mo,pz){
     fru.slice(0,3).forEach(f=>add("mix",null,`${f.n} con ${nm}`,[f,x],"Fruta muy madura aplastada, con "+nm+" en capa fina",["Desayuno","Merienda"]));
     if(pl&&!sd)add("tortita",null,`Tortitas de plátano${av?" y avena":""} con ${nm}`,[pl,x,...(av?[av]:[])],"Tortitas pequeñas a la plancha, con "+nm+" mezclada en la masa",["Desayuno","Merienda"]);
     pan.forEach(b=>add("tostada",null,`Tostada con ${nm}`,[b,x],"En tiras, con "+nm+" en capa fina",["Desayuno","Merienda"]))});
+  {const hu=egg[0],hr=g("Harina de trigo")||g("Harina de arroz")||g("Harina de maíz"),fl=av||hr,TV=veg.filter(v=>/^(Calabacín|Zanahoria|Brócoli|Espinacas|Calabaza|Boniato|Coliflor|Guisantes|Kale|Acelgas|Puerro|Remolacha)$/.test(v.n));
+    if(hu&&fl)TV.forEach(v=>add("tortita","Huevo",`Tortitas de ${low(v)}`,[v,hu,fl],T("Tortitas pequeñas y gorditas a la plancha, en tiras","Tortitas pequeñas a la plancha, en trocitos"),["Desayuno","Comida","Merienda","Cena"]));
+    if(hu&&av)dul.filter(f=>f.n!=="Plátano").slice(0,6).forEach(f=>add("tortita","Huevo",`Tortitas de avena con ${low(f)}`,[av,hu,f],"Tortitas pequeñas a la plancha, con la fruta rallada o aplastada en la masa",["Desayuno","Merienda"]));
+    if(pa)fish.forEach(f=>add("burger",f.n,`Croquetitas de ${low(f)} y patata`,[f,pa,...(hu?[hu]:[])],T("En forma de dedo, al horno o a la plancha","Pequeñas, al horno o a la plancha"),mainM));
+    leg.filter(l=>l.n!=="Garbanzos").forEach(l=>veg.slice(0,4).forEach(v=>add("hummus",l.n,`Crema de ${low(l)} con ${T("bastones","trocitos")} de ${low(v)}`,[l,v],T("Legumbre aplastada como un hummus, con la verdura muy cocida en bastones para mojar","Legumbre aplastada como un hummus, con la verdura muy cocida en trocitos"),["Comida","Merienda","Cena"])));
+    if(g("Garbanzos"))fru.filter(f=>/^(Manzana|Pera|Mango|Melocotón)$/.test(f.n)).forEach(f=>add("hummus","Garbanzos",`Hummus con ${T("tiras","trocitos")} de ${low(f)}`,[g("Garbanzos"),f],"Hummus suave para mojar, con la fruta muy madura",["Merienda"]));
+  }
   const sg=stage();
   if(sg==="blw")return out;
   const PU=new Set(["potito","chia","pure","guiso","mix","yogur","avena","queso","fruta","hummus","arroz"]),MD=new Set([...PU,"solo","tortilla","tostada"]),isP=r=>r.k||r.ings.some(n=>prot.some(x=>x.n===n));
@@ -3326,7 +3333,7 @@ function plan(){
       let L=R.filter(r=>ok(r,meal)&&(meal===newSlot?hasNew(r):!hasNew(r)));
       if(meal===newSlot&&o.rep&&window.__AGR&&__AGR[o.rep.x.n]){const pv=__AGR[o.rep.x.n],L5=L.filter(r=>r.n===pv);if(L5.length)L=L5;else{const pr=R.find(r=>r.n===pv),L6=pr?L.filter(r=>r.t===pr.t):[];if(L6.length)L=L6}}
       {const dr=tx>=4?["pure"]:tx===3&&(o.di+si)%2===0?["pure"]:[];const L3=L.filter(r=>!dr.includes(r.t));if(L3.length)L=L3}
-      const mixes=L.filter(r=>r.t!=="solo");if(mixes.length)L=mixes;
+      const mixes=L.filter(r=>r.t!=="solo"&&r.t!=="fruta");if(mixes.length)L=mixes;
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!usedN.has(r.n)&&!hasNew(r));
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
       {const L4=L.filter(r=>!(r.ings||[]).some(n=>usedI.has(n)&&!/^(AOVE|Aceite.*|Agua|Limón.*|Ajo|Cebolla|Perejil|Sal|Canela)$/.test(n)));if(L4.length)L=L4}
