@@ -3313,9 +3313,9 @@ function plan(){
   const covered=(n,di)=>bought[n]!==undefined&&di-bought[n]<lifeN(n);
   const buy=(n,di)=>{if(!covered(n,di)){bought[n]=di;buys[n]=(buys[n]||0)+1;(evs[n]=evs[n]||[]).push(di)}};
   const menuRows=o=>{
-    const R=recipesFor(o.kn,mo,pz),ms0=mealsFor(mo),xm0=(p.xm||{})[o.ds]||[],ms=MEALS.filter(m=>ms0.includes(m)||xm0.includes(m)),usedN=new Set(),usedK=new Set(),usedI=new Set(),rows=[],nn=o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]);
+    const R=recipesFor(o.kn,mo,pz),ms0=mealsFor(mo),xm0=(p.xm||{})[o.ds]||[],ms=MEALS.filter(m=>ms0.includes(m)||xm0.includes(m)),usedN=new Set(),usedK=new Set(),usedI=new Set(),rows=[],LKN=(o.__lk=o.ds<=today()&&Object.entries(firstDates()).some(([f,d])=>d===o.ds&&!o.items.some(x=>x.n===f)&&!(o.rep&&o.rep.x.n===f)))?new Set(o.items.map(x=>x.n)):null,nn=LKN?(o.rep?[o.rep.x.n]:[]):o.items.map(x=>x.n).concat(o.rep?[o.rep.x.n]:[]);
     nn.forEach(n=>buy(n,o.di));hist[o.di]=new Set();
-    const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
+    const hasNew=r=>r.ings.some(n=>nn.includes(n)),ok=(r,m)=>!(LKN&&(r.ings||[]).some(n=>LKN.has(n)))&&r.meals.includes(m)&&!usedN.has(r.n)&&!(r.k&&usedK.has(r.k));
     const algN=o.rep?o.rep.x.n:((o.items.find(x=>x.a)||{}).n||""),hasRec=Object.values(p.rec||{}).some(a=>a&&a.length),newSlot=nn.length?(algN?ms:FZ&&[...nn].every(n=>!isPrt(n))?[...ms.filter(m=>m!=="Comida"&&m!=="Cena"),...ms.filter(m=>m==="Comida"||m==="Cena")]:hasRec?[...ms.filter(m=>m==="Comida"||m==="Cena"),...ms.filter(m=>m!=="Comida"&&m!=="Cena")]:ms).find(m=>!gdAt(o.ds,m)&&R.some(r=>ok(r,m)&&hasNew(r))):null;
     const nevMeal=FZS.some(it=>it.loc==="nev"&&it.left>0&&o.ds>it.d&&o.ds<=it.x)?["Comida","Cena"].find(m=>ms.includes(m)&&m!==newSlot&&!gdAt(o.ds,m)&&!((p.skA||{})[o.ds]||[]).includes(m)&&!(((p.skm||{})[o.ds]||{})[m])&&!(((S.ov||{})[o.ds]||{})[m])&&!(((p.rec||{})[m]||[]).length)):null;
     ms.forEach((meal,si)=>{
