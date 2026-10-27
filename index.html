@@ -1141,7 +1141,7 @@ details.aep.rxa{margin-bottom:16px}
 .dwsv{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 14px;border-radius:14px;background:color-mix(in srgb,var(--blue) 12%,var(--card));border:1.5px solid color-mix(in srgb,var(--blue) 55%,transparent);color:var(--blue)}
 .dwsvl{display:inline-flex;align-items:center;gap:8px;font-size:.9rem}.dwsvl b{color:var(--ink)}
 .dwsv .dwok{width:auto;min-height:36px!important;padding:6px 18px!important;margin:0;font-size:.85rem}
-.dwrap:not(.lock) .dday{outline:2px dashed color-mix(in srgb,var(--blue) 55%,transparent);outline-offset:3px}
+.dwrap:not(.lock) .dwbody{outline:2px dashed color-mix(in srgb,var(--blue) 55%,transparent);outline-offset:6px;border-radius:22px}.dwbody .dside{position:static;display:flex;flex-direction:column;gap:18px;margin-top:18px}
 
 .dwrap:not(.lock)>.dwtop{display:block!important;margin:0 0 10px}.dwrap:not(.lock) .dwsv{width:100%}
 #fzbox .btn.ibt.iplus,#rcwrap .btn.ibt.iplus,.btn.ibt.iplus{border:1.5px solid var(--blue)!important;color:var(--blue)!important;background:transparent!important}
@@ -1216,7 +1216,7 @@ button.fzsm{background:transparent;font:inherit;font-size:.78rem;cursor:pointer}
 #rcwrap .rcfi .rcfsv{right:-8px!important}#rcwrap .rcfi .rcfed{right:26px!important}
 .ronly #sh .shq.shq3,#sh.ronly .shq.shq3,.ronly .shq.shq3{display:none!important}
 .tag.tagm{background:color-mix(in srgb,var(--terra) 14%,transparent);color:var(--terra);border:1px solid color-mix(in srgb,var(--terra) 45%,transparent)}
-.aglast{font-size:.72rem;color:var(--mute);font-weight:600;margin-left:6px;white-space:nowrap}.aglast.old{color:var(--terra)}.agmt{font-size:.84rem;margin:8px 0 0;padding:8px 12px 8px 14px;border-left:4px solid var(--green);border-radius:0 10px 10px 0;background:color-mix(in srgb,var(--green) 8%,transparent)}.agmt.old{border-left-color:var(--terra);background:color-mix(in srgb,var(--terra) 8%,transparent)}
+.aglast{font-size:.72rem;color:var(--mute);font-weight:600;margin-left:6px;white-space:nowrap}.aglast.old{color:var(--terra)}.agmt{font-size:.84rem;margin:10px 0 0;padding:10px 14px;border:1.5px solid color-mix(in srgb,var(--green) 55%,transparent);border-radius:14px;background:color-mix(in srgb,var(--green) 8%,transparent)}.agmt.old{border-color:color-mix(in srgb,var(--terra) 55%,transparent);background:color-mix(in srgb,var(--terra) 8%,transparent)}
 .tag.tsev{background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue);border:1px solid color-mix(in srgb,var(--blue) 40%,transparent)}.party.sev .phat{animation:sevb 3s ease-in-out infinite}@keyframes sevb{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-3px) rotate(4deg)}}@media (prefers-reduced-motion:reduce){.party.sev .phat{animation:none}}
 html.pain:not(.authed) #gate{display:none!important}html.pain:not(.authed) body>*:not(#ldr):not(script){visibility:hidden}
 #fzbox .fzc>.rcv>summary,#rcwrap .rcfi .fvrc .rcv>summary{padding-left:54px!important}
@@ -3341,7 +3341,7 @@ function plan(){
     done.forEach(n=>{const a=info(n);if(a&&a.fe)lastFe=d;if(a&&ZN.has(a.n))lastZn=d;if(a&&a.a){lastA=d;if(first[n]===ds&&unlocked(a)&&allowed(a,p)&&!blockedG(a))rp={x:a,left:2,n:1,d0:d}}});
     if(doneNew.length){lastNew=d;if(doneNew.some(n=>(info(n)||{}).c==="Proteínas"))lastPrt=d}if(doneNew.length)pvN=info(doneNew[0])||pvN;
     const items=[];let rep=null,pre=null;const noAl=[0,4,5,6].includes(dt.getDay());
-    if(rp&&rp.left>0&&rp.d0!==d){rp.left--;rp.n++;rep={x:rp.x,n:rp.n};lastA=d;lastNew=d}
+    if(rp&&rp.left>0&&rp.d0!==d&&p.agx&&p.agx[ds])rp=null;if(rp&&rp.left>0&&rp.d0!==d){rp.left--;rp.n++;rep={x:rp.x,n:rp.n};lastA=d;lastNew=d}
     else if(!doneNew.length&&d-lastNew>=every&&!evOf(ds)&&!(p.nnf&&p.nnf[ds])&&ds!==S.cd){
       let best=null,bs=-1e9;const kn0=n=>known.some(k=>k.n===n),T0=Object.values(cc).reduce((a,b)=>a+b,0);
       const nfs=(p.nfs&&p.nfs[ds])||[],nfd=p.nfd&&p.nfd[ds];
@@ -3568,7 +3568,7 @@ function plan(){
     const fm2=d=>d.toLocaleDateString(LOC(),{day:"numeric",month:"long"}),jn=a=>a.length>1?a.slice(0,-1).join(", ")+" y "+a[a.length-1]:a[0]||"";
     const rowOf=(o,dlab)=>{const x=o.items[0],dl=dlab;let body,mvb="";
       if(x){body=`<b>${esc(x.n)}</b>`;mvb=`<span class="wmv"><button type="button" class="wx" data-nfp="${esc(x.n)}" data-d="${o.ds}" aria-label="Cambiar ${esc(x.n)} por otro alimento"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button><button type="button" class="wh" data-mv="${esc(x.n)}" aria-label="Arrastrar para cambiar el orden de ${esc(x.n)}"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 8h16M4 12h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></span>`}
-      else if(o.rep)body=`<b>${esc(o.rep.x.n)}</b>`;
+      else if(o.rep){body=`<b>${esc(o.rep.x.n)}</b>`;mvb=`<span class="wmv"><button type="button" class="wx" data-agw="${o.ds}" data-agn="${esc(o.rep.x.n)}" aria-label="Cambiar ${esc(o.rep.x.n)} por otro alimento"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button><button type="button" class="wh" data-agw="${o.ds}" data-agn="${esc(o.rep.x.n)}" data-agm="1" aria-label="Mover ${esc(o.rep.x.n)}"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 8h16M4 12h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></span>`}
       else{const nf=o.done.filter(f=>first[f]===o.ds).sort((p,q)=>((info(q)||{}).a?1:0)-((info(p)||{}).a?1:0));body=nf.length?`<b>${nf.map(esc).join(", ")}</b><span class="wch"><span class="tag ok">${TT("Probado","Provat","Tried")}</span>${(()=>{const x0=info(nf[0]);if(!x0)return"";const g0=goals.filter(g=>g!=="alg"&&GS[g](x0)).slice(0,3);return g0.length?g0.map(g=>ntag(g)).join(""):nfFb(x0)})()}${nf.some(f=>(info(f)||{}).a)?`<span class="tag tal">${TT("Alérgeno","Al·lergen","Allergen")} · ${TT("día","dia","day")} 1/3</span>`:""}</span>`:`<b class="mute">Sin alimento nuevo</b><small>Recetas con lo que ya conoce</small>`}
       const xx=x||(o.rep&&o.rep.x),gt=xx?goals.filter(g=>g!=="alg"&&GS[g](xx)).slice(0,3):[],why="";
       const chips=xx?`<span class="wch">${gt.length?gt.map(g=>`${ntag(g)}`).join(""):nfFb(xx)}${SOAKRX.test(xx.n)?soakTag():""}${xx.a?`<span class="tag tal">${TT("Alérgeno","Al·lergen","Allergen")} · ${TT("día","dia","day")} ${!x&&o.rep?o.rep.n:1}/3</span>`:""}</span>`:"";
@@ -3616,7 +3616,7 @@ function plan(){
     const rows=mealsFor(mo).map(m=>{const v=ovd[m];if(v){const f=R0.find(x=>x.n===v.n);return[m,f||{t:"own",n:v.n,q:[],how:"",ings:v.i||[],g:figOf(v.i||[],pz)}]}return[m,{t:"vacio",n:mlo[m]?"Hecho":TT("Se la saltó","Se la va saltar","Skipped"),q:[],how:TT("Si comió algo, toca el lápiz para anotarlo","Si va menjar alguna cosa, toca el llapis per anotar-ho","If they ate something, tap the pencil to log it"),ings:[],g:fig("mash",0,0,pz)}]});
     const pRep=(()=>{const fA=Object.keys(first).filter(f=>{const x=info(f);if(!x||!x.a)return false;const g=Math.round((Date.parse(sd)-Date.parse(first[f]))/864e5);return g>=1&&g<=2}).sort((a,b)=>first[b].localeCompare(first[a]))[0];return fA?{x:info(fA),n:Math.round((Date.parse(sd)-Date.parse(first[fA]))/864e5)+1}:null})();
     pastO={dt,ds:sd,di:-1,items:done.filter(f=>first[f]===sd).map(info).filter(Boolean),rep:pRep,done,kn:kn0,rows,past:true};shown.push(pastO)}
-  $("days").innerHTML=useful?`<div class="wkrow"><button type="button" class="calb" id="calb" aria-label="Ver calendario"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button>${strip}</div>`+dayWrap(sd,pastO?dayCard(pastO):dayCard(shown.find(o=>o.ds===sd)||shown[0]))+'<div class="dside"><div id="rxside" class="card rxside hide"></div>'+(sd<=t0?dayNote(sd):"")+(sd===t0?soakFor(sd):"")+'</div>':'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
+  $("days").innerHTML=useful?`<div class="wkrow"><button type="button" class="calb" id="calb" aria-label="Ver calendario"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button>${strip}</div>`+(()=>{const side='<div class="dside"><div id="rxside" class="card rxside hide"></div>'+(sd<=t0?dayNote(sd):"")+(sd===t0?soakFor(sd):"")+'</div>',card=pastO?dayCard(pastO):dayCard(shown.find(o=>o.ds===sd)||shown[0]);return sd<t0?dayWrap(sd,card+side):card+side})():'<div class="card"><p class="mute">No quedan alimentos nuevos con estos filtros.</p></div>';
   $("days").querySelectorAll("button[data-pd]").forEach(b=>b.onclick=()=>{pdate=b.dataset.pd;rxKey=null;plan()});
   if($("calb"))$("calb").onclick=mcalOpen;bindDayNote();rxRestore();
   requestAnimationFrame(centerWk);setTimeout(centerWk,250);setTimeout(centerWk,800);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>centerWk());
@@ -4638,5 +4638,7 @@ onAuthStateChanged(auth,async u=>{
 })();
 </script>
 <script>document.addEventListener("click",e=>{const t=e.target.closest("[data-tkf]");if(t&&typeof openSheet==="function")openSheet(t.dataset.tkf)});</script>
+<script>document.addEventListener("click",e=>{const b=e.target.closest("[data-agw]");if(!b)return;e.preventDefault();e.stopPropagation();const ds=b.dataset.agw,n=b.dataset.agn,mv=b.dataset.agm;
+snack(TT(`Estamos con los 3 días seguidos de ${n.toLowerCase()} para ver si le sienta bien. ¿Seguro que quieres cambiarlo?`,`Estem amb els 3 dies seguits de ${n.toLowerCase()} per veure si li sent bé. Segur que el vols canviar?`,`We're on 3 days in a row of ${n.toLowerCase()} to check tolerance. Change it anyway?`),TT("Sí, cambiar","Sí, canviar","Yes, change"),()=>{S.prefs.agx=S.prefs.agx||{};S.prefs.agx[ds]=1;save();plan();if(!mv){nfDay=ds;$("nfsh_q").value="";nfDraw();$("nfsh").classList.remove("hide")}})},true);</script>
 </body>
 </html>
