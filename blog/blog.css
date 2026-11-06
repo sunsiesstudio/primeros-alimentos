@@ -1,0 +1,63 @@
+
+:root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--gold:#c9962f}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.7 Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--green)}
+.disp,h1,h2.t{font-family:"Luckiest Guy","Arial Rounded MT Bold",sans-serif;font-weight:400;letter-spacing:.02em}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(1080px,100% - 40px);margin:0 auto;padding:22px 0}
+.top .lg{display:block;width:clamp(120px,30vw,170px);flex:none}.top .lg svg{display:block;width:100%;overflow:visible}
+.top nav{display:flex;gap:18px;align-items:center;font-weight:700;font-size:.92rem}
+.top nav a{color:var(--ink);text-decoration:none}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:14px;background:var(--terra);color:#fff!important;font:800 .95rem Montserrat,sans-serif;text-decoration:none;box-shadow:0 4px 0 #a24f30}
+.wrap{width:min(1080px,100% - 40px);margin:0 auto}
+.hero{padding:56px 0 40px}
+.hero .kick{display:block;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.hero h1{color:var(--green);font-size:clamp(2.2rem,7vw,3.4rem);line-height:1.04;margin:0 0 14px}
+.hero p{color:var(--mute);max-width:34em;margin:0}
+.grid{display:grid;gap:22px;padding:20px 0 90px}
+.card{display:flex;flex-direction:column;gap:12px;padding:26px;border-radius:24px;background:var(--card);border:1.5px solid var(--line);text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(38,38,38,.08)}
+.card .ic{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#fff}
+.card .ic svg{width:42px;height:42px;overflow:visible}
+.card h2{font-size:1.2rem;line-height:1.3;margin:0}
+.card p{margin:0;color:var(--mute);font-size:.95rem;line-height:1.55}
+.card small{color:var(--terra);font-weight:700;font-size:.8rem}
+@media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
+.fd .o{stroke:none}
+/* artículo */
+.crumbs{font-size:.85rem;color:var(--mute);margin:30px 0 0}.crumbs a{color:var(--mute)}
+article{width:min(700px,100% - 40px);margin:0 auto;padding:0 0 60px}
+article header{padding:26px 0 30px}
+article header .ic{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;background:var(--card);margin:0 0 20px}
+article header .ic svg{width:56px;height:56px;overflow:visible}
+article h1{color:var(--green);font-size:clamp(2rem,6vw,2.9rem);line-height:1.06;margin:0 0 16px}
+.meta{color:var(--mute);font-size:.88rem;font-weight:600}
+.lead{font-size:1.15rem;line-height:1.65;margin:22px 0 0}
+article h2{font-size:1.45rem;line-height:1.25;margin:48px 0 14px;color:var(--ink);font-weight:800}
+article p{margin:0 0 18px}
+article ul,article ol{padding-left:24px;margin:0 0 20px}article li{margin:0 0 10px}
+article li::marker{color:var(--terra);font-weight:800}
+.faq{margin:52px 0 0;padding:28px;border-radius:24px;background:var(--card);border:1.5px solid var(--line)}
+.faq h2{margin-top:0}
+.faq details{border-top:1px solid var(--line);padding:14px 0}.faq details:first-of-type{border-top:0}
+.faq summary{cursor:pointer;font-weight:700;list-style:none}.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;color:var(--terra);font-weight:800}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:10px 0 0;color:var(--mute)}
+.cta{margin:52px 0 0;padding:32px;border-radius:24px;background:var(--green);color:#fff;text-align:center}
+.cta .t{font-size:1.7rem;line-height:1.1;margin:0 0 10px}
+.cta p{margin:0 0 20px;color:rgba(255,255,255,.88)}
+.rel{margin:52px 0 0}.rel h2{margin-top:0}
+.rel a.r{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:700}
+.rel a.r svg{width:34px;height:34px;flex:none;overflow:visible}
+.note{margin:40px 0 0;font-size:.85rem;color:var(--mute)}
+.sec{font-family:"Luckiest Guy",sans-serif;font-weight:400;color:var(--terra);font-size:1.8rem;letter-spacing:.02em;margin:40px 0 0}
+.jump{display:flex;gap:10px;margin-top:20px!important}.jump a{padding:8px 16px;border-radius:99px;background:var(--card);border:1.5px solid var(--line);text-decoration:none;color:var(--ink);font-weight:700;font-size:.9rem}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.pills span{padding:6px 14px;border-radius:99px;background:var(--card);border:1.5px solid var(--line);font-weight:700;font-size:.85rem}
+.alg{font-size:.95rem;color:var(--mute)}.reel{margin:6px 0 10px}
+.ing li::marker{content:"• "}.steps li{padding-left:4px}
+.grid{padding-bottom:30px!important}
+footer{background:var(--green);color:rgba(255,255,255,.85);text-align:center;padding:44px 24px 50px;font-size:.85rem}
+footer a{color:#fff}footer .links{display:flex;justify-content:center;gap:22px;font-weight:700;margin:0 0 14px}
+footer p{max-width:36em;margin:0 auto}
+@media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
