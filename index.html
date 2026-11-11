@@ -2960,6 +2960,7 @@ function vRestore(){let o=null;try{o=JSON.parse(sessionStorage.getItem("pa_view"
 addEventListener("pagehide",vSave);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")vSave()});
 function swIdx(){if(curV===1)return 0;if(curV===3)return 1;if(curV===5)return 5;if(curV===2)return psub===3?4:psub===2?2:3;return -1}
 function renderSw(){let k=swIdx();const g=k<0?null:SW[k][0],w=$("fsw");if(g==="H")k=-1;w.classList.toggle("hide",k<0);if(k<0)return;w.innerHTML=SW.map((x,i)=>x[0]===g?`<button type="button" class="btn${i===k?" on":""}${x[1]==="Menú del día"?" swm":""}" data-sw="${i}" role="tab" aria-selected="${i===k}">${x[1]}</button>`:"").join("");w.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{SW[+b.dataset.sw][2]();window.scrollTo(0,0)});const on=w.querySelector(".on");if(on&&on.scrollIntoView)w.scrollLeft=Math.max(0,on.offsetLeft-20)}
+function mkEat(d,m){if(d>today())return;setTimeout(()=>{if(S.ml[d]&&S.ml[d][m])return;const b=[...document.querySelectorAll("#days button.mt[data-d]")].find(x=>x.dataset.d===d&&x.dataset.ml===m);if(b)b.click()},0)}
 function navOn(){$("t4").classList.toggle("on",curV===4);const k=swIdx();if(k>=0){if(SW[k][0]==="A")selA=k;else if(SW[k][0]==="B")selB=k}$("nH").classList.toggle("on",k>=0&&SW[k][0]==="H");$("nA").classList.toggle("on",k>=0&&SW[k][0]==="A");$("nB").classList.toggle("on",k>=0&&SW[k][0]==="B")}
 function tab(n){curV=n;document.body.dataset.v=n;{const br=$("byrow");if(br)br.classList.toggle("hide",n!==4);const an=$("aepn");if(an)an.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));navOn();renderSw();if(n===1){board();paintRecent()}if(n===2){plan();renderNut();paintProg()}if(n===3){renderCal();renderTrack();paintProg()}if(n===5)renderSchool();window.scrollTo(0,0);vSave()}
 renderSw();$("nH").onclick=()=>SW[3][2]();$("nA").onclick=()=>SW[selA][2]();$("nB").onclick=()=>SW[selB][2]();$("t4").onclick=()=>tab(4);
@@ -3750,7 +3751,7 @@ function plan(){
       $("chg_p").querySelectorAll(".pk").forEach(k=>k.onclick=()=>{const n=k.dataset.n;sel.add(n);rem.delete(n);paint()})};
     $("chg_s").oninput=paint;$("chg_x").oninput=()=>{paint();const q=$("chg_q");if(q){q.value=$("chg_x").value;if(q.oninput)q.oninput()}};paint();
     $("chg").classList.remove("hide");
-    const bindL=lst=>$("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=lst[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n,i:r.ings.slice()});{const z=r.fzi?null:stockFor(r.n,d);if(r.fzi||z){S.frzA=S.frzA||{};S.frzA[d+"|"+m]=r.fzi||z.id}else if(S.frzA)delete S.frzA[d+"|"+m]}$("chg").classList.add("hide");save();render()});
+    const bindL=lst=>$("chg_l").querySelectorAll("button").forEach(bb=>bb.onclick=()=>{const r=lst[+bb.dataset.i];dropMeal(d,m);setOv(d,m,{n:r.n,i:r.ings.slice()});{const z=r.fzi?null:stockFor(r.n,d);if(r.fzi||z){S.frzA=S.frzA||{};S.frzA[d+"|"+m]=r.fzi||z.id}else if(S.frzA)delete S.frzA[d+"|"+m]}$("chg").classList.add("hide");save();render();mkEat(d,m)});
     bindL(alts);
     {const base=$("chg_l").innerHTML,qi=$("chg_q"),RR2=recipesFor(o.kn,mo,pz),SV='<span class="chgsv" aria-label="Receta guardada"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg></span>';
       qi.value="";qi.oninput=()=>{const q=norm(qi.value.trim());if(!q){$("chg_l").innerHTML=base;bindL(alts);return}
@@ -3765,7 +3766,9 @@ function plan(){
       // Si ya estaba marcado como comido, se mantiene (y cómo ha ido) al corregir el nombre del plato
       {const keep=S.ml[d]&&S.ml[d][m]?JSON.parse(JSON.stringify(S.ml[d][m])):null;dropMeal(d,m);if(keep){S.ml[d]=S.ml[d]||{};S.ml[d][m]=keep}}setOv(d,m,ii.length?{n:t,i:ii}:{n:t});
       {const z=(window.__FZS||[]).find(x=>x.left>0&&norm(x.n)===norm(t)&&x.d<=d&&!(x.loc==="nev"&&x.x<today()));S.frzA=S.frzA||{};if(z)S.frzA[d+"|"+m]=z.id;else delete S.frzA[d+"|"+m]}
-      $("chg").classList.add("hide");save();render()};});
+      $("chg").classList.add("hide");const wasMk=!!(S.ml[d]&&S.ml[d][m]);save();render();
+      // Hoy o un día pasado: lo que se apunta cuenta como comido directamente
+      if(!wasMk)mkEat(d,m)};});
 
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&today()!==lastDay){lastDay=today();pdate=null;render()}});
