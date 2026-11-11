@@ -284,7 +284,7 @@ details.gfull{margin-top:14px}
 .dnote{margin-top:12px}.dnote .nsub{margin:0 0 14px;font-size:1rem;font-weight:700;color:var(--ink)}.dnote>p{margin:0 0 12px;font-size:.85rem}.dnc{display:flex;flex-wrap:wrap;gap:8px}.dnc .pk.on{background:var(--blue);border-color:var(--blue);color:#1b1d2e}.dnc .dnx.on{background:var(--mute);border-color:var(--mute)}.dnh{margin:10px 0 0!important;font-size:.8rem}.dnote textarea{width:100%;margin-top:16px;font:inherit;resize:vertical}
 .mch2{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 40px 12px}.mch2 h3{margin:0;font-size:1.3rem;color:var(--green);min-width:150px;text-align:center;white-space:nowrap}.mnav{background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:50%;width:34px;height:34px;font-size:1.2rem;cursor:pointer}
 .mcg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.mch{text-align:center;font-size:.72rem;color:var(--mute);text-transform:uppercase;padding:2px 0}.mcd{aspect-ratio:1;border:1.5px solid transparent;border-radius:10px;background:color-mix(in srgb,var(--line) 40%,transparent);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:0;font:inherit}.mcd b{font-size:.9rem;font-weight:600}.mcd.today b{color:var(--blue);font-weight:800}.mcd.sel{border-color:var(--blue)}.mcd.nc{opacity:.45}.mdots{display:flex;gap:2px;min-height:6px}.mdots i,.mleg i{width:6px;height:6px;border-radius:50%;display:inline-block}
-.d-new{background:var(--terra)}.d-ok{background:var(--green)}.d-pl{background:#6aa4d8}.d-nq{background:#a98bd8}.d-rx{background:#d6453d}.d-dn{background:var(--mute)}
+.mcic{position:relative;width:26px;height:26px;display:grid;place-items:center;border-radius:50%}.mcic svg{width:26px!important;height:26px!important}.mcic.kn{opacity:.45}.mcic.rx{box-shadow:0 0 0 2px #d6453d}.mcic em{position:absolute;right:-9px;bottom:-3px;font-style:normal;font-size:.56rem;font-weight:800;color:var(--terra)}.mcd.hasic{gap:1px}.mcd.hasic b{font-size:.78rem}.d-kn{opacity:.45}.d-new{background:var(--terra)}.d-ok{background:var(--green)}.d-pl{background:#6aa4d8}.d-nq{background:#a98bd8}.d-rx{background:#d6453d}.d-dn{background:var(--mute)}
 .mleg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:12px 0;font-size:.75rem;color:var(--mute)}.mleg span{display:flex;align-items:center;gap:5px}
 .mdet{border-top:1px solid var(--line);padding-top:14px}.mdet>b{display:block;margin-bottom:8px}.mdet ul{list-style:none;margin:0 0 10px;padding:0}.mdet li{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px dashed var(--line);font-size:.9rem}.mdet li:first-child{border-top:0}.mdet li small{margin-left:auto;color:var(--mute);font-size:.78rem}.mdet .btn{width:100%;max-width:none;margin-top:8px}
 .cico{flex:none;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;margin-right:10px}.cico svg{width:28px;height:28px}details.g>summary,details.grp>summary{min-height:56px;align-items:center}
@@ -1727,7 +1727,7 @@ document.documentElement.lang=LANG;
   <div class="mtw"><button type="button" class="mtoday" id="mcal_h">Hoy</button></div>
 </div>
   <div class="mcg" id="mcal_g"></div>
-  <div class="mleg"><span><i class="d-new"></i>Alimento nuevo</span><span><i class="d-ok"></i>Ha comido</span><span><i class="d-pl"></i>Solo ha jugado</span><span><i class="d-nq"></i>No ha querido</span><span><i class="d-rx"></i>Reacción</span></div>
+  <div class="mleg"><span><i class="d-new"></i>Nuevo</span><span><i class="d-ok d-kn"></i>Ya lo conocía</span><span><i class="d-rx"></i>Reacción</span></div>
   <div class="mdet" id="mcal_d"></div>
 </div></div>
 <div class="sheet hide full" id="shs" role="dialog" aria-label="Lista de la compra"><div>
@@ -3402,12 +3402,14 @@ function mcalDraw(){const y=mcalM.getFullYear(),mo=mcalM.getMonth(),fdm=firstDat
   const w0=(new Date(y,mo,1).getDay()+6)%7,nd=new Date(y,mo+1,0).getDate(),hd=[...Array(7)].map((_,i)=>new Date(2024,0,1+i).toLocaleDateString(LOC(),{weekday:"narrow"}));
   let h=hd.map(x=>`<span class="mch">${x}</span>`).join("")+"<span></span>".repeat(w0);
   for(let d=1;d<=nd;d++){const ds=dstr(new Date(y,mo,d)),L=S.log.filter(l=>l.d===ds&&!l.pre),nw=L.some(l=>fdm[l.f]===ds),rx=L.some(l=>l.r==="react"),pl=L.some(l=>l.r==="play"),nq=L.some(l=>l.r==="no"),dn=(S.dn||{})[ds],nc=dn&&dn.t.includes("nocuenta");
-    const dots=[nw?'<i class="d-new"></i>':"",rx?'<i class="d-rx"></i>':"",!nw&&!rx&&L.length?'<i class="d-ok"></i>':"",pl&&!rx?'<i class="d-pl"></i>':"",nq&&!rx?'<i class="d-nq"></i>':""].join("");
-    h+=`<button type="button" class="mcd${ds===t0?" today":""}${ds===mcalSel?" sel":""}${nc?" nc":""}" data-md="${ds}"><b>${d}</b><span class="mdots">${dots}</span></button>`}
+    // El dibujo del alimento nuevo del día (o, si no hubo, de lo que comió); con aro rojo si hubo reacción
+    const nf=[...new Set(L.filter(l=>fdm[l.f]===ds&&l.r!=="no").map(l=>l.f))].sort((a,b)=>((info(b)||{}).a?1:0)-((info(a)||{}).a?1:0)),kn=[...new Set(L.filter(l=>l.r!=="no").map(l=>l.f))],rxf=(L.find(l=>l.r==="react")||{}).f,main=rxf||nf[0]||kn[kn.length-1]||"";
+    const pic=main?`<span class="mcic${nf.length?" nw":" kn"}${rx?" rx":""}">${ico(main)}${nf.length>1?`<em>+${nf.length-1}</em>`:""}</span>`:"";
+    h+=`<button type="button" class="mcd${ds===t0?" today":""}${ds===mcalSel?" sel":""}${nc?" nc":""}${main?" hasic":""}" data-md="${ds}"${main?` aria-label="${d}: ${esc(tFood(main))}"`:""}><b>${d}</b>${pic}</button>`}
   h+="<span></span>".repeat(Math.max(0,42-w0-nd));$("mcal_g").innerHTML=h;
   if(!mcalSel){$("mcal_d").innerHTML='<p class="mute">Toca un día para ver qué comió.</p>';$("mcal_g").querySelectorAll("[data-md]").forEach(b=>b.onclick=()=>{mcalSel=b.dataset.md;mcalDraw()});return}
   const L=S.log.filter(l=>l.d===mcalSel&&!l.pre),dn=(S.dn||{})[mcalSel],dt=new Date(mcalSel+"T00:00:00");
-  $("mcal_d").innerHTML=`<b>${dt.toLocaleDateString(LOC(),{weekday:"long",day:"numeric",month:"long"}).replace(/^./,c=>c.toUpperCase())}</b>`+(L.length?`<ul>${L.map(l=>{const mr=l.r==="mix"?((((S.ml||{})[l.d]||{})[l.ml]||{}).r):l.r,er=mr&&RL[mr]&&mr!=="mix"?mr:"ok",lb=mr&&RL[mr]&&mr!=="mix"?RL[mr]:TT("Ha comido","Ha menjat","Ate");return `<li><span class="dot rc-${er}"></span>${esc(l.f)}${fdm[l.f]===mcalSel?' <span class="tag tnew">Alimento nuevo</span>':""}<small>${esc(lb)}</small></li>`}).join("")}</ul>`:'<p class="mute">No hay alimentos registrados este día.</p>')+(dn?`<p class="mute">${dn.t.map(k=>k==="caca"&&dn.cc>1?TT(`${dn.cc} cacas`,`${dn.cc} caques`,`${dn.cc} poops`):(DNK.find(x=>x[0]===k)||[,""])[1]).filter(Boolean).map(esc).join(" · ")}${[dn.n,...(dn.c||[])].filter(x=>x&&!dnAuto(x).length).map((x,i)=>(i||dn.t.length?"<br>":"")+esc(x.charAt(0).toUpperCase()+x.slice(1))).join("")}</p>`:"")+`<button type="button" class="btn" id="mcal_go">Ver este día</button>`;
+  $("mcal_d").innerHTML=`<b>${dt.toLocaleDateString(LOC(),{weekday:"long",day:"numeric",month:"long"}).replace(/^./,c=>c.toUpperCase())}</b>`+(L.length?`<ul>${L.map(l=>{const mr=l.r==="mix"?((((S.ml||{})[l.d]||{})[l.ml]||{}).r):l.r,er=mr&&RL[mr]&&mr!=="mix"?mr:"ok",lb=mr&&RL[mr]&&mr!=="mix"?RL[mr]:TT("Ha comido","Ha menjat","Ate");return `<li><span class="dot rc-${er}"></span>${esc(l.f)}${fdm[l.f]===mcalSel?' <span class="tag tnew">'+TT("Nuevo","Nou","New")+'</span>':""}<small>${esc(lb)}</small></li>`}).join("")}</ul>`:'<p class="mute">No hay alimentos registrados este día.</p>')+(dn?`<p class="mute">${dn.t.map(k=>k==="caca"&&dn.cc>1?TT(`${dn.cc} cacas`,`${dn.cc} caques`,`${dn.cc} poops`):(DNK.find(x=>x[0]===k)||[,""])[1]).filter(Boolean).map(esc).join(" · ")}${[dn.n,...(dn.c||[])].filter(x=>x&&!dnAuto(x).length).map((x,i)=>(i||dn.t.length?"<br>":"")+esc(x.charAt(0).toUpperCase()+x.slice(1))).join("")}</p>`:"")+`<button type="button" class="btn" id="mcal_go">Ver este día</button>`;
   $("mcal_g").querySelectorAll("[data-md]").forEach(b=>b.onclick=()=>{mcalSel=b.dataset.md;mcalDraw()});
   $("mcal_go").onclick=()=>{pdate=mcalSel;$("mcal").classList.add("hide");tab(2);subtab(1);plan();window.scrollTo({top:0})}}
 let pdate=null,lastDay=today(),wkReord=false,wkAdd=false,wkQ="",wkCat="Todos",wkRep="",wkOpen=false;
@@ -4263,13 +4265,13 @@ function firstEaten(){const f=firstDates(),ed=eatenByDay();Object.keys(ed).forEa
 const mealR=(n,ig,isNew,rate,last)=>n==="AOVE"?"mix":(ig.length>1&&!isNew)?"mix":(rate||(MR.includes(last)?last:"meh"));
 // Arreglo puntual de los registros de Pol (10-11-2026): el plato «yogur de coco» apuntó también coco y yogur natural,
 // y la manteca de avellana no contó como avellana. Quita lo que sobra y apunta la avellana como día 1 de 3 de frutos de cáscara.
-function fixPol(){let ch=false;const D0="2026-11-10",BAD=["Coco","Yogur natural"];
+function fixPol(){let ch=false;const BAD=["Coco","Yogur natural"];
   (DB.babies||[]).forEach(b=>{if(norm(String(b.nm||"")).trim()!=="pol")return;b.mig=b.mig||[];b.log=b.log||[];b.ov=b.ov||{};
     // 1) Coco y yogur natural de ayer, salvo que algún plato de ese día los nombre de verdad
-    {const ov=b.ov[D0]||{},named=new Set(Object.values(ov).flatMap(v=>inferIngs(v.n||"")));
-      BAD.filter(f=>!named.has(f)).forEach(f=>{const n0=b.log.length;b.log=b.log.filter(l=>!(l.d===D0&&l.f===f&&(l.m||l.sv==="rec"||l.ml)));if(b.log.length!==n0)ch=true;Object.values(ov).forEach(v=>{if(Array.isArray(v.i)&&v.i.includes(f)){v.i=v.i.filter(n=>n!==f);ch=true}})})}
+    ["2026-11-10","2026-11-11"].forEach(D0=>{const ov=b.ov[D0]||{},named=new Set(Object.values(ov).flatMap(v=>inferIngs(v.n||"")));
+      BAD.filter(f=>!named.has(f)).forEach(f=>{const n0=b.log.length;b.log=b.log.filter(l=>!(l.d===D0&&l.f===f&&(l.m||l.sv==="rec"||l.ml)));if(b.log.length!==n0)ch=true;Object.values(ov).forEach(v=>{if(Array.isArray(v.i)&&v.i.includes(f)){v.i=v.i.filter(n=>n!==f);ch=true}})})})
     // 2) Avellana como día 1 de 3 (una sola vez, para que se pueda borrar después si hace falta)
-    if(!b.mig.includes("pol-avellana")){b.mig.push("pol-avellana");ch=true;
+    if(!b.mig.includes("pol-avellana")){const D0="2026-11-10";b.mig.push("pol-avellana");ch=true;
       if(!b.log.some(l=>l.f==="Avellana"&&l.r!=="no"&&l.d<=D0)){let D=null,M=null;
         Object.keys(b.ov).filter(d=>d>="2026-11-04"&&d<="2026-11-11").sort().some(d=>Object.keys(b.ov[d]).some(m=>{if(/avellan/.test(norm(b.ov[d][m].n||""))){D=d;M=m;return true}return false}));
         if(!D){D=D0;const ov=b.ov[D0]||{};M=Object.keys(ov).find(m=>/yogur de coco/.test(norm(ov[m].n||"")))||Object.keys((b.ml||{})[D0]||{})[0]||Object.keys(ov)[0]||null}
