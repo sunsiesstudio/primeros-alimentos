@@ -2871,7 +2871,7 @@ async function buildPng(){DKX=isDarkX();
   const foods=ALL.filter(x=>m[x.n]),tot=foods.length;
   sec(TT("Alimentos probados","Aliments provats","Foods tried")+" ("+tot+")");
   const imgs={};await Promise.all(foods.map(async x=>{const sv=ico(x.n).replace('<svg class="fd"','<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"');imgs[x.n]=await loadSvg(sv)}));
-  const foot=50,avail=H-y-foot;let cols=4,lh=30,fs=18;
+  const foot=110,avail=H-y-foot;let cols=4,lh=30,fs=18;
   const need=(c,l)=>{let rows=0,nc=0;C.forEach(cat=>{const n=foods.filter(x=>x.c===cat[0]).length;if(n){rows+=1+Math.ceil(n/c);nc++}});return rows*l+nc*8};
   for(const [c,l,f] of [[4,30,18],[5,28,17],[5,25,15],[6,23,14],[7,21,13],[8,19,12]]){cols=c;lh=l;fs=f;if(need(c,l)<=avail)break}
   const CW=(W-2*P)/cols,isz=lh-6;
@@ -2884,6 +2884,7 @@ async function buildPng(){DKX=isDarkX();
     y+=Math.ceil(xs.length/cols)*lh+4});
   if(!tot){g.fillStyle=INK;g.font='500 20px '+FF;g.fillText(TT("Todavía no se ha registrado ningún alimento.","Encara no s'ha registrat cap aliment.","No foods logged yet."),P,y);y+=40}
   g.fillStyle=MU;g.font='500 15px '+FF;g.fillText(TT("! reacción anotada · ♥ le encanta · Anotado por la familia en Primeros alimentos. No sustituye al pediatra.","! reacció anotada · ♥ li encanta · Anotat per la família a Primers aliments. No substitueix el pediatre.","! reaction logged · ♥ loves it · Logged by the family in First foods. Not a substitute for the paediatrician."),P,H-foot+10);
+  {const lg=document.getElementById("blogo"),lbl=TT("Hecho por ","Fet per ","Made by "),fy=H-34;g.font='500 18px '+FF;g.fillStyle=MU;g.textBaseline="alphabetic";if(lg&&lg.complete&&lg.naturalWidth){const lh=46,lw=lh*lg.naturalWidth/lg.naturalHeight,tw=g.measureText(lbl).width,sx=W/2-(tw+lw)/2;g.textAlign="left";g.fillText(lbl,sx,fy);g.drawImage(lg,sx+tw,fy-lh*.68,lw,lh)}else{g.textAlign="center";g.fillText(lbl+"sunsies studio",W/2,fy)}g.textAlign="left";g.textBaseline="top"}
   if(arguments[0]==="canvas")return cv;
   return new Promise(r=>cv.toBlob(r,"image/png"));
 }
