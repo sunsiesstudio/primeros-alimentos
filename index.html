@@ -4833,7 +4833,7 @@ window.__auth=(u,d,pending)=>{try{const m=$("adm");if(m)m.classList.toggle("hide
   render()};
 window.__data=d=>{setTimeout(()=>{IDB.get(LKEY()).then(b=>{if(b&&b.babies&&(b.ts||0)>(DB.ts||0)){setDB(mergeDB(snap(),b));saveLocal();save();try{render()}catch(e){}}})},1500);const dirty=isDirty(),loc=snap(),sy=getSync();if(d&&!dirty){if((loc.ts||0)>(d.ts||0)&&anyData()){setDB(mergeDB(d,loc));saveLocal();setDirty(true)}else{setDB(d);saveLocal()}if(d.ts)setSync(d.ts)}else if(d&&dirty&&(d.ts||0)>sy){setDB(mergeDB(d,loc));saveLocal()}
   LOADED=true;$("err").textContent="";render();if(WAITING){WAITING=false;enterApp()}if((!d||dirty)&&anyData())save();askProfile()};
-window.__fail=code=>{LOADED=false;$("err").textContent="";setTimeout(()=>snack(TT("No se pudo conectar con tu cuenta. Mientras tanto, lo que anotes se guarda en este dispositivo.","No s'ha pogut connectar amb el teu compte. Mentrestant, el que anotis es desa en aquest dispositiu.","Couldn't connect to your account. Meanwhile, what you log is saved on this device."),TT("Reintentar","Torna-ho a provar","Retry"),()=>location.reload()),400);render();if(WAITING){WAITING=false;enterApp()}askProfile()};
+window.__fail=code=>{LOADED=false;$("err").textContent="";setTimeout(()=>snack(TT("No se pudo conectar con tu cuenta. Mientras tanto, lo que anotes se guarda en este dispositivo.","No s'ha pogut connectar amb el teu compte. Mentrestant, el que anotis es desa en aquest dispositiu.","Couldn't connect to your account. Meanwhile, what you log is saved on this device.")+(code?" ("+code+")":""),TT("Reintentar","Torna-ho a provar","Retry"),()=>location.reload()),400);render();if(WAITING){WAITING=false;enterApp()}askProfile()};
 $("so").onclick=()=>window.cloud&&window.cloud.logout();
 
 $("shx").onclick=()=>$("sh").classList.add("hide");
@@ -4925,10 +4925,16 @@ let tries=0;
 onAuthStateChanged(auth,async u=>{
   if(!u){window.__auth(null);return}
   window.__auth(u,null,true);
-  try{
-    const snap=await Promise.race([getDoc(doc(db,"users",u.uid)),new Promise((_,no)=>setTimeout(()=>no({code:"timeout"}),15000))]);
-    window.__data(snap.exists()?snap.data():null);
-  }catch(e){window.__fail((e&&e.code)||"error")}
+  let last="error";
+  for(const [w,to] of [[0,12000],[2500,15000],[6000,20000]]){
+    if(w)await new Promise(r=>setTimeout(r,w));
+    if(!auth.currentUser||auth.currentUser.uid!==u.uid)return;
+    try{
+      const snap=await Promise.race([getDoc(doc(db,"users",u.uid)),new Promise((_,no)=>setTimeout(()=>no({code:"timeout"}),to))]);
+      window.__data(snap.exists()?snap.data():null);return;
+    }catch(e){last=(e&&e.code)||"error";console.warn("[load] intento fallido",last);if(/permission-denied|unauthenticated/.test(last))break}
+  }
+  window.__fail(last)
 });
 </script>
 <script>
