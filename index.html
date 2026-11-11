@@ -3612,8 +3612,8 @@ function plan(){
     const tg=o.items.flatMap(n=>goals.filter(g=>GS[g](n)).map(g=>`${ntag(g)}`)).join(" ")+(o.items.some(n=>n.a)?' <span class="tag w">alérgeno</span>':"");
     const mealsList=[...new Set(o.rows.flatMap(([mm,r])=>r.ings))];
     const btns="";
-    const ro=isT&&stage()!=="pure"&&(S.prefs.sty||"")!=="mix"&&(S.prefs.sty||"")!=="pure"?mashOnly().filter(x=>!o.items.includes(x)).slice(0,1):[];
-    const reto=ro.map(x=>`<details class="reto rtd"><summary><b>¡Anímate con ${w}!</b></summary><p>Solo ha probado ${esc(x.n)} en puré o aplastado. Ofrécelo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></details>`).join("");
+    const ro=isT&&stage()!=="pure"&&(S.prefs.sty||"")!=="mix"&&(S.prefs.sty||"")!=="pure"?mashOnly().filter(x=>!o.items.includes(x)&&mealsList.includes(x.n)).slice(0,1):[];
+    const reto=ro.map(x=>`<details class="reto rtd"><summary><b>¡Anímate con ${w}!</b></summary><p>${(()=>{const mr=o.rows.find(([mm,r])=>(r.ings||[]).includes(x.n));return mr?`En ${esc(mr[0].toLowerCase())} lleva ${esc(x.n.toLowerCase())}. `:""})()}Solo lo ha probado en puré o aplastado: esta vez ofréceselo en ${w} para que lo agarre con las manos.</p><button class="btn" data-n="${esc(x.n)}" data-d="${o.ds}" data-pc="1">Probamos en ${w}</button></details>`).join("");
     const how=`<details class="how"><summary>Cómo ofrecerlo</summary><p class="mute">${y.tl}</p>${o.items.map(n=>presHtml(n,pz)).join("")}</details>`;
     const menu=menuHtml(o,o.rows);
     return `<div class="card dday"><b class="disp" style="color:var(--green);font-size:1.25rem">${fmt(o.dt)}</b>${isT?' <span class="tag">Hoy</span>':""}${o.items[0]||!y.head||o.past?"":`<p class="hd">${y.head}</p>`}${isT?dcSug():""}${btns?`<div class="bt">${btns}</div>`:""}${reto}${menu}${""}</div>`};
