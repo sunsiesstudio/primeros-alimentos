@@ -1449,6 +1449,7 @@ html.pain:not(.authed) #gate{display:none!important}html.pain:not(.authed) body>
 .wkr .wkwl{display:block;font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
 .wkr .wkwl.now{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--terra);color:var(--bg,#1f221f);margin-bottom:4px}
 .wkhd>.wknav .wkr{line-height:1.15;white-space:nowrap!important;display:flex!important;flex-direction:column;align-items:center}
+html.vpend main{visibility:hidden}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -1464,6 +1465,7 @@ if(/^https?:$/.test(u.protocol)){e.preventDefault();location.href=u.href}},true)
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
+<script>try{if((performance.getEntriesByType("navigation")[0]||{}).type==="reload"&&sessionStorage.getItem("pa_view")){document.documentElement.classList.add("vpend");setTimeout(()=>document.documentElement.classList.remove("vpend"),4000)}}catch(e){}</script>
 <script>
 // Idioma. La app está escrita en castellano; el catalán y el inglés se aplican al mostrarla.
 // Fase 1: interfaz y nombres de alimentos. Recetas, consejos y textos largos de Info siguen en castellano.
@@ -3186,7 +3188,7 @@ const SITQ={e:["sigue estreñido","ya no está estreñido"],d:["sigue con diarre
 let curV=1,psub=1,VREST=false;const MKE=new Set();
 const vSave=()=>{if(!VREST)return;try{sessionStorage.setItem("pa_view",JSON.stringify({v:curV,s:psub,rt:typeof rtab==="string"?rtab:"",y:Math.round(scrollY)}))}catch(e){}};
 let __hidAt=0;document.addEventListener("visibilitychange",()=>{if(document.hidden){__hidAt=Date.now();return}if(__hidAt&&Date.now()-__hidAt>10*60*1000&&VREST){try{document.querySelectorAll(".sheet:not(.hide),.fpg:not(.hide)").forEach(e=>e.classList.add("hide"));psub=1;tab(2);subtab(1);window.scrollTo(0,0)}catch(e){}}__hidAt=0});
-function vRestore(){let o=null,k=0;try{k=sessionStorage.getItem("pa_keep")==="1";sessionStorage.removeItem("pa_keep");o=JSON.parse(sessionStorage.getItem("pa_view")||"null")}catch(e){}VREST=true;if(!k||!o||!o.v){try{psub=1;tab(2);subtab(1);window.scrollTo(0,0)}catch(e){}return}if(o.v===1&&o.rt!=="al"){return}
+function vRestore(){setTimeout(()=>document.documentElement.classList.remove("vpend"),30);let o=null,k=0;try{k=sessionStorage.getItem("pa_keep")==="1"||((performance.getEntriesByType&&performance.getEntriesByType("navigation")[0]||{}).type==="reload");sessionStorage.removeItem("pa_keep");o=JSON.parse(sessionStorage.getItem("pa_view")||"null")}catch(e){}VREST=true;if(!k||!o||!o.v){try{psub=1;tab(2);subtab(1);window.scrollTo(0,0)}catch(e){}return}if(o.v===1&&o.rt!=="al"){return}
   try{if(o.v===2){tab(2);subtab(o.s||1)}else if(o.v===3){setRT(o.rt||"al");tab(3)}else if(o.v===4||o.v===5)tab(o.v);else if(o.rt)setRT(o.rt)}catch(e){}
   if(o.y)setTimeout(()=>window.scrollTo(0,o.y),450)}
 addEventListener("pagehide",vSave);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")vSave()});
