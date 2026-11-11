@@ -1438,6 +1438,12 @@ html.pain:not(.authed) #gate{display:none!important}html.pain:not(.authed) body>
 .wstack>.wdc{grid-area:auto!important}
 .wstack>.wdc.off{visibility:visible!important;pointer-events:auto!important}
 .wstack>.wdc.past.off,.wstack>.wdc.off.past{opacity:.75}
+.wstack{min-width:0;max-width:100%}
+.wstack>.wdc{width:100%;min-width:0;max-width:100%;box-sizing:border-box}
+.wstack .wdh2{flex-wrap:wrap;row-gap:8px}
+.wstack .wdh2 .wnc{max-width:100%;flex-wrap:wrap}
+.wstack .wdh2 .tsoak{white-space:normal}
+.wstack .wml,.wstack .wmls{min-width:0}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
