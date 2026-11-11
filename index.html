@@ -1381,6 +1381,16 @@ html.pain:not(.authed) #gate{display:none!important}html.pain:not(.authed) body>
 :root[data-theme="dark"] .wtk.wtkf{background:#5a2a37!important;color:#f6c1cf!important}
 .shlast{margin:0 0 12px;padding:10px 14px;border-radius:14px;background:color-mix(in srgb,var(--ink) 6%,transparent);font-size:.9rem;color:var(--mute)}
 .shlast b{color:var(--ink)}
+#shedit.shedb{display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,var(--blue,#9b8cff) 14%,transparent);border:1.5px dashed color-mix(in srgb,var(--blue,#9b8cff) 55%,transparent)}
+#shedit.shedb.ed{border-style:solid;background:color-mix(in srgb,var(--terra) 12%,transparent);border-color:var(--terra)}
+#shedit .shedi{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--ink)}
+#shedit>span:last-child{flex:1;min-width:0;text-align:left!important}
+#shedit b{display:block;font-size:1rem;color:var(--ink);text-align:left!important}
+#shedit small{display:block;font-size:.82rem;color:var(--mute);margin-top:2px;line-height:1.3}
+#shform.ro>#shedit{opacity:1!important}
+#shform.ro #shp figure:not(.sel){display:none}
+#shform.ro.ronone #shp,#shform.ro.ronone #shq1{display:none!important}
+#shform.ro #shp{grid-template-columns:1fr!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -2504,7 +2514,7 @@ let shBase=null;
 function shSig(){return [...$("shform").querySelectorAll("button,figure,input,select,textarea,img")].filter(e=>!e.closest("#shdelw,#shrob,.shft")).map(e=>(e.id||e.tagName)+"|"+(e.matches("input[type=file]")?"":e.className)+"|"+(e.getAttribute("aria-pressed")||"")+"|"+(e.type==="checkbox"?e.checked:(e.value||""))+"|"+(e.tagName==="IMG"?(e.src||"").length:"")).join("§")}
 ["click","input","change"].forEach(ev=>document.addEventListener(ev,e=>{if(shBase!==null&&e.target.closest&&e.target.closest("#shform"))setTimeout(()=>{if(shBase!==null)$("ok").disabled=shSig()===shBase},0)},true));
 {const f=$("shform");if(f)f.querySelectorAll(".shmore > .shft").forEach(x=>f.appendChild(x))}
-function shMode(m){const f=$("shform");f.classList.toggle("ro",m==="ro");$("shrob").classList.toggle("hide",m!=="ro");f.querySelector(".shft:not(#shrob)").classList.toggle("hide",m==="ro");
+function shMode(m){const f=$("shform");if(m==="new"){const eb=$("shedit");eb.className="hide";eb.innerHTML=""}f.classList.toggle("ro",m==="ro");$("shrob").classList.toggle("hide",m!=="ro");f.querySelector(".shft:not(#shrob)").classList.toggle("hide",m==="ro");
   $("ok").textContent=m==="edit"?"Guardar cambios":"Guardar";shBase=null;if(m==="edit"){$("ok").disabled=true;setTimeout(()=>{shBase=shSig();$("ok").disabled=true},60)}if(m!=="ro")$("shnote").classList.add("hide");$("shdelw").classList.toggle("hide",m==="new");{const w=$("shdelw");if(m==="ro")$("shrob").after(w);else if($("rest"))$("rest").before(w)}$("shdelq").classList.add("hide");$("shdel").classList.remove("hide")}
 // Borra un registro; si ya no queda ninguno anotado a mano, quita también los que salían solo de marcar comidas
 function shDelLog(k){const it=S.log[k],f=it&&it.f;if(!it)return;const days=new Set([it.d]);S.log.splice(k,1);if(f&&!S.log.some(l=>l.f===f&&!l.m)){S.log.filter(l=>l.f===f&&l.m).forEach(l=>days.add(l.d));S.log=S.log.filter(l=>!(l.f===f&&l.m))}
@@ -2536,8 +2546,11 @@ function shHist(n,direct){const L=S.log.map((l,i)=>({...l,i})).filter(l=>l.f===n
   hs.querySelectorAll("[data-ti]").forEach(b=>b.onclick=()=>{shWant=+b.dataset.ti;openSheet(cur)});
   {const t=hs.querySelector(".shtab.on");if(t)setTimeout(()=>t.scrollIntoView({inline:"center",block:"nearest"}),0)}
   if(isNew){shMode("new");return}
-  const l=L.find(z=>z.i===selI);fillForm(l);shMode("ro");$("shnote").classList.toggle("hide",!l.pre);
-  $("shred").onclick=()=>{curEdit=l.i;shMode("edit")};
+  const l=L.find(z=>z.i===selI);fillForm(l);shMode("ro");$("shnote").classList.toggle("hide",!l.pre);{const dl=lab(l),nod=l.nd||(l.pre&&!l.dset),eb=$("shedit"),cal='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
+    const setB=m=>{eb.className="shedb"+(m==="edit"?" ed":"");eb.innerHTML=`<span class="shedi">${cal}</span><span><b>${m==="edit"?(nod?TT("Editando el registro sin fecha","Editant el registre sense data","Editing the undated entry"):TT(`Editando el registro del ${dl}`,`Editant el registre del ${dl}`,`Editing the entry from ${dl}`)):(nod?TT("Registro sin fecha","Registre sense data","Undated entry"):TT(`Registro del ${dl}`,`Registre del ${dl}`,`Entry from ${dl}`))}</b><small>${m==="edit"?TT("Cambia lo que quieras y guarda.","Canvia el que vulguis i desa.","Change what you need and save."):TT("Así lo anotaste. Para cambiarlo, toca Editar.","Així ho vas anotar. Per canviar-ho, toca Edita.","This is what you logged. Tap Edit to change it.")}</small></span>`};
+    setB("ro");if(l.pre)$("shnote").textContent=TT("Lo marcaste como ya probado antes, sin más detalles.","El vas marcar com a ja provat abans, sense més detalls.","Marked as tried before, with no more details.");
+    $("shform").classList.toggle("ronone",!$("shp").querySelector("figure.sel"));window.__shSetB=setB}
+  $("shred").onclick=()=>{curEdit=l.i;shMode("edit");window.__shSetB&&window.__shSetB("edit");$("shform").classList.remove("ronone");$("shedit").scrollIntoView({block:"nearest"})};
   $("shren").onclick=()=>{shWant="new";openSheet(cur)};
   $("shdel").onclick=()=>{const k=l.i,it=S.log[k];if(!it||it.f!==cur)return;const old=S.log.slice(),oldOv=JSON.parse(JSON.stringify(S.ov||{})),fd0=firstDates()[it.f];shDelLog(k);save();render();const cx=(info(it.f)||{}).a&&fd0===it.d&&firstDates()[it.f]!==it.d;snack(TT("Registro borrado","Registre esborrat","Entry deleted")+(cx?TT(` · se cancela el seguimiento de ${it.f.toLowerCase()}`,` · es cancel·la el seguiment de ${it.f.toLowerCase()}`,` · ${it.f} tracking cancelled`):""),TT("Deshacer","Desfés","Undo"),()=>{S.log=old;S.ov=oldOv;save();render();if(!$("sh").classList.contains("hide"))openSheet(cur)});openSheet(cur)};
   $("shdeln").onclick=()=>{$("shdelq").classList.add("hide");$("shdel").classList.remove("hide")};
