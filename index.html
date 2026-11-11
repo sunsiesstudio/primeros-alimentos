@@ -1414,6 +1414,11 @@ html.pain:not(.authed) #gate{display:none!important}html.pain:not(.authed) body>
 .chgcard>.chgrc .rcv{margin:0!important}
 #chg_f{margin-bottom:18px}
 #chg_l{gap:10px}
+.sitln{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:.88rem;color:var(--mute)}
+.sitln>svg{color:var(--terra);flex:none}
+.sitln span{flex:1;min-width:0}
+.sitln b{color:var(--ink);font-weight:700}
+.sitlx{border:0;background:none;color:var(--blue,#9b8cff);font:inherit;font-weight:700;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:0}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -4604,7 +4609,7 @@ function bindSit(root){if(!root)return;
     const bt=$("sit_add");if(bt)bt.onclick=add;const inp=$("sit_in");if(inp)inp.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();add()}};
     root.querySelectorAll("[data-situ]").forEach(b=>b.onclick=()=>{const x=sitM();delete x[b.dataset.situ];if(!Object.keys(x).length)delete S.prefs.sit;save();plan();try{renderNut()}catch(e){}})}
   root.querySelectorAll("[data-sit]").forEach(b=>b.onclick=()=>{const k=b.dataset.sit,x=sitM(),was=!!x[k];if(was)delete x[k];else{x[k]={s:today()};if(k==="e")delete x.d;if(k==="d")delete x.e}S.prefs.sit=x;if(!Object.keys(x).length)delete S.prefs.sit;save();plan();try{renderNut()}catch(e){};snack(!was?TT("Menú adaptado","Menú adaptat","Menu adapted"):TT("Quitado","Tret","Removed"))})}
-const sitHtml=()=>{const on=sits(today()),x=sitM(),u=Object.keys(x).filter(k=>k.startsWith("u:"));if(!on.length&&!u.length)return "";const SPK='<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z" fill="currentColor"/></svg>';return `<div class="sitw sitsm">${on.filter(k=>SIT[k]).map(k=>`<div class="sitt"><span class="pk on dnu sitk">${SPK}${esc((x[k]&&x[k].l)||SIT[k][0])}<button type="button" class="dnrm" data-sit="${k}" aria-label="${TT("Quitar","Treu","Remove")}">×</button></span></div>`).join("")}${u.map(k=>`<div class="sitt"><span class="pk on dnu sitk">${SPK}${esc(x[k].l)}<button type="button" class="dnrm" data-situ="${esc(k)}" aria-label="${TT("Quitar","Treu","Remove")}">×</button></span></div>`).join("")}</div>`};
+const sitHtml=()=>{const td=today(),x=sitM(),on=sits(td).filter(k=>SIT[k]&&!(SITQ[k]&&(x[k]||{}).s<td)),u=Object.keys(x).filter(k=>k.startsWith("u:"));if(!on.length&&!u.length)return "";const SPK='<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z" fill="currentColor"/></svg>',row=(lab,attr)=>`<p class="sitln">${SPK}<span>${TT("Menú adaptado","Menú adaptat","Menu adapted")}: <b>${esc(lab.charAt(0).toLowerCase()+lab.slice(1))}</b></span><button type="button" class="sitlx" ${attr}>${TT("Quitar","Treu","Remove")}</button></p>`;return `<div class="sitw sitsm">${on.map(k=>row((x[k]&&x[k].l)||SIT[k][0],`data-sit="${k}"`)).join("")}${u.map(k=>row(x[k].l,`data-situ="${esc(k)}"`)).join("")}</div>`};
 function renderEv(){const c=$("evcard");if(!c)return;const ev=S.prefs.ev||{},t0=today(),up=Object.keys(ev).filter(d=>d>=t0).sort();
   const fdl=d=>{const s=new Date(d+"T00:00:00").toLocaleDateString(LOC(),{weekday:"long",day:"numeric",month:"short"});return s.charAt(0).toUpperCase()+s.slice(1)};
   const opts=[...Array(14)].map((_,i)=>{const x=new Date(t0+"T00:00:00");x.setDate(x.getDate()+i);const d=dstr(x);return `<option value="${d}">${i===0?TT("Hoy","Avui","Today"):i===1?TT("Mañana","Demà","Tomorrow"):esc(fdl(d))}</option>`}).join("");
