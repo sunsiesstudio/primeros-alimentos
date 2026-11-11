@@ -3297,7 +3297,7 @@ function recipesWith(n){const x=info(n);if(!x)return[];const m=stats(),kn=ALL.fi
     for(const r of R0){if(out.length>=4)break;const k=r.t;if(seen.has(k))continue;seen.add(k);out.push({...r,n:/ con /.test(r.n)?`${r.n.replace(/ y ([^ ]+)$/,", $1")} y ${lo(n)}`:`${r.n} con ${lo(n)}`,ings:[...r.ings,n],q:[...(r.q||[]),`Una pizca de ${lo(n)}`],xs:`Añade una pizca de ${lo(n)} al final, para que coja sabor`})}}
   return out}
 // Resumen del día: notas rápidas de la familia (y si el día no cuenta para los objetivos)
-const DNS=["mucho","poco","nada"];
+const DNS=[];
 const DNP=[["mucho",/(mucho|todo|repetid|repite|devor|zamp|hambre)/],["poco",/(poco|poquito|apenas|desgana)/],["nada",/(no ha querido|no queria|rechaz|nada de nada|ni lo ha probado|cerrado la boca)/],["jugar",/(jug|tirad|tirado|al suelo|aplast)/],["caca",/(caca|deposic)/],["nocaca",/(estren|no ha hecho caca|sin caca)/],["dientes",/(diente|dentic|encia)/],["malito",/(malit|fiebre|mocos|\btos\b|vomit|enferm|catarro|diarrea|resfri|gastro)/],["vacuna",/vacun/],["fuera",/(abuel|fuera de casa|restaurante|viaje|guarde|escuela infantil|escoleta|escola bressol|de excursion)/],["cansado",/(cansad|sueno|dormid|siesta|agotad)/]];
 const dnAuto=t=>{const q=norm(String(t||""));return q.trim()?DNP.filter(([k,re])=>re.test(q)).map(([k])=>k):[]};
 const dnTags=v=>v?[...new Set([...(v.t||[]),...dnAuto(v.n)])]:[];
