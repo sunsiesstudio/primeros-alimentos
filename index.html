@@ -4441,14 +4441,16 @@ async function posterCanvas(W,H){DKX=isDarkX();
   foods.forEach((f,i)=>{const col=i%cols,row=Math.floor(i/cols),X=P+col*(cw+gap),Y=gyS+row*(ch+gap),ok=!!m[f.n],cc=(C.find(c=>c[0]===f.c)||[0,KX("#999")])[1];
     rr(X,Y,cw,ch,10*u);x.fillStyle=ok?KX("#fffdf6"):CARD;x.fill();x.lineWidth=ok?3*u:1.5*u;x.strokeStyle=ok?cc:LINE;x.stroke();
     x.textAlign="left";x.fillStyle=ok?cc:KX("#a9a691");x.font=`700 ${Math.max(9,12*cw/96)}px Montserrat,sans-serif`;x.fillText("#"+String(i+1).padStart(3,"0"),X+7*u,Y+16*cw/96);
+    const nm=tFood(f.n),fsz=Math.max(8,13*cw/96);x.font=`${ok?700:500} ${fsz}px Montserrat,sans-serif`;
+    const words=nm.split(" "),lines=[];let cur="";words.forEach(w=>{const t=cur?cur+" "+w:w;if(x.measureText(t).width>cw-8*u&&cur){lines.push(cur);cur=w}else cur=t});if(cur)lines.push(cur);
+    const L=lines.slice(0,2),kk=cw/96,top=Y+20*kk,avail=ch-20*kk-6*kk,lh=fsz*1.1,tH=L.length*lh,gp=4*kk,iS=Math.max(10,Math.min(isz,avail-tH-gp)),blk=iS+gp+tH,iy=top+Math.max(0,(avail-blk)/2);
     const im=ims[i];if(im){ox.clearRect(0,0,off.width,off.height);ox.globalCompositeOperation="source-over";ox.drawImage(im,0,0,off.width,off.height);
       if(!ok){ox.globalCompositeOperation="source-atop";ox.fillStyle=KX("#cfcab3");ox.fillRect(0,0,off.width,off.height)}
-      x.drawImage(off,X+(cw-isz)/2,Y+ch*.15,isz,isz)}
+      x.drawImage(off,X+(cw-iS)/2,iy,iS,iS)}
     {const k=cw/96,bx=X+cw-13*k,byy=Y+13*k,st=m[f.n],fav=st&&st.last==="love",alg=S.log.some(l=>l.f===f.n&&l.r==="react")||/^(alergia|sospecha)$/.test((S.al||{})[AG[f.n]]||(S.al||{})["x:"+f.n]||"");
-      if(fav)heart(bx,byy,8*k,KX("#d9475a"));else if(ok)star(bx,byy,9*k,T);if(alg)warnB(X+cw/2+isz/2-2*k,Y+ch*.15+isz-4*k,8.5*k)}
-    const nm=tFood(f.n),fsz=Math.max(8,13*cw/96);x.textAlign="center";x.fillStyle=ok?INK:KX("#9a9784");x.font=`${ok?700:500} ${fsz}px Montserrat,sans-serif`;
-    const words=nm.split(" "),lines=[];let cur="";words.forEach(w=>{const t=cur?cur+" "+w:w;if(x.measureText(t).width>cw-8*u&&cur){lines.push(cur);cur=w}else cur=t});if(cur)lines.push(cur);
-    const L=lines.slice(0,2),ly=Y+ch*.15+isz+fsz*1.15;L.forEach((l,k)=>{let s=l;while(x.measureText(s).width>cw-6*u&&s.length>3)s=s.slice(0,-2)+"…";x.fillText(s,X+cw/2,ly+k*fsz*1.12)})});
+      if(fav)heart(bx,byy,8*k,KX("#d9475a"));else if(ok)star(bx,byy,9*k,T);if(alg)warnB(X+cw/2+iS/2-2*k,iy+iS-4*k,8.5*k)}
+    x.textAlign="center";x.fillStyle=ok?INK:KX("#9a9784");x.font=`${ok?700:500} ${fsz}px Montserrat,sans-serif`;
+    const ly=iy+iS+gp+fsz*.85;L.forEach((l,k)=>{let s=l;while(x.measureText(s).width>cw-6*u&&s.length>3)s=s.slice(0,-2)+"…";x.fillText(s,X+cw/2,ly+k*lh)})});
   // leyenda en una sola línea, que se ajusta al ancho
   {const lgY=gEnd+40*u,its=C.map(c=>["c",(I18N.ui[c[0]]?(LANG==="ca"?I18N.ui[c[0]][0]:LANG==="en"?I18N.ui[c[0]][1]:c[0]):c[0]),c[1]]).concat([["s",TT("Probado","Provat","Tried")],["h",TT("Le encanta","Li encanta","Loves it")],["w",TT("Alergia","Al·lèrgia","Allergy")]]);
     let fs=17*u,ws,tw;const mw=W-2*P;do{x.font=`600 ${fs}px Montserrat,sans-serif`;ws=its.map(t=>x.measureText(t[1]).width+fs*1.25+fs*.9);tw=ws.reduce((a,b)=>a+b,0)-fs*.9;if(tw<=mw)break;fs-=.5}while(fs>9);
