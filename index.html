@@ -1619,6 +1619,9 @@ html body .iidx:not([open]) .iidx-ch{margin-left:4px;opacity:.75}
 .wdc .wdi,.wnc .wdi{background:color-mix(in srgb,var(--wc,var(--terra)) 20%,var(--card))!important}
 #mcal_go{margin-bottom:calc(28px + env(safe-area-inset-bottom,0px))!important}
 #mcal .mdet{padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+#mcal .mcd{position:relative;overflow:visible}
+#mcal .mcd .mcic{position:static}
+#mcal .mcic em{position:absolute;right:0;bottom:0;transform:translate(50%,50%);z-index:2;min-width:22px;height:22px;padding:0 4px;box-sizing:border-box;border-radius:11px;background:var(--terra);color:#fff;border:2px solid var(--card);display:grid;place-items:center;font-size:.6rem;line-height:1;font-weight:800}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
