@@ -5290,6 +5290,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-mstory]");
 <script>document.addEventListener("click",e=>{const b=e.target.closest("[data-wfo]");if(!b)return;e.preventDefault();try{openSheet(b.dataset.wfo)}catch(x){}});</script>
 <script>try{["gesturestart","gesturechange"].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}))}catch(e){}</script>
 <script>document.addEventListener("click",e=>{const b=e.target.closest("[data-nflock]");if(!b)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();snack(TT("Ya ha comido algo con este alimento, así que no se puede cambiar ni quitar aquí. Si quieres, cambia el plato desde el menú del día.","Ja ha menjat alguna cosa amb aquest aliment, així que no es pot canviar ni treure aquí. Si vols, canvia el plat des del menú del dia.","They've already eaten something with this food, so it can't be changed or removed here. You can change the dish in the day's menu."))},true);</script>
+<script>(function(){const op=()=>document.querySelector(".iidx[open]");const blk=e=>{const o=op();if(!o)return;if(o.contains(e.target)&&o.scrollHeight>o.clientHeight)return;e.preventDefault()};document.addEventListener("touchmove",blk,{passive:false});document.addEventListener("wheel",blk,{passive:false});document.addEventListener("click",e=>{const o=op();if(o&&!o.contains(e.target)){o.open=false}},true)})();</script>
 </body>
 </html>
 
