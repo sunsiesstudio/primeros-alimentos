@@ -3954,7 +3954,7 @@ function plan(){
   const useful=out.some(o=>o.items.length||o.done.length||o.kn.length);
   $("rem").innerHTML="";
   const wkd=dt=>dt.toLocaleDateString(LOC(),{weekday:"short"}).replace(".","");
-  const pastD=[];for(let k=innerWidth>=1100&&!document.documentElement.classList.contains("native")?14:7;k>=1;k--){const dt=new Date(start);dt.setDate(start.getDate()-k);pastD.push({dt,ds:dstr(dt)})}
+  const pastD=[];const kBack=Math.max(innerWidth>=1100&&!document.documentElement.classList.contains("native")?14:7,pdate&&pdate<dstr(start)?Math.min(400,Math.round((start-new Date(pdate+"T00:00:00"))/864e5)):0);for(let k=kBack;k>=1;k--){const dt=new Date(start);dt.setDate(start.getDate()-k);pastD.push({dt,ds:dstr(dt)})}
   const allD=[...pastD.map(x=>({...x,past:true})),...shown.map(o=>({dt:o.dt,ds:o.ds,o}))];
   const sd=allD.some(x=>x.ds===pdate)?pdate:t0;
   const __f1={};S.log.forEach(l=>{if(l.r!=="no"&&(!__f1[l.f]||l.d<__f1[l.f]))__f1[l.f]=l.d});
