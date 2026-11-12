@@ -5275,7 +5275,7 @@ function stSheet(){let el=document.getElementById("stsh");if(el)return el;el=doc
   return el}
 async function openStory(ds){const el=stSheet(),pv=el.querySelector("#stsh_pv");shSt={ds};pv.innerHTML=`<p class="mute">${TT("Preparando la imagen…","Preparant la imatge…","Preparing the image…")}</p>`;el.querySelector("#stsh_sh").disabled=true;el.querySelector("#stsh_dl").disabled=true;el.classList.remove("hide");
   const blob=await makeStory(ds);if(!blob){el.classList.add("hide");return}const file=new File([blob],`menu-${ds}.png`,{type:"image/png"});shSt={ds,blob,file};const u=URL.createObjectURL(blob);pv.innerHTML=`<img src="${u}" alt="">`;el.querySelector("#stsh_sh").disabled=false;el.querySelector("#stsh_dl").disabled=false}
-document.addEventListener("click",e=>{const w=e.target.closest("[data-wkback]");if(w){e.preventDefault();e.stopPropagation();wkOff=0;wkSel=null;plan()}});
+document.addEventListener("click",e=>{const w=e.target.closest("[data-wkback]");if(w){e.preventDefault();e.stopPropagation();wkOff=0;wkSel=today();pdate=today();plan();setTimeout(()=>{const c=document.querySelector(`#pv3 [data-wday="${today()}"]`);if(c)window.scrollTo({top:c.getBoundingClientRect().top+scrollY-90,behavior:"smooth"})},60)}});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-mstory]");if(!b)return;e.preventDefault();e.stopPropagation();openStory(b.dataset.mstory)});
 })();
 </script>
