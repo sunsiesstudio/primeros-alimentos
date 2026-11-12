@@ -2521,7 +2521,7 @@ generic:c=>`<path d="M50 10C76 10 94 32 94 60C94 88 76 104 50 104C24 104 6 88 6 
 };
 const PK=[[/^Aguacate$/,"avocado"],[/^(Fresas|Frambuesas|Cerezas|Granada)$/,"strawberry"],[/^(Zanahoria|Chirivía)$/,"carrot"],[/^Huevo$/,"egg"],[/^(Calabaza|Boniato|Calabacín)$/,"pumpkin"],[/^Plátano$/,"banana"],[/^(Brócoli|Coliflor|Coles de Bruselas)$/,"broccoli"],[/^(Tomate|Pimiento rojo)$/,"tomato"],[/^(Pera|Manzana|Membrillo cocido|Melocotón|Nectarina|Albaricoque|Caqui|Mango|Papaya|Kiwi|Chirimoya|Níspero|Piña|Melón|Sandía|Higos|Dátiles)$/,"pear"],[/^(Naranja|Mandarina|Pomelo|Maracuyá)$/,"orange"],[/^(Patata|Nabo)$/,"potato"],[/^(Castaña|Avellana|Nuez|Nuez de Brasil|Nuez pecana|Almendra|Anacardo|Pistacho|Macadamia|Cacahuete|Piñones|Sésamo \(tahini\))$/,"nut"],[/^(Uvas|Arándanos|Ciruela|Mora)$/,"grapes"],[/^(Pollo|Pavo|Cerdo|Cordero|Ternera|Conejo)$/,"drum"],[/^(Garbanzos|Lentejas|Lentejas rojas|Alubias .*|Guisantes|Habas tiernas)$/,"bean"]];
 const PEARC={Melocotón:"#f1a56a",Nectarina:"#ef7a3a",Albaricoque:"#f2a93b",Caqui:"#ee8a2e",Mango:"#f4b02a",Papaya:"#f08a3a",Kiwi:"#a8c43a",Piña:"#f1c232",Melón:"#f2b36a",Sandía:"#e24a5a",Higos:"#a06a8a",Dátiles:"#8a5a30",Chirimoya:"#a7c47a",Níspero:"#e8a032"};
-const GENC={"Frutas":"#f0a050","Verduras":"#7bb661","Proteínas":"#e0a090","Cereales":"#e0c48a","Frutos secos":"#b98b5e","Lácteos":"#f1e7cf","Condimentos":"#8fb76a"};
+const GENC={"Frutas":"#f0a050","Verduras":"#7bb661","Proteínas":"#e0a090","Cereales":"#e0c48a","Frutos secos":"#b98b5e","Lácteos":"#8fb6d9","Condimentos":"#8fb76a"};
 function posterChar(n,cat){
   const k=PK.find(([re])=>re.test(n));let body,label=null;
   if(k)body=PC[k[1]](k[1]==="pear"?PEARC[n]:undefined);else{body=PC.generic(GENC[cat]||"#e0c48a");label=n}
