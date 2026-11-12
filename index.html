@@ -3333,7 +3333,7 @@ function drawOb(){
   if($("ob_pass"))$("ob_pass").onclick=()=>{if(i===2&&OB.ya===null)OB.ya=false;if(i===1&&!OB.bd){const d=new Date(today()+"T00:00:00");d.setMonth(d.getMonth()-6);OB.bd=dstr(d)}if(i===3)OB.fo.clear();else if(i===4)OB.al={};else if(i===7){OB.eat="";OB.sty=""}else if(i===8)OB.meals=0;else if(i===10)OB.sty="";else OB.app="";const n=obSteps();OB.s=n[n.indexOf(i)+1]!==undefined?n[n.indexOf(i)+1]:n.find(k=>k>i);drawOb();o.scrollTop=0};
   if($("ob_x"))$("ob_x").onclick=()=>{const b=DB.babies[DB.cur];$("ob").classList.add("hide");if(b&&DB.babies.length>1&&!(b.log||[]).length){DB.babies.splice(DB.cur,1);DB.cur=Math.max(0,DB.babies.length-1);S=DB.babies[DB.cur]}save();render()};
   if($("ob_fin"))$("ob_fin").onclick=()=>obFinish();if($("ob_back"))$("ob_back").onclick=()=>{OB.s=st[st.indexOf(i)-1];drawOb();o.scrollTop=0};
-  if($("ob_skip"))$("ob_skip").onclick=()=>{obSkip=true;try{localStorage.setItem(SKK(),"1")}catch(e){}$("ob").classList.add("hide");if(!(S.prefs||{}).tour)setTimeout(()=>{try{SW[8][2]();window.scrollTo(0,0);appTour()}catch(e){}},300)};
+  if($("ob_skip"))$("ob_skip").onclick=()=>{obSkip=true;try{localStorage.setItem(SKK(),"1")}catch(e){}$("ob").classList.add("hide");if(!((typeof DB!=="undefined"&&DB.babies)||[S]).some(b=>((b||{}).prefs||{}).tour))setTimeout(()=>{try{SW[8][2]();window.scrollTo(0,0);appTour()}catch(e){}},300)};
   if($("ob_out"))$("ob_out").onclick=()=>{$("ob").classList.add("hide");if(window.cloud)window.cloud.logout();else{window.__auth(null)}};
 }
 function obFinish(){
@@ -5314,7 +5314,7 @@ const LDR=(()=>{let sleep=false,sg=[0,0],calm=0,mode=null,raf=0,t0=0,B=[],gx=0,g
 // si no (primera vez o navegación privada), el login espera con "Entrando…" hasta tener sus alimentos.
 const btnReset=()=>["ein","eup"].forEach(k=>{const b=$(k);if(b){b.disabled=false;if(b.dataset.t)b.textContent=b.dataset.t}});
 const enterApp=()=>{$("gate").classList.add("hide");LDR.stop();btnReset();
-  try{document.activeElement&&document.activeElement.blur()}catch(e){}window.scrollTo(0,0);requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>{window.scrollTo(0,0);if(!VREST)vRestore()},400);setTimeout(()=>{try{if(S&&S.nm&&!(S.prefs||{}).tour&&$("ob").classList.contains("hide")&&!document.querySelector(".obwel,.tour")){SW[8][2]();window.scrollTo(0,0);obWelcome()}}catch(e){}},2500)};
+  try{document.activeElement&&document.activeElement.blur()}catch(e){}window.scrollTo(0,0);requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>{window.scrollTo(0,0);if(!VREST)vRestore()},400);setTimeout(()=>{try{if(S&&S.nm&&!((typeof DB!=="undefined"&&DB.babies)||[S]).some(b=>((b||{}).prefs||{}).tour)&&$("ob").classList.contains("hide")&&!document.querySelector(".obwel,.tour")){SW[8][2]();window.scrollTo(0,0);obWelcome()}}catch(e){}},2500)};
 const ADMINS=["martinasoles@gmail.com","sunsiesstudio@gmail.com"];
 let WAITING=false;
 window.__auth=(u,d,pending)=>{try{const m=$("adm");if(m)m.classList.toggle("hide",!(u&&u.email&&ADMINS.includes(u.email.toLowerCase())))}catch(e){}try{if(u)localStorage.setItem("pa_in","1");else localStorage.removeItem("pa_in")}catch(e){}document.documentElement.classList.add("authed");if(u)window.__wasIn=true;USER=u;LOADED=!!u&&!pending;$("ob").classList.add("hide");obSkip=getSkip();
