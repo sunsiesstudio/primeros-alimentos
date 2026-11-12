@@ -5283,6 +5283,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-mstory]");
 })();
 </script>
 <script>document.addEventListener("click",e=>{const b=e.target.closest("[data-wfo]");if(!b)return;e.preventDefault();try{openSheet(b.dataset.wfo)}catch(x){}});</script>
+<script>try{["gesturestart","gesturechange"].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}))}catch(e){}</script>
 </body>
 </html>
 
