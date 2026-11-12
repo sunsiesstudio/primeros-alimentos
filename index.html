@@ -3023,7 +3023,7 @@ function renderProfile(){
   $("vbd").textContent=S.bd?new Date(S.bd+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
   const wk=d=>d<7?`${d} día${d===1?"":"s"}`:`${Math.floor(d/7)} semana${Math.floor(d/7)===1?"":"s"}`,ra=age(true);
   $("vage").textContent=ra&&ra.mo>=24&&!(a&&a.pre)?moTxt(ra.mo):ra?wk(ra.days)+(a&&a.pre?` · corregida: ${a.days>=0?wk(a.days)+" ("+a.mo+" m)":"aún antes de la fecha prevista"}`:` (${ra.mo} mes${ra.mo===1?"":"es"})`):"Sin calcular";
-  if($("pf_milk"))$("pf_milk").value=(S.prefs||{}).milk||"";$("vga").textContent=S.ga?S.ga+" semanas"+(S.ga<37?" (prematuro)":""):"No indicado";
+  if($("pf_milk")){$("pf_milk").value=(S.prefs||{}).milk||"";const r=$("pf_milk").closest(".prow");if(r)r.classList.toggle("hide",!!(ra&&ra.mo>=24))}$("vga").textContent=S.ga?S.ga+" semanas"+(S.ga<37?" (prematuro)":""):"No indicado";
   gdProf();
   $("valg").textContent=Object.keys(S.al||{}).map(g=>gLab(g)+" ("+(S.al[g]==="alergia"?"confirmada":S.al[g]==="sospecha"?"sospecha":"preguntar al pediatra")+")").join(", ")||"Ninguna indicada";
   {const nc=Object.keys(stats()).length;$("vcnt").textContent=nc+(nc===1?" alimento":" alimentos")}
