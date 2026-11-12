@@ -1622,6 +1622,10 @@ html body .iidx:not([open]) .iidx-ch{margin-left:4px;opacity:.75}
 #mcal .mcd{position:relative;overflow:visible}
 #mcal .mcd .mcic{position:static}
 #mcal .mcic em{position:absolute;right:0;bottom:0;transform:translate(50%,50%);z-index:2;min-width:22px;height:22px;padding:0 4px;box-sizing:border-box;border-radius:11px;background:var(--terra);color:#fff;border:2px solid var(--card);display:grid;place-items:center;font-size:.6rem;line-height:1;font-weight:800}
+html body .iidx:not([open]){min-width:min(220px,calc(100% - 40px))!important;padding:2px 20px!important}
+html body .iidx:not([open])>summary{justify-content:space-between!important;gap:14px!important}
+html body .iidx:not([open]) .iidx-t{text-align:left!important}
+html body .iidx:not([open]) .iidx-ch{margin-left:0!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
