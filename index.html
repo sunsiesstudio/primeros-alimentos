@@ -1640,6 +1640,15 @@ body:has(.fpg:not(.hide)) .rtabs,body:has(.fpg:not(.hide)) #fsw,body:has(.fpg:no
 .gcard.obil .obill{flex:none;width:64px;height:64px;display:block}
 .gcard.obil .obill svg{width:64px;height:64px;display:block}
 .gcard.obil .kt{flex:1;min-width:0}
+.ob .arow2{gap:8px!important;padding:10px 0!important}
+.ob .arow2 .arh{gap:10px!important}
+.ob .arow2 .arh b{font-size:.98rem!important}
+.ob .arow2 .ari{width:34px!important;height:34px!important}
+.ob .arow2 .ari svg{width:24px!important;height:24px!important}
+.ob .arow2 .ag{display:grid!important;grid-template-columns:repeat(3,1fr);gap:0!important;border:1.5px solid var(--line);border-radius:99px;padding:3px}
+.ob .arow2 .ag button{border:0!important;min-height:34px!important;padding:4px 6px!important;font-size:.8rem!important;border-radius:99px!important}
+.ob .obs4:has(.arow2){gap:0!important}
+.ob .obs4 #ob_aq{margin:16px 0 6px!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -3142,7 +3151,7 @@ let OB=null;
 function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:[],sty:"",mode:"",home:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
 function obSteps(){return OB.ya?[0,1,2,3,4,7,11,12,13,5]:[0,1,2,4,11,12,13,5]}
 // Todos los grupos: una alergia diagnosticada (p. ej. APLV) se marca aunque aún no haya probado ese alimento
-function obGroups(){const t=agKeys().filter(g=>AGD[g].some(n=>OB.fo.has(n)));return [...t,...agKeys().filter(g=>!t.includes(g))]}
+function obGroups(){const O=["huevo","lacteos","gluten","pescado","frutoscascara","cacahuete","soja","sesamo","legumbres","crustaceos","moluscos","apio"],k=agKeys();return [...O.filter(g=>k.includes(g)),...k.filter(g=>!O.includes(g))]}
 const OBIL={plates:n=>{const p=[[16,20],[44,20],[16,46],[44,46]].slice(0,n),c=n===1?[[32,32]]:n===2?[[18,32],[46,32]]:n===3?[[18,22],[46,22],[32,46]]:p;return `<svg viewBox='0 0 64 64' aria-hidden='true'>${c.map(([x,y],i)=>`<circle cx='${x}' cy='${y}' r='${n===1?20:12}' fill='#f6efe0' stroke='#e0d3b8' stroke-width='2'/><circle cx='${x}' cy='${y}' r='${n===1?9:5.5}' fill='${["#f39a2c","#7bb661","#d6453d","#8fb6d9"][i]}'/>`).join("")}</svg>`},
 bowl:(lv,ex)=>`<svg viewBox='0 0 64 64' aria-hidden='true'>${ex||""}<path d='M8 30h48c0 13-10 22-24 22S8 43 8 30z' fill='#8fc6a8'/>${lv>0?`<ellipse cx='32' cy='30' rx='24' ry='${3+lv*4}' fill='#f39a2c'/>`:""}<ellipse cx='32' cy='30' rx='24' ry='4' fill='${lv>0?"#f7b45a":"#e9f4ed"}'/></svg>`,
 fridge:`<svg viewBox='0 0 64 64' aria-hidden='true'><rect x='14' y='4' width='36' height='56' rx='7' fill='#dbe9f5'/><rect x='14' y='4' width='36' height='20' rx='7' fill='#bcd6ee'/><rect x='14' y='20' width='36' height='4' fill='#bcd6ee'/><rect x='19' y='9' width='3' height='9' rx='1.5' fill='#7fa8cf'/><rect x='19' y='29' width='3' height='12' rx='1.5' fill='#7fa8cf'/><rect x='26' y='30' width='18' height='10' rx='3' fill='#f39a2c'/><rect x='26' y='44' width='18' height='10' rx='3' fill='#7bb661'/><path d='M38 9v10M33.7 11.5l8.6 5M33.7 16.5l8.6-5' stroke='#5b8fc2' stroke-width='1.8' stroke-linecap='round'/></svg>`,
