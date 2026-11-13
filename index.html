@@ -1868,11 +1868,15 @@ body:has(.fpg:not(.hide)) .rtabs,body:has(.fpg:not(.hide)) #fsw,body:has(.fpg:no
 .splan{display:flex;flex-wrap:wrap;gap:8px}.splan span{font-weight:700;font-size:.8rem;padding:8px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);animation:sSel .5s ease-out both;animation-delay:var(--d)}
 @keyframes sSel{0%{opacity:0;transform:scale(.8)}60%{opacity:1;background:transparent}100%{opacity:1;background:color-mix(in srgb,var(--terra) 22%,transparent);border-color:var(--terra)}}
 .sredo{margin-top:14px;text-align:center;font-weight:800;color:var(--terra);font-size:.85rem;animation:sPop .5s both 1.6s}
+.stry .sbars{margin-right:88px!important}.stry .sskip{width:auto!important;padding:0 16px!important;border-radius:99px!important;font:700 .9rem Montserrat,sans-serif!important}
 .tsm{gap:14px!important;justify-content:flex-start!important;padding-top:22px!important}.tsm .tart{width:auto;height:min(118px,15vh)}.tsm .stxt h3{font-size:1.35rem;margin-bottom:4px}.tsm .stxt p{font-size:.95rem}
 .sphw{position:relative;border-radius:26px;overflow:hidden;border:1.5px solid color-mix(in srgb,var(--ink) 16%,transparent);background:var(--bg);box-shadow:0 18px 40px rgba(0,0,0,.14)}
 .sph{position:absolute;left:0;top:0;width:390px;transform-origin:top left;background:var(--bg);pointer-events:none;overflow:hidden}
 .sphs{position:absolute;inset:0;overflow:hidden;padding:14px 12px 90px}.sphs>section{margin:0}.sphs>#fsw{position:sticky;top:-14px;z-index:2;background:var(--bg);margin:-14px -12px 8px;padding:14px 12px 4px}
 .sph .tabs{position:absolute!important;left:10px!important;right:10px!important;top:auto!important;bottom:12px!important;width:auto!important;flex-direction:row!important;margin:0!important;z-index:2}
+.sph .stgt{outline:3px solid var(--terra)!important;outline-offset:4px;border-radius:16px;animation:sRing2 1.6s ease-in-out infinite;position:relative;z-index:2}
+@keyframes sRing2{50%{outline-color:color-mix(in srgb,var(--terra) 45%,transparent)}}
+.sph .mshc,.sph [data-mstory]{display:none!important}
 .sring{position:absolute;z-index:3;border-radius:18px;border:3px solid var(--terra);box-shadow:0 0 0 6px color-mix(in srgb,var(--terra) 22%,transparent);animation:sRing 1.6s ease-in-out infinite;pointer-events:none}
 @keyframes sRing{50%{box-shadow:0 0 0 12px color-mix(in srgb,var(--terra) 8%,transparent)}}
 .swr{flex:1;min-height:0;width:100%;display:flex;justify-content:center}.swr.in .sphw{animation:sIn .45s cubic-bezier(.2,.8,.3,1.2) both}
@@ -3589,7 +3593,7 @@ rate:SVG(`<g class="ta-b"><path d="M66 140c0-28 19-44 44-44s44 16 44 44z" fill="
  <circle cx="110" cy="66" r="32" fill="#e9a07f"/><path d="M104 36q8-10 16-2q-6-2-8 4" fill="#a8613f"/>
  <path d="M96 64q5-5 10 0M114 64q5-5 10 0" stroke="#3a2a22" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="110" cy="80" rx="6" ry="5" fill="#3a2a22"/><circle cx="91" cy="74" r="4" fill="#f19b9b" opacity=".7"/><circle cx="129" cy="74" r="4" fill="#f19b9b" opacity=".7"/></g>
  <g class="ta-b" style="animation-delay:-1s"><path d="M150 112l22-26" stroke="#4a8760" stroke-width="5" stroke-linecap="round"/><ellipse cx="177" cy="80" rx="9" ry="7" transform="rotate(-50 177 80)" fill="#4a8760"/></g>
- ${H(48,70)}${H(170,44,"#e05a6a","ta-p",.8)}${H(58,32,"#f08a8a","ta-p",1.6)}${STAR(150,24,.8,.5)}`),
+ ${H(66,56)}${H(150,38,"#e05a6a","ta-p",.8)}${H(72,44,"#f08a8a","ta-p",1.6)}${STAR(146,64,.7,.5)}`),
 week:SVG(`<g class="ta-b"><rect x="54" y="36" width="112" height="98" rx="16" fill="#fffaf2" stroke="#e6d8c3" stroke-width="3.5"/><path d="M54 52a16 16 0 0 1 16-16h80a16 16 0 0 1 16 16v10H54z" fill="#4a8760"/>
  <rect x="80" y="26" width="8" height="20" rx="4" fill="#c96a47"/><rect x="132" y="26" width="8" height="20" rx="4" fill="#c96a47"/>
  ${[0,1,2,3].map(i=>`<rect x="${66+i*23}" y="72" width="18" height="16" rx="5" fill="${i===2?"#f2c66d":"#f0e5d4"}"/>`).join("")}
@@ -3622,10 +3626,8 @@ const snap=(m,st)=>{const c=SNP[m];if(!c)return null;try{SW[c[0]][2]()}catch(e){
     vis.forEach(e=>sc.appendChild(e.cloneNode(true)));const tb=document.querySelector("main .tabs");if(tb)ph.appendChild(tb.cloneNode(true));
     wr.appendChild(ph);st.appendChild(wr);
     let t=null;for(const q of c[1].split(",")){t=[...sc.querySelectorAll(q)].find(e=>e.offsetHeight>20&&!e.closest(".hide"));if(t)break}
-    if(t){const r=t.getBoundingClientRect(),r0=sc.getBoundingClientRect(),top=(r.top-r0.top)/K;sc.scrollTop=Math.max(0,top-80);
-      const r2=t.getBoundingClientRect(),ring=document.createElement("i");ring.className="sring";
-      Object.assign(ring.style,{left:((r2.left-r0.left)/K-4)+"px",top:((r2.top-r0.top)/K-4)+"px",width:(r2.width/K+8)+"px",height:(Math.min(r2.height/K,PH*.55)+8)+"px"});ph.appendChild(ring)}
-    const nv=ph.querySelector(".tabs button.on");if(nv){const r3=nv.getBoundingClientRect(),r0=sc.getBoundingClientRect(),g=document.createElement("i");g.className="sring";Object.assign(g.style,{left:((r3.left-r0.left)/K-4)+"px",top:((r3.top-r0.top)/K-4)+"px",width:(r3.width/K+8)+"px",height:(r3.height/K+8)+"px"});ph.appendChild(g)}
+    if(t){t.classList.add("stgt");let y=0,e=t;while(e&&e!==sc&&e!==ph){y+=e.offsetTop;e=e.offsetParent}sc.scrollTop=Math.max(0,y-90)}
+    const nv=ph.querySelector(".tabs button.on");if(nv)nv.classList.add("stgt");
     return wr}catch(e){st.innerHTML="";return null}};
 const ST=[
 {m:"hoy",t:TT("Lo de hoy, ya pensado","El d'avui, ja pensat","Today, already planned"),d:TT("Cada día tienes su menú con las recetas. ¿No te apetece algo? Lo cambias con el lápiz.","Cada dia tens el seu menú amb les receptes. No et ve de gust alguna cosa? La canvies amb el llapis.","Every day you get a menu with recipes. Not feeling something? Swap it with the pencil."),n:0,sub:[MENU,1]},
@@ -3637,7 +3639,7 @@ const ST=[
 const WHERE=s=>{const nb=NB[s.n]||{s:"",l:""},sb=s.sub[1]>=0?s.sub[0][s.sub[1]]:"";return `<div class="twh"><small class="twl">${TT("Lo encuentras en","Ho trobes a","You'll find it in")}</small><div class="twp"><span class="twc"><i>1</i>${nb.s}<b>${nb.l}</b></span>${sb?`<span class="twa" aria-hidden="true">›</span><span class="twc"><i>2</i><b>${sb}</b></span>`:""}</div>${s.x?`<small class="twx">${s.x}</small>`:""}</div>`};
 document.querySelectorAll(".stry").forEach(x=>x.remove());
 const ov=document.createElement("div");ov.className="stry";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");
-ov.innerHTML=`<div class="sbars">${ST.map(()=>"<i><b></b></i>").join("")}</div><button type="button" class="sx" aria-label="${TT("Cerrar","Tanca","Close")}">✕</button><div class="smid tsm"><div class="sstage"></div><div class="stxt"><h3 class="disp"></h3><p></p></div><div class="swr"></div></div><div class="sbtn"><button type="button" class="btn sprev">${TT("Atrás","Enrere","Back")}</button><button type="button" class="btn p snext"></button></div>`;
+ov.innerHTML=`<div class="sbars">${ST.map(()=>"<i><b></b></i>").join("")}</div><button type="button" class="sx sskip">${TT("Saltar","Salta","Skip")}</button><div class="smid tsm"><div class="sstage"></div><div class="stxt"><h3 class="disp"></h3><p></p></div><div class="swr"></div></div><div class="sbtn"><button type="button" class="btn sprev">${TT("Atrás","Enrere","Back")}</button><button type="button" class="btn p snext"></button></div>`;
 document.body.appendChild(ov);document.body.style.overflow="hidden";
 let k=0;const end=()=>{ov.remove();document.body.style.overflow="";try{SW[3][2]();window.scrollTo(0,0)}catch(e){}};
 const show=()=>{const s=ST[k];ov.querySelectorAll(".sbars i").forEach((b,i)=>b.className=i<k?"done":i===k?"on":"");
