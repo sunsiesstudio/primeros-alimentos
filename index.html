@@ -1998,6 +1998,7 @@ html body .sph .stgt,html body .sring,html body .tourh{border-radius:0!important
 html body .fzrow.fzg.fze .fzgb{width:40px!important;height:40px!important;min-height:40px!important;padding:0!important;border-radius:50%!important;border:1.5px solid var(--line)!important;display:grid!important;place-items:center;text-decoration:none!important;background:transparent!important}
 html body .fzrow.fzg.fze .fzgb svg{margin:0!important}
 html body #days .course>.nfed.cxx{display:none!important}html body #days .course>.chgi{right:0!important}
+html body #days .course{position:relative}html body #days .course>.fzrow.fze{position:absolute!important;top:10px!important;right:46px!important;margin:0!important;padding:0!important;border:0!important;width:auto!important}html body #days .course>.fzrow.fze .fzr1{margin:0!important;padding:0!important}html body #days .course>.fzrow.fze .fzgb{width:34px!important;height:34px!important;min-height:34px!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -4731,6 +4732,7 @@ function plan(){cleanOrphanLogs();
   $("days").querySelectorAll("[data-fzpot]").forEach(b=>b.onclick=()=>{const it=(S.frz||[]).find(x=>x.k===b.dataset.fzpot);if(!it)return;it.r=it.r||{};it.r.pot=true;it.loc="nev";it.ch=1;it.x=fzNevEnd(it.d);save();plan();snack(TT("Guardado como potito abierto en la nevera","Desat com a potet obert a la nevera","Saved as an opened jar in the fridge"))});
   $("days").querySelectorAll("[data-fzfrom]").forEach(b=>b.onclick=()=>{const k0=b.dataset.fzfrom,d=k0.slice(0,10),m=k0.slice(11),it=(S.frz||[]).find(z=>z.id===b.dataset.id);if(!it)return;setOv(d,m,{n:it.n,i:((it.r&&it.r.ings)||[]).slice()});S.frzA=S.frzA||{};S.frzA[k0]=it.id;S.frzE=S.frzE||{};if(((S.ml||{})[d]||{})[m]&&!S.frzE[k0]){it.u=Math.max(0,it.u-1);S.frzE[k0]=1}save();render();snack(TT(`Anotado. ${it.u===1?"Queda 1":"Quedan "+it.u} en ${fzIn(it.loc||"")}`,`Anotat. ${it.u===1?"En queda 1":"En queden "+it.u} a ${fzIn(it.loc||"")}`,`Noted. ${it.u} left in ${fzIn(it.loc||"")}`))});
   $("days").querySelectorAll("[data-fznew]").forEach(b=>b.onclick=()=>{const k=b.dataset.fznew;(window.__fzNew=window.__fzNew||{})[k]=1;(window.__fzOpen=window.__fzOpen||{})[k]=1;plan()});
+  $("days").querySelectorAll(".course .fzrow.fze").forEach(f=>{const c=f.closest(".course");if(c&&f.parentElement!==c)c.appendChild(f)});
   $("days").querySelectorAll("[data-fzg]").forEach(b=>b.onclick=()=>{const k=b.dataset.fzg;window.__fzOpen=window.__fzOpen||{};if(window.__fzOpen[k])delete window.__fzOpen[k];else window.__fzOpen[k]=1;plan()});
   $("days").querySelectorAll("[data-fzs2]").forEach(b=>b.onclick=()=>{const k0=b.dataset.fzs2,l=b.dataset.l,r=(window.__fzr||{})[k0];if(!r)return;S.frz=S.frz||[];const mine=S.frz.filter(it=>(it.k===k0||(it.k||"").indexOf(k0+"|")===0)&&(it.loc||"")===l),cur=mine.reduce((a,it)=>a+(it.u||0),0),n=Math.max(0,Math.min(12,cur+ +b.dataset.s)),d=k0.slice(0,10);
     if(n<=0){S.frz=S.frz.filter(it=>!mine.includes(it));mine.forEach(it=>Object.keys(S.frzA||{}).forEach(z=>{if(S.frzA[z]===it.id)delete S.frzA[z]}))}
