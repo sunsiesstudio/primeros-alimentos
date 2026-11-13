@@ -1993,6 +1993,8 @@ html body .course.rcfi .mr>p{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:
 html body .course.rcfi .mr>p>.dn{flex-basis:100%;padding-right:76px;margin-bottom:2px}
 html body .course.rcfi .mr>p>.mtgs,html body .course.rcfi .mr>p>.ntags{display:contents}
 html body .course.rcfi .mr>p .mtg,html body .course.rcfi .mr>p .ntags .tag{margin:0!important}
+.stry .swr{overflow:hidden}@media (max-height:720px){.stry .tart{height:min(96px,12vh)!important}.stry .smid{gap:16px!important;padding:8px 0!important}}
+html body .sph .stgt,html body .sring,html body .tourh{border-radius:0!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -3664,7 +3666,7 @@ const NB=(()=>{try{return [...$("nC").parentElement.querySelectorAll("button")].
 const MENU=[TT("Plan","Pla","Plan"),TT("Hoy","Avui","Today"),TT("Semana","Setmana","Week")];
 const SNP={hoy:[3,".course:not(.cinv),.course"],rate:[3,".course:not(.cinv) .mk.mkq,.course.cinv"],week:[2,".wrow.wdc:not(.off),.wrow.wdc"],log:[0,".tkc"],cook:[4,".rcard,.fav,.card"],plan:[8,"#stwrap .card,#stwrap"]};
 const snap=(m,st)=>{const c=SNP[m];if(!c)return null;try{SW[c[0]][2]()}catch(e){return null}
-  try{const H=Math.max(220,st.clientHeight),W=Math.min(st.clientWidth,420),K=Math.min(.8,(W-8)/390,H/520),PH=Math.round(H/K);
+  try{if(st.clientHeight<150)return null;const H=st.clientHeight,W=Math.min(st.clientWidth,420),K=Math.min(.8,(W-8)/390,H/520),PH=Math.round(H/K);
     const wr=document.createElement("div");wr.className="sphw";wr.style.width=Math.round(390*K)+"px";wr.style.height=H+"px";
     const ph=document.createElement("div");ph.className="sph";ph.style.height=PH+"px";ph.style.transform=`scale(${K})`;ph.setAttribute("inert","");ph.setAttribute("aria-hidden","true");
     const sc=document.createElement("div");sc.className="sphs";ph.appendChild(sc);
