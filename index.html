@@ -1868,13 +1868,24 @@ body:has(.fpg:not(.hide)) .rtabs,body:has(.fpg:not(.hide)) #fsw,body:has(.fpg:no
 .splan{display:flex;flex-wrap:wrap;gap:8px}.splan span{font-weight:700;font-size:.8rem;padding:8px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);animation:sSel .5s ease-out both;animation-delay:var(--d)}
 @keyframes sSel{0%{opacity:0;transform:scale(.8)}60%{opacity:1;background:transparent}100%{opacity:1;background:color-mix(in srgb,var(--terra) 22%,transparent);border-color:var(--terra)}}
 .sredo{margin-top:14px;text-align:center;font-weight:800;color:var(--terra);font-size:.85rem;animation:sPop .5s both 1.6s}
-.sphw{position:relative;border-radius:26px;overflow:hidden;border:1.5px solid color-mix(in srgb,var(--ink) 16%,transparent);background:var(--bg);box-shadow:0 18px 40px rgba(0,0,0,.14)}
-.sph{position:absolute;left:0;top:0;width:390px;transform-origin:top left;background:var(--bg);pointer-events:none;overflow:hidden}
-.sphs{position:absolute;inset:0;overflow:hidden;padding:14px 12px 90px}.sphs>section{margin:0}.sphs>#fsw{position:sticky;top:-14px;z-index:2;background:var(--bg);margin:-14px -12px 8px;padding:14px 12px 4px}
-.sph .tabs{position:absolute!important;left:10px!important;right:10px!important;top:auto!important;bottom:12px!important;width:auto!important;flex-direction:row!important;margin:0!important;z-index:2}
-.sring{position:absolute;z-index:3;border-radius:18px;border:3px solid var(--terra);box-shadow:0 0 0 6px color-mix(in srgb,var(--terra) 22%,transparent);animation:sRing 1.6s ease-in-out infinite;pointer-events:none}
-@keyframes sRing{50%{box-shadow:0 0 0 12px color-mix(in srgb,var(--terra) 8%,transparent)}}
-.sstage{flex:1;min-height:0;align-items:stretch!important}.sstage.in .sphw{animation:sIn .45s cubic-bezier(.2,.8,.3,1.2) both}
+.tsm{gap:18px!important}.tsm .sstage{flex:none}.tart{display:block;width:min(240px,62vw);height:auto;overflow:visible}
+.tart .ta-sh{fill:var(--ink);opacity:.08}.tart .ta-b{animation:iaBob 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.tart .ta-t{animation:iaTw 2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.tart .ta-p{animation:taPop 2.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.tart .ta-s{animation:taSt 2.2s ease-in-out infinite;opacity:0}.tart .ta-l{animation:taLid 2.4s ease-in-out infinite}.tart .ta-u{animation:taUp 1.6s ease-in-out infinite}
+@keyframes taPop{0%{opacity:0;transform:translateY(10px) scale(.6)}25%{opacity:1;transform:none}80%{opacity:1}100%{opacity:0;transform:translateY(-14px) scale(1.05)}}
+@keyframes taSt{0%{opacity:0;transform:translateY(6px)}40%{opacity:.9}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes taLid{0%,60%,100%{transform:none}70%{transform:translateY(-6px) rotate(-3deg)}80%{transform:translateY(-2px) rotate(2deg)}}
+@keyframes taUp{50%{transform:translateY(-6px)}}
+.sstage.in .tart,.swr.in .twh{animation:sIn .45s cubic-bezier(.2,.8,.3,1.2) both}.swr.in .twh{animation-delay:.12s}
+.twh{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 14px 12px;border-radius:24px;background:color-mix(in srgb,var(--ink) 4%,transparent);max-width:360px;width:100%}
+.twt{margin:0;font:600 .92rem/1.4 Montserrat,sans-serif;color:var(--ink);text-align:center}.twt b{color:var(--terra)}
+.twsub{display:flex;gap:4px}.twsub span{padding:4px 12px;border-radius:99px;font:700 .76rem Montserrat,sans-serif;color:var(--mute,#8a7f72);border:1px solid var(--line)}.twsub .on{background:var(--terra);border-color:var(--terra);color:#fff}
+.twnav{display:flex;gap:2px;padding:5px;border-radius:999px;background:var(--card);border:1px solid var(--line);margin-top:16px}
+.twnav span{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;border-radius:999px;color:var(--mute,#8a7f72)}
+.twnav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.twnav b{font:700 .66rem Montserrat,sans-serif}
+.twnav .on{background:color-mix(in srgb,var(--terra) 15%,transparent);color:var(--terra)}
+.twar{position:absolute;top:-17px;left:50%;width:0;height:0;margin-left:-7px;border:7px solid transparent;border-top:9px solid var(--terra);border-bottom:0;animation:taUp 1.2s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.stry *{animation:none!important}}
 @media (max-height:700px){.smk{transform:scale(.88)}.stxt h3{font-size:1.3rem}}
 .fzcubes{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 2px;align-items:center}.fzcubes i{display:block;width:18px;height:18px;border-radius:5px;background:var(--c);box-shadow:inset 0 -3px 0 rgba(0,0,0,.14),inset 0 2px 0 rgba(255,255,255,.35);animation:fzCb .35s cubic-bezier(.3,1.5,.5,1) both;animation-delay:var(--d)}
@@ -3547,58 +3558,62 @@ week:`<svg viewBox="0 0 80 80"><rect x="10" y="16" width="60" height="52" rx="9"
 log:`<svg viewBox="0 0 80 80"><path d="M40 24c-4-8-14-8-18-2-6 9-2 30 8 38 4 3 7 2 10 0 3 2 6 3 10 0 10-8 14-29 8-38-4-6-14-6-18 2z" class="ti-apple"/><path d="M40 24c0-6 3-10 8-12" class="ti-ln"/><path d="M62 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" class="ti-spark ti-d1"/><path d="M16 50l1.500 4 4 1.500-4 1.500-1.500 4-1.500-4-4-1.500 4-1.500z" class="ti-spark ti-d3"/></svg>`,
 cook:`<svg viewBox="0 0 80 80"><circle cx="30" cy="24" r="4" class="ti-bub ti-d1"/><circle cx="42" cy="18" r="3" class="ti-bub ti-d2"/><circle cx="52" cy="26" r="3.500" class="ti-bub ti-d3"/><path d="M12 36h56" class="ti-ln"/><path d="M16 36h48v20a12 12 0 01-12 12H28a12 12 0 01-12-12z" class="ti-pot"/><path d="M8 42h8M64 42h8" class="ti-ln"/></svg>`};
 function appTour(){try{S.prefs.tour=1;save()}catch(e){}
-const esc=x=>String(x||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);const N=(S&&S.nm||"").trim()||TT("tu bebé","el teu nadó","your baby");
-const I=n=>`<span class="sti">${ico(n)}</span>`;
-const NV=(()=>{try{return [...$("nC").parentElement.querySelectorAll("button")].map(b=>(b.querySelector("svg")||{}).outerHTML||"")}catch(e){return []}})();
-const tg=(t,c)=>`<span class="ttg${c?" "+c:""}">${t}</span>`,rc=`<span class="srcp"><b>${TT("Receta","Recepta","Recipe")}</b><span>⏱ 10 min</span></span>`;
-const dish=(ml,nw,dsh,fs,tags,i)=>`<div class="sdish" style="--d:${i*.15}s"><div class="sdh"><small>${ml}</small>${nw?tg(nw,"new"):""}<span class="spen2">✎</span></div><div class="sdr">${I(fs[0])}<div><b>${dsh}</b><div class="ttgs">${tags.map(x=>tg(x)).join("")}</div>${i===0?rc:""}</div></div></div>`;
-const M={
-hoy:`<div class="smk"><div class="sdate">${TT("Viernes, 13 de noviembre","Divendres, 13 de novembre","Friday, 13 November")}</div><div class="smenu"><div class="smt">${TT("Menú del día","Menú del dia","Today's menu")}</div>
-  ${dish(TT("Desayuno","Esmorzar","Breakfast"),TT("Nuevo · día 1/3","Nou · dia 1/3","New · day 1/3"),TT("Gachas de avena con plátano","Farinetes de civada amb plàtan","Oat porridge with banana"),["Avena"],[TT("Fibra","Fibra","Fibre")],0)}
-  ${dish(TT("Comida","Dinar","Lunch"),"",TT("Lentejas con calabaza","Llenties amb carbassa","Lentils with pumpkin"),["Lentejas"],[TT("Hierro","Ferro","Iron"),TT("Proteína","Proteïna","Protein")],1)}</div></div>`,
-rate:`<div class="smk"><div class="sdh"><small>${TT("Comida","Dinar","Lunch")}</small></div><div class="sdr">${I("Aguacate")}<div><b>${TT("Aguacate con huevo aplastados","Alvocat amb ou aixafats","Mashed avocado and egg")}</b></div></div>
-  <div class="smq">${TT("¿Qué tal ha ido?","Com ha anat?","How did it go?")}</div>
-  <div class="schips"><span class="sch on">♥ ${TT("Le ha encantado","Li ha encantat","Loved it")}<i class="stap"></i><em class="sht">♥</em><em class="sht s2">♥</em></span><span class="sch">${TT("Ha comido bien","Ha menjat bé","Ate well")}</span><span class="sch">${TT("Ha comido poco","Ha menjat poc","Ate a little")}</span><span class="sch">⚠ ${TT("Ha tenido reacción","Ha tingut reacció","Had a reaction")}</span></div></div>`,
-week:`<div class="smk">${[[TT("Sáb 14","Ds 14","Sat 14"),"Ternera",TT("Nuevo","Nou","New")],[TT("Dom 15","Dg 15","Sun 15"),"Quinoa",TT("Nuevo","Nou","New")],[TT("Lun 16","Dl 16","Mon 16"),"Huevo",TT("Nuevo","Nou","New"),1]].map(([d,f,l,a],i)=>`<div class="swk" style="--d:${i*.15}s"><b>${d} ›</b><span class="swc">${I(f)}<span><small>${l}</small><b>${tFood(f)}${a?' <em class="swa">⚠</em>':""}</b></span></span></div>`).join("")}
-  <div class="slist">🛒 ${TT("Lista de la compra","Llista de la compra","Shopping list")}</div></div>`,
-log:`<div class="smk"><div class="smh">${TT("Alimentos","Aliments","Foods")} <span>${TT("24 de 179 probados","24 de 179 tastats","24 of 179 tried")}</span></div><div class="sbar"><i></i></div>
-  ${[["Manzana",TT("Frutas","Fruites","Fruit"),"8 de 35"],["Brócoli",TT("Verduras","Verdures","Veg"),"9 de 42"],["Huevo",TT("Proteínas","Proteïnes","Protein"),"4 de 33"],["Avena",TT("Cereales","Cereals","Grains"),"3 de 17"]].map(([f,c,n],i)=>`<div class="sgr" style="--d:${.3+i*.12}s">${I(f)}<b>${c}</b><span class="sgn">${n}</span><span class="sgv">⌄</span></div>`).join("")}</div>`,
-cook:`<div class="smk"><div class="sfzg"><div class="sfzt">❄ ${TT("Congelador","Congelador","Freezer")}</div>
-  ${[[TT("Crema de calabaza","Crema de carbassa","Pumpkin purée"),"Calabaza",6,"12/12"],[TT("Albóndigas de pollo","Mandonguilles de pollastre","Chicken meatballs"),"Pollo",8,"03/01"]].map(([n,f,u,x],i)=>`<div class="sfzi" style="--d:${.2+i*.15}s"><span class="sfzic">${I(f)}<b>${u}</b></span><div><b>${n}</b><small>📅 ${TT("Mejor antes del","Millor abans del","Best before")} ${x}</small></div></div>`).join("")}</div>
-  <div class="srec2">${I("Calabaza")}<div><small>${TT("Recetario","Receptari","Recipe book")}</small><b>${TT("Crema de calabaza","Crema de carbassa","Pumpkin purée")}</b></div></div></div>`,
-plan:`<div class="smk"><div class="smh">${TT("Plan de ","Pla de ","Plan for ")}${esc(N)} <span class="spen2">✎</span></div><div class="splan">${[TT("De todo","De tot","Everything"),TT("Nuevo cada día","Nou cada dia","New every day")].map((t,i)=>`<span style="--d:${.1+i*.15}s">${t}</span>`).join("")}</div>
-  <div class="sgoals">${[[TT("Hierro","Ferro","Iron"),"6/7"],[TT("Fibra","Fibra","Fibre"),"5/7"],[TT("Proteína","Proteïna","Protein"),"7/7"],[TT("Calcio","Calci","Calcium"),"4/7"]].map(([g,n],i)=>`<span style="--d:${.4+i*.12}s"><b>${g}</b><small>${n} ${TT("días","dies","days")}</small></span>`).join("")}</div></div>`};
-const WH={hoy:[0,TT("Menú › Hoy","Menú › Avui","Menu › Today")],rate:[0,TT("Menú › Hoy","Menú › Avui","Menu › Today")],week:[0,TT("Menú › Semana","Menú › Setmana","Menu › Week")],log:[2,TT("Registro","Registre","Log")],cook:[1,TT("Cocina","Cuina","Kitchen")],plan:[0,TT("Menú › Plan","Menú › Pla","Menu › Plan")]};
-const SNP={hoy:[3,".course:not(.cinv),.course"],rate:[3,".course:not(.cinv) .mk.mkq,.course.cinv"],week:[2,".wrow.wdc:not(.off),.wrow.wdc"],log:[0,".tkc"],cook:[4,".rcard,.fav,.card"],plan:[8,"#stwrap .card,#stwrap"]};
-const snap=(m,st)=>{const c=SNP[m];if(!c)return null;try{SW[c[0]][2]()}catch(e){return null}
-  try{const H=Math.max(220,st.clientHeight),W=Math.min(st.clientWidth,420),K=Math.min(.8,(W-8)/390,H/520),PH=Math.round(H/K);
-    const wr=document.createElement("div");wr.className="sphw";wr.style.width=Math.round(390*K)+"px";wr.style.height=H+"px";
-    const ph=document.createElement("div");ph.className="sph";ph.style.height=PH+"px";ph.style.transform=`scale(${K})`;ph.setAttribute("inert","");ph.setAttribute("aria-hidden","true");
-    const sc=document.createElement("div");sc.className="sphs";ph.appendChild(sc);
-    const vis=[$("fsw"),...document.querySelectorAll("main > section")].filter(e=>e&&!e.classList.contains("hide")&&e.offsetParent!==null);
-    vis.forEach(e=>sc.appendChild(e.cloneNode(true)));const tb=document.querySelector("main .tabs");if(tb)ph.appendChild(tb.cloneNode(true));
-    wr.appendChild(ph);st.appendChild(wr);
-    let t=null;for(const q of c[1].split(",")){t=[...sc.querySelectorAll(q)].find(e=>e.offsetHeight>20&&!e.closest(".hide"));if(t)break}
-    if(t){const r=t.getBoundingClientRect(),r0=sc.getBoundingClientRect(),top=(r.top-r0.top)/K;sc.scrollTop=Math.max(0,top-80);
-      const r2=t.getBoundingClientRect(),ring=document.createElement("i");ring.className="sring";
-      Object.assign(ring.style,{left:((r2.left-r0.left)/K-4)+"px",top:((r2.top-r0.top)/K-4)+"px",width:(r2.width/K+8)+"px",height:(Math.min(r2.height/K,PH*.55)+8)+"px"});ph.appendChild(ring)}
-    return wr}catch(e){st.innerHTML="";return null}};
+const H=(x,y,c,cl,d)=>`<path class="${cl||"ta-p"}" style="animation-delay:${d||0}s" transform="translate(${x} ${y})" d="M0 -4c-3-6-12-4.5-12 2.3 0 6 12 12 12 12s12-6 12-12c0-6.8-9-8.3-12-2.3z" fill="${c||"#e05a6a"}"/>`;
+const STAR=(x,y,s,d)=>`<path class="ta-t" style="animation-delay:${d||0}s" transform="translate(${x} ${y}) scale(${s||1})" d="M0 -9l2.6 6 6.4.6-4.8 4.3 1.4 6.4L0 4.9-5.6 8.3l1.4-6.4L-9-2.4l6.4-.6z" fill="#f2c66d"/>`;
+const FACE=(x,y,c)=>`<circle cx="${x-9}" cy="${y}" r="2.4" fill="${c}"/><circle cx="${x+9}" cy="${y}" r="2.4" fill="${c}"/><path d="M${x-5} ${y+6}q5 4.5 10 0" stroke="${c}" stroke-width="2.3" fill="none" stroke-linecap="round"/><circle cx="${x-15}" cy="${y+5}" r="3.2" fill="#f19b9b" opacity=".55"/><circle cx="${x+15}" cy="${y+5}" r="3.2" fill="#f19b9b" opacity=".55"/>`;
+const SH=`<ellipse cx="110" cy="140" rx="70" ry="7" class="ta-sh"/>`,SVG=b=>`<svg class="tart" viewBox="0 0 220 150" aria-hidden="true">${SH}${b}</svg>`;
+const ART={
+hoy:SVG(`<path class="ta-s" d="M96 50q-6-8 0-15t0-15" stroke="#c9b8a3" stroke-width="3" fill="none" stroke-linecap="round"/><path class="ta-s" style="animation-delay:.8s" d="M122 46q-6-8 0-15t0-15" stroke="#c9b8a3" stroke-width="3" fill="none" stroke-linecap="round"/>
+ <g class="ta-b"><ellipse cx="110" cy="100" rx="64" ry="32" fill="#fffaf2" stroke="#e6d8c3" stroke-width="4"/><ellipse cx="110" cy="96" rx="44" ry="18" fill="#f5ebdc"/>
+ <path d="M80 92l26-9-3 13z" fill="#f08a2a"/><path d="M80 92l-6-5M80 92l-7 0" stroke="#4a8a3c" stroke-width="2.5" stroke-linecap="round"/>
+ <rect x="127" y="90" width="5" height="10" rx="2" fill="#7fae5c"/><circle cx="123" cy="88" r="7" fill="#4a8760"/><circle cx="136" cy="88" r="7" fill="#4a8760"/><circle cx="130" cy="82" r="7.5" fill="#5e9a6f"/>
+ ${FACE(110,114,"#3a2a22")}</g>
+ <g class="ta-b" style="animation-delay:-.7s"><path d="M30 62v22q0 6 6 6v38" stroke="#c96a47" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M30 62v14M36 62v14M42 62v22q0 6-6 6" stroke="#c96a47" stroke-width="3.5" fill="none" stroke-linecap="round"/></g>
+ <g class="ta-b" style="animation-delay:-1.4s"><ellipse cx="186" cy="74" rx="9" ry="13" fill="#c96a47"/><path d="M186 86v42" stroke="#c96a47" stroke-width="4.5" stroke-linecap="round"/></g>
+ ${STAR(60,30,.9)}${STAR(170,26,.7,1)}`),
+rate:SVG(`<g class="ta-b"><path d="M66 140c0-28 19-44 44-44s44 16 44 44z" fill="#c96a47"/><path d="M88 102q22 22 44 0" fill="#fffaf2"/>
+ <circle cx="110" cy="66" r="32" fill="#e9a07f"/><path d="M104 36q8-10 16-2q-6-2-8 4" fill="#a8613f"/>
+ <path d="M96 64q5-5 10 0M114 64q5-5 10 0" stroke="#3a2a22" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="110" cy="80" rx="6" ry="5" fill="#3a2a22"/><circle cx="91" cy="74" r="4" fill="#f19b9b" opacity=".7"/><circle cx="129" cy="74" r="4" fill="#f19b9b" opacity=".7"/></g>
+ <g class="ta-b" style="animation-delay:-1s"><path d="M150 112l22-26" stroke="#4a8760" stroke-width="5" stroke-linecap="round"/><ellipse cx="177" cy="80" rx="9" ry="7" transform="rotate(-50 177 80)" fill="#4a8760"/></g>
+ ${H(48,70)}${H(170,44,"#e05a6a","ta-p",.8)}${H(58,32,"#f08a8a","ta-p",1.6)}${STAR(150,24,.8,.5)}`),
+week:SVG(`<g class="ta-b"><rect x="54" y="36" width="112" height="98" rx="16" fill="#fffaf2" stroke="#e6d8c3" stroke-width="3.5"/><path d="M54 52a16 16 0 0 1 16-16h80a16 16 0 0 1 16 16v10H54z" fill="#4a8760"/>
+ <rect x="80" y="26" width="8" height="20" rx="4" fill="#c96a47"/><rect x="132" y="26" width="8" height="20" rx="4" fill="#c96a47"/>
+ ${[0,1,2,3].map(i=>`<rect x="${66+i*23}" y="72" width="18" height="16" rx="5" fill="${i===2?"#f2c66d":"#f0e5d4"}"/>`).join("")}
+ ${FACE(110,108,"#3a2a22")}</g>${STAR(121,64,.8,0)}${STAR(36,50,.7,.7)}${STAR(186,96,.9,1.3)}
+ <g class="ta-p" style="animation-delay:.3s"><circle cx="186" cy="50" r="12" fill="#e05a4c"/><path d="M186 38q4-6 9-5" stroke="#4a8a3c" stroke-width="3" fill="none" stroke-linecap="round"/></g>`),
+log:SVG(`<g class="ta-b"><rect x="70" y="44" width="80" height="16" rx="7" fill="#c96a47"/><path d="M76 60h68v52a20 20 0 0 1-20 20H96a20 20 0 0 1-20-20z" fill="#fffaf2" stroke="#e6d8c3" stroke-width="3.5"/>
+ <circle cx="92" cy="118" r="7" fill="#a8cf7a"/><circle cx="106" cy="122" r="7" fill="#e05a4c"/><circle cx="120" cy="118" r="7" fill="#f08a2a"/><circle cx="131" cy="122" r="6" fill="#f3d24a"/><circle cx="100" cy="110" r="6" fill="#4a8760"/><circle cx="116" cy="108" r="6" fill="#e9a07f"/>
+ ${FACE(110,84,"#3a2a22")}</g>
+ <g class="ta-p" style="animation-delay:.2s"><circle cx="166" cy="48" r="13" fill="#4a8760"/><path d="M160 48l4 4 8-8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+ ${STAR(48,56,1,.4)}${STAR(176,104,.7,1.1)}${STAR(56,108,.6,1.6)}`),
+cook:SVG(`<path class="ta-s" d="M92 40q-6-8 0-15t0-15" stroke="#c9b8a3" stroke-width="3" fill="none" stroke-linecap="round"/><path class="ta-s" style="animation-delay:.9s" d="M128 38q-6-8 0-15t0-15" stroke="#c9b8a3" stroke-width="3" fill="none" stroke-linecap="round"/>
+ <rect x="40" y="90" width="20" height="9" rx="4.5" fill="#3d7050"/><rect x="160" y="90" width="20" height="9" rx="4.5" fill="#3d7050"/>
+ <path d="M56 80h108v32a24 24 0 0 1-24 24H80a24 24 0 0 1-24-24z" fill="#4a8760"/>${FACE(110,104,"#fffaf2")}
+ <g class="ta-l"><path d="M150 78l14-30" stroke="#f08a2a" stroke-width="9" stroke-linecap="round"/><path d="M164 48l-2-10M164 48l7-6" stroke="#4a8a3c" stroke-width="3" stroke-linecap="round"/><ellipse cx="110" cy="78" rx="58" ry="9" fill="#a7c7a0"/><circle cx="110" cy="66" r="7" fill="#c96a47"/></g>
+ ${STAR(40,44,.8,.3)}${STAR(186,120,.7,1)}`),
+plan:SVG(`<g class="ta-b"><path d="M110 96V62" stroke="#4a8760" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="96" cy="62" rx="15" ry="8" transform="rotate(-28 96 62)" fill="#a7c7a0"/><ellipse cx="124" cy="52" rx="16" ry="8.5" transform="rotate(28 124 52)" fill="#4a8760"/><ellipse cx="102" cy="80" rx="11" ry="6" transform="rotate(-20 102 80)" fill="#4a8760"/>
+ <path d="M80 102h60l-7 34H87z" fill="#c96a47"/><rect x="74" y="94" width="72" height="12" rx="5" fill="#d9835f"/>${FACE(110,118,"#3a2a22")}</g>
+ <g><rect x="160" y="38" width="16" height="98" rx="4" fill="#f2c66d"/>${[0,1,2,3,4,5,6,7].map(i=>`<path d="M160 ${48+i*11}h${i%2?5:9}" stroke="#b8902e" stroke-width="2"/>`).join("")}</g>
+ <path class="ta-u" d="M148 72v-22m-6 7l6-7 6 7" stroke="#c96a47" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+ ${STAR(46,40,.9,.2)}${STAR(56,112,.6,1)}`)};
+const NB=(()=>{try{return [...$("nC").parentElement.querySelectorAll("button")].map(b=>({s:(b.querySelector("svg")||{}).outerHTML||"",l:((b.querySelector("span")||b).textContent||"").trim()}))}catch(e){return []}})();
+const MENU=[TT("Plan","Pla","Plan"),TT("Hoy","Avui","Today"),TT("Semana","Setmana","Week")];
 const ST=[
-{m:"hoy",t:TT("Lo de hoy, ya pensado","El d'avui, ja pensat","Today, already planned"),d:TT("Cada día te decimos qué darle, con la receta de cada plato. ¿Te falta algo? Lo cambias con el lápiz.","Cada dia et diem què donar-li, amb la recepta de cada plat. Et falta alguna cosa? La canvies amb el llapis.","Every day we tell you what to give them, with a recipe for each dish. Missing something? Swap it with the pencil.")},
-{m:"rate",t:TT("Tú solo apuntas cómo ha ido","Tu només apuntes com ha anat","You just log how it went"),d:TT("Un toque después de cada comida. Con eso el plan aprende qué le gusta y qué toca repetir.","Un toc després de cada àpat. Amb això el pla aprèn què li agrada i què cal repetir.","One tap after each meal. That's how the plan learns what they like and what to repeat.")},
-{m:"week",t:TT("Algo nuevo cada semana","Alguna cosa nova cada setmana","Something new every week"),d:TT("Los alimentos nuevos van entrando poco a poco, y los alérgenos de uno en uno. Y la lista de la compra, hecha.","Els aliments nous van entrant de mica en mica, i els al·lèrgens d'un en un. I la llista de la compra, feta.","New foods come in little by little, allergens one at a time. And the shopping list, done.")},
-{m:"log",t:TT("Todo lo que ya ha probado","Tot el que ja ha tastat","Everything they've tried"),d:TT("Su progreso, los alérgenos y cualquier reacción, en un solo sitio. Lo tienes en Registro.","El seu progrés, els al·lèrgens i qualsevol reacció, en un sol lloc. Ho tens a Registre.","Their progress, allergens and any reaction, all in one place. It's in Log.")},
-{m:"cook",t:TT("Para cocinar sin agobios","Per cuinar sense agobis","Cooking without the stress"),d:TT("Recetas, lo que tienes en la nevera y el congelador, y una guía para tus dudas. Todo en Cocina.","Receptes, el que tens a la nevera i al congelador, i una guia per als teus dubtes. Tot a Cuina.","Recipes, what's in your fridge and freezer, and a guide for your questions. All in Kitchen.")},
-{m:"plan",t:TT("Hecho a vuestra medida","Fet a la vostra mida","Made to fit your family"),d:TT("Dieta, ritmo y objetivos. Si algo cambia, lo ajustas en Plan y el menú se rehace solo.","Dieta, ritme i objectius. Si alguna cosa canvia, ho ajustes a Pla i el menú es refà sol.","Diet, pace and goals. If something changes, adjust it in Plan and the menu updates itself.")}];
+{m:"hoy",t:TT("Lo de hoy, ya pensado","El d'avui, ja pensat","Today, already planned"),d:TT("Cada día tienes su menú con las recetas. ¿No te apetece algo? Lo cambias con el lápiz.","Cada dia tens el seu menú amb les receptes. No et ve de gust alguna cosa? La canvies amb el llapis.","Every day you get a menu with recipes. Not feeling something? Swap it with the pencil."),n:0,sub:[MENU,1],w:TT("Abajo, en <b>Menú</b>. Arriba, <b>Hoy</b>.","A baix, a <b>Menú</b>. A dalt, <b>Avui</b>.","At the bottom, <b>Menu</b>. At the top, <b>Today</b>.")},
+{m:"rate",t:TT("Apunta cómo ha ido","Apunta com ha anat","Log how it went"),d:TT("Después de cada comida, un toque: le ha encantado, ha comido poco, reacción… Así el plan aprende qué le gusta.","Després de cada àpat, un toc: li ha encantat, ha menjat poc, reacció… Així el pla aprèn què li agrada.","After each meal, one tap: loved it, ate a little, reaction… That's how the plan learns what they like."),n:0,sub:[MENU,1],w:TT("En <b>Menú › Hoy</b>, debajo de cada plato.","A <b>Menú › Avui</b>, sota de cada plat.","In <b>Menu › Today</b>, under each dish.")},
+{m:"week",t:TT("Tu semana de un vistazo","La teva setmana d'un cop d'ull","Your week at a glance"),d:TT("Qué toca cada día y qué alimento nuevo entra. Los alérgenos, de uno en uno.","Què toca cada dia i quin aliment nou entra. Els al·lèrgens, d'un en un.","What's on each day and which new food comes in. Allergens, one at a time."),n:0,sub:[MENU,2],w:TT("Abajo, en <b>Menú</b>. Arriba, <b>Semana</b>.","A baix, a <b>Menú</b>. A dalt, <b>Setmana</b>.","At the bottom, <b>Menu</b>. At the top, <b>Week</b>.")},
+{m:"log",t:TT("Todo lo que ha probado","Tot el que ha tastat","Everything they've tried"),d:TT("Sus alimentos, los alérgenos y cualquier reacción, en un solo sitio.","Els seus aliments, els al·lèrgens i qualsevol reacció, en un sol lloc.","Their foods, allergens and any reaction, all in one place."),n:2,sub:[[TT("Alimentos","Aliments","Foods"),TT("Alérgenos","Al·lèrgens","Allergens")],-1],w:TT("Abajo, en <b>Registro</b>.","A baix, a <b>Registre</b>.","At the bottom, <b>Log</b>.")},
+{m:"cook",t:TT("Cocina sin agobios","Cuina sense agobis","Cook without the stress"),d:TT("Recetas, lo que tienes en la nevera y el congelador, y la guía para tus dudas.","Receptes, el que tens a la nevera i al congelador, i la guia per als teus dubtes.","Recipes, what's in your fridge and freezer, and the guide for your questions."),n:1,sub:[[TT("Recetario","Receptari","Recipes"),TT("En casa","A casa","At home"),TT("Guía","Guia","Guide")],-1],w:TT("Abajo, en <b>Cocina</b>.","A baix, a <b>Cuina</b>.","At the bottom, <b>Kitchen</b>.")},
+{m:"plan",t:TT("Hecho a su medida","Fet a la seva mida","Made to fit them"),d:TT("Dieta, ritmo y objetivos. Si algo cambia, lo tocas aquí y el menú se rehace solo.","Dieta, ritme i objectius. Si alguna cosa canvia, ho toques aquí i el menú es refà sol.","Diet, pace and goals. If something changes, tweak it here and the menu updates itself."),n:0,sub:[MENU,0],w:TT("Abajo, en <b>Menú</b>. Arriba, <b>Plan</b>.","A baix, a <b>Menú</b>. A dalt, <b>Pla</b>.","At the bottom, <b>Menu</b>. At the top, <b>Plan</b>.")}];
+const WHERE=s=>`<div class="twh"><p class="twt">📍 ${s.w}</p>${s.sub[1]>=0?`<div class="twsub">${s.sub[0].map((x,i)=>`<span class="${i===s.sub[1]?"on":""}">${x}</span>`).join("")}</div>`:""}<div class="twnav">${NB.map((b,i)=>`<span class="${i===s.n?"on":""}">${i===s.n?'<i class="twar" aria-hidden="true"></i>':""}${b.s}<b>${b.l}</b></span>`).join("")}</div></div>`;
 document.querySelectorAll(".stry").forEach(x=>x.remove());
 const ov=document.createElement("div");ov.className="stry";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");
-ov.innerHTML=`<div class="sbars">${ST.map(()=>"<i><b></b></i>").join("")}</div><button type="button" class="sx" aria-label="${TT("Cerrar","Tanca","Close")}">✕</button><div class="smid"><div class="stxt"><h3 class="disp"></h3><p></p><span class="swhere"></span></div><div class="sstage"></div></div><div class="sbtn"><button type="button" class="btn sprev">${TT("Atrás","Enrere","Back")}</button><button type="button" class="btn p snext"></button></div>`;
+ov.innerHTML=`<div class="sbars">${ST.map(()=>"<i><b></b></i>").join("")}</div><button type="button" class="sx" aria-label="${TT("Cerrar","Tanca","Close")}">✕</button><div class="smid tsm"><div class="sstage"></div><div class="stxt"><h3 class="disp"></h3><p></p></div><div class="swr"></div></div><div class="sbtn"><button type="button" class="btn sprev">${TT("Atrás","Enrere","Back")}</button><button type="button" class="btn p snext"></button></div>`;
 document.body.appendChild(ov);document.body.style.overflow="hidden";
 let k=0;const end=()=>{ov.remove();document.body.style.overflow="";try{SW[3][2]();window.scrollTo(0,0)}catch(e){}};
 const show=()=>{const s=ST[k];ov.querySelectorAll(".sbars i").forEach((b,i)=>b.className=i<k?"done":i===k?"on":"");
-  const st=ov.querySelector(".sstage");st.innerHTML="";st.classList.remove("in");const kk=k;
-  setTimeout(()=>{if(kk!==k)return;const ph=snap(s.m,st);if(!ph)st.innerHTML=M[s.m];void st.offsetWidth;st.classList.add("in")},90);
-  ov.querySelector(".stxt h3").textContent=s.t;ov.querySelector(".stxt p").textContent=s.d;{const w=WH[s.m]||[0,""];ov.querySelector(".swhere").innerHTML=`${NV[w[0]]||""}<span>${w[1]}</span>`}
+  const st=ov.querySelector(".sstage"),wr=ov.querySelector(".swr");st.innerHTML=ART[s.m];wr.innerHTML=WHERE(s);[st,wr].forEach(x=>{x.classList.remove("in");void x.offsetWidth;x.classList.add("in")});
+  ov.querySelector(".stxt h3").textContent=s.t;ov.querySelector(".stxt p").textContent=s.d;
   ov.querySelector(".sprev").style.display=k?"":"none";ov.querySelector(".snext").textContent=k===ST.length-1?TT("¡Empezamos!","Som-hi!","Let's go!"):TT("Siguiente","Següent","Next")};
 const nx=()=>{if(k<ST.length-1){k++;show()}else end()},pv=()=>{if(k){k--;show()}};
 ov.querySelector(".snext").onclick=nx;ov.querySelector(".sprev").onclick=pv;ov.querySelector(".sx").onclick=end;
