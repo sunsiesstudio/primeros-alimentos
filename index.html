@@ -1835,7 +1835,7 @@ body:has(.fpg:not(.hide)) .rtabs,body:has(.fpg:not(.hide)) #fsw,body:has(.fpg:no
 .sbars{display:flex;gap:5px;margin:0 44px 0 0}.sbars i{flex:1;height:4px;border-radius:99px;background:var(--line);overflow:hidden}.sbars i b{display:block;height:100%;width:0;background:var(--terra);border-radius:99px}.sbars i.done b{width:100%}.sbars i.on b{width:100%;animation:sfill .5s ease-out}
 @keyframes sfill{from{width:0}to{width:100%}}
 .sx{position:absolute;top:calc(4px + env(safe-area-inset-top,0px));right:12px;width:42px;height:42px;border:0;border-radius:50%;background:var(--card);color:var(--ink);font-size:1rem;cursor:pointer}
-.sstage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;padding:18px 0 8px}
+.smid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;min-height:0;padding:16px 0}.sstage{display:flex;align-items:center;justify-content:center;width:100%}
 .stxt{text-align:center;max-width:420px;margin:0 auto}.stxt h3{margin:0 0 8px;font-size:1.55rem;color:var(--terra);line-height:1.15}.stxt p{margin:0;color:var(--ink);line-height:1.5;font-size:1rem}
 .sbtn{display:flex;gap:10px;max-width:420px;width:100%;margin:22px auto 0}.sbtn .btn{flex:1;margin:0;min-height:52px;max-width:none}
 .smk{width:min(330px,100%);background:var(--card);border-radius:24px;padding:16px;box-shadow:0 14px 34px rgba(0,0,0,.14);border:1px solid var(--line)}
@@ -3518,13 +3518,13 @@ const ST=[
 {m:"plan",t:TT("Hecho a vuestra medida","Fet a la vostra mida","Made to fit your family"),d:TT("Dieta, ritmo y objetivos. Si algo cambia, lo ajustas en Plan y el menú se rehace solo.","Dieta, ritme i objectius. Si alguna cosa canvia, ho ajustes a Pla i el menú es refà sol.","Diet, pace and goals. If something changes, adjust it in Plan and the menu updates itself.")}];
 document.querySelectorAll(".stry").forEach(x=>x.remove());
 const ov=document.createElement("div");ov.className="stry";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");
-ov.innerHTML=`<div class="sbars">${ST.map(()=>"<i><b></b></i>").join("")}</div><button type="button" class="sx" aria-label="${TT("Cerrar","Tanca","Close")}">✕</button><div class="sstage"></div><div class="stxt"><h3 class="disp"></h3><p></p></div><div class="sbtn"><button type="button" class="btn sprev">${TT("Atrás","Enrere","Back")}</button><button type="button" class="btn p snext"></button></div>`;
+ov.innerHTML=`<div class="sbars">${ST.map(()=>"<i><b></b></i>").join("")}</div><button type="button" class="sx" aria-label="${TT("Cerrar","Tanca","Close")}">✕</button><div class="smid"><div class="stxt"><h3 class="disp"></h3><p></p></div><div class="sstage"></div></div><div class="sbtn"><button type="button" class="btn sprev">${TT("Atrás","Enrere","Back")}</button><button type="button" class="btn p snext"></button></div>`;
 document.body.appendChild(ov);document.body.style.overflow="hidden";
 let k=0;const end=()=>{ov.remove();document.body.style.overflow="";try{SW[3][2]();window.scrollTo(0,0)}catch(e){}};
 const show=()=>{const s=ST[k];ov.querySelectorAll(".sbars i").forEach((b,i)=>b.className=i<k?"done":i===k?"on":"");
   const st=ov.querySelector(".sstage");st.innerHTML=M[s.m];st.classList.remove("in");void st.offsetWidth;st.classList.add("in");
   ov.querySelector(".stxt h3").textContent=s.t;ov.querySelector(".stxt p").textContent=s.d;
-  ov.querySelector(".sprev").style.visibility=k?"visible":"hidden";ov.querySelector(".snext").textContent=k===ST.length-1?TT("¡Empezamos!","Som-hi!","Let's go!"):TT("Siguiente","Següent","Next")};
+  ov.querySelector(".sprev").style.display=k?"":"none";ov.querySelector(".snext").textContent=k===ST.length-1?TT("¡Empezamos!","Som-hi!","Let's go!"):TT("Siguiente","Següent","Next")};
 const nx=()=>{if(k<ST.length-1){k++;show()}else end()},pv=()=>{if(k){k--;show()}};
 ov.querySelector(".snext").onclick=nx;ov.querySelector(".sprev").onclick=pv;ov.querySelector(".sx").onclick=end;
 let x0=null;ov.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});ov.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50)dx<0?nx():pv()});
