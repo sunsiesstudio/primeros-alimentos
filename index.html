@@ -1918,10 +1918,9 @@ body:has(.fpg:not(.hide)) .rtabs,body:has(.fpg:not(.hide)) #fsw,body:has(.fpg:no
 .wncn.wtd small{color:#4a8760!important}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wncn.wtd small{color:#8fd3a5!important}}:root[data-theme="dark"] .wncn.wtd small{color:#8fd3a5!important}
 .chgo .chgic{flex:none;width:44px;height:44px;display:grid;place-items:center;order:-2}.chgo .chgic>svg{width:44px;height:44px}.chgo .chgic:empty{display:none}
 .chgo .chgic{width:auto;height:auto}
-.chgigs{display:flex;align-items:center}
-.chgigs .nfwc{flex:none;width:34px;height:34px;background:color-mix(in srgb,var(--ink) 10%,var(--bg));box-shadow:0 0 0 2px var(--bg)}
-.chgigs .nfwc+.nfwc{margin-left:-8px}
-.chgigs .nfwc svg,.chgigs .nfwc img{width:22px!important;height:22px!important}
+.wmp.chgigs{display:flex;align-items:center;width:auto;padding-right:10px;isolation:isolate}
+.chgigs .wmi{width:34px;height:34px}
+.chgigs .wmi svg{width:24px!important;height:24px!important}
 .chgo{justify-content:flex-start!important;gap:12px!important}.chgo .chgsv{margin-left:auto}
 .chgust{order:-1;position:absolute;top:8px;left:62px;font-size:.66rem!important;font-weight:800!important;letter-spacing:.06em;text-transform:uppercase;color:var(--terra)!important;margin:0!important}
 .chgo.chgus{position:relative;padding-top:24px!important}
@@ -2879,7 +2878,7 @@ const ICOS={
 "AOVE":["oil"],"Ajo":["bulb","#f3ecd6",1],"Albahaca":["sprig","#4a9a4a"],"Canela":["cinn"],"Cebollino":["blade","#6aa84a"],"Cilantro":["sprig","#6aa84a"],"Comino":["pile","#a8784a"],"Cúrcuma":["pile","#e8a82e"],"Eneldo":["sprig","#8bbf5a"],"Hierbabuena":["sprig","#3f9a5a"],"Jengibre":["ginger"],"Laurel":["leaf","#5a7a3a"],"Limón":["cit","#f2d23a"],"Orégano":["sprig","#7a9a4a"],"Perejil":["sprig","#3f8a3a"],"Pimentón dulce":["pile","#c9362f"],"Romero":["sprig","#5a8a5a"],"Tomillo":["sprig","#7a9a6a"],"Vainilla":["pod2"]};
 const icoCache={};
 Object.assign(ICOS,{"Grosellas":["berry","#d9362f",3],"Lima":["cit","#8bc34a"],"Paraguayo":["apple","#f2a65a"],"Pitahaya":["papaya","#e0457b"],"Canónigos":["leaf","#5a9a3a"],"Cardo":["leek","#cfe0b0"],"Escarola":["leaf","#b9d86a"],"Kale":["leaf","#3f6f3a"],"Pak choi":["leaf","#7cbf5a"],"Pimiento amarillo":["pep","#f2c94c"],"Azukis":["legume","#9a3a3a"],"Boquerones":["fish","#b8c4cf"],"Caballa":["fish","#5f7f9a"],"Calamar":["mus","#e8dcc8"],"Edamame":["pod","#7cbf5a"],"Gallo":["fish","#e8d8c0"],"Jurel":["fish","#9aa8b8"],"Pescadilla":["fish","#d8dfe6"],"Pulpo":["oct","#e48a8a"],"Rodaballo":["fish","#c8bca8"],"Sepia":["mus","#efe6d8"],"Amaranto":["bowl","#c9962f","#e8c98a"],"Teff":["bowl","#8a5a3a","#c9a27a"],"Queso de cabra":["qfresco"],"Yogur griego":["jar","#d46a9a","#fbf3f6"],"Azafrán":["sprig","#d9362f"],"Estragón":["sprig","#5a8a3a"],"Menta":["sprig","#4aa86a"],"Nuez moscada":["seed","#8a5a3a"]});
-const __DIC={};const chgIco=r=>{try{const ig=(r.ings||[]).filter(n=>!/^(Aceite|Agua|Sal|Caldo)/.test(n)).slice(0,3);return ig.length?`<span class="chgigs">${ig.map(n=>`<span class="nfwc">${ico(n)}</span>`).join("")}</span>`:""}catch(e){return ""}};
+const __DIC={};const chgIco=r=>{try{const ig=(r.ings||[]).filter(n=>!/^(Aceite|Agua|Sal|Caldo)/.test(n)).slice(0,3);return ig.length?`<span class="wmp chgigs">${ig.map(n=>`<span class="wmi" style="--wc:${GENC[(info(n)||{}).c]||"var(--terra)"}">${ico(n)}</span>`).join("")}</span>`:""}catch(e){return ""}};
 function dishIco(ings,nm){const ig=(ings||[]).filter(n=>{const x=info(n);return x&&x.c!=="Condimentos"});const k=ig.join("|");if(!ig.length)return"";if(__DIC[k])return __DIC[k];
   const ord=ig.slice().sort((a,b)=>{const r=n=>{const x=info(n);return x.c==="Proteínas"?0:x.c==="Cereales"?1:x.c==="Verduras"?2:x.c==="Frutas"?3:4};return r(a)-r(b)}).slice(0,3);
   const inner=n=>{const v=ico(n);const m=v.match(/<svg[^>]*>([\s\S]*)<\/svg>/);return m?m[1]:""};
