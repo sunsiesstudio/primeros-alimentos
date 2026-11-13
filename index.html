@@ -1868,6 +1868,13 @@ body:has(.fpg:not(.hide)) .rtabs,body:has(.fpg:not(.hide)) #fsw,body:has(.fpg:no
 .splan{display:flex;flex-wrap:wrap;gap:8px}.splan span{font-weight:700;font-size:.8rem;padding:8px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);animation:sSel .5s ease-out both;animation-delay:var(--d)}
 @keyframes sSel{0%{opacity:0;transform:scale(.8)}60%{opacity:1;background:transparent}100%{opacity:1;background:color-mix(in srgb,var(--terra) 22%,transparent);border-color:var(--terra)}}
 .sredo{margin-top:14px;text-align:center;font-weight:800;color:var(--terra);font-size:.85rem;animation:sPop .5s both 1.6s}
+.sphw{position:relative;border-radius:26px;overflow:hidden;border:1.5px solid color-mix(in srgb,var(--ink) 16%,transparent);background:var(--bg);box-shadow:0 18px 40px rgba(0,0,0,.14)}
+.sph{position:absolute;left:0;top:0;width:390px;transform-origin:top left;background:var(--bg);pointer-events:none;overflow:hidden}
+.sphs{position:absolute;inset:0;overflow:hidden;padding:14px 12px 90px}.sphs>section{margin:0}.sphs>#fsw{position:sticky;top:-14px;z-index:2;background:var(--bg);margin:-14px -12px 8px;padding:14px 12px 4px}
+.sph .tabs{position:absolute!important;left:10px!important;right:10px!important;top:auto!important;bottom:12px!important;width:auto!important;flex-direction:row!important;margin:0!important;z-index:2}
+.sring{position:absolute;z-index:3;border-radius:18px;border:3px solid var(--terra);box-shadow:0 0 0 6px color-mix(in srgb,var(--terra) 22%,transparent);animation:sRing 1.6s ease-in-out infinite;pointer-events:none}
+@keyframes sRing{50%{box-shadow:0 0 0 12px color-mix(in srgb,var(--terra) 8%,transparent)}}
+.sstage{flex:1;min-height:0;align-items:stretch!important}.sstage.in .sphw{animation:sIn .45s cubic-bezier(.2,.8,.3,1.2) both}
 @media (prefers-reduced-motion:reduce){.stry *{animation:none!important}}
 @media (max-height:700px){.smk{transform:scale(.88)}.stxt h3{font-size:1.3rem}}
 .fzcubes{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 2px;align-items:center}.fzcubes i{display:block;width:18px;height:18px;border-radius:5px;background:var(--c);box-shadow:inset 0 -3px 0 rgba(0,0,0,.14),inset 0 2px 0 rgba(255,255,255,.35);animation:fzCb .35s cubic-bezier(.3,1.5,.5,1) both;animation-delay:var(--d)}
@@ -3562,6 +3569,20 @@ cook:`<div class="smk"><div class="sfzg"><div class="sfzt">❄ ${TT("Congelador"
 plan:`<div class="smk"><div class="smh">${TT("Plan de ","Pla de ","Plan for ")}${esc(N)} <span class="spen2">✎</span></div><div class="splan">${[TT("De todo","De tot","Everything"),TT("Nuevo cada día","Nou cada dia","New every day")].map((t,i)=>`<span style="--d:${.1+i*.15}s">${t}</span>`).join("")}</div>
   <div class="sgoals">${[[TT("Hierro","Ferro","Iron"),"6/7"],[TT("Fibra","Fibra","Fibre"),"5/7"],[TT("Proteína","Proteïna","Protein"),"7/7"],[TT("Calcio","Calci","Calcium"),"4/7"]].map(([g,n],i)=>`<span style="--d:${.4+i*.12}s"><b>${g}</b><small>${n} ${TT("días","dies","days")}</small></span>`).join("")}</div></div>`};
 const WH={hoy:[0,TT("Menú › Hoy","Menú › Avui","Menu › Today")],rate:[0,TT("Menú › Hoy","Menú › Avui","Menu › Today")],week:[0,TT("Menú › Semana","Menú › Setmana","Menu › Week")],log:[2,TT("Registro","Registre","Log")],cook:[1,TT("Cocina","Cuina","Kitchen")],plan:[0,TT("Menú › Plan","Menú › Pla","Menu › Plan")]};
+const SNP={hoy:[3,".course:not(.cinv),.course"],rate:[3,".course:not(.cinv) .mk.mkq,.course.cinv"],week:[2,".wrow.wdc:not(.off),.wrow.wdc"],log:[0,".tkc"],cook:[4,".rcard,.fav,.card"],plan:[8,"#stwrap .card,#stwrap"]};
+const snap=(m,st)=>{const c=SNP[m];if(!c)return null;try{SW[c[0]][2]()}catch(e){return null}
+  try{const H=Math.max(220,st.clientHeight),W=Math.min(st.clientWidth,420),K=Math.min(.8,(W-8)/390,H/520),PH=Math.round(H/K);
+    const wr=document.createElement("div");wr.className="sphw";wr.style.width=Math.round(390*K)+"px";wr.style.height=H+"px";
+    const ph=document.createElement("div");ph.className="sph";ph.style.height=PH+"px";ph.style.transform=`scale(${K})`;ph.setAttribute("inert","");ph.setAttribute("aria-hidden","true");
+    const sc=document.createElement("div");sc.className="sphs";ph.appendChild(sc);
+    const vis=[$("fsw"),...document.querySelectorAll("main > section")].filter(e=>e&&!e.classList.contains("hide")&&e.offsetParent!==null);
+    vis.forEach(e=>sc.appendChild(e.cloneNode(true)));const tb=document.querySelector("main .tabs");if(tb)ph.appendChild(tb.cloneNode(true));
+    wr.appendChild(ph);st.appendChild(wr);
+    let t=null;for(const q of c[1].split(",")){t=[...sc.querySelectorAll(q)].find(e=>e.offsetHeight>20&&!e.closest(".hide"));if(t)break}
+    if(t){const r=t.getBoundingClientRect(),r0=sc.getBoundingClientRect(),top=(r.top-r0.top)/K;sc.scrollTop=Math.max(0,top-80);
+      const r2=t.getBoundingClientRect(),ring=document.createElement("i");ring.className="sring";
+      Object.assign(ring.style,{left:((r2.left-r0.left)/K-4)+"px",top:((r2.top-r0.top)/K-4)+"px",width:(r2.width/K+8)+"px",height:(Math.min(r2.height/K,PH*.55)+8)+"px"});ph.appendChild(ring)}
+    return wr}catch(e){st.innerHTML="";return null}};
 const ST=[
 {m:"hoy",t:TT("Lo de hoy, ya pensado","El d'avui, ja pensat","Today, already planned"),d:TT("Cada día te decimos qué darle, con la receta de cada plato. ¿Te falta algo? Lo cambias con el lápiz.","Cada dia et diem què donar-li, amb la recepta de cada plat. Et falta alguna cosa? La canvies amb el llapis.","Every day we tell you what to give them, with a recipe for each dish. Missing something? Swap it with the pencil.")},
 {m:"rate",t:TT("Tú solo apuntas cómo ha ido","Tu només apuntes com ha anat","You just log how it went"),d:TT("Un toque después de cada comida. Con eso el plan aprende qué le gusta y qué toca repetir.","Un toc després de cada àpat. Amb això el pla aprèn què li agrada i què cal repetir.","One tap after each meal. That's how the plan learns what they like and what to repeat.")},
@@ -3575,7 +3596,8 @@ ov.innerHTML=`<div class="sbars">${ST.map(()=>"<i><b></b></i>").join("")}</div><
 document.body.appendChild(ov);document.body.style.overflow="hidden";
 let k=0;const end=()=>{ov.remove();document.body.style.overflow="";try{SW[3][2]();window.scrollTo(0,0)}catch(e){}};
 const show=()=>{const s=ST[k];ov.querySelectorAll(".sbars i").forEach((b,i)=>b.className=i<k?"done":i===k?"on":"");
-  const st=ov.querySelector(".sstage");st.innerHTML=M[s.m];st.classList.remove("in");void st.offsetWidth;st.classList.add("in");
+  const st=ov.querySelector(".sstage");st.innerHTML="";st.classList.remove("in");const kk=k;
+  setTimeout(()=>{if(kk!==k)return;const ph=snap(s.m,st);if(!ph)st.innerHTML=M[s.m];void st.offsetWidth;st.classList.add("in")},90);
   ov.querySelector(".stxt h3").textContent=s.t;ov.querySelector(".stxt p").textContent=s.d;{const w=WH[s.m]||[0,""];ov.querySelector(".swhere").innerHTML=`${NV[w[0]]||""}<span>${w[1]}</span>`}
   ov.querySelector(".sprev").style.display=k?"":"none";ov.querySelector(".snext").textContent=k===ST.length-1?TT("¡Empezamos!","Som-hi!","Let's go!"):TT("Siguiente","Següent","Next")};
 const nx=()=>{if(k<ST.length-1){k++;show()}else end()},pv=()=>{if(k){k--;show()}};
