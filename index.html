@@ -1876,11 +1876,12 @@ body:has(.fpg:not(.hide)) .rtabs,body:has(.fpg:not(.hide)) #fsw,body:has(.fpg:no
 .sph{position:absolute;left:0;top:0;width:390px;transform-origin:top left;background:var(--bg);pointer-events:none;overflow:hidden}
 .sphs{position:absolute;inset:0;overflow:hidden;padding:14px 12px 90px}.sphs>section{margin:0}.sphs>#fsw{position:sticky;top:-14px;z-index:2;background:var(--bg);margin:-14px -12px 8px;padding:14px 12px 4px}
 .sph .tabs{position:absolute!important;left:10px!important;right:10px!important;top:auto!important;bottom:12px!important;width:auto!important;flex-direction:row!important;margin:0!important;z-index:2}
-.sph .stgt{outline:3px solid var(--terra)!important;outline-offset:4px;border-radius:16px;animation:sRing2 1.6s ease-in-out infinite;position:relative;z-index:2}
-@keyframes sRing2{50%{outline-color:color-mix(in srgb,var(--terra) 45%,transparent)}}
+.sph .stgt{outline:3px solid var(--terra)!important;outline-offset:4px;border-radius:16px;animation:sRing2 2.4s ease-in-out infinite;position:relative;z-index:2}
+@keyframes sRing2{0%,100%{outline-color:var(--terra)}50%{outline-color:color-mix(in srgb,var(--terra) 35%,transparent)}}
 .sph .mshc,.sph [data-mstory]{display:none!important}
-.sring{position:absolute;z-index:3;border-radius:18px;border:3px solid var(--terra);box-shadow:0 0 0 6px color-mix(in srgb,var(--terra) 22%,transparent);animation:sRing 1.6s ease-in-out infinite;pointer-events:none}
-@keyframes sRing{50%{box-shadow:0 0 0 12px color-mix(in srgb,var(--terra) 8%,transparent)}}
+.sring{position:absolute;z-index:3;border-radius:18px;border:3px solid var(--terra);box-shadow:0 0 0 6px color-mix(in srgb,var(--terra) 22%,transparent);animation:sRing 2.4s ease-in-out infinite;pointer-events:none}
+@keyframes sRing{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.sring,.sph .stgt{animation:none}}
 .swr{flex:1;min-height:0;width:100%;display:flex;justify-content:center}.swr.in .sphw{animation:sIn .45s cubic-bezier(.2,.8,.3,1.2) both}
 .tsm .sstage{flex:none}.tart{display:block;width:min(240px,62vw);height:auto;overflow:visible}
 .tart .ta-sh{fill:var(--ink);opacity:.08}.tart .ta-b{animation:iaBob 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
