@@ -4388,7 +4388,7 @@ if(hit)spans.push(hit);else miss.push(f)});
   let out="",p0=0;spans.sort((x,y)=>x[0]-y[0]).forEach(([i,l])=>{if(i<p0)return;out+=esc(s0.slice(p0,i))+`<mark class="wnf">${esc(s0.slice(i,i+l))}</mark>`;p0=i+l});out+=esc(s0.slice(p0));
   if(miss.length)out+=` <mark class="wnf wnfa">+ ${miss.map(f=>esc(tFood(f).toLowerCase())).join(", ")}</mark>`;return out};
 function cleanOrphanLogs(){try{if(!S.log||!S.ov)return;const n0=S.log.length;S.log=S.log.filter(l=>{if(!l.m||l.sh||!l.ml||!l.d)return true;const v=(S.ov[l.d]||{})[l.ml];if(!v)return true;return ovIngs(v).includes(l.f)});if(S.log.length!==n0)save()}catch(e){}}
-function plan(){cleanOrphanLogs();
+function plan(){try{fixCoveredIngs()}catch(e){}cleanOrphanLogs();
   PLANNED={};
   const p=S.prefs,goals=[...new Set([...(p.goals||[]),"iron","zinc"])],every=p.every||2,m=stats(),rnd=rng((p.seed||1)*7919),ag=age();
   const notes=[],tips=[];
@@ -4849,7 +4849,7 @@ function plan(){cleanOrphanLogs();
     $("chg_a").classList.toggle("hide",!!o.past);$("chg_b").classList.remove("sep");
     // Lo que le ha dado: lo que se reconoce en el texto + lo que se añade a mano − lo que se quita
     const base=(cur.ings||[]).filter(n=>ALL.some(x=>x.n===n)),orig=norm(String(cur.n||"").trim()),sel=new Set(),rem=new Set(),mm=stats(),pool=ALL.filter(x=>unlocked(x)).sort((a,b)=>(mm[b.n]?1:0)-(mm[a.n]?1:0)||a.n.localeCompare(b.n,"es"));
-    const fin=()=>{const tx=$("chg_x").value;return[...new Set([...(norm(tx.trim())===orig?base:[]),...inferIngs(tx)].filter(n=>!rem.has(n)).concat([...sel]))]};
+    const fin=()=>{const tx=$("chg_x").value;return dedupIngs([...new Set([...(norm(tx.trim())===orig?base:[]),...inferIngs(tx)].filter(n=>!rem.has(n)).concat([...sel]))])};
     const paint=()=>{const F=fin(),q=norm($("chg_s").value.trim()),L=pool.filter(x=>!F.includes(x.n)&&(q?norm(x.n).includes(q):true)).slice(0,q?60:30);
       
       $("chg_det").innerHTML=F.map(n=>`<button type="button" class="pk on" data-n="${esc(n)}" aria-label="Quitar ${esc(n)}">${esc(n)} ✕</button>`).join("");
@@ -5251,7 +5251,9 @@ function foodGuess(t){const q=norm(String(t||"").trim()).replace(/[^a-z0-9ñ ]/g
   const lv=(a,b)=>{const m=a.length,n=b.length;if(Math.abs(m-n)>3)return 9;let p=[...Array(n+1).keys()];for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[n]};
   let best=null,bd=9;ALL.forEach(f=>{const w=norm(f.n);[w,w+"s"].forEach(v=>{const d=lv(q,v);if(d<bd){bd=d;best=f}})});const lim=q.length<=4?1:q.length<=8?2:3;return best&&bd<=lim?{n:best.n,exact:false}:null}
 // Ingredientes de un plato apuntado: lo elegido + lo que se reconoce en el nombre − lo que se quitó a mano
-function ovIngs(v){if(!v)return[];const x=v.x||[];return[...new Set([...(v.i||[]),...inferIngs(v.n||"")])].filter(n=>info(n)&&!x.includes(n))}
+function dedupIngs(L){const W=n=>" "+norm(n)+" ";return L.filter(n=>!L.some(m=>m!==n&&(W(m).includes(W(n))||(n==="Yogur natural"&&/^Yogur /.test(m)))))}
+function ovIngs(v){if(!v)return[];const x=v.x||[];return dedupIngs([...new Set([...(v.i||[]),...inferIngs(v.n||"")])].filter(n=>info(n)&&!x.includes(n)))}
+function fixCoveredIngs(){let ch=false;Object.keys(S.ov||{}).forEach(d=>Object.keys(S.ov[d]).forEach(m=>{const v=S.ov[d][m];if(!v||!Array.isArray(v.i))return;const ok=dedupIngs(v.i);if(ok.length!==v.i.length){const gone=v.i.filter(n=>!ok.includes(n));v.i=ok;ch=true;const n0=S.log.length;S.log=S.log.filter(l=>!(l.d===d&&l.ml===m&&gone.includes(l.f)&&(l.m||l.sv)));if(S.log.length!==n0)ch=true}}));if(ch)try{save()}catch(e){}return ch}
 function inferIngs(t){const q=" "+norm(String(t||"")).replace(/[^a-z0-9ñ ]/g," ").replace(/ +/g," ")+" ",out=[],add=n=>{if(!out.includes(n)&&ALL.some(x=>x.n===n))out.push(n)};
   // Busca el nombre del alimento en castellano, catalán e inglés, escriba en el idioma que escriba
   ALL.forEach(x=>{[x.n,...(((typeof I18N!=="undefined"&&I18N.food)||{})[x.n]||[])].forEach(nm=>{const w=norm(nm).replace(/[^a-z0-9ñ ]/g," ").replace(/ +/g," ").trim();if(w.length<3)return;const sg=w.endsWith("s")?w.slice(0,-1):w;if([w,w+"s",w+"es",sg].some(v=>q.includes(" "+v+" ")))add(x.n)})});
