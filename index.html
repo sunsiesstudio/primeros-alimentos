@@ -2115,6 +2115,7 @@ html body .wgr.td .wgd b{color:var(--terra)}
 html body .wgc{justify-self:center;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--ink) 6%,transparent)}
 html body .wgc svg,html body .wgc img{width:26px;height:26px}html body .wgc.wg0{background:none}
 html body .wgc.nw{box-shadow:0 0 0 2px var(--terra)}
+html body #pfnew .wknw{margin:0 0 14px}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -2388,7 +2389,7 @@ document.documentElement.lang=LANG;
     <div class="btns" style="max-width:none"><button class="btn p" id="mk" style="width:100%;flex:1 1 100%">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
   </div></div></details>
-<div class="card" id="nutcard"></div></div>
+<div id="pfnew"></div></div><div id="rswrap" class="hide"><div class="card" id="nutcard"></div></div>
   <div id="rcwrap" class="hide"></div>
   <div id="fzwrap" class="hide"><div class="card" id="fzbox"></div></div>
   <div id="pvw" class="hide">
@@ -4037,7 +4038,7 @@ const IDX=["Texturas","Conservación","Cuánto come","La leche","El agua","Higie
   {const pb=$("poop_open");if(pb)pb.onclick=openPoop}{const ms=$("mlk_set");if(ms)ms.onclick=()=>{try{tab(4)}catch(e){}setTimeout(()=>{const f=$("pf_milk");if(f){f.scrollIntoView({block:"center"});f.focus()}},250)}}{const fg=$("fz_go");if(fg)fg.onclick=()=>{psub=4;tab(2);subtab(4);setTimeout(()=>{const z=$("fzwrap")||$("fzbox");if(z)z.scrollIntoView({behavior:"smooth",block:"start"})},150)}}
 }
 let selA=3,selB=0,selC=4,selP=7;
-const SW=[["B","Alimentos",()=>tab(1)],["B","Alérgenos",()=>{setRT("al");tab(3)}],["A","Compra",()=>{psub=2;tab(2);subtab(2)}],["A","Hoy",()=>{psub=1;tab(2);subtab(1)}],["C","Recetario",()=>{psub=3;tab(2);subtab(3)}],["C","Guía",()=>tab(5)],["C","En casa",()=>{psub=4;tab(2);subtab(4)}],["P","Perfil",()=>tab(4)],["A","Plan",()=>{psub=5;tab(2);subtab(5)}]];
+const SW=[["B","Alimentos",()=>tab(1)],["B","Alérgenos",()=>{setRT("al");tab(3)}],["C","Compra",()=>{psub=2;tab(2);subtab(2)}],["A","Hoy",()=>{psub=1;tab(2);subtab(1)}],["C","Recetario",()=>{psub=3;tab(2);subtab(3)}],["C","Guía",()=>tab(5)],["C","En casa",()=>{psub=4;tab(2);subtab(4)}],["P","Perfil",()=>tab(4)],["A","Plan",()=>{psub=5;tab(2);subtab(5)}],["B","Resumen",()=>{psub=6;tab(2);subtab(6)}]];
 const SIT={e:["Estreñido","más pera, ciruela, kiwi, legumbre y agua; menos plátano y zanahoria. Si pasan varios días, consulta a tu pediatra"],d:["Diarrea","más arroz, plátano, zanahoria y patata; menos fruta laxante y legumbre. Mucho líquido y, si dura o hay fiebre, al pediatra"],g:["Tiene gases","menos legumbre, brócoli, coliflor y col; verdura bien cocida y en poca cantidad"],r:["Regurgita más","raciones pequeñas, texturas espesas y menos cítricos y tomate. Si vomita con fuerza o no gana peso, al pediatra"],m:["Está malito","sus platos conocidos, en poca cantidad y mucho líquido"],t:["Le salen los dientes","cosas frías para morder, como pepino pelado o melón de la nevera en bastones grandes, mango fresquito y yogur frío. El frío calma la encía y morder alivia, así que no hace falta que todo sea blando"],a:["Come poco","lo que más le gusta y alimentos con energía como aguacate, hummus o aceite, sin presión"],h:["Hito o regresión","lo que ya conoce y le gusta, fácil de coger con la mano y sin presión: es normal que coma menos unos días"],c:["Hace mucho calor","fruta con mucha agua como sandía o melón, yogur y agua a menudo"],v:["De viaje","platos fáciles de llevar y sin cocinar"]};
 const sitM=()=>{const p=S.prefs||{};let x=p.sit;if(x&&x.k){x={[x.k]:{s:x.s,...(x.a?{a:x.a}:{})}};p.sit=x}return x||{}};
 const sits=ds=>{const x=sitM();return Object.keys(x).filter(k=>SIT[k]&&x[k]&&ds>=x[k].s)};
@@ -4051,8 +4052,8 @@ function vRestore(){setTimeout(()=>document.documentElement.classList.remove("vp
   try{if(o.v===2){tab(2);subtab(o.s||1)}else if(o.v===3){setRT(o.rt||"al");tab(3)}else if(o.v===4||o.v===5)tab(o.v);else if(o.rt)setRT(o.rt)}catch(e){}
   if(o.y)setTimeout(()=>window.scrollTo(0,o.y),450)}
 addEventListener("pagehide",vSave);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")vSave()});
-function swIdx(){if(curV===1)return 0;if(curV===3)return 1;if(curV===5)return 5;if(curV===4)return 7;if(curV===2)return psub===5?8:psub===4?6:psub===3?4:psub===2?2:3;return -1}
-function renderSw(){let k=swIdx();const g=k<0?null:SW[k][0],w=$("fsw");if(g==="H"||SW.filter(x=>x[0]===g).length<2)k=-1;w.classList.toggle("hide",k<0);if(k<0)return;w.innerHTML=[8,3,2,4,6,5,0,1,7].map(i=>[SW[i],i]).map(([x,i])=>x[0]===g?`<button type="button" class="btn${i===k?" on":""}${x[1]==="Hoy"?" swm":""}" data-sw="${i}" role="tab" aria-selected="${i===k}">${x[1]}</button>`:"").join("");w.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{SW[+b.dataset.sw][2]();window.scrollTo(0,0)});const on=w.querySelector(".on");if(on&&on.scrollIntoView)w.scrollLeft=Math.max(0,on.offsetLeft-20)}
+function swIdx(){if(curV===1)return 0;if(curV===3)return 1;if(curV===5)return 5;if(curV===4)return 7;if(curV===2)return psub===6?9:psub===5?8:psub===4?6:psub===3?4:psub===2?2:3;return -1}
+function renderSw(){let k=swIdx();const g=k<0?null:SW[k][0],w=$("fsw");if(g==="H"||SW.filter(x=>x[0]===g).length<2)k=-1;w.classList.toggle("hide",k<0);if(k<0)return;w.innerHTML=[3,8,4,6,2,5,9,0,1,7].map(i=>[SW[i],i]).map(([x,i])=>x[0]===g?`<button type="button" class="btn${i===k?" on":""}${x[1]==="Hoy"?" swm":""}" data-sw="${i}" role="tab" aria-selected="${i===k}">${x[1]}</button>`:"").join("");w.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{SW[+b.dataset.sw][2]();window.scrollTo(0,0)});const on=w.querySelector(".on");if(on&&on.scrollIntoView)w.scrollLeft=Math.max(0,on.offsetLeft-20)}
 function mkEat(d,m){return;/* Ya no se marca al cambiar el plato: se apunta al responder "¿Qué tal ha comido?" */setTimeout(()=>{if(S.ml[d]&&S.ml[d][m])return;const b=[...document.querySelectorAll("#days .mkq button[data-d]")].find(x=>x.dataset.d===d&&x.dataset.ml===m);if(b){delete b.dataset.fb;b.onclick()}},0)}
 addEventListener("scroll",()=>{const w=$("fsw");if(w)w.classList.toggle("stuck",w.getBoundingClientRect().top<=1&&scrollY>40)},{passive:true});
 function ccFb(ds,n,v){return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}const c=document.querySelector(`.dnote[data-dn="${ds}"] .dncc`);if(!c)return;const k=v.t.includes("nocaca")?0:(v.cc||0);const t=v.t.includes("nocaca")?TT("✓ Apuntado: ninguna","✓ Apuntat: cap","✓ Saved: none"):k?TT(`✓ Apuntado${k>1?`: ${k} cacas`:""}`,`✓ Apuntat${k>1?`: ${k} caques`:""}`,`✓ Saved${k>1?`: ${k} poops`:""}`):TT("Quitado","Tret","Removed");let e=c.querySelector(".ccok");if(!e){e=document.createElement("span");e.className="ccok";e.setAttribute("aria-live","polite");c.querySelector("p").appendChild(e)}e.textContent=t;e.classList.remove("go");void e.offsetWidth;e.classList.add("go");const b=c.querySelector(`[data-cc="${k||0}"]`)||c.querySelector(`[data-cc="${n}"]`);if(b){b.classList.remove("ccpop");void b.offsetWidth;b.classList.add("ccpop")}}
@@ -5295,7 +5296,7 @@ function centerWk(){const wk=document.querySelector("#days .wk"),on=wk&&wk.query
     const r=wk.getBoundingClientRect(),o=on.getBoundingClientRect(),c=o.left+o.width/2-r.left+wk.scrollLeft,rw=(document.querySelector("#days .dday")||wk.closest(".wkrow")||wk).getBoundingClientRect(),h=Math.min(wk.clientWidth,Math.max(0,rw.left+rw.width/2-r.left)),pl=Math.max(0,h-c),cw=wk.lastElementChild.getBoundingClientRect().right-r.left+wk.scrollLeft,pr=Math.max(0,(wk.clientWidth-h)-(cw-c));
     wk.style.setProperty("padding-left",pl+"px","important");wk.style.setProperty("padding-right",pr+"px","important");void wk.scrollWidth;wk.scrollLeft=Math.round(c+pl-h)}}
 addEventListener("resize",()=>centerWk());
-function subtab(n){n=n===2||n===3||n===4||n===5?n:1;psub=n;setTimeout(vSave,0);{const w=$("pvw"),v=$("pv1");if(w&&v&&v.nextElementSibling!==w&&w.nextElementSibling===v)w.before(v)}$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==5);$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==4);if(n===3)renderFav();if(n===4)renderFzBox();if(typeof renderSw==="function")renderSw();if(typeof navOn==="function")navOn();if(n===1)centerWk()}
+function subtab(n){n=n===2||n===3||n===4||n===5||n===6?n:1;psub=n;setTimeout(vSave,0);{const w=$("pvw"),v=$("pv1");if(w&&v&&v.nextElementSibling!==w&&w.nextElementSibling===v)w.before(v)}$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==5);{const rw=$("rswrap");if(rw)rw.classList.toggle("hide",n!==6)}if(n===5){const src=document.querySelector("#pvw .wknw"),dst=$("pfnew");if(dst)dst.innerHTML=src?src.outerHTML.replace(/<details class="wknw"[^>]*>/,'<details class="wknw pfnw" open>'):""}$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==4);if(n===3)renderFav();if(n===4)renderFzBox();if(typeof renderSw==="function")renderSw();if(typeof navOn==="function")navOn();if(n===1)centerWk()}
 
 
 const RCH3=["love","ok","meh","play","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
@@ -7072,6 +7073,10 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   try{S.fav=S.fav||[];let o=S.fav.find(x=>x.n===n);if(!o){o={n,i:ig.slice()};S.fav.push(o)}if(!o.st||!o.st.length)o.st=st.slice();save()}catch(_){}
   try{SW[4][2]()}catch(_){}
   let k=0;const go=()=>{const x=document.querySelector(`[data-fved="${CSS.escape(n)}"]`);if(x){x.scrollIntoView({block:"center"});x.click()}else if(k++<10)setTimeout(go,120)};setTimeout(go,150)});
+</script>
+<script>
+/* Plan: los alimentos nuevos son una copia de los de la semana; los toques van al original */
+document.addEventListener("click",e=>{const c=e.target.closest&&e.target.closest("#pfnew [data-nfp],#pfnew [data-wfo]");if(!c)return;e.preventDefault();e.stopPropagation();const k=c.dataset.nfp!=null?"nfp":"wfo",v=c.dataset[k],o=[...document.querySelectorAll(`#pvw [data-${k}]`)].find(x=>x.dataset[k]===v&&(k!=="nfp"||x.dataset.d===c.dataset.d));if(o)o.click()},true);
 </script>
 </body>
 </html>
