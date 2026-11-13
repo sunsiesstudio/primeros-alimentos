@@ -1984,6 +1984,7 @@ html body .rcv>summary .soaktag{margin-left:12px!important;margin-right:2px;disp
 .chgrcp textarea{margin-top:8px;width:100%;box-sizing:border-box}
 .chgrcn{margin:6px 0 0;font-size:.8rem}
 .ob .ocl>*{margin:0!important}
+html body .sph .stgt{border-radius:12px!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -3613,8 +3614,8 @@ week:`<svg viewBox="0 0 80 80"><rect x="10" y="16" width="60" height="52" rx="9"
 log:`<svg viewBox="0 0 80 80"><path d="M40 24c-4-8-14-8-18-2-6 9-2 30 8 38 4 3 7 2 10 0 3 2 6 3 10 0 10-8 14-29 8-38-4-6-14-6-18 2z" class="ti-apple"/><path d="M40 24c0-6 3-10 8-12" class="ti-ln"/><path d="M62 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" class="ti-spark ti-d1"/><path d="M16 50l1.500 4 4 1.500-4 1.500-1.500 4-1.500-4-4-1.500 4-1.500z" class="ti-spark ti-d3"/></svg>`,
 cook:`<svg viewBox="0 0 80 80"><circle cx="30" cy="24" r="4" class="ti-bub ti-d1"/><circle cx="42" cy="18" r="3" class="ti-bub ti-d2"/><circle cx="52" cy="26" r="3.500" class="ti-bub ti-d3"/><path d="M12 36h56" class="ti-ln"/><path d="M16 36h48v20a12 12 0 01-12 12H28a12 12 0 01-12-12z" class="ti-pot"/><path d="M8 42h8M64 42h8" class="ti-ln"/></svg>`};
 function appTour(){try{S.prefs.tour=1;save()}catch(e){}
-const H=(x,y,c,cl,d)=>`<path class="${cl||"ta-p"}" style="animation-delay:${d||0}s" transform="translate(${x} ${y})" d="M0 -4c-3-6-12-4.5-12 2.3 0 6 12 12 12 12s12-6 12-12c0-6.8-9-8.3-12-2.3z" fill="${c||"#e05a6a"}"/>`;
-const STAR=(x,y,s,d)=>`<path class="ta-t" style="animation-delay:${d||0}s" transform="translate(${x} ${y}) scale(${s||1})" d="M0 -9l2.6 6 6.4.6-4.8 4.3 1.4 6.4L0 4.9-5.6 8.3l1.4-6.4L-9-2.4l6.4-.6z" fill="#f2c66d"/>`;
+const H=(x,y,c,cl,d)=>`<g transform="translate(${x} ${y})"><path class="${cl||"ta-p"}" style="animation-delay:${d||0}s" d="M0 -4c-3-6-12-4.5-12 2.3 0 6 12 12 12 12s12-6 12-12c0-6.8-9-8.3-12-2.3z" fill="${c||"#e05a6a"}"/></g>`;
+const STAR=(x,y,s,d)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path class="ta-t" style="animation-delay:${d||0}s" d="M0 -9l2.6 6 6.4.6-4.8 4.3 1.4 6.4L0 4.9-5.6 8.3l1.4-6.4L-9-2.4l6.4-.6z" fill="#f2c66d"/></g>`;
 const FACE=(x,y,c)=>`<circle cx="${x-9}" cy="${y}" r="2.4" fill="${c}"/><circle cx="${x+9}" cy="${y}" r="2.4" fill="${c}"/><path d="M${x-5} ${y+6}q5 4.5 10 0" stroke="${c}" stroke-width="2.3" fill="none" stroke-linecap="round"/><circle cx="${x-15}" cy="${y+5}" r="3.2" fill="#f19b9b" opacity=".55"/><circle cx="${x+15}" cy="${y+5}" r="3.2" fill="#f19b9b" opacity=".55"/>`;
 const SH=`<ellipse cx="110" cy="140" rx="70" ry="7" class="ta-sh"/>`,SVG=b=>`<svg class="tart" viewBox="0 0 220 150" aria-hidden="true">${SH}${b}</svg>`;
 const ART={
