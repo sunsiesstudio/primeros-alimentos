@@ -2121,6 +2121,7 @@ html body .gql p{margin:0 0 8px;font:800 .7rem Montserrat,sans-serif;letter-spac
 html body .gql div{display:flex;flex-wrap:wrap;gap:6px}
 html body .gql button{font:700 .82rem Montserrat,sans-serif;padding:7px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
 html body .gflash{animation:gfl 1.6s ease}@keyframes gfl{20%{box-shadow:0 0 0 4px var(--terra)}100%{box-shadow:none}}
+html body #rswrap #nutgk{display:none!important}html body .pfg{margin:0 0 14px}html body .pfg>b.disp{display:block;font-size:1.15rem}html body .pfg>p{margin:4px 0 12px;font-size:.85rem}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -2394,7 +2395,7 @@ document.documentElement.lang=LANG;
     <div class="btns" style="max-width:none"><button class="btn p" id="mk" style="width:100%;flex:1 1 100%">Generar plan</button></div>
     <p class="mute" id="pf_note"></p>
   </div></div></details>
-<div id="pfnew"></div></div><div id="rswrap" class="hide"><div class="card" id="nutcard"></div></div>
+<div id="pfgoal"></div><div id="pfnew"></div></div><div id="rswrap" class="hide"><div class="card" id="nutcard"></div></div>
   <div id="rcwrap" class="hide"></div>
   <div id="fzwrap" class="hide"><div class="card" id="fzbox"></div></div>
   <div id="pvw" class="hide">
@@ -5301,7 +5302,7 @@ function centerWk(){const wk=document.querySelector("#days .wk"),on=wk&&wk.query
     const r=wk.getBoundingClientRect(),o=on.getBoundingClientRect(),c=o.left+o.width/2-r.left+wk.scrollLeft,rw=(document.querySelector("#days .dday")||wk.closest(".wkrow")||wk).getBoundingClientRect(),h=Math.min(wk.clientWidth,Math.max(0,rw.left+rw.width/2-r.left)),pl=Math.max(0,h-c),cw=wk.lastElementChild.getBoundingClientRect().right-r.left+wk.scrollLeft,pr=Math.max(0,(wk.clientWidth-h)-(cw-c));
     wk.style.setProperty("padding-left",pl+"px","important");wk.style.setProperty("padding-right",pr+"px","important");void wk.scrollWidth;wk.scrollLeft=Math.round(c+pl-h)}}
 addEventListener("resize",()=>centerWk());
-function subtab(n){n=n===2||n===3||n===4||n===5||n===6?n:1;psub=n;setTimeout(vSave,0);{const w=$("pvw"),v=$("pv1");if(w&&v&&v.nextElementSibling!==w&&w.nextElementSibling===v)w.before(v)}$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==5);{const rw=$("rswrap");if(rw)rw.classList.toggle("hide",n!==6)}if(n===5){const src=document.querySelector("#pvw .wknw"),dst=$("pfnew");if(dst)dst.innerHTML=src?src.outerHTML.replace(/<details class="wknw"[^>]*>/,'<details class="wknw pfnw" open>'):""}$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==4);if(n===3)renderFav();if(n===4)renderFzBox();if(typeof renderSw==="function")renderSw();if(typeof navOn==="function")navOn();if(n===1)centerWk()}
+function subtab(n){n=n===2||n===3||n===4||n===5||n===6?n:1;psub=n;setTimeout(vSave,0);{const w=$("pvw"),v=$("pv1");if(w&&v&&v.nextElementSibling!==w&&w.nextElementSibling===v)w.before(v)}$("pv1").classList.toggle("hide",n!==1);$("pvw").classList.toggle("hide",n!==2);$("pv2").classList.add("hide");/* lista de la compra oculta por ahora */$("stwrap").classList.toggle("hide",n!==5);{const rw=$("rswrap");if(rw)rw.classList.toggle("hide",n!==6)}if(n===5){const g=$("nutgk"),gd=$("pfgoal");if(gd)gd.innerHTML=g?`<div class="card pfg"><b class="disp">${TT("Lo que cubre su plan","El que cobreix el seu pla","What their plan covers")}</b><p class="mute">${TT("Días de esta semana con cada nutriente. Toca uno para ver con qué reforzarlo.","Dies d'aquesta setmana amb cada nutrient. Toca'n un per veure amb què reforçar-lo.","Days this week with each nutrient. Tap one to see how to boost it.")}</p>${g.outerHTML.replace('id="nutgk"','id="nutgk2"')}</div>`:"";}{const src=document.querySelector("#pvw .wknw"),dst=$("pfnew");if(dst)dst.innerHTML=src?src.outerHTML.replace(/<details class="wknw"[^>]*>/,'<details class="wknw pfnw" open>'):""}$("rcwrap").classList.toggle("hide",n!==3);$("fzwrap").classList.toggle("hide",n!==4);if(n===3)renderFav();if(n===4)renderFzBox();if(typeof renderSw==="function")renderSw();if(typeof navOn==="function")navOn();if(n===1)centerWk()}
 
 
 const RCH3=["love","ok","meh","play","no"].map(v=>`<button type="button" data-v="${v}">${RL[v]}</button>`).join("");
@@ -7081,7 +7082,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 </script>
 <script>
 /* Plan: los alimentos nuevos son una copia de los de la semana; los toques van al original */
-document.addEventListener("click",e=>{const c=e.target.closest&&e.target.closest("#pfnew [data-nfp],#pfnew [data-wfo]");if(!c)return;e.preventDefault();e.stopPropagation();const k=c.dataset.nfp!=null?"nfp":"wfo",v=c.dataset[k],o=[...document.querySelectorAll(`#pvw [data-${k}]`)].find(x=>x.dataset[k]===v&&(k!=="nfp"||x.dataset.d===c.dataset.d));if(o)o.click()},true);
+document.addEventListener("click",e=>{const gk=e.target.closest&&e.target.closest("#pfgoal [data-gk]");if(gk){e.preventDefault();e.stopPropagation();const o=document.querySelector(`#nutgk [data-gk="${gk.dataset.gk}"]`);if(o)o.click();return}const c=e.target.closest&&e.target.closest("#pfnew [data-nfp],#pfnew [data-wfo]");if(!c)return;e.preventDefault();e.stopPropagation();const k=c.dataset.nfp!=null?"nfp":"wfo",v=c.dataset[k],o=[...document.querySelectorAll(`#pvw [data-${k}]`)].find(x=>x.dataset[k]===v&&(k!=="nfp"||x.dataset.d===c.dataset.d));if(o)o.click()},true);
 </script>
 <script>
 /* Guía: sin pestaña. Accesos a su parte desde cada pantalla */
