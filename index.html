@@ -7225,6 +7225,24 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
  {const pf=document.getElementById("pf_shop"),pc=document.getElementById("pfcard"),sync=()=>{if(pf)pf.value=((S.prefs||{}).shopDay??"")+""};if(pf){sync();pf.onchange=e=>{S.prefs.shopDay=e.target.value;try{save()}catch(_){}}}if(pc)pc.addEventListener("toggle",sync)}
 })();
 </script>
+<script>
+/* Zoom en la vista previa del Resumen y del Póster: pellizcar para ampliar, arrastrar para mover, doble toque para ampliar o volver */
+(function(){const Z=new WeakMap();
+ const st=img=>{let z=Z.get(img);if(!z){z={s:1,x:0,y:0,p:new Map(),d0:0,s0:1,m0:null,t:0};Z.set(img,z)}return z};
+ const clamp=(img,z)=>{const w=img.offsetWidth,h=img.offsetHeight,mx=w*(z.s-1)/2,my=h*(z.s-1)/2;z.x=Math.max(-mx,Math.min(mx,z.x));z.y=Math.max(-my,Math.min(my,z.y))};
+ const ap=(img,z,an)=>{if(z.s<=1.01){z.s=1;z.x=0;z.y=0}clamp(img,z);img.style.transition=an?"transform .2s ease":"none";img.style.transform=z.s===1?"":`translate(${z.x}px,${z.y}px) scale(${z.s})`;img.style.cursor=z.s>1?"grab":"zoom-in"};
+ const reset=img=>{const z=st(img);z.s=1;z.x=0;z.y=0;z.p.clear();ap(img,z)};
+ const dist=z=>{const a=[...z.p.values()];return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)};
+ const bind=img=>{if(!img||img.__zm)return;img.__zm=1;img.style.transformOrigin="center center";img.style.cursor="zoom-in";const w=img.parentElement;if(w)w.style.overflow="hidden";
+  new MutationObserver(()=>reset(img)).observe(img,{attributes:true,attributeFilter:["src"]});
+  img.addEventListener("pointerdown",e=>{const z=st(img);try{img.setPointerCapture(e.pointerId)}catch(_){}z.p.set(e.pointerId,{x:e.clientX,y:e.clientY});if(z.p.size===1){z.tap={x:e.clientX,y:e.clientY}}else z.tap=null;if(z.p.size===2){z.d0=dist(z);z.s0=z.s}else z.m0={x:e.clientX-z.x,y:e.clientY-z.y}});
+  img.addEventListener("pointermove",e=>{const z=st(img);if(!z.p.has(e.pointerId))return;z.p.set(e.pointerId,{x:e.clientX,y:e.clientY});if(z.tap&&Math.hypot(e.clientX-z.tap.x,e.clientY-z.tap.y)>10)z.tap=null;if(z.p.size>=2&&z.d0){z.s=Math.max(1,Math.min(4,z.s0*dist(z)/z.d0));ap(img,z)}else if(z.p.size===1&&z.s>1&&z.m0){z.x=e.clientX-z.m0.x;z.y=e.clientY-z.m0.y;ap(img,z)}e.preventDefault()});
+  const up=e=>{const z=st(img);z.p.delete(e.pointerId);if(z.p.size<2)z.d0=0;if(z.p.size===1){const a=[...z.p.values()][0];z.m0={x:a.x-z.x,y:a.y-z.y}}if(!z.p.size)ap(img,z)};
+  img.addEventListener("pointerup",e=>{const z=st(img),n=Date.now();if(!(z.p.size===1&&z.tap)){z.t=0;up(e);return}if(n-z.t<300){if(z.s>1){z.s=1}else{const r=img.getBoundingClientRect();z.s=2.5;z.x=(r.left+r.width/2-e.clientX)*1.5;z.y=(r.top+r.height/2-e.clientY)*1.5}z.t=0;up(e);ap(img,z,1);return}z.t=n;up(e)});
+  img.addEventListener("pointercancel",up);img.addEventListener("dragstart",e=>e.preventDefault())};
+ const go=()=>{bind(document.getElementById("sum_pv"));bind(document.getElementById("pst_pv"))};
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();setTimeout(go,1500)})();
+</script>
 </body>
 </html>
 
