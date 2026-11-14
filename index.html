@@ -2137,7 +2137,7 @@ html body .wknb{width:40px;height:40px;border-radius:50%;border:1.5px solid var(
 html body .wkpast>summary{cursor:pointer;color:var(--mute,#8a7f72);font-size:.88rem;padding:8px 2px;list-style:none}html body .wkpast>summary::-webkit-details-marker{display:none}html body .wkpast>summary::before{content:"›";display:inline-block;margin-right:8px;transition:transform .2s}html body .wkpast[open]>summary::before{transform:rotate(90deg)}
 html body .wkpl{display:flex;flex-direction:column;gap:12px;margin-top:6px}html body .wkem{text-align:center;padding:24px 0}
 
-html body #wkin{padding:16px 14px 6px}html body #wkin .wknv{margin:0 0 14px}html body #wkin .wknl b{font-size:1.35rem;white-space:nowrap;color:var(--green);font-weight:400}
+html body #wkin{padding:16px 14px 6px}html body #wkin .wknv{margin:0 0 14px}html body #wkin .wknl b{font-size:clamp(1.05rem,5.6vw,1.35rem);white-space:nowrap;color:var(--green);font-weight:400}
 html body #wkin .wkls{display:flex;flex-direction:column;gap:12px}
 html body .wkact{display:flex;flex-direction:column;gap:10px;margin:18px 0 8px}html body .wkact .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:0}html body .wkact .btn svg{flex:none}
 html body .cpset{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 14px;font-weight:600;font-size:.92rem}html body .cpset select{width:auto;min-width:0;flex:0 1 auto}
@@ -7135,7 +7135,8 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
  let CUR=[];
  function renderSemana(off){const w=document.getElementById("wkin");if(!w)return;if(typeof off==="number")WO=off;const {D,m0,m6}=weekDays();CUR=D;
   const P=D.filter(d=>d.past),F=D.filter(d=>!d.past);
-  const rg=m0.getMonth()===m6.getMonth()?`${m0.getDate()} – ${dm(m6)}`:`${dm(m0)} – ${dm(m6)}`,lbl=WO===0?TT("Esta semana","Aquesta setmana","This week"):rg,sub=WO===0?rg:WO===1?TT("Próxima semana","Setmana vinent","Next week"):WO===-1?TT("Semana pasada","Setmana passada","Last week"):"";
+  const rg=m0.getMonth()===m6.getMonth()?`${m0.getDate()} – ${dm(m6)}`:`${dm(m0)} – ${dm(m6)}`,A=Math.abs(WO),NE=["","una","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez"],NC=["","una","dues","tres","quatre","cinc","sis","set","vuit","nou","deu"],ne=NE[A]||A,nc=NC[A]||A,
+   lbl=WO===0?TT("Esta semana","Aquesta setmana","This week"):WO===1?TT("Próxima semana","Setmana vinent","Next week"):WO===-1?TT("Semana pasada","Setmana passada","Last week"):WO>0?TT(`En ${ne} semanas`,`D'aquí a ${nc} setmanes`,`In ${A} weeks`):TT(`Hace ${ne} semanas`,`Fa ${nc} setmanes`,`${A} weeks ago`),sub=rg;
   const nav=`<div class="wknv"><button type="button" class="wknb" data-wkoff="${WO-1}" aria-label="${TT("Semana anterior","Setmana anterior","Previous week")}">‹</button><div class="wknl"><b class="disp">${esc(lbl)}</b>${sub?`<small>${esc(sub)}</small>`:""}</div><button type="button" class="wknb" data-wkoff="${WO+1}" aria-label="${TT("Semana siguiente","Setmana següent","Next week")}">›</button></div>`;
   const pastH=P.length?(F.length?`<details class="wkpast"><summary>${P.length===1?TT("1 día anterior","1 dia anterior","1 earlier day"):TT(`${P.length} días anteriores`,`${P.length} dies anteriors`,`${P.length} earlier days`)}</summary><div class="wkpl">${P.map(card).join("")}</div></details>`:P.map(card).join("")):"";
   const act=WO>=0?`<div class="wkact"><button type="button" class="btn p wkbuy" data-cpopen="1">${SVG_CART}<span>${TT("Lista de la compra","Llista de la compra","Shopping list")}</span></button>${F.length?`<button type="button" class="btn wkcpy2" data-wkcopy="1">${ICP}<span>${TT("Copiar el menú","Copia el menú","Copy the menu")}</span></button>`:""}</div>`:"";
