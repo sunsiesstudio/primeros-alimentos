@@ -3939,7 +3939,7 @@ $("q").oninput=board;
 (function(){const b=$("freqb"),f=$("freqf"),i=$("freqi"),sd=$("freqs");if(!b)return;
   b.onclick=()=>{f.classList.toggle("hide");if(!f.classList.contains("hide")){const q=($("q")||{}).value||"";if(q&&!i.value)i.value=q;i.focus()}};
   const hasF=n=>{const k=norm(n);return ALL.find(x=>norm(x.n)===k||norm((window.tFood?tFood(x.n):x.n))===k)};
-  const list=()=>{const L=(S.prefs.req||[]).slice(-6).reverse(),w=$("freqls");if(!w)return;w.innerHTML=L.length?`<p>${TT("Lo que has pedido","El que has demanat","Your requests")}</p><div>${L.map(x=>{const ok=hasF(x.n);return `<span class="freqc${ok?" ok":""}" data-notr>${esc(x.n)}<small>${ok?TT("Ya está ✓","Ja hi és ✓","Added ✓"):TT("Pendiente","Pendent","Pending")}</small></span>`}).join("")}</div>`:""};
+  const list=()=>{const w=$("freqls");if(w)w.innerHTML="";return;const L=(S.prefs.req||[]).slice(-6).reverse();w.innerHTML=L.length?`<p>${TT("Lo que has pedido","El que has demanat","Your requests")}</p><div>${L.map(x=>{const ok=hasF(x.n);return `<span class="freqc${ok?" ok":""}" data-notr>${esc(x.n)}<small>${ok?TT("Ya está ✓","Ja hi és ✓","Added ✓"):TT("Pendiente","Pendent","Pending")}</small></span>`}).join("")}</div>`:""};
   window.__freqList=list;list();
   const send=()=>{const n=i.value.trim();if(n.length<2){i.focus();return}S.prefs.req=Array.isArray(S.prefs.req)?S.prefs.req:[];const ex=hasF(n);
     if(ex){i.value="";f.classList.add("hide");snack(TT(`«${tFood?tFood(ex.n):ex.n}» ya está en la lista`,`«${ex.n}» ja és a la llista`,`"${ex.n}" is already in the list`));const q=$("q");if(q){q.value=ex.n;q.dispatchEvent(new Event("input",{bubbles:true}));q.scrollIntoView({block:"center"})}return}
