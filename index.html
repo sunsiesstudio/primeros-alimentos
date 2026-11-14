@@ -2413,6 +2413,7 @@ document.documentElement.lang=LANG;
     <div id="lst"></div><div id="favf" class="favf hide"></div>
     <div class="freq"><button type="button" class="freqb" id="freqb">¿Falta algún alimento? Pídelo</button><div class="freqf hide" id="freqf"><input id="freqi" type="text" maxlength="60" placeholder="Por ejemplo: tempeh" aria-label="Alimento que falta"><button type="button" class="btn p sm" id="freqs">Enviar</button></div></div>
   </div>
+  <div class="card" id="nutcard"></div>
   <div class="hide"><div class="vt" role="group" aria-label="Cambiar vista">
         <button id="vb" aria-label="Vista tablero" title="Tablero"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="10" rx="1.5"/><rect x="16" y="4" width="5" height="13" rx="1.5"/></svg></button>
         <button id="vl" aria-label="Vista lista" title="Lista"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 5l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 11l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/><path d="M3.5 17l.7 1.4 1.5.2-1.1 1 .3 1.5-1.4-.8-1.4.8.3-1.5-1.1-1 1.5-.2z" fill="currentColor" stroke="none"/></svg></button>
@@ -2428,7 +2429,7 @@ document.documentElement.lang=LANG;
   <div id="stwrap" class="hide">
   <div id="wkin"></div>
 
-<div class="card" id="nutcard"></div></div>
+</div>
   <div id="rcwrap" class="hide"></div>
   <div id="fzwrap" class="hide"><div class="card" id="fzbox"></div></div>
   <div id="pvw" class="hide">
@@ -4126,7 +4127,7 @@ addEventListener("scroll",()=>{const w=$("fsw");if(w)w.classList.toggle("stuck",
 function ccFb(ds,n,v){return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}const c=document.querySelector(`.dnote[data-dn="${ds}"] .dncc`);if(!c)return;const k=v.t.includes("nocaca")?0:(v.cc||0);const t=v.t.includes("nocaca")?TT("✓ Apuntado: ninguna","✓ Apuntat: cap","✓ Saved: none"):k?TT(`✓ Apuntado${k>1?`: ${k} cacas`:""}`,`✓ Apuntat${k>1?`: ${k} caques`:""}`,`✓ Saved${k>1?`: ${k} poops`:""}`):TT("Quitado","Tret","Removed");let e=c.querySelector(".ccok");if(!e){e=document.createElement("span");e.className="ccok";e.setAttribute("aria-live","polite");c.querySelector("p").appendChild(e)}e.textContent=t;e.classList.remove("go");void e.offsetWidth;e.classList.add("go");const b=c.querySelector(`[data-cc="${k||0}"]`)||c.querySelector(`[data-cc="${n}"]`);if(b){b.classList.remove("ccpop");void b.offsetWidth;b.classList.add("ccpop")}}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-agg]");if(!b)return;const g=b.dataset.agg;setRT("al");tab(3);const go=()=>{const d=document.getElementById("g_"+g);if(d){d.open=true;window.scrollTo({top:Math.max(0,d.getBoundingClientRect().top+scrollY-90),behavior:"auto"})}};setTimeout(go,150);setTimeout(go,450)});
 function navOn(){const k=swIdx(),g=k>=0?SW[k][0]:"";if(g==="A")selA=k;else if(g==="B")selB=k;else if(g==="C")selC=k;else if(g==="P")selP=k;$("nA").classList.toggle("on",g==="A");$("nB").classList.toggle("on",g==="B");$("nC").classList.toggle("on",g==="C");$("t4").classList.toggle("on",g==="P")}
-function tab(n){curV=n;document.body.dataset.v=n;{const br=$("byrow");if(br)br.classList.toggle("hide",n!==4);const an=$("aepn");if(an)an.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));navOn();renderSw();if(n===1){board();paintRecent()}if(n===2){plan();renderNut();paintProg()}if(n===3){renderCal();renderTrack();paintProg()}if(n===5)renderSchool();window.scrollTo(0,0);vSave()}
+function tab(n){curV=n;document.body.dataset.v=n;{const br=$("byrow");if(br)br.classList.toggle("hide",n!==4);const an=$("aepn");if(an)an.classList.toggle("hide",n===4)}[1,2,3,4,5].forEach(i=>$("v"+i).classList.toggle("hide",i!==n));navOn();renderSw();if(n===1){board();paintRecent();try{renderNut()}catch(_){}}if(n===2){plan();renderNut();paintProg()}if(n===3){renderCal();renderTrack();paintProg()}if(n===5)renderSchool();window.scrollTo(0,0);vSave()}
 renderSw();$("nA").onclick=()=>SW[selA][2]();$("nB").onclick=()=>SW[selB][2]();$("nC").onclick=()=>SW[selC][2]();$("t4").onclick=()=>SW[selP][2]();
 
 const MEAT=new Set(["Cerdo","Conejo","Cordero","Pavo","Pollo","Ternera"]);
@@ -5627,7 +5628,7 @@ return `<div class="hwg2 hwgw"><svg class="hwgi" viewBox="0 0 80 80" aria-hidden
   $("nutcard").querySelectorAll("[data-vd]").forEach(b=>b.onclick=()=>{const d=b.dataset.vd;S.prefs.dck=S.prefs.dck||{};const e=S.prefs.dck[d]=S.prefs.dck[d]||{};if(e.v)delete e.v;else e.v=1;if(!Object.keys(e).length)delete S.prefs.dck[d];save();plan();renderNut();snack(TT("Cambios guardados","Canvis desats","Changes saved"))});
   $("nutcard").querySelectorAll("[data-nst]").forEach(b=>b.onclick=()=>openFoods(b.dataset.nst));{const rb=$("nring");if(rb)rb.onclick=()=>{const g=$("nutgk");if(g)g.scrollIntoView({behavior:"smooth",block:"nearest"})}}
   {const vi=$("nutcard").querySelector("[data-vdi]");if(vi)vi.onclick=openVitD}{const pw=$("poopw");if(pw)pw.onclick=openPoop}
-  bindSit($("nutcard"))}
+  bindSit($("nutcard"));$("nutcard").classList.toggle("hide",!$("nutcard").textContent.trim())}
 function bindSit(root){if(!root)return;
   {const add=()=>{const t=$("sit_in").value.trim();if(!t)return;const q=norm(t),MAP=[["e",/estren|no hace caca|no ha hecho caca/],["d",/diarr|gastro|cacas liquidas/],["g",/gas|colico/],["r",/regurg|reflujo|vomit|bocanad/],["m",/malit|fiebre|moco|resfri|\btos\b|catarro|enferm/],["t",/diente|dentic|encia/],["a",/come poco|no come|apetito|desgana/],["h",/\bhitos?\b|regres|gatea|camina|sueno|duerme/],["c",/calor/],["v",/viaje|vacacion|fuera de casa|excursion|avion|coche/]],hit=MAP.find(([k,re])=>re.test(q)),x=sitM();let fs=[];
       if(hit){x[hit[0]]=x[hit[0]]||{s:today()}}else{fs=ALL.filter(z=>q.includes(norm(z.n))||q.includes(norm(z.n).replace(/s$/,""))).map(z=>z.n),neg=/(no le gusta|no quiere|rechaz|odia|sin |no tolera|le sienta mal|le cae mal|evitar|nada de)/.test(q);
@@ -7171,7 +7172,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   const nav=`<div class="wknv"><button type="button" class="wknb" data-wkoff="${WO-1}" aria-label="${TT("Semana anterior","Setmana anterior","Previous week")}">‹</button><div class="wknl"><b class="disp">${esc(lbl)}</b>${sub?`<small>${esc(sub)}</small>`:""}</div><button type="button" class="wknb" data-wkoff="${WO+1}" aria-label="${TT("Semana siguiente","Setmana següent","Next week")}">›</button></div>`;
   const pastH=P.length?(F.length?`<details class="wkpast"><summary>${P.length===1?TT("1 día anterior","1 dia anterior","1 earlier day"):TT(`${P.length} días anteriores`,`${P.length} dies anteriors`,`${P.length} earlier days`)}</summary><div class="wkpl">${P.map(card).join("")}</div></details>`:P.map(card).join("")):"";
   const act=WO>=0?`<div class="wkact"><button type="button" class="btn p wkbuy" data-cpopen="1">${SVG_CART}<span>${TT("Lista de la compra","Llista de la compra","Shopping list")}</span></button>${F.length?`<button type="button" class="btn wkcpy2" data-wkcopy="1">${ICP}<span>${TT("Copiar el menú","Copia el menú","Copy the menu")}</span></button>`:""}</div>`:"";
-  {window.__nutOff=WO;try{renderNut()}catch(_){}const nc=document.getElementById("nutcard");if(nc)nc.classList.toggle("hide",!nc.textContent.trim())}w.innerHTML=nav+`<div class="wkls">${D.length?pastH+F.map(card).join(""):`<p class="mute wkem">${WO>=0?TT("Todavía no hay menú para esta semana.","Encara no hi ha menú per a aquesta setmana.","No menu for this week yet."):TT("No hay nada apuntado esta semana.","No hi ha res apuntat aquesta setmana.","Nothing logged this week.")}</p>`}</div>`+act}
+  window.__nutOff=0;w.innerHTML=nav+`<div class="wkls">${D.length?pastH+F.map(card).join(""):`<p class="mute wkem">${WO>=0?TT("Todavía no hay menú para esta semana.","Encara no hi ha menú per a aquesta setmana.","No menu for this week yet."):TT("No hay nada apuntado esta semana.","No hi ha res apuntat aquesta setmana.","Nothing logged this week.")}</p>`}</div>`+act}
  window.renderSemana=renderSemana;
  {const P0=window.plan;if(typeof P0==="function")window.plan=function(){const r=P0.apply(this,arguments);try{const st=document.getElementById("stwrap");if(st&&!st.classList.contains("hide"))renderSemana()}catch(_){}return r}}
 
