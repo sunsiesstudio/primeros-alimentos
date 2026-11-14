@@ -2149,6 +2149,9 @@ html body .cpd.on{background:var(--terra);border-color:var(--terra);color:#fff}h
 html body .cpbtn{display:flex;gap:10px;margin:16px 0 30px}html body .cpbtn .btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;margin:0}
 html body .fzrc{margin:10px 0 4px}html body .fzrc .fzn{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;font-size:.8rem;font-weight:600;background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue)}
 #pfcard .ptag.xh{display:inline-flex}
+
+:root[data-theme="dark"] .cpd.on{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff}:root[data-theme="dark"] .cpd.on small{color:#fff;opacity:.85}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cpd.on{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff}:root:not([data-theme="light"]) .cpd.on small{color:#fff;opacity:.85}}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -7135,7 +7138,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   const lbl=WO===0?TT("Esta semana","Aquesta setmana","This week"):WO===1?TT("La semana que viene","La setmana que ve","Next week"):WO===-1?TT("La semana pasada","La setmana passada","Last week"):`${dm(m0)} – ${dm(m6)}`;
   const nav=`<div class="wknv"><button type="button" class="wknb" data-wkoff="${WO-1}" aria-label="${TT("Semana anterior","Setmana anterior","Previous week")}">‹</button><div class="wknl"><b class="disp">${esc(lbl)}</b><small>${esc(dm(m0))} – ${esc(dm(m6))}</small></div><button type="button" class="wknb" data-wkoff="${WO+1}" aria-label="${TT("Semana siguiente","Setmana següent","Next week")}">›</button></div>`;
   const pastH=P.length?(F.length?`<details class="wkpast"><summary>${P.length===1?TT("1 día anterior","1 dia anterior","1 earlier day"):TT(`${P.length} días anteriores`,`${P.length} dies anteriors`,`${P.length} earlier days`)}</summary><div class="wkpl">${P.map(card).join("")}</div></details>`:P.map(card).join("")):"";
-  const act=WO>=0?`<div class="wkact"><button type="button" class="btn p wkbuy" data-cpopen="1">${SVG_CART}<span>${TT("Hacer la compra","Fer la compra","Go shopping")}</span></button>${F.length?`<button type="button" class="btn wkcpy2" data-wkcopy="1">${ICP}<span>${TT("Copiar el menú","Copia el menú","Copy the menu")}</span></button>`:""}</div>`:"";
+  const act=WO>=0?`<div class="wkact"><button type="button" class="btn p wkbuy" data-cpopen="1">${SVG_CART}<span>${TT("Lista de la compra","Llista de la compra","Shopping list")}</span></button>${F.length?`<button type="button" class="btn wkcpy2" data-wkcopy="1">${ICP}<span>${TT("Copiar el menú","Copia el menú","Copy the menu")}</span></button>`:""}</div>`:"";
   w.innerHTML=nav+`<div class="wkls">${D.length?pastH+F.map(card).join(""):`<p class="mute wkem">${WO>=0?TT("Todavía no hay menú para esta semana.","Encara no hi ha menú per a aquesta setmana.","No menu for this week yet."):TT("No hay nada apuntado esta semana.","No hi ha res apuntat aquesta setmana.","Nothing logged this week.")}</p>`}</div>`+act}
  window.renderSemana=renderSemana;
  {const P0=window.plan;if(typeof P0==="function")window.plan=function(){const r=P0.apply(this,arguments);try{const st=document.getElementById("stwrap");if(st&&!st.classList.contains("hide"))renderSemana()}catch(_){}return r}}
@@ -7151,15 +7154,13 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   const sel=[...CPS].sort(),fm=d=>new Date(d+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"long"});
   const rng=!sel.length?"":sel.length===1?fm(sel[0]):TT("Del ","Del ","")+(sel[0].slice(0,7)===sel[sel.length-1].slice(0,7)?String(+sel[0].slice(8)):fm(sel[0]))+TT(" al "," al "," to ")+fm(sel[sel.length-1]);
   return {days,fresh,pan,home,rng}};
- function cpSheet(){let el=document.getElementById("cpsh");if(el)return el;el=document.createElement("div");el.className="sheet hide full";el.id="cpsh";el.setAttribute("role","dialog");el.setAttribute("aria-label",TT("Hacer la compra","Fer la compra","Go shopping"));
+ function cpSheet(){let el=document.getElementById("cpsh");if(el)return el;el=document.createElement("div");el.className="sheet hide full";el.id="cpsh";el.setAttribute("role","dialog");el.setAttribute("aria-label",TT("Lista de la compra","Llista de la compra","Shopping list"));
   const dn=["domingos","lunes","martes","miércoles","jueves","viernes","sábados"],dnc=["diumenges","dilluns","dimarts","dimecres","dijous","divendres","dissabtes"],dne=["Sundays","Mondays","Tuesdays","Wednesdays","Thursdays","Fridays","Saturdays"];
-  el.innerHTML=`<div><div class="shhd"><button class="xc" id="cp_x" aria-label="${TT("Cerrar","Tanca","Close")}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><h3 class="disp">${TT("Hacer la compra","Fer la compra","Go shopping")}</h3></div>
-   <label class="cpset"><span>${TT("Compramos","Comprem","We shop")}</span><select id="cp_day" data-notr><option value="">${TT("Voy comprando","Vaig comprant","Little and often")}</option>${[1,2,3,4,5,6,0].map(i=>`<option value="${i}">${TT("Los "+dn[i],"Els "+dnc[i],"On "+dne[i])}</option>`).join("")}</select></label>
+  el.innerHTML=`<div><div class="shhd"><button class="xc" id="cp_x" aria-label="${TT("Cerrar","Tanca","Close")}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><h3 class="disp">${TT("Lista de la compra","Llista de la compra","Shopping list")}</h3></div>
    <p class="cpq">${TT("¿Para qué días?","Per a quins dies?","For which days?")}</p><div class="cpdays" id="cp_days" role="group"></div><div id="cp_l"></div>
    <div class="cpbtn"><button type="button" class="btn p" id="cp_sh">${ISH}<span>${TT("Compartir","Comparteix","Share")}</span></button><button type="button" class="btn" id="cp_cp">${ICP}<span>${TT("Copiar","Copia","Copy")}</span></button></div></div>`;
   document.body.appendChild(el);
   el.querySelector("#cp_x").onclick=()=>{el.classList.add("hide");document.body.style.overflow=""};
-  el.querySelector("#cp_day").onchange=e=>{S.prefs.shopDay=e.target.value;try{save()}catch(_){}const pf=document.getElementById("pf_shop");if(pf)pf.value=e.target.value;defSel();cpDraw()};
   el.querySelector("#cp_days").addEventListener("click",e=>{const b=e.target.closest("[data-cpd]");if(!b)return;const d=b.dataset.cpd;CPS.has(d)?CPS.delete(d):CPS.add(d);cpDraw()});
   el.addEventListener("change",e=>{const c=e.target.closest("[data-cpk]");if(!c)return;S.sl=S.sl||{};if(c.checked)S.sl[c.dataset.cpk]=today();else delete S.sl[c.dataset.cpk];try{save()}catch(_){}c.closest(".wshi").classList.toggle("ok",c.checked);const all=el.querySelectorAll("[data-cpk]"),k=[...all].filter(x=>x.checked).length,sm=el.querySelector("#cp_n");if(sm)sm.textContent=`${k} ${TT("de","de","of")} ${all.length}`});
   const txt=()=>{const D=cpData();return shopText(D)};
@@ -7167,7 +7168,6 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   el.querySelector("#cp_sh").onclick=async()=>{const t=txt();try{if(navigator.share){await navigator.share({text:t});return}}catch(e){if(e&&e.name==="AbortError")return}copyText(t);snack(TT("Lista copiada","Llista copiada","List copied"))};
   return el}
  function cpDraw(){const el=cpSheet(),t=new Date(),wl=x=>{const s=x.toLocaleDateString(LOC(),{weekday:"short"}).replace(".","");return s.charAt(0).toUpperCase()+s.slice(1)};
-  el.querySelector("#cp_day").value=((S.prefs||{}).shopDay??"")+"";
   el.querySelector("#cp_days").innerHTML=[...Array(14)].map((_,i)=>{const x=new Date(t.getFullYear(),t.getMonth(),t.getDate()+i),d=dstr(x);return `<button type="button" class="cpd${CPS.has(d)?" on":""}" data-cpd="${d}" aria-pressed="${CPS.has(d)}"><small>${i===0?TT("Hoy","Avui","Today"):esc(wl(x))}</small><b>${x.getDate()}</b></button>`}).join("");
   const D=cpData(),AL=[...D.fresh,...D.pan],k=AL.filter(e=>tk(e.n)).length,by={};D.fresh.forEach(e=>{(by[e.x.c]=by[e.x.c]||[]).push(e)});
   const li=e=>`<label class="wshi${tk(e.n)?" ok":""}"><input type="checkbox" data-cpk="${esc(e.n)}"${tk(e.n)?" checked":""}><span class="wshic">${ico(e.n)}</span><span class="wshn"><b data-notr>${esc(shLine(e))}</b><small data-notr>${esc(shDl(e.dl))}</small></span></label>`;
