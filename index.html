@@ -2182,6 +2182,10 @@ html body #sh .shedb.bn .shedi svg{width:16px;height:16px}
 html body #sh .shedb.bn .shedt b{font-size:.85rem!important;font-weight:600!important}
 html body #sh:has(.shtabs .shtab) .shedb.bn{display:none!important}
 html body #sh:has(.shtabs .shtab) #shform .shq2:not(#shform .shq2 ~ .shq2){border-top:0;margin-top:14px;padding-top:0}
+html body #sh:has(.algw) .shedb.bn{display:none!important}
+html body .algw p{margin:0}
+html body .algw .algsoon{margin-top:10px}
+html body .algw .algok{margin-top:8px;font-size:.88rem;color:var(--green)}
 html body .seg.caart{margin-top:6px;display:inline-flex}html body .seg.caart button{white-space:nowrap}
 html body button.wkdh{width:100%;background:none;border:0;padding:2px 26px 2px 0;margin:0 0 6px;font:inherit;color:inherit;text-align:left;cursor:pointer;position:relative}
 html body .wkdh .wkdg{right:0}
@@ -3492,7 +3496,7 @@ function openSheet(n,pd,rest,pieces){cur=n;try{shRecipes(n)}catch(e){}setTimeout
   if(lk&&!x.lim)w.push(`<p><b>No recomendado todavía.</b> Se suele ofrecer a partir de los ${x.min} meses.${a?` ${S.nm||"Tu bebé"} tiene ${a.mo} meses.`:""}</p>`);
   const lastD=n?S.log.filter(l=>l.f===n&&l.d&&!l.nd&&!(l.pre&&!l.dset)&&l.r!=="no"&&l.d<=today()).map(l=>l.d).sort().pop():null,ago=lastD?Math.round((Date.parse(today())-Date.parse(lastD))/864e5):null,agoT=ago===null?"":ago===0?TT("hoy","avui","today"):ago===1?TT("ayer","ahir","yesterday"):TT(`hace ${ago} días`,`fa ${ago} dies`,`${ago} days ago`);
   {let el=$("shlast");if(!el){el=document.createElement("p");el.id="shlast";el.className="shlast";$("warn").before(el)}const show=ago!==null&&!(x&&x.a);el.classList.toggle("hide",!show);el.innerHTML=show?TT(`Última vez que lo comió: <b>${agoT}</b>`,`Última vegada que el va menjar: <b>${agoT}</b>`,`Last eaten: <b>${agoT}</b>`):"";setTimeout(shMerge,0)}
-  if(x&&x.a&&ago!==null)w.push(`<p><b>${NFW.replace('class="nfw2"','class="nfw2 alw"')} ${TT("Alérgeno.","Al·lergen.","Allergen.")}</b> ${(ago===0?TT(`Lo ha tomado por última vez <b>hoy</b>.`,`L'ha pres per última vegada <b>avui</b>.`,`Last had it <b>today</b>.`):TT(`Lo tomó por última vez <b>${agoT}</b>.`,`El va prendre per última vegada <b>${agoT}</b>.`,`Last had it <b>${agoT}</b>.`))} ${ago>=7?TT("Una vez introducido, conviene seguir ofreciéndolo con regularidad, al menos una vez por semana, para mantener la tolerancia. Toca ofrecerlo pronto.","Un cop introduït, convé continuar oferint-l'hi amb regularitat, almenys un cop per setmana, per mantenir la tolerància. Toca oferir-l'hi aviat.","Once introduced, keep offering it regularly, at least once a week, to maintain tolerance. Time to offer it again soon."):TT("Sigue ofreciéndolo con regularidad, al menos una vez por semana, para mantener la tolerancia.","Continua oferint-l'hi amb regularitat, almenys un cop per setmana, per mantenir la tolerància.","Keep offering it regularly, at least once a week, to maintain tolerance.")}</p><button type="button" class="wrxb" data-wrx>`+TT('Anotar una reacción','Anota una reacció','Log a reaction')+'</button>');
+  if(x&&x.a&&ago!==null){const ld=new Date(lastD+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"long"}),so=((S.prefs.soon||{})[n]||"")>=today();w.push(`<div class="algw"><p><b>${NFW.replace('class="nfw2"','class="nfw2 alw"')} ${TT("Alérgeno","Al·lergen","Allergen")}</b> · ${ago===0?TT("hoy lo ha tomado","avui l'ha pres","had it today"):TT(`última vez el ${ld}`,`última vegada el ${ld}`,`last had on ${ld}`)}</p>${ago>=5?(so?`<p class="algok">✓ ${TT("Lo volvemos a poner en el menú estos días","El tornem a posar al menú aquests dies","We'll add it back to the menu in the next few days")}</p>`:`<button type="button" class="btn algsoon" data-soon="${esc(n)}">${TT("Ponerlo pronto en el menú","Posar-lo aviat al menú","Add it to the menu soon")}</button>`):""}</div>`)}
   else if(x&&x.a)w.push('<p><b>Alérgeno.</b> Dalo en poca cantidad y sin otros alimentos nuevos ese día, para poder vigilar si hay reacción. Ante cualquier duda, consulta con tu pediatra.</p><button type="button" class="wrxb" data-wrx>'+TT('Anotar una reacción','Anota una reacció','Log a reaction')+'</button>');
   if(x&&x.lim)w.unshift('<p><b>Mejor limitarlo.</b> Contiene arsénico inorgánico y los bebés se exponen más. Se puede dar desde los 6 meses, pero ocasionalmente y alternando con avena, maíz o trigo. Evita las bebidas de arroz.</p>');
   if(x&&blockedG(x))w.unshift('<p><b>Alergia indicada en el perfil.</b> No lo ofrezcas sin hablarlo antes con tu pediatra.</p>');
@@ -4700,7 +4704,7 @@ function plan(){try{fixCoveredIngs()}catch(e){}cleanOrphanLogs();
         if(FZP&&x.c==="Proteínas"&&d-lastPrt<4)return;
         const extra=x.c==="Frutos secos"||x.c==="Condimentos";
         const des=Math.max(TGT[x.c]||0,(SH[x.c]||0)*(T0+1)),cnt=cc[x.c]||0;
-        let s=rnd()*1.5+Math.min(Math.max(0,des-cnt),3)*2.5+(inDesp(x.n)?3:0);{const bo=p.boost;if(bo&&bo.until>=t0&&GS[bo.g]&&GS[bo.g](x))s+=8}{const se=inSeason(x);if(se===true)s+=12;else if(se===false)s-=18}
+        let s=rnd()*1.5+Math.min(Math.max(0,des-cnt),3)*2.5+(inDesp(x.n)?3:0);{const bo=p.boost;if(bo&&bo.until>=t0&&GS[bo.g]&&GS[bo.g](x))s+=8}{const so=(p.soon||{})[x.n];if(so&&so>=t0)s+=25}{const se=inSeason(x);if(se===true)s+=12;else if(se===false)s-=18}
         if(!extra)s+=((x.fe?3:0)+(ZN.has(x.n)?2:0))*(cnt>=des?.3:1);
         if(pvN){if(pvN.c===x.c){s-=4;const A=ICOS[pvN.n],B=ICOS[x.n];if(A&&B&&A[0]===B[0])s-=12}const pg=goals.filter(g=>g!=="alg"&&GS[g](pvN)),xg=goals.filter(g=>g!=="alg"&&GS[g](x));if(pg.length&&xg.length&&xg.every(g=>pg.includes(g)))s-=3}
         s+=Math.min(goals.filter(g=>GS[g](x)).length,2)*5;
@@ -7375,6 +7379,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("[data-fzopen]")){e.preventDefault();e.target.click()}});
 </script>
 <script>document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-fzpx]");if(!b)return;e.preventDefault();e.stopPropagation();const c=b.closest(".course"),g=c&&c.querySelector(".fzrow.fzg .fzgb");if(c)c.querySelectorAll("details[open]").forEach(d=>d.open=false);if(g)g.click()},true)</script>
+<script>document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-soon]");if(!b)return;e.preventDefault();const n=b.dataset.soon,t=new Date();t.setDate(t.getDate()+5);S.prefs.soon=S.prefs.soon||{};S.prefs.soon[n]=dstr(t);try{save()}catch(_){}try{plan()}catch(_){}const p=document.createElement("p");p.className="algok";p.textContent="✓ "+TT("Lo volvemos a poner en el menú estos días","El tornem a posar al menú aquests dies","We'll add it back to the menu in the next few days");b.replaceWith(p)})</script>
 </body>
 </html>
 
