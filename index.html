@@ -2325,6 +2325,12 @@ html body .obsht .obchev{flex:none;transition:transform .2s;opacity:.8}
 html body .obsec.closed .obsht .obchev{transform:rotate(-90deg)}
 html body .obsec.closed .obg{display:none}
 html body .ob .obw3 .foot{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))!important}
+#gate .gterms{margin:14px 0 0!important;text-align:center;font-size:.8rem}
+#gate .gsw{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line);text-align:center}
+#gate .gsw .gin,#gate[data-m="up"] .gsw .gup{display:flex!important;flex-direction:column;align-items:stretch;gap:10px}
+#gate[data-m="up"] .gsw .gin{display:none!important}
+#gate .gsw .gswl{font-size:.9rem;color:var(--mute)}
+#gate .gsw .gswb{width:100%;text-decoration:none!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -2540,10 +2546,10 @@ document.documentElement.lang=LANG;
     <div class="btns"><button class="btn p" id="ein">Entrar</button><button class="btn p" id="eup">Crear cuenta</button></div>
     <p class="gerr" id="gerr" role="alert" aria-live="assertive"></p>
     <p style="text-align:center;margin:10px 0 0"><button class="x" id="erst">He olvidado mi contraseña</button></p>
-    <p class="gsw"><span class="gin">¿No tienes cuenta? <button type="button" class="x" id="gtoup">Crear cuenta</button></span><span class="gup">¿Ya tienes cuenta? <button type="button" class="x" id="gtoin">Entrar</button></span></p>
+    <p class="mute gterms" data-keepdot>Al continuar, aceptas nuestros <a href="terms.html" target="_blank" rel="noopener">Términos de uso</a>.</p>
+    <div class="gsw"><span class="gin"><span class="gswl">¿No tienes cuenta?</span><button type="button" class="btn gswb" id="gtoup">Crear cuenta</button></span><span class="gup"><span class="gswl">¿Ya tienes cuenta?</span><button type="button" class="btn gswb" id="gtoin">Entrar</button></span></div>
   </div>
   <p class="mute" id="gm" style="margin-top:12px"></p>
-<p class="mute gterms" data-keepdot>Al continuar, aceptas nuestros <a href="terms.html" target="_blank" rel="noopener">Términos de uso</a>.</p>
 </div></div>
 <main>
 <div class="hero">
