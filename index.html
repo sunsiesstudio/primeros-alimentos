@@ -5738,11 +5738,11 @@ async function wrCanvas(){DKX=isDarkX();const D=wrData(),W=1080,H=1920,cv=docume
   g.textAlign="center";g.fillStyle=KX("#4a8760");g.font=`88px ${HF}`;g.fillText(TT("LA SEMANA","LA SETMANA","THE WEEK"),W/2,180);g.fillStyle=KX("#c96a47");g.font=`106px ${HF}`;g.fillText(((LANG==="ca"&&S.nm?caDe()+"":TT("DE ","DE ","OF ")+(S.nm||""))).toUpperCase(),W/2,296);
   const fd=d=>d.toLocaleDateString(LOC(),{day:"numeric",month:"long"});g.fillStyle=KX("#6b6a5c");g.font=`500 38px ${FF}`;g.fillText(fd(D.mon)+" – "+fd(D.sun),W/2,366);
   // progreso total
-  {const m=stats(),foods=ALL.filter(f=>!f.lim||m[f.n]).slice().sort((p,q)=>tFood(p.n).localeCompare(tFood(q.n),"es",{sensitivity:"base"})),N=foods.length,tr=foods.filter(f=>m[f.n]).length;g.fillStyle=KX("#262626");g.font=`700 40px ${FF}`;g.fillText(TT(`${tr} de ${N} alimentos probados`,`${tr} de ${N} aliments provats`,`${tr} of ${N} foods tried`),W/2,450);
-    rr(140,478,800,26,13);g.fillStyle=KX("#ddd7bf");g.fill();rr(140,478,Math.max(26,800*tr/N),26,13);g.fillStyle=KX("#4a8760");g.fill();
-    g.fillStyle=KX("#6b6a5c");g.font=`500 34px ${FF}`;g.fillText(TT(`Esta semana ha comido ${D.all.length} alimentos distintos`,`Aquesta setmana ha menjat ${D.all.length} aliments diferents`,`${D.all.length} different foods this week`),W/2,560)}
-  const dv=y=>{g.strokeStyle=KX("#d6cfb4");g.lineWidth=3;g.setLineDash([2,14]);g.lineCap="round";g.beginPath();g.moveTo(140,y);g.lineTo(940,y);g.stroke();g.setLineDash([])};dv(615);
-  let y0=700;
+  {const m=stats(),foods=ALL.filter(f=>!f.lim||m[f.n]).slice().sort((p,q)=>tFood(p.n).localeCompare(tFood(q.n),"es",{sensitivity:"base"})),N=foods.length,tr=foods.filter(f=>m[f.n]).length;g.fillStyle=KX("#262626");g.font=`700 40px ${FF}`;g.fillText(TT(`${tr} de ${N} alimentos probados`,`${tr} de ${N} aliments provats`,`${tr} of ${N} foods tried`),W/2,488);
+    rr(140,516,800,26,13);g.fillStyle=KX("#ddd7bf");g.fill();rr(140,516,Math.max(26,800*tr/N),26,13);g.fillStyle=KX("#4a8760");g.fill();
+    g.fillStyle=KX("#6b6a5c");g.font=`500 34px ${FF}`;g.fillText(TT(`Esta semana ha comido ${D.all.length} alimentos distintos`,`Aquesta setmana ha menjat ${D.all.length} aliments diferents`,`${D.all.length} different foods this week`),W/2,598)}
+  const dv=y=>{g.strokeStyle=KX("#d6cfb4");g.lineWidth=3;g.setLineDash([2,14]);g.lineCap="round";g.beginPath();g.moveTo(140,y);g.lineTo(940,y);g.stroke();g.setLineDash([])};dv(650);
+  let y0=732;
   // nuevos
   {const show=D.nw.slice(0,5);if(show.length){g.fillStyle=KX("#4a8760");g.font=`48px ${HF}`;g.fillText(TT(`¡HA PROBADO ${show.length===1?"1 ALIMENTO NUEVO":D.nw.length+" ALIMENTOS NUEVOS"}!`,`HA PROVAT ${D.nw.length} ALIMENTS NOUS!`,`${D.nw.length} NEW FOODS!`),W/2,y0);
     const sz=150,gap=36,tw=show.length*sz+(show.length-1)*gap;let x0=(W-tw)/2;for(const n of show){const im=await svgImg(ico(n),150);if(im)g.drawImage(im,x0,y0+30,sz,sz);g.fillStyle=KX("#262626");g.font=`600 30px ${FF}`;{g.font=`600 28px ${FF}`;const ws=n.split(" ");if(g.measureText(n).width>sz+30&&ws.length>1){const h=Math.ceil(ws.length/2);g.fillText(ws.slice(0,h).join(" "),x0+sz/2,y0+215);g.fillText(ws.slice(h).join(" "),x0+sz/2,y0+249)}else g.fillText(n,x0+sz/2,y0+220)}x0+=sz+gap}y0+=300;dv(y0-40);y0+=50}}
