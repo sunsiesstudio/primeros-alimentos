@@ -2363,6 +2363,7 @@ html body .pbw .pbch{transform:rotate(-90deg)}html body .pbw[open] .pbch{transfo
 html body .pbw .pbl{border-top:1px solid var(--line);padding:0!important}
 html body .pbw .pblr{padding:10px 16px}
 html body .pbw .pblr .bav{width:30px;height:30px}
+html body .iidx:not(#z){top:var(--iidxtop,50px)!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -7633,6 +7634,8 @@ footer{margin-top:3mm;font-size:7pt;color:#9a96aa}
 <script>document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-obtog]");if(!b)return;e.preventDefault();e.stopPropagation();const sc=b.closest(".obsec");if(!sc)return;const c=sc.classList.toggle("closed");b.setAttribute("aria-expanded",c?"false":"true");const S0=window.__obcl=window.__obcl||new Set();c?S0.add(sc.dataset.sec):S0.delete(sc.dataset.sec)},true)</script>
 <script>(()=>{try{if(!matchMedia("(hover: none)").matches)return;const strip=rules=>{for(let i=rules.length-1;i>=0;i--){const r=rules[i];if(r.cssRules&&!r.selectorText){strip(r.cssRules);continue}if(r.selectorText&&r.selectorText.includes(":hover")){const keep=r.selectorText.split(",").filter(x=>!x.includes(":hover"));if(keep.length)r.selectorText=keep.join(",");else r.parentStyleSheet&&r.parentRule?r.parentRule.deleteRule(i):r.parentStyleSheet.deleteRule(i)}}};const run=()=>{for(const sh of document.styleSheets){try{strip(sh.cssRules)}catch(_){}}};run();document.readyState==="loading"&&document.addEventListener("DOMContentLoaded",run)}catch(_){}})()</script>
 <script>document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("#chg_rc");if(!b)return;e.preventDefault();const re=window.__chgRc;if(!re)return;document.getElementById("chg").classList.add("hide");setTimeout(()=>re.click(),30)})</script>
+<script>/* Categorías: siempre justo debajo de las pestañas fijas (también con la isla del iPhone) */
+(function(){let q=0;const f=()=>{q=0;let b=0;document.querySelectorAll(".rtabs").forEach(t=>{if(t.offsetParent===null)return;const cs=getComputedStyle(t);if(cs.position!=="sticky")return;const r=t.getBoundingClientRect();if(r.bottom>b&&r.top<=parseFloat(cs.top)+2)b=r.bottom});if(!b){document.querySelectorAll(".rtabs").forEach(t=>{if(t.offsetParent!==null&&getComputedStyle(t).position==="sticky"){const cs=getComputedStyle(t);b=Math.max(b,parseFloat(cs.top)+t.offsetHeight)}})}if(b)document.documentElement.style.setProperty("--iidxtop",Math.round(b+8)+"px")};const sch=()=>{if(!q)q=requestAnimationFrame(f)};addEventListener("scroll",sch,{passive:true});addEventListener("resize",sch);document.addEventListener("click",()=>setTimeout(sch,60),true);setTimeout(f,300)})();</script>
 </body>
 </html>
 
