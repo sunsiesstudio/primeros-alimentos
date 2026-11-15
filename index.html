@@ -2340,6 +2340,17 @@ html body #chg .rcb>.rcedit{right:52px!important}
 html body #chg .rcb>.rcsv{right:10px!important}
 html body #chg .rcb>.rcedit svg,html body #chg .rcb>.rcsv svg{width:22px!important;height:22px!important}
 html body .mkc.mkic .mkp.mki.mkrx:not(.on):not(#z){border-color:var(--line)!important}
+html body .pbl{padding:4px 0!important}
+html body .pblr{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;width:100%;padding:12px 16px;cursor:pointer;font:600 1rem Montserrat,system-ui,sans-serif;color:var(--ink)}
+html body .pblr+.pblr{border-top:1px solid var(--line)}
+html body .pblr .bav{width:36px;height:36px;flex:none;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:color-mix(in srgb,var(--ink) 10%,transparent);font-weight:700}
+html body .pblr .bav img{width:100%;height:100%;object-fit:cover}
+html body .pblr .pbln{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html body .pblr .pblt{font-size:.78rem;font-weight:700;color:var(--blue)}
+html body .pblr .pblg{color:var(--mute);font-size:1.3rem}
+html body .pbla{color:var(--blue)}
+html body .pbla .bav{border:1.5px dashed var(--blue);background:none!important;color:var(--blue)}
+html body #pfA .addbb{display:none!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -2642,7 +2653,8 @@ document.documentElement.lang=LANG;
   <div class="card" id="nutcard"></div>
   </div>
   <div id="pfA" class="hide">
-  <h3 class="sec" id="prdet" style="margin-top:6px">Detalles del bebé</h3>
+  <h3 class="sec" style="margin-top:6px">Bebés</h3><div class="card pbl" id="pbl"></div>
+  <h3 class="sec" id="prdet">Detalles del bebé</h3>
   <div class="card">
     <div class="prow"><div><div class="lab">Nombre</div><div class="val" id="vw_nm" data-clarity-mask="true"><span id="vnm"></span></div>
       <div class="ed hide" id="ed_nm"><input id="nm" placeholder="Nombre del bebé" maxlength="40" aria-label="Nombre del bebé"><div class="btns"><button class="btn" id="x_nm">Cancelar</button><button class="btn p" id="ok_nm">Guardar</button></div></div></div>
@@ -3488,6 +3500,9 @@ function renderBabies(){
   $("bsw").innerHTML=DB.babies.length>1?DB.babies.map(chip).join(""):"";
   document.querySelectorAll("#bchips button[data-i],#bsw button[data-i]").forEach(b=>b.onclick=()=>switchBaby(+b.dataset.i));
   $("badd").onclick=addBaby;
+  {const pl=$("pbl");if(pl){const av=(b,i)=>{const ph=b.ph&&typeof validPh==="function"&&validPh(b.ph)?b.ph:"";return `<span class="bav">${ph?`<img src="${esc(ph)}" alt="">`:esc((bname(b,i)[0]||"?").toUpperCase())}</span>`};
+    pl.innerHTML=DB.babies.map((b,i)=>`<button type="button" class="pblr${i===DB.cur?" on":""}" data-pbl="${i}" aria-current="${i===DB.cur}">${av(b,i)}<span class="pbln" data-clarity-mask="true">${esc(bname(b,i))}</span>${i===DB.cur?`<span class="pblt">${TT("Viendo","Veient","Viewing")}</span>`:'<span class="pblg" aria-hidden="true">›</span>'}</button>`).join("")+`<button type="button" class="pblr pbla" id="pbladd"><span class="bav">+</span><span class="pbln">${TT("Añadir bebé","Afegeix un nadó","Add baby")}</span></button>`;
+    pl.querySelectorAll("[data-pbl]").forEach(b=>b.onclick=()=>{const i=+b.dataset.pbl;if(i!==DB.cur)switchBaby(i)});$("pbladd").onclick=addBaby}}
   {const pop=$("bpop"),nb=$("pnb");if(pop&&nb){const av=(b,i)=>{const ph=b.ph&&typeof validPh==="function"&&validPh(b.ph)?b.ph:"";return `<span class="bav">${ph?`<img src="${esc(ph)}" alt="">`:esc((bname(b,i)[0]||"?").toUpperCase())}</span>`};
     pop.innerHTML=DB.babies.map((b,i)=>`<button type="button" role="menuitem" class="${i===DB.cur?"on":""}" data-bpi="${i}">${av(b,i)}<span data-clarity-mask="true">${esc(bname(b,i))}</span>${i===DB.cur?'<svg class="bck" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':""}</button>`).join("")+`<button type="button" role="menuitem" class="badd" data-bpadd="1"><span class="bav">+</span><span>${TT("Añadir bebé","Afegeix un nadó","Add baby")}</span></button>`;
     const close=()=>{pop.classList.add("hide");nb.setAttribute("aria-expanded","false")};
@@ -7603,7 +7618,6 @@ footer{margin-top:3mm;font-size:7pt;color:#9a96aa}
   const w=f.contentWindow;w.document.open();w.document.write(html);w.document.close();
   setTimeout(()=>{try{w.focus();w.print()}catch(_){const nw=window.open("","_blank");if(nw){nw.document.write(html);nw.document.close();setTimeout(()=>nw.print(),300)}}},350)};
 </script>
-<script>(()=>{const go=()=>{const h=document.getElementById("prdet");if(!h||document.getElementById("addbb"))return;const c=h.nextElementSibling;if(!c)return;const b=document.createElement("button");b.type="button";b.className="btn addbb";b.id="addbb";b.textContent="+ "+(typeof TT==="function"?TT("Añadir otro bebé","Afegeix un altre nadó","Add another baby"):"Añadir otro bebé");b.onclick=()=>{try{addBaby()}catch(e){console.error(e)}};c.after(b)};document.readyState==="loading"?document.addEventListener("DOMContentLoaded",go):go()})()</script>
 <script>document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-obtog]");if(!b)return;e.preventDefault();e.stopPropagation();const sc=b.closest(".obsec");if(!sc)return;const c=sc.classList.toggle("closed");b.setAttribute("aria-expanded",c?"false":"true");const S0=window.__obcl=window.__obcl||new Set();c?S0.add(sc.dataset.sec):S0.delete(sc.dataset.sec)},true)</script>
 <script>(()=>{try{if(!matchMedia("(hover: none)").matches)return;const strip=rules=>{for(let i=rules.length-1;i>=0;i--){const r=rules[i];if(r.cssRules&&!r.selectorText){strip(r.cssRules);continue}if(r.selectorText&&r.selectorText.includes(":hover")){const keep=r.selectorText.split(",").filter(x=>!x.includes(":hover"));if(keep.length)r.selectorText=keep.join(",");else r.parentStyleSheet&&r.parentRule?r.parentRule.deleteRule(i):r.parentStyleSheet.deleteRule(i)}}};const run=()=>{for(const sh of document.styleSheets){try{strip(sh.cssRules)}catch(_){}}};run();document.readyState==="loading"&&document.addEventListener("DOMContentLoaded",run)}catch(_){}})()</script>
 <script>document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("#chg_rc");if(!b)return;e.preventDefault();const re=window.__chgRc;if(!re)return;document.getElementById("chg").classList.add("hide");setTimeout(()=>re.click(),30)})</script>
