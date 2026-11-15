@@ -2366,6 +2366,12 @@ html body .pbw .pblr .bav{width:30px;height:30px}
 html body .iidx:not(#z){top:var(--iidxtop,50px)!important}
 /* Ficha: sin cambiar de bebé desde aquí (ya está en Ajustes › Bebés) */
 html body #pnb>svg{display:none!important}html body #pnb{pointer-events:none!important;cursor:default!important}html body #bpop{display:none!important}
+/* Entrada desde una invitación */
+html body .gjoin{max-width:340px;margin:-20px auto 22px;padding:16px 18px;border-radius:18px;background:var(--card);border:1.5px solid var(--line);text-align:center}
+html body .gjoin .invart{width:150px;height:auto;display:block;margin:0 auto 6px}
+html body .gjoin h3{margin:0 0 6px;font-size:1.3rem;color:var(--terra)}
+html body .gjoin p{margin:0;font-size:.95rem;line-height:1.4}
+html body .gjoin p+p{margin-top:6px}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -6241,7 +6247,7 @@ window.__auth=(u,d,pending)=>{try{const m=$("adm");if(m)m.classList.toggle("hide
   else{btnReset();$("gate").classList.remove("hide","busy");if(USER===null&&window.__wasIn){$("em").value="";$("pw").value="";$("pw2").value="";$("pw2w").classList.add("hide")}setTimeout(()=>LDR.gate(),0)}
   render()};
 // ── Cuidadores: compartir los datos del bebé con otra cuenta (pareja, abuelos, canguro) mediante QR ──
-(function(){try{const m=location.search.match(/[?&]join=([A-Za-z0-9]{10,40})/);if(m){localStorage.setItem("pa_join",m[1]);history.replaceState(null,"",location.pathname+location.hash)}}catch(e){}})();
+(function(){try{const m=location.search.match(/[?&]join=([A-Za-z0-9]{10,40})/);if(m){localStorage.setItem("pa_join",m[1]);{const nn=location.search.match(/[?&]n=([^&]{1,80})/);try{if(nn)localStorage.setItem("pa_join_n",decodeURIComponent(nn[1]).slice(0,60));else localStorage.removeItem("pa_join_n")}catch(_){}}history.replaceState(null,"",location.pathname+location.hash)}}catch(e){}})();
 const joinPending=()=>{try{return !!localStorage.getItem("pa_join")}catch(e){return false}};
 const famNames=()=>{const n=(DB.babies||[]).map(b=>(b.nm||"").trim()).filter(Boolean);return n.length?n.join(TT(" y "," i "," and ")):TT("tu bebé","el teu nadó","your baby")};
 const isCg=()=>!!(USER&&window.__duid&&window.__duid!==USER.uid);
@@ -6272,7 +6278,7 @@ async function invOpen(){
   const o=invShell(`${INVART}<h3 class="disp">${TT("Invitar a un cuidador","Convida un cuidador","Invite a caregiver")}</h3><p class="mute">${TT("Que lo escanee con la cámara del móvil y verá todo lo de ","Que l'escanegi amb la càmera del mòbil i veurà tot el de ","Scan it with the phone camera to see everything about ")+famNames()+TT(".",".",".")}</p><div class="invqr" id="invqr"><span class="mute">${TT("Creando invitación…","S'està creant la invitació…","Creating invite…")}</span></div><p class="mute invsm">${TT("Caduca en 24 h y sirve para una persona.","Caduca en 24 h i serveix per a una persona.","Expires in 24 h, one person only.")}</p><div class="btns"><button type="button" class="btn" id="invsh" disabled>${TT("Compartir enlace","Comparteix l'enllaç","Share link")}</button><button type="button" class="btn p" id="invok">${TT("Hecho","Fet","Done")}</button></div>`);
   $("invok").onclick=invClose;
   let code;try{code=await window.cloud.invite(famNames())}catch(e){const q=$("invqr");if(q)q.innerHTML=`<span class="mute">${TT("No se pudo crear la invitación. Prueba otra vez en un momento.","No s'ha pogut crear la invitació. Torna-ho a provar d'aquí a una estona.","Couldn't create the invite. Try again in a moment.")}${e&&e.code?" ("+e.code+")":""}</span>`;return}
-  const url="https://app.primerosalimentos.com/?join="+code,q=$("invqr");if(!q)return;
+  const url="https://app.primerosalimentos.com/?join="+code+"&n="+encodeURIComponent(famNames()),q=$("invqr");if(!q)return;
   q.innerHTML=window.qrSvg(url);const sb=$("invsh");sb.disabled=false;
   sb.onclick=async()=>{const n=famNames(),t=TT(`Te paso el diario de comidas de ${n} 🥄 Así ves qué ha comido, qué le toca hoy y todo lo que ya ha probado:`,`Et passo el diari de menjars ${caDe(n)} 🥄 Així veus què ha menjat, què li toca avui i tot el que ja ha tastat:`,`Here's ${n}'s food diary 🥄 See what they've eaten, what's on today and everything they've tried:`);
     try{if(navigator.share){await navigator.share({title:"Primeros alimentos",text:t,url});return}}catch(e){if(e&&e.name==="AbortError")return}
@@ -7638,6 +7644,15 @@ footer{margin-top:3mm;font-size:7pt;color:#9a96aa}
 <script>document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("#chg_rc");if(!b)return;e.preventDefault();const re=window.__chgRc;if(!re)return;document.getElementById("chg").classList.add("hide");setTimeout(()=>re.click(),30)})</script>
 <script>/* Categorías: siempre justo debajo de las pestañas fijas (también con la isla del iPhone) */
 (function(){let q=0;const f=()=>{q=0;let b=0;document.querySelectorAll(".rtabs").forEach(t=>{if(t.offsetParent===null)return;const cs=getComputedStyle(t);if(cs.position!=="sticky")return;const r=t.getBoundingClientRect();if(r.bottom>b&&r.top<=parseFloat(cs.top)+2)b=r.bottom});if(!b){document.querySelectorAll(".rtabs").forEach(t=>{if(t.offsetParent!==null&&getComputedStyle(t).position==="sticky"){const cs=getComputedStyle(t);b=Math.max(b,parseFloat(cs.top)+t.offsetHeight)}})}if(b)document.documentElement.style.setProperty("--iidxtop",Math.round(b+8)+"px")};const sch=()=>{if(!q)q=requestAnimationFrame(f)};addEventListener("scroll",sch,{passive:true});addEventListener("resize",sch);document.addEventListener("click",()=>setTimeout(sch,60),true);setTimeout(f,300)})();</script>
+<script>/* Invitación: explicar en la entrada que hay que crear cuenta (o entrar) para verla */
+(function(){let c=null,n="";try{c=localStorage.getItem("pa_join");n=localStorage.getItem("pa_join_n")||""}catch(e){}
+  if(!c)return;const g=document.getElementById("gate");if(!g||g.querySelector(".gjoin"))return;
+  const esc=x=>String(x).replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[ch]),T=(a,b,d)=>{try{return TT(a,b,d)}catch(e){return a}};
+  const who=n?"<b>"+esc(n)+"</b>":T("tu bebé","el teu nadó","the baby");
+  const d=document.createElement("div");d.className="gjoin";d.setAttribute("role","status");
+  d.innerHTML=(typeof INVART!=="undefined"?INVART:"")+'<h3 class="disp">'+T("Te han invitado","T'han convidat","You've been invited")+'</h3><p>'+T("Para ver y anotar lo que come "+who+", crea tu cuenta gratis o entra con la tuya.","Per veure i apuntar el que menja "+who+", crea el teu compte gratis o entra amb el teu.","To see and log what "+who+" eats, create a free account or sign in.")+'</p><p class="mute">'+T("Al entrar verás la invitación para aceptarla.","En entrar veuràs la invitació per acceptar-la.","Once you're in, you'll see the invite to accept it.")+'</p>';
+  const logo=g.querySelector(".logo");if(logo&&logo.nextSibling)logo.parentNode.insertBefore(d,logo.nextSibling);else g.firstElementChild.prepend(d);
+  try{window.gmode&&window.gmode("up")}catch(e){}})();</script>
 </body>
 </html>
 
