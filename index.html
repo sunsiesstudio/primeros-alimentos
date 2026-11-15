@@ -2303,6 +2303,8 @@ html body input[type="checkbox"]:not(#z):not(#z){-webkit-appearance:none!importa
 html body input[type="checkbox"]:checked:not(#z):not(#z){background:var(--blue)!important;border-color:var(--blue)!important}
 html body input[type="checkbox"]:checked:not(#z):not(#z)::after{content:"";width:12px;height:7px;border:solid var(--bg,#fff);border-width:0 0 2.6px 2.6px;transform:translateY(-1px) rotate(-45deg)}
 html body input[type="checkbox"]:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+html body .wkact .wkact2:not(#z):not(#z){display:flex!important;flex-direction:row!important;gap:10px;width:100%;margin:0}
+html body .wkact .wkact2 .btn:not(#z):not(#z){flex:1 1 0!important;width:auto!important;min-width:0;margin:0!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -7433,7 +7435,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
    lbl=WO>=4?TT("En un mes","D'aquí a un mes","In a month"):WO<=-4?TT("Hace un mes","Fa un mes","A month ago"):WO===0?TT("Esta semana","Aquesta setmana","This week"):WO===1?TT("Próxima semana","Setmana vinent","Next week"):WO===-1?TT("Semana pasada","Setmana passada","Last week"):WO>0?TT(`En ${ne} semanas`,`D'aquí a ${nc} setmanes`,`In ${A} weeks`):TT(`Hace ${ne} semanas`,`Fa ${nc} setmanes`,`${A} weeks ago`),sub=rg;
   const nav=`<div class="wknv"><button type="button" class="wknb" data-wkoff="${WO-1}"${WO<=-4||!hasMenu(WO-1)?" disabled":""} aria-label="${TT("Semana anterior","Setmana anterior","Previous week")}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><div class="wknl"><b class="disp">${esc(lbl)}</b>${sub?`<small>${esc(sub)}</small>`:""}</div><button type="button" class="wknb" data-wkoff="${WO+1}"${WO>=4||(WO>=0&&!hasMenu(WO+1))?" disabled":""} aria-label="${TT("Semana siguiente","Setmana següent","Next week")}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>`;
   const pastH=P.length?(F.length?`<details class="wkpast"><summary>${P.length===1?TT("1 día anterior","1 dia anterior","1 earlier day"):TT(`${P.length} días anteriores`,`${P.length} dies anteriors`,`${P.length} earlier days`)}</summary><div class="wkpl">${P.map(card).join("")}</div></details>`:P.map(card).join("")):"";
-  const act=WO>=0?`<div class="wkact"><button type="button" class="btn p wkbuy" data-cpopen="1">${SVG_CART}<span>${TT("Lista de la compra","Llista de la compra","Shopping list")}</span></button>${F.length?`<button type="button" class="btn wkcpy2" data-wkcopy="1">${ICP}<span>${TT("Copiar el menú","Copia el menú","Copy the menu")}</span></button>`:""}</div>`:"";
+  const act=WO>=0?`<div class="wkact"><button type="button" class="btn p wkbuy" data-cpopen="1">${SVG_CART}<span>${TT("Lista de la compra","Llista de la compra","Shopping list")}</span></button>${F.length?`<div class="wkact2"><button type="button" class="btn wkcpy2" data-wkcopy="1">${ICP}<span>${TT("Copiar","Copia","Copy")}</span></button><button type="button" class="btn wkcpy2" data-wkprint="1"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3.5h10V9"/><rect x="3.5" y="9" width="17" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/></svg><span>${TT("Imprimir","Imprimeix","Print")}</span></button></div>`:""}</div>`:"";
   window.__nutOff=0;{try{const host=document.getElementById("stwrap")||w;let bx=document.getElementById("wkwr");if(!bx||bx.nextElementSibling!==host){if(bx)bx.remove();bx=document.createElement("div");bx.id="wkwr";host.parentNode.insertBefore(bx,host)}let h="";if(WO===0){const k=wrLast().k,bn=wrBanner();const mon=new Date(today()+"T00:00:00").getDay()===1;if(bn&&(!mon||(S.prefs.wrx||"")!==k))h=`<div class="wkwrw${mon?"":" nox"}">${bn.replace('id="wr_open"','data-wrgo="1"')}<button type="button" class="wrxb" data-wrx="${k}" aria-label="${TT("Cerrar","Tanca","Close")}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg></button></div>`}bx.innerHTML=h}catch(_){}}
   w.innerHTML=nav+`<div class="wkls">${D.length?pastH+F.map(card).join(""):`<p class="mute wkem">${WO>=0?TT("Todavía no hay menú para esta semana.","Encara no hi ha menú per a aquesta setmana.","No menu for this week yet."):TT("No hay nada apuntado esta semana.","No hi ha res apuntat aquesta setmana.","Nothing logged this week.")}</p>`}</div>`+act}
  window.renderSemana=renderSemana;
@@ -7481,6 +7483,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   const c=e.target.closest("#wkin [data-wkchg]");if(c){e.preventDefault();const d=c.dataset.d,m=c.dataset.wkchg,pd=pdate,ps=!document.getElementById("stwrap").classList.contains("hide"),sy=window.scrollY,back=()=>{if(ps){try{subtab(5)}catch(_){}try{renderSemana()}catch(_){}window.scrollTo({top:sy})}};try{pdate=d;if(d<today())dnUnlock=d;plan();const b=[...document.querySelectorAll("#days button[data-chg]")].find(x=>x.dataset.d===d&&x.dataset.chg===m);pdate=pd;if(b){b.click();back();const sh=document.getElementById("chg");if(sh){const ob=new MutationObserver(()=>{if(sh.classList.contains("hide")){ob.disconnect();setTimeout(back,0)}});ob.observe(sh,{attributes:true,attributeFilter:["class"]})}}else{psub=1;subtab(1);pdate=d;plan();window.scrollTo({top:0})}}catch(_){pdate=pd;back()}return}
   const g=e.target.closest("#wkin [data-wkgo]");if(g){try{pdate=g.dataset.wkgo;psub=1;subtab(1);plan();window.scrollTo({top:0})}catch(_){}return}
   if(e.target.closest("[data-cpopen]")){window.openCompra();return}
+  if(e.target.closest("[data-wkprint]")){try{printWeek(CUR,WO)}catch(err){console.error(err);snack(TT("No se ha podido preparar la impresión","No s'ha pogut preparar la impressió","Couldn't prepare printing"))}return}
   if(e.target.closest("[data-wkcopy]")){const L=[TT("Menú","Menú","Menu")+(S.nm?" · "+S.nm:""),""];CUR.filter(d=>!d.past).forEach(d=>{L.push(fdw(d.dt));(d.meals||[]).forEach(([m,n])=>L.push("· "+(trU?trU(m):m)+": "+n));L.push("")});copyText(L.join("\n").trim());snack(TT("Menú copiado","Menú copiat","Menu copied"));return}
   if(e.target.closest("[data-wkall]")){e.preventDefault();try{SW[8][2]()}catch(_){}}});
  {const pf=document.getElementById("pf_shop"),pc=document.getElementById("pfcard"),sync=()=>{if(pf)pf.value=((S.prefs||{}).shopDay??"")+""};if(pf){sync();pf.onchange=e=>{S.prefs.shopDay=e.target.value;try{save()}catch(_){}}}if(pc)pc.addEventListener("toggle",sync)}
@@ -7528,6 +7531,43 @@ window.gbad=(...ids)=>{["em","pw","pw2"].forEach(i=>{const x=$i(i);if(x){const o
 window.gmode=m=>{const g=$i("gate");if(!g)return;if(m==="up")g.dataset.m="up";else delete g.dataset.m;$i("pw").setAttribute("autocomplete",m==="up"?"new-password":"current-password");window.gbad();msg("")};
 const go=()=>{const u=$i("gtoup"),n=$i("gtoin");if(!u)return;u.addEventListener("click",()=>{window.gmode("up");$i("em").focus()});n.addEventListener("click",()=>{window.gmode("in");$i("em").focus()});["em","pw","pw2"].forEach(i=>{const x=$i(i);if(x)x.addEventListener("input",()=>{x.classList.remove("bad");x.setAttribute("aria-invalid","false")})})};
 document.readyState==="loading"?document.addEventListener("DOMContentLoaded",go):go()})()</script>
+<script>
+window.printWeek=(CUR,WO)=>{const E=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
+  const days=(CUR||[]).filter(d=>d&&d.dt);if(!days.length)return;
+  const ML=MEALS.filter(m=>days.some(d=>(d.meals||[]).some(x=>x[0]===m)));
+  const fd=d=>{const t=d.toLocaleDateString(LOC(),{weekday:"long",day:"numeric"});return t.charAt(0).toUpperCase()+t.slice(1)};
+  const a=days[0].dt,b=days[days.length-1].dt,fm=d=>d.toLocaleDateString(LOC(),{day:"numeric",month:"long"}),rng=(a.getMonth()===b.getMonth()?a.getDate():fm(a))+" – "+fm(b);
+  let D=null;try{D=shopData((WO||0)*7)}catch(_){}
+  const tag=d=>{const n=d.x&&d.x.n?d.x.n:"";const al=d.rep&&d.rep.x?d.rep.x.n:"";return n&&!d.rep?`<span class="tg">${TT("Nuevo","Nou","New")}: ${E(tFood(n))}</span>`:al?`<span class="tg al">${TT("Alérgeno","Al·lergen","Allergen")}: ${E(tFood(al))}</span>`:""};
+  const head=`<tr><th></th>${days.map(d=>`<th>${E(fd(d.dt))}${tag(d)}</th>`).join("")}</tr>`;
+  const body=ML.map(m=>`<tr><th class="ml">${E(trU?trU(m):m)}</th>${days.map(d=>{const x=(d.meals||[]).find(y=>y[0]===m);return `<td>${x?E(x[1]):""}</td>`}).join("")}</tr>`).join("");
+  const li=(arr,dl)=>arr.map(e=>`<li><i></i><span>${E(shLine(e))}${dl&&e.dl&&e.dl.length?` <small>${E(shDl(e.dl))}</small>`:""}</span></li>`).join("");
+  const shop=D?`${D.fresh.length?`<h3>${TT("Para esta semana","Per a aquesta setmana","For this week")}</h3><ul>${li(D.fresh,true)}</ul>`:""}${D.pan.length?`<h3>${TT("Para la despensa","Per al rebost","For the pantry")}</h3><ul>${li(D.pan,false)}</ul>`:""}${D.home.length?`<p class="hm"><b>${TT("Ya en casa","Ja a casa","At home")}:</b> ${E(D.home.map(e=>tFood(e.n)).join(", "))}</p>`:""}`:"";
+  const ti=TT("Menú de la semana","Menú de la setmana","Weekly menu")+(S.nm?" · "+S.nm:"");
+  const html=`<!doctype html><html lang="${LANG||"es"}"><head><meta charset="utf-8"><title>${E(ti)}</title><style>
+@page{size:A4 landscape;margin:9mm}
+*{box-sizing:border-box}html,body{margin:0;background:#fff;color:#2b2a3a;font-family:Montserrat,"Helvetica Neue",Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pg{display:grid;grid-template-columns:1fr 62mm;gap:6mm;height:190mm}
+header{display:flex;align-items:baseline;gap:10px;margin:0 0 4mm}
+h1{font-size:19pt;margin:0;color:#c96a47;letter-spacing:.5px}h1 svg{width:16pt;height:16pt;vertical-align:-2pt;margin-right:4pt}
+header span{font-size:10pt;color:#77748a}
+main{display:flex;flex-direction:column;height:190mm;min-width:0}table{width:100%;flex:1;height:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:10pt;line-height:1.3}
+th,td{border:0.6pt solid #d9d4c4;padding:2.2mm 2mm;vertical-align:top;text-align:left}
+thead th,tr:first-child th{background:#f6f1e6;font-size:10pt}
+tr:first-child th:first-child{background:none;border:0}
+th.ml{width:20mm;background:#f6f1e6;color:#c96a47;text-transform:uppercase;font-size:7pt;letter-spacing:.8px}
+.tg{display:block;margin-top:1.4mm;font-weight:700;font-size:8pt;color:#4f7a3a}.tg.al{color:#c96a47}
+td{height:auto}tr:first-child{height:14mm}
+aside{border:0.8pt solid #d9d4c4;border-radius:4mm;padding:4mm;font-size:9.5pt;height:190mm;overflow:hidden}
+aside h2{margin:0 0 2mm;font-size:12pt;color:#c96a47}aside h3{margin:3mm 0 1.5mm;font-size:7.5pt;text-transform:uppercase;letter-spacing:.8px;color:#77748a}
+ul{list-style:none;margin:0;padding:0}li{display:flex;gap:2mm;margin:0 0 1.5mm;break-inside:avoid}li i{flex:none;width:3.2mm;height:3.2mm;border:0.8pt solid #9a96aa;border-radius:.8mm;margin-top:.4mm}
+li small{color:#77748a}.hm{margin:3mm 0 0;color:#55526a}
+footer{margin-top:3mm;font-size:7pt;color:#9a96aa}
+</style></head><body><div class="pg"><main><header><h1><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg>${E(ti)}</h1><span>${E(rng)}</span></header><table>${head}${body}</table><footer>primerosalimentos.com</footer></main><aside><h2>${TT("Lista de la compra","Llista de la compra","Shopping list")}</h2>${shop||`<p>${TT("Nada que comprar","Res a comprar","Nothing to buy")}</p>`}</aside></div></body></html>`;
+  let f=document.getElementById("prfr");if(f)f.remove();f=document.createElement("iframe");f.id="prfr";f.setAttribute("aria-hidden","true");f.style.cssText="position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden";document.body.appendChild(f);
+  const w=f.contentWindow;w.document.open();w.document.write(html);w.document.close();
+  setTimeout(()=>{try{w.focus();w.print()}catch(_){const nw=window.open("","_blank");if(nw){nw.document.write(html);nw.document.close();setTimeout(()=>nw.print(),300)}}},350)};
+</script>
 </body>
 </html>
 
