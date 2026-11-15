@@ -2315,6 +2315,7 @@ html body #cf input{font-size:16px!important}
 html body .tag.w{font-weight:700!important;color:#fff!important;background:#b5573a!important}
 :root[data-theme="dark"] body .tag.w{color:#1b1a3a!important;background:#ffa77c!important}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body .tag.w{color:#1b1a3a!important;background:#ffa77c!important}}
+html body #pfA .addbb{display:block;width:100%;margin:12px 0 4px}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -7578,6 +7579,7 @@ footer{margin-top:3mm;font-size:7pt;color:#9a96aa}
   const w=f.contentWindow;w.document.open();w.document.write(html);w.document.close();
   setTimeout(()=>{try{w.focus();w.print()}catch(_){const nw=window.open("","_blank");if(nw){nw.document.write(html);nw.document.close();setTimeout(()=>nw.print(),300)}}},350)};
 </script>
+<script>(()=>{const go=()=>{const h=document.getElementById("prdet");if(!h||document.getElementById("addbb"))return;const c=h.nextElementSibling;if(!c)return;const b=document.createElement("button");b.type="button";b.className="btn addbb";b.id="addbb";b.textContent="+ "+(typeof TT==="function"?TT("Añadir otro bebé","Afegeix un altre nadó","Add another baby"):"Añadir otro bebé");b.onclick=()=>{try{addBaby()}catch(e){console.error(e)}};c.after(b)};document.readyState==="loading"?document.addEventListener("DOMContentLoaded",go):go()})()</script>
 </body>
 </html>
 
