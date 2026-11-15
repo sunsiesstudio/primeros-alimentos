@@ -2333,7 +2333,7 @@ document.documentElement.lang=LANG;
     [/^de (\S+)$/,m=>two(`de ${m[1]}`,`for ${m[1]}`)],
     [/^(.+) tiene (\d+) días? \((\d+) mes(?:es)?\)(.*)$/,m=>two(`${m[1]} té ${m[2]} dies (${m[3]} mesos)`,`${m[1]} is ${m[2]} days old (${m[3]} months)`)],
     [/^Hoy (.+) ha probado por primera vez$/,m=>two(`Avui ${m[1]} ha provat per primer cop`,`Today ${m[1]} tried for the first time`)],
-    [/^Borra todo lo anotado de (.+)\. No se puede deshacer\.$/,m=>two(`Esborra tot el que has anotat de ${m[1]}. No es pot desfer.`,`Deletes everything logged for ${m[1]}. Can't be undone.`)],
+    [/^Borra todo lo anotado de (.+)\. Se puede recuperar durante 30 días\.$/,m=>two(`Esborra tot el que has anotat de ${m[1]}. Es pot recuperar durant 30 dies.`,`Deletes everything logged for ${m[1]}. Can be restored for 30 days.`)],
     [/^Repetimos, día (\d) de 3$/,m=>two(`Repetim, dia ${m[1]} de 3`,`Repeat, day ${m[1]} of 3`)],
     [/^Desde los (\d+) m$/,m=>two(`A partir dels ${m[1]} m`,`From ${m[1]} m`)],
     [/^(\d+) alimentos? nuevos?$/,m=>two(`${m[1]} aliment${m[1]==="1"?"":"s"} nou${m[1]==="1"?"":"s"}`,`${m[1]} new food${m[1]==="1"?"":"s"}`)],
@@ -2631,7 +2631,7 @@ document.documentElement.lang=LANG;
 <div class="btns" style="max-width:none;margin:28px 0 0"><button class="btn" id="so" style="width:100%;flex:1 1 100%;max-width:none">Cerrar sesión</button></div>
   <h3 class="sec" style="color:var(--red)">Zona de peligro</h3>
   <div class="card danger">
-    <div class="prow" style="border-top:0"><div><div class="lab">Eliminar perfil</div><div class="mute" id="bdel_t">Borra todo lo anotado de este bebé. No se puede deshacer.</div></div><button class="dg" id="bdel">Eliminar</button></div>
+    <div class="prow" style="border-top:0"><div><div class="lab">Eliminar perfil</div><div class="mute" id="bdel_t">Borra todo lo anotado de este bebé. Se puede recuperar durante 30 días.</div></div><button class="dg" id="bdel">Eliminar</button></div>
     <div class="prow"><div><div class="lab">Eliminar mi cuenta</div><div class="mute">Borra tu cuenta y todos los perfiles. No se puede deshacer.</div></div><button class="dg" id="adel">Eliminar</button></div>
   </div>
   </div>
@@ -3429,7 +3429,7 @@ function renderBabies(){
     pop.querySelector("[data-bpadd]").onclick=()=>{close();addBaby()};
     {const st=$("pfbabs");if(st){const many=DB.babies.length>1;st.classList.toggle("hide",!many);st.innerHTML=many?DB.babies.map((b,i)=>`<button type="button" class="pfbb${i===DB.cur?" on":""}" data-pfbb="${i}" aria-pressed="${i===DB.cur}">${av(b,i)}<span data-clarity-mask="true">${esc(bname(b,i))}</span></button>`).join("")+`<button type="button" class="pfbb add" data-pfbbadd="1" aria-label="${TT("Añadir bebé","Afegeix un nadó","Add baby")}"><span class="bav">+</span></button>`:"";st.querySelectorAll("[data-pfbb]").forEach(b=>b.onclick=()=>{const i=+b.dataset.pfbb;if(i!==DB.cur)switchBaby(i)});const ad=st.querySelector("[data-pfbbadd]");if(ad)ad.onclick=addBaby}}
     if(!window.__bpopC){window.__bpopC=1;document.addEventListener("click",e=>{const p=$("bpop");if(p&&!p.classList.contains("hide")&&!p.contains(e.target)&&!e.target.closest("#pnb")){p.classList.add("hide");const n=$("pnb");if(n)n.setAttribute("aria-expanded","false")}})}}}
-  $("bdel_t").textContent="Borra todo lo anotado de "+(S.nm||"este bebé")+". No se puede deshacer.";
+  $("bdel_t").textContent="Borra todo lo anotado de "+(S.nm||"este bebé")+". Se puede recuperar durante 30 días.";
 }
 let cfAct=null;
 function cfOpen(t,pp,word,label,fn){cfAct=fn;$("cft").textContent=t;$("cfp").textContent=pp;$("cfe").textContent="";$("cfi").value="";$("cfpwi").value="";$("cfpw").classList.add("hide");$("cfl").classList.toggle("hide",!word);$("cfok").textContent=label;$("cfok").disabled=!!word;$("cfok").dataset.w=word||"";$("cfw").textContent=word||"";$("cf").classList.remove("hide")}
@@ -3437,8 +3437,8 @@ $("cfi").oninput=()=>{const nz=x=>x.normalize("NFD").replace(/[\u0300-\u036f]/g,
 $("cfx").onclick=()=>$("cf").classList.add("hide");
 $("cfok").onclick=async()=>{if($("cfok").disabled||!cfAct)return;$("cfok").disabled=true;try{await cfAct();$("cf").classList.add("hide")}catch(e){const c=e&&e.code;if(c==="need-pw"){$("cfpw").classList.remove("hide");$("cfe").textContent="Escribe tu contraseña para confirmar que eres tú.";setTimeout(()=>$("cfpwi").focus(),50)}else $("cfe").textContent=c==="auth/wrong-password"||c==="auth/invalid-credential"||c==="auth/invalid-login-credentials"?"Contraseña incorrecta.":c==="auth/popup-closed-by-user"||c==="auth/cancelled-popup-request"?"Elige tu cuenta de Google para confirmar.":c==="auth/popup-blocked"?"Tu navegador ha bloqueado la ventana de Google. Vuelve a tocar Eliminar cuenta.":"No se pudo eliminar ("+((e&&(c||e.message))||"error")+").";$("cfok").disabled=false}};
 $("bdel").onclick=()=>{const n=S.nm||"este bebé";
-  const nm0=(S.nm||"").trim();cfOpen(TT("¿Eliminar el perfil de ","Vols eliminar el perfil de ","Delete the profile of ")+n+"?",TT("Se borran sus alimentos, alergias, reacciones y la foto. No se puede deshacer.","S'esborren els seus aliments, al·lèrgies, reaccions i la foto. No es pot desfer.","Their foods, allergies, reactions and photo will be deleted. This can't be undone."),TT("ELIMINAR PERFIL","ELIMINA EL PERFIL","DELETE PROFILE"),TT("Eliminar perfil","Elimina el perfil","Delete profile"),()=>{
-    DB.babies.splice(DB.cur,1);const empty=!DB.babies.length;if(empty)DB.babies.push(newBaby());DB.cur=Math.max(0,Math.min(DB.cur,DB.babies.length-1));S=DB.babies[DB.cur];editing=null;save();render();window.scrollTo({top:0,behavior:"smooth"});document.querySelectorAll(".scr,main,#app").forEach(e=>{try{e.scrollTop=0}catch(_){}});if(empty){obSkip=false;openOb()}})};
+  const nm0=(S.nm||"").trim();cfOpen(TT("¿Eliminar el perfil de ","Vols eliminar el perfil de ","Delete the profile of ")+n+"?",TT("Se borran sus alimentos, alergias, reacciones y la foto. Si te equivocas, escríbenos en los 30 días siguientes y lo recuperamos.","S'esborren els seus aliments, al·lèrgies, reaccions i la foto. Si t'equivoques, escriu-nos en els 30 dies següents i el recuperem.","Their foods, allergies, reactions and photo will be deleted. If it was a mistake, write to us within 30 days and we'll restore it."),TT("ELIMINAR PERFIL","ELIMINA EL PERFIL","DELETE PROFILE"),TT("Eliminar perfil","Elimina el perfil","Delete profile"),()=>{
+    try{const gone=DB.babies[DB.cur];if(gone&&window.cloud&&window.cloud.trash)window.cloud.trash(gone).catch(()=>{})}catch(e){}DB.babies.splice(DB.cur,1);const empty=!DB.babies.length;if(empty)DB.babies.push(newBaby());DB.cur=Math.max(0,Math.min(DB.cur,DB.babies.length-1));S=DB.babies[DB.cur];editing=null;save();render();window.scrollTo({top:0,behavior:"smooth"});document.querySelectorAll(".scr,main,#app").forEach(e=>{try{e.scrollTop=0}catch(_){}});if(empty){obSkip=false;openOb()}})};
 $("adel").onclick=()=>cfOpen("¿Eliminar tu cuenta?","Se borran tu cuenta y todos los perfiles de bebé con sus datos. No se puede deshacer.",TT("ELIMINAR CUENTA","ELIMINA EL COMPTE","DELETE ACCOUNT"),"Eliminar cuenta",async()=>{
   const k=LKEY();clearTimeout(ST);
   if(window.cloud&&window.cloud.deleteAccount)await window.cloud.deleteAccount(snap(),$("cfpwi").value);
@@ -3875,7 +3875,7 @@ let OB=null;
   if(r.top<top+8||r.bottom>top+hh-8){const want=top+hh*.42-r.height/2;o.scrollBy({top:r.top-want,behavior:"smooth"})}};
   if(window.visualViewport)visualViewport.addEventListener("resize",()=>setTimeout(fit,30));document.addEventListener("focusin",()=>setTimeout(fit,320))})();
 function openOb(){OB={s:0,nm:S.nm||"",bd:S.bd||"",ya:null,eat:"",meals:0,app:"",fo:new Set(),al:{},q:"",diet:"om",every:1,fz:"fresh",goals:[],sty:"",mode:"",home:""};drawOb();$("ob").classList.remove("hide");$("ob").scrollTop=0}
-function obSteps(){return OB.ya?[0,1,2,3,4,7,11,5]:[0,1,2,4,11,5]}
+function obSteps(){return OB.ya?[0,1,2,3,4,7,11,5]:[0,1,2,11,5]}
 // Todos los grupos: una alergia diagnosticada (p. ej. APLV) se marca aunque aún no haya probado ese alimento
 function obGroups(){const O=["huevo","lacteos","gluten","pescado","frutoscascara","cacahuete","soja","sesamo","legumbres","crustaceos","moluscos","apio"],k=agKeys();return [...O.filter(g=>k.includes(g)),...k.filter(g=>!O.includes(g))]}
 const OBIL={plates:n=>{const p=[[16,20],[44,20],[16,46],[44,46]].slice(0,n),c=n===1?[[32,32]]:n===2?[[18,32],[46,32]]:n===3?[[18,22],[46,22],[32,46]]:p;return `<svg viewBox='0 0 64 64' aria-hidden='true'>${c.map(([x,y],i)=>`<circle cx='${x}' cy='${y}' r='${n===1?20:12}' fill='#f6efe0' stroke='#e0d3b8' stroke-width='2'/><circle cx='${x}' cy='${y}' r='${n===1?9:5.5}' fill='${["#f39a2c","#7bb661","#d6453d","#8fb6d9"][i]}'/>`).join("")}</svg>`},
@@ -7196,6 +7196,7 @@ const reauthOAuth=async u=>{
 // Apple exige revocar el token de "Iniciar sesión con Apple" al borrar la cuenta (si falla, el borrado sigue)
 const revokeApple=async u=>{if(!appleCode)return;try{await fetch("https://identitytoolkit.googleapis.com/v2/accounts:revokeToken?key="+CFG.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({providerId:"apple.com",tokenType:"CODE",token:appleCode,idToken:await u.getIdToken()})})}catch(e){}appleCode=null};
 window.cloud={
+  trash:async b=>{const r=doc(db,"users",window.__duid||auth.currentUser.uid);let t=[];try{const c=await getDoc(r);t=((c.exists()&&c.data().trash)||[]).filter(x=>x&&Date.now()-(x.at||0)<30*864e5)}catch(e){}let bb=JSON.parse(JSON.stringify(b));(bb.log||[]).forEach(l=>{if(l)delete l.ph});if(JSON.stringify(bb).length>250000)Object.keys(bb).forEach(k=>{if(typeof bb[k]==="string"&&bb[k].length>20000)delete bb[k]});t.push({at:Date.now(),nm:bb.nm||"",b:bb});while(t.length>5||JSON.stringify(t).length>400000)t.shift();await updateDoc(r,{trash:t})},
   logout:()=>{try{google.accounts.id.disableAutoSelect()}catch(e){}if(FA)FA.signOut().catch(()=>{});return signOut(auth)},
   save:async d=>{const r=doc(db,"users",window.__duid||auth.currentUser.uid);try{const cur=await getDoc(r);if(cur.exists()){const cd=cur.data();if((cd.ts||0)>(window.__syncTs||0)&&window.__mergeCloud)d=window.__mergeCloud(cd)}}catch(e){}d={...d,ts:Math.max(Date.now(),(d.ts||0)+1)};let js=JSON.stringify(d);if(js.length>950000){d=JSON.parse(js);const L=[];(d.babies||[]).forEach(b=>(b.log||[]).forEach(l=>{if(l&&l.ph)L.push(l)}));L.sort((a,b)=>(a.d||"")<(b.d||"")?-1:1);while(L.length&&JSON.stringify(d).length>950000){delete L.shift().ph}}delete d.members;delete d.fam;delete d.famEm;await setDoc(r,d,{merge:true});return d},
   load:async()=>{const sn=await getDoc(doc(db,"users",window.__duid||auth.currentUser.uid));return sn.exists()?sn.data():null},
