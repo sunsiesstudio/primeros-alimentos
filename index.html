@@ -2235,6 +2235,11 @@ html body .pedl{margin-top:6px;border:1.5px solid var(--line);border-radius:10px
 html body .pedr{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;font-weight:600}
 html body .pedr+.pedr{border-top:1px solid var(--line)}
 html body .pedr input{width:20px;height:20px;margin:0;accent-color:var(--blue);flex:none}
+:root[data-theme="dark"] .dish .pl0{fill:#0b0a24;opacity:.45} :root[data-theme="dark"] .dish .pl1{fill:#45437a;stroke:#55538c} :root[data-theme="dark"] .dish .pl2{fill:#3a386c;stroke:#4a4880}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dish .pl0{fill:#0b0a24;opacity:.45} :root:not([data-theme="light"]) .dish .pl1{fill:#45437a;stroke:#55538c} :root:not([data-theme="light"]) .dish .pl2{fill:#3a386c;stroke:#4a4880}}
+html body #pfA #cginv{background:var(--terra)!important;border-color:var(--terra)!important;color:#fff!important}
+:root[data-theme="dark"] #pfA #cginv{color:#1b1a3a!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #pfA #cginv{color:#1b1a3a!important}}
 html body .seg.caart{margin-top:6px;display:inline-flex}html body .seg.caart button{white-space:nowrap}
 html body button.wkdh{width:100%;background:none;border:0;padding:2px 26px 2px 0;margin:0 0 6px;font:inherit;color:inherit;text-align:left;cursor:pointer;position:relative}
 html body .wkdh .wkdg{right:0}
@@ -3242,7 +3247,7 @@ function dishIco(ings,nm){const ig=(ings||[]).filter(n=>{const x=info(n);return 
   const inner=n=>{const v=ico(n);const m=v.match(/<svg[^>]*>([\s\S]*)<\/svg>/);return m?m[1]:""};
   const L=ord.length===1?[[24,24,.55]]:ord.length===2?[[18,25,.42],[30,25,.42]]:[[24,19,.36],[16,29,.36],[32,29,.36]];
   const g=ord.map((n,i)=>{const [cx,cy,sc]=L[i];return `<g transform="translate(${cx-24*sc} ${cy-24*sc}) scale(${sc})">${inner(n)}</g>`}).join("");
-  return __DIC[k]=`<svg class="fd dish" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse cx="24" cy="28" rx="24" ry="19" fill="#cfc7ad" opacity=".55"/><ellipse cx="24" cy="26" rx="24" ry="19" fill="#fffdf6" stroke="#d8d3bc" stroke-width="2"/><ellipse cx="24" cy="26" rx="17" ry="13" fill="#f3efe1" stroke="#e4dfca" stroke-width="1.5"/>${g}</svg>`}
+  return __DIC[k]=`<svg class="fd dish" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse class="pl0" cx="24" cy="28" rx="24" ry="19" fill="#cfc7ad" opacity=".55"/><ellipse class="pl1" cx="24" cy="26" rx="24" ry="19" fill="#fffdf6" stroke="#d8d3bc" stroke-width="2"/><ellipse class="pl2" cx="24" cy="26" rx="17" ry="13" fill="#f3efe1" stroke="#e4dfca" stroke-width="1.5"/>${g}</svg>`}
 function ico(n){if(icoCache[n])return icoCache[n];const sp=ICOS[n],x=ALL.find(a=>a.n===n);let b;
   try{b=sp?SH[sp[0]](...sp.slice(1)):SH.gen(x?x.col:"#999")}catch(e){b=SH.gen("#999")}
   return icoCache[n]=`<svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true">${b}</svg>`}
