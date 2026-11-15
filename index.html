@@ -4326,7 +4326,7 @@ const GCOL={iron:"#e2703a",fiber:"#c9962f",omega3:"#d46a9a",calcium:"#3e4cd0",pr
 // Etiqueta de nutriente con su color (el mismo que en los anillos de Objetivos)
 const NUTK=["iron","zinc","protein","omega3","calcium","fiber","vitc"];
 const ntag=g=>`<span class="tag nt" style="--tc:${GCOL[g]||"var(--green)"}">${esc(GL[g])}</span>`;
-const dishIcons=ings=>{const xs=(ings||[]).map(info).filter(Boolean);const gs=["iron","protein","omega3","calcium","fiber","zinc"].filter(g=>xs.some(x=>GS[g](x))).slice(0,3);return gs.length?`<span class="ntt">${gs.map(g=>`<span class="nttg" style="--c:${GCOL[g]}">${esc(GL[g])}</span>`).join("")}</span>`:""};
+const dishIcons=ings=>{const xs=(ings||[]).map(info).filter(Boolean);const se=xs.some(x=>inSeason(x)===true);const gs=["iron","protein","omega3","calcium","fiber","zinc"].filter(g=>xs.some(x=>GS[g](x))).slice(0,se?2:3);return gs.length||se?`<span class="ntt">${se?`<span class="nttg nttse" style="--c:var(--green)">${TT("Temporada","Temporada","In season")}</span>`:""}${gs.map(g=>`<span class="nttg" style="--c:${GCOL[g]}">${esc(GL[g])}</span>`).join("")}</span>`:""};
 const dishTags=(ings,ex)=>{const xs=(ings||[]).map(info).filter(Boolean);const gs=NUTK.filter(g=>g!=="vitc"&&xs.some(x=>GS[g](x)));const vc="";return gs.length||ex||vc?`<span class="ntags">${gs.map(ntag).join("")}${ex||""}</span>${vc}`:""};
 const EATL={pure:"Come puré",mix:"Come mezclado",bits:"Come trozos"};
 function planHead(){
