@@ -4860,7 +4860,7 @@ function plan(){try{fixCoveredIngs()}catch(e){}cleanOrphanLogs();
       {const mor=meal==="Desayuno"||meal==="Media mañana",sw=mor||meal==="Merienda",VOK=/^(Tomate|Aguacate)/,slotOK=r=>{const ig=r.ings||[];if(!sw)return true;if(ig.some(n=>MEAT.has(n)||FISH.has(n)))return false;if(mor&&(r.t==="potito"||ig.some(n=>{const x=info(n)||{};return (x.c==="Verduras"||/^(Patata|Boniato)/.test(n))&&!VOK.test(n)})))return false;return true},L7=L.filter(slotOK);if(L7.length)L=L7}
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!usedN.has(r.n)&&!hasNew(r));
       if(!L.length)L=R.filter(r=>r.t==="fruta"&&!hasNew(r));
-      if(!L.length&&meal!==newSlot)L=R.filter(r=>ok(r,meal)&&hasNew(r)&&!usedN.has(r.n));if(!L.length&&meal!==newSlot)L=R.filter(r=>ok(r,meal)&&hasNew(r));if(!L.length&&meal!==newSlot)L=R.filter(r=>hasNew(r)&&(r.ings||[]).length===1);if(!L.length&&meal!==newSlot)L=R.filter(r=>hasNew(r)&&(r.ings||[]).length<=2);
+      const KN0=(o.kn||[]).length>0;if(!L.length&&meal!==newSlot&&KN0)L=R.filter(r=>ok(r,meal)&&hasNew(r)&&!usedN.has(r.n));if(!L.length&&meal!==newSlot&&KN0)L=R.filter(r=>ok(r,meal)&&hasNew(r));if(!L.length&&meal!==newSlot&&KN0)L=R.filter(r=>hasNew(r)&&(r.ings||[]).length===1);if(!L.length&&meal!==newSlot&&KN0)L=R.filter(r=>hasNew(r)&&(r.ings||[]).length<=2);
       {const L4=L.filter(r=>!(r.ings||[]).some(n=>usedI.has(n)&&!/^(AOVE|Aceite.*|Agua|Limón.*|Ajo|Cebolla|Perejil|Sal|Canela)$/.test(n)));if(L4.length)L=L4}
       if(!L.length)return;
       const rec=new Set([1,2,3].flatMap(k=>[...(hist[o.di-k]||[])]));
