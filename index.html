@@ -2382,6 +2382,9 @@ html body .invst{list-style:none;counter-reset:iv;margin:4px auto 16px;padding:0
 html body .invst li{counter-increment:iv;display:flex;align-items:flex-start;gap:10px;font-size:.95rem;line-height:1.35}
 html body .invst li::before{content:counter(iv);flex:none;width:24px;height:24px;border-radius:50%;background:var(--terra);color:#fff;font-weight:700;font-size:.8rem;display:grid;place-items:center;margin-top:-1px}
 html body #cpsh .cpbtn{position:sticky;bottom:0;z-index:3;margin:12px -4px 0!important;padding:12px 4px calc(14px + env(safe-area-inset-bottom));background:var(--bg);box-shadow:0 -10px 16px -8px color-mix(in srgb,var(--bg) 90%,transparent)}
+html body .snk{bottom:calc(max(8px,calc(env(safe-area-inset-bottom,0px) - 16px)) + 72px)!important;padding:4px 4px 4px 16px!important;min-height:0!important;border-radius:14px!important;font-size:.86rem!important;line-height:1.3}
+html body .snk .x{min-height:0!important;padding:8px 10px!important;margin:0!important}
+html.native.kb body .snk{bottom:calc(12px + env(safe-area-inset-bottom,0px))!important}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
