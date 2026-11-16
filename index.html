@@ -2381,6 +2381,7 @@ html body #days .rcrow:has(>details.rcv[open])>.fzrow:not(.open){order:5}
 html body .invst{list-style:none;counter-reset:iv;margin:4px auto 16px;padding:0;max-width:300px;text-align:left;display:flex;flex-direction:column;gap:10px}
 html body .invst li{counter-increment:iv;display:flex;align-items:flex-start;gap:10px;font-size:.95rem;line-height:1.35}
 html body .invst li::before{content:counter(iv);flex:none;width:24px;height:24px;border-radius:50%;background:var(--terra);color:#fff;font-weight:700;font-size:.8rem;display:grid;place-items:center;margin-top:-1px}
+html body #cpsh .cpbtn{position:sticky;bottom:0;z-index:3;margin:12px -4px 0!important;padding:12px 4px calc(14px + env(safe-area-inset-bottom));background:var(--bg);box-shadow:0 -10px 16px -8px color-mix(in srgb,var(--bg) 90%,transparent)}
 </style>
 <script>
 // Solo dentro de la app de iOS: enlaces externos en el navegador integrado y páginas propias sin abrir pestañas nuevas
@@ -7536,7 +7537,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   const dn=["domingos","lunes","martes","miércoles","jueves","viernes","sábados"],dnc=["diumenges","dilluns","dimarts","dimecres","dijous","divendres","dissabtes"],dne=["Sundays","Mondays","Tuesdays","Wednesdays","Thursdays","Fridays","Saturdays"];
   el.innerHTML=`<div><div class="shhd"><button class="xc" id="cp_x" aria-label="${TT("Cerrar","Tanca","Close")}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><h3 class="disp">${TT("Lista de la compra","Llista de la compra","Shopping list")}</h3></div>
    <p class="cpq">${TT("¿Para qué días?","Per a quins dies?","For which days?")}</p><div class="cpdays" id="cp_days" role="group"></div><div id="cp_l"></div>
-   <div class="cpshm hide" id="cp_m" role="group" aria-label="${TT("Compartir como","Comparteix com","Share as")}"><button type="button" class="btn" id="cp_si">${TT("Como imagen","Com a imatge","As image")}</button><button type="button" class="btn" id="cp_st">${TT("Como texto","Com a text","As text")}</button></div><div class="cpbtn"><button type="button" class="btn p" id="cp_dl"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>${TT("Descargar","Descarrega","Download")}</span></button><button type="button" class="btn" id="cp_sh">${ISH}<span>${TT("Compartir","Comparteix","Share")}</span></button></div></div>`;
+   <div class="cpshm hide" id="cp_m"></div><div class="cpbtn"><button type="button" class="btn p" id="cp_dl"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>${TT("Descargar","Descarrega","Download")}</span></button><button type="button" class="btn" id="cp_sh">${ISH}<span>${TT("Compartir","Comparteix","Share")}</span></button></div></div>`;
   document.body.appendChild(el);
   el.querySelector("#cp_x").onclick=()=>{el.classList.add("hide");document.body.style.overflow=""};
   el.querySelector("#cp_days").addEventListener("click",e=>{const b=e.target.closest("[data-cpd]");if(!b)return;const d=b.dataset.cpd;CPS.has(d)?CPS.delete(d):CPS.add(d);cpDraw()});
@@ -7544,9 +7545,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
   const txt=()=>{const D=cpData();return shopText(D)};
   const fn=()=>TT("lista-compra","llista-compra","shopping-list")+((S.nm||"").trim()?"-"+S.nm.trim().toLowerCase().replace(/\s+/g,"-"):"")+".png",mn=el.querySelector("#cp_m");
   el.querySelector("#cp_dl").onclick=async()=>{mn.classList.add("hide");const c=shopImg(cpData()),b=await new Promise(r=>c.toBlob(r,"image/png"));if(!b)return;if(await nativeShareBlob(b,fn()))return;if(matchMedia("(pointer:coarse)").matches){const f=new File([b],fn(),{type:"image/png"});try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){if(e&&e.name==="AbortError")return}}const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=fn();document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);snack(TT("Imagen descargada","Imatge descarregada","Image downloaded"))};
-  el.querySelector("#cp_sh").onclick=()=>mn.classList.toggle("hide");
-  el.querySelector("#cp_si").onclick=()=>{mn.classList.add("hide");shareCanvas(shopImg(cpData()),fn())};
-  el.querySelector("#cp_st").onclick=async()=>{mn.classList.add("hide");const t=txt();try{if(navigator.share){await navigator.share({text:t});return}}catch(e){if(e&&e.name==="AbortError")return}copyText(t);snack(TT("Lista copiada","Llista copiada","List copied"))};
+  el.querySelector("#cp_sh").onclick=()=>shareCanvas(shopImg(cpData()),fn());
   return el}
  function cpDraw(){const el=cpSheet(),t=new Date(),wl=x=>{const s=x.toLocaleDateString(LOC(),{weekday:"short"}).replace(".","");return s.charAt(0).toUpperCase()+s.slice(1)};
   el.querySelector("#cp_days").innerHTML=[...Array(14)].map((_,i)=>{const x=new Date(t.getFullYear(),t.getMonth(),t.getDate()+i),d=dstr(x);return `<button type="button" class="cpd${CPS.has(d)?" on":""}" data-cpd="${d}" aria-pressed="${CPS.has(d)}"><small>${i===0?TT("Hoy","Avui","Today"):esc(wl(x))}</small><b>${x.getDate()}</b></button>`}).join("");
