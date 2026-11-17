@@ -7509,6 +7509,9 @@ async function makeStory(ds){
   const rr=(x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()};
   const INK0=cv("--ink")||"#f5f1e3",gIm=await Promise.all(it.map(e=>e.g?svgImg(e.g,INK0):Promise.resolve(null)));
   const nwN=[...new Set(it.filter(e=>e.nw).flatMap(e=>e.i||[]))];const nwF=(window.__nwD||{})[ds]||[];
+  const dkS=document.documentElement.dataset.theme==="dark"||(document.documentElement.dataset.theme!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);
+  const hx=h=>{h=h.replace("#","");return[0,2,4].map(k=>parseInt(h.substr(k,2),16))},mixW=(h,a)=>{const[r,g,bb]=hx(h);return`rgb(${[r,g,bb].map(v=>Math.round(v+(255-v)*a)).join(",")})`},rgba=(h,a)=>{const[r,g,bb]=hx(h);return`rgba(${r},${g},${bb},${a})`};
+  const tagsOf=e=>{try{const xs=(e.i||[]).map(info).filter(Boolean),se=xs.some(x=>inSeason(x)===true),gs=["iron","protein","omega3","calcium","fiber","zinc"].filter(g=>xs.some(x=>GS[g](x))).slice(0,se?2:3);return[...(se?[[TT("Temporada","Temporada","In season"),"#4a8760"]]:[]),...gs.map(g=>[GL[g],GCOL[g]])]}catch(_){return[]}};
   // layout with scale k
   const lay=(k,draw,T)=>{T=T||top;let y=T+130*k;const px=cx+70,pw=cw-140;
     c.textAlign="center";c.font=`${Math.round(76*k)}px ${DF}`;c.fillStyle=ACC;if(draw)c.fillText(TT("MENÚ DEL DÍA","MENÚ DEL DIA","TODAY'S MENU"),W/2,y);y+=Math.round(56*k);
@@ -7520,10 +7523,11 @@ async function makeStory(ds){
       if(e.nw&&draw){const lw=c.measureText(lab).width+20*k;c.font=`700 ${Math.round(28*k)}px ${MF}`;const t=TT("Nuevo","Nou","New"),tw=c.measureText(t).width+32*k,ph=Math.round(44*k);c.fillStyle=TER;rr(px+lw,y-ph+10*k,tw,ph,ph/2);c.fill();c.fillStyle=BG;c.fillText(t,px+lw+16*k,y-2*k)}
       y+=Math.round(58*k);
       const isz=Math.round(84*k),im0=gIm[ix],tx=px+(gIm.some(Boolean)?isz+34*k:0),tw=pw-(tx-px);
-      c.font=`600 ${Math.round(46*k)}px ${MF}`;c.fillStyle=INK;const L=wrap(c,tFood(e.n).replace(/^./,x=>x.toUpperCase()),tw),lh=Math.round(58*k);
-      const y0=y-Math.round(42*k),bh=Math.max(L.length*lh,im0?isz:0);
+      c.font=`600 ${Math.round(46*k)}px ${MF}`;c.fillStyle=INK;const L=wrap(c,tFood(e.n).replace(/^./,x=>x.toUpperCase()),tw),lh=Math.round(58*k),TG=tagsOf(e),tgH=Math.round(46*k),tgG=Math.round(16*k);
+      const y0=y-Math.round(42*k),bh=Math.max(L.length*lh+(TG.length?tgG+tgH:0),im0?isz:0);
       if(draw){if(im0)c.drawImage(im0,px,y0+(bh-isz)/2,isz,isz);
-        L.forEach((l,j)=>c.fillText(l,tx,y+j*lh))}
+        L.forEach((l,j)=>c.fillText(l,tx,y+j*lh));
+        if(TG.length){let xx=tx;const ty=y0+L.length*lh+tgG;c.font=`700 ${Math.round(26*k)}px ${MF}`;c.textBaseline="middle";TG.forEach(([t,col])=>{const w=c.measureText(t).width+Math.round(36*k);if(xx+w>tx+tw)return;c.fillStyle=rgba(col,dkS?.26:.16);rr(xx,ty,w,tgH,tgH/2);c.fill();c.fillStyle=dkS?mixW(col,.45):col;c.fillText(t,xx+Math.round(18*k),ty+tgH/2+1);xx+=w+Math.round(12*k)});c.textBaseline="alphabetic";c.font=`600 ${Math.round(46*k)}px ${MF}`;c.fillStyle=INK}}
       y+=bh-Math.round(42*k)+Math.round(20*k);
       if(ix<it.length-1){y+=Math.round(26*k);if(draw){c.strokeStyle=LINE;c.lineWidth=2;c.setLineDash([8,10]);c.beginPath();c.moveTo(px,y);c.lineTo(px+pw,y);c.stroke();c.setLineDash([])}y+=Math.round(60*k)}});
     return y+Math.round(90*k)};
