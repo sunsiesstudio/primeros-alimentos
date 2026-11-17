@@ -2958,7 +2958,7 @@ const inSeason=x=>{if(!x||(x.c!=="Frutas"&&x.c!=="Verduras"))return null;const h
 const CATI={"Frutas":"Manzana","Verduras":"Brócoli","Proteínas":"Huevo","Cereales":"Espelta","Frutos secos":"Avellana","Lácteos":"Yogur natural","Condimentos":"Orégano"},AGI={gluten:"Espelta",huevo:"Huevo",lacteos:"Yogur natural",pescado:"Merluza",crustaceos:"Gambas",moluscos:"Mejillones",cacahuete:"Cacahuete",frutoscascara:"Avellana",sesamo:"Sésamo (tahini)",soja:"Tofu",apio:"Apio",legumbres:"Lentejas"};
 const isExcl=n=>((S.prefs||{}).excl||[]).includes(n);const blockedG=x=>{if(x&&isExcl(x.n))return true;const v=S.al||{},t=s=>s==="alergia"||s==="sospecha";return t(v[AG[x.n]])||t(v["x:"+x.n])};
 const FE=new Set(["Azukis","Caballa","Boquerones","Pulpo","Kale","Amaranto","Alubias blancas","Alubias negras","Alubias pintas","Garbanzos","Lentejas","Lentejas rojas","Ternera","Cordero","Huevo","Espinacas","Sardinas","Tofu","Quinoa","Semillas de calabaza","Guisantes","Brócoli"]);
-const MIN={"Bebida de soja":12,"Bebida de avena":12,"Acelgas":12,"Espinacas":12,"Borraja":36,"Remolacha":12,"Rúcula":12,"Apio":12};// meses mínimos, por defecto 6
+const MIN={"Yogur natural":9,"Yogur griego":9,"Kéfir":9,"Queso fresco":9,"Queso tierno":9,"Queso de cabra":9,"Mozzarella":9,"Requesón":9,"Ricotta":9,"Mantequilla":9,"Bebida de soja":12,"Bebida de avena":12,"Acelgas":12,"Espinacas":12,"Borraja":36,"Remolacha":12,"Rúcula":12,"Apio":12};// meses mínimos, por defecto 6
 ["Mozzarella","Queso fresco","Queso tierno","Requesón","Ricotta","Yogur natural","Queso de cabra","Yogur griego"].forEach(n=>MIN[n]=9);MIN["Canónigos"]=12;MIN["Escarola"]=12;MIN["Kale"]=12;MIN["Cardo"]=12;
 MIN["Kéfir"]=12;MIN["Mantequilla"]=12;
 const LIMS=new Set(["Arroz","Harina de arroz"]);
