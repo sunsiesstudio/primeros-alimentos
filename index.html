@@ -7539,9 +7539,13 @@ async function makeStory(ds){
   const dk=document.documentElement.dataset.theme==="dark"||(document.documentElement.dataset.theme!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches),BRD=dk?"#a29dff":ACC;c.fillStyle=CARD;rr(cx,T2,cw,hgt,46);c.fill();c.strokeStyle=BRD;c.globalAlpha=.45;c.lineWidth=3;rr(cx,T2,cw,hgt,46);c.stroke();c.globalAlpha=.9;c.lineWidth=7;rr(cx+14,T2+14,cw-28,hgt-28,36);c.stroke();c.globalAlpha=1;
   lay(k,true,T2);
   // footer
-  c.textAlign="center";c.globalAlpha=.6;c.fillStyle=MUT;c.font=`500 26px ${MF}`;c.fillText(TT("Planifica su alimentación con","Planifica la seva alimentació amb","Plan their meals with"),W/2,H-238);
-  c.font=`700 30px ${MF}`;c.fillText("primerosalimentos.com",W/2,H-198);
-  c.font=`500 24px ${MF}`;c.fillText(TT("También en iOS y Android","També a iOS i Android","Also on iOS and Android"),W/2,H-160);c.globalAlpha=1;
+  c.textAlign="center";c.globalAlpha=.7;c.fillStyle=MUT;c.font=`500 26px ${MF}`;c.fillText(TT("Planifica su alimentación con","Planifica la seva alimentació amb","Plan their meals with"),W/2,H-250);
+  c.font=`700 30px ${MF}`;c.fillText("www.primerosalimentos.com",W/2,H-208);
+  {const APL=new Path2D("M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.8 1.3 10.3.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.6-1-2.6-4.2zM13.9 4.9c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"),
+     AND=new Path2D("M6 9.5h12v8a1.5 1.5 0 0 1-1.5 1.5h-1v3a1.25 1.25 0 0 1-2.5 0v-3h-2v3a1.25 1.25 0 0 1-2.5 0v-3h-1A1.5 1.5 0 0 1 6 17.5zM3.75 9.5A1.25 1.25 0 0 1 5 10.75v5.5a1.25 1.25 0 0 1-2.5 0v-5.5A1.25 1.25 0 0 1 3.75 9.5zM20.25 9.5a1.25 1.25 0 0 1 1.25 1.25v5.5a1.25 1.25 0 0 1-2.5 0v-5.5a1.25 1.25 0 0 1 1.25-1.25zM6 8.5a6 5 0 0 1 12 0zM8.2 2.2l1.4 2.3M15.8 2.2l-1.4 2.3");
+    const items=[[APL,"iOS"],[AND,"Android"]],isz=34,gap=12,sep=44;c.font=`600 26px ${MF}`;const ws=items.map(([,t])=>isz+gap+c.measureText(t).width),tot=ws.reduce((a,b)=>a+b,0)+sep;let x=W/2-tot/2;const yb=H-178;
+    items.forEach(([p,t],ix)=>{c.save();c.translate(x,yb);c.scale(isz/24,isz/24);c.fillStyle=MUT;c.fill(p);if(ix===1){c.strokeStyle=MUT;c.lineWidth=1.2;c.lineCap="round";c.stroke(new Path2D("M8.2 2.2l1.4 2.3M15.8 2.2l-1.4 2.3"));c.fillStyle=BG;c.beginPath();c.arc(9.5,6.6,.8,0,7);c.fill();c.beginPath();c.arc(14.5,6.6,.8,0,7);c.fill()}c.restore();c.textAlign="left";c.fillStyle=MUT;c.fillText(t,x+isz+gap,yb+isz*.74);c.textAlign="center";x+=ws[ix]+sep})}
+  c.globalAlpha=1;
   const blob=await new Promise(r=>cvs.toBlob(r,"image/png"));return blob}
 window.makeStory=makeStory;
 let shSt=null;
