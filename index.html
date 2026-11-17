@@ -7500,10 +7500,10 @@ async function makeStory(ds){
   c.fillStyle=BG;c.fillRect(0,0,W,H);
   // logo
   arcText(c,"Primeros alimentos",W/2,630,440,`62px ${DF}`,INK);
-  star(c,W/2,250,40,TER,BG);
+  star(c,W/2,268,38,TER,BG);
   const nm=(S.nm||"").trim();
   c.textAlign="center";c.textBaseline="alphabetic";
-  if(nm){c.font=`68px ${DF}`;c.fillStyle=INK;c.fillText(TT(`de ${nm}`,caDe(nm),`${nm}'s`),W/2,375)}
+  if(nm){c.font=`68px ${DF}`;c.fillStyle=INK;c.fillText(TT(`de ${nm}`,caDe(nm),`${nm}'s`),W/2,385)}
   // card
   const cx=110,cw=W-220,top=nm?440:390,bottom=H-300;
   const rr=(x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()};
