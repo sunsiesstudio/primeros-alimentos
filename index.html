@@ -7539,8 +7539,9 @@ async function makeStory(ds){
   const dk=document.documentElement.dataset.theme==="dark"||(document.documentElement.dataset.theme!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches),BRD=dk?"#a29dff":ACC;c.fillStyle=CARD;rr(cx,T2,cw,hgt,46);c.fill();c.strokeStyle=BRD;c.globalAlpha=.45;c.lineWidth=3;rr(cx,T2,cw,hgt,46);c.stroke();c.globalAlpha=.9;c.lineWidth=7;rr(cx+14,T2+14,cw-28,hgt-28,36);c.stroke();c.globalAlpha=1;
   lay(k,true,T2);
   // footer
-  c.textAlign="center";c.globalAlpha=.6;c.font=`600 28px ${MF}`;c.fillStyle=MUT;c.fillText("primerosalimentos.com",W/2,H-200);
-  c.font=`500 24px ${MF}`;c.fillText(TT("También en iOS y Android","També a iOS i Android","Also on iOS and Android"),W/2,H-162);c.globalAlpha=1;
+  c.textAlign="center";c.globalAlpha=.6;c.fillStyle=MUT;c.font=`500 26px ${MF}`;c.fillText(TT("Planifica su alimentación con","Planifica la seva alimentació amb","Plan their meals with"),W/2,H-238);
+  c.font=`700 30px ${MF}`;c.fillText("primerosalimentos.com",W/2,H-198);
+  c.font=`500 24px ${MF}`;c.fillText(TT("También en iOS y Android","També a iOS i Android","Also on iOS and Android"),W/2,H-160);c.globalAlpha=1;
   const blob=await new Promise(r=>cvs.toBlob(r,"image/png"));return blob}
 window.makeStory=makeStory;
 let shSt=null;
