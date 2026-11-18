@@ -7393,11 +7393,16 @@ const reauthOAuth=async u=>{
   const{cred,code}=await nativeCred(pid);if(code)appleCode=code;return reauthenticateWithCredential(u,cred)};
 // Apple exige revocar el token de "Iniciar sesión con Apple" al borrar la cuenta (si falla, el borrado sigue)
 const revokeApple=async u=>{if(!appleCode)return;try{await fetch("https://identitytoolkit.googleapis.com/v2/accounts:revokeToken?key="+CFG.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({providerId:"apple.com",tokenType:"CODE",token:appleCode,idToken:await u.getIdToken()})})}catch(e){}appleCode=null};
+// Uso diario anónimo para el resumen del admin: qué día y desde qué plataforma (ios, android, web) se abre
+let ACTK="";const pingAct=()=>{try{const u=auth.currentUser;if(!u)return;const x=new Date(),d=x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0");
+  const p=(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform())||"web",k=u.uid+d+p;if(k===ACTK)return;ACTK=k;
+  setDoc(doc(db,"users",u.uid),{act:{[d]:{[p]:true}}},{merge:true}).catch(()=>{ACTK=""})}catch(e){}};
+window.__pingAct=pingAct;
 window.cloud={
   trash:async b=>{const r=doc(db,"users",window.__duid||auth.currentUser.uid);let t=[];try{const c=await getDoc(r);t=((c.exists()&&c.data().trash)||[]).filter(x=>x&&Date.now()-(x.at||0)<30*864e5)}catch(e){}let bb=JSON.parse(JSON.stringify(b));(bb.log||[]).forEach(l=>{if(l)delete l.ph});if(JSON.stringify(bb).length>250000)Object.keys(bb).forEach(k=>{if(typeof bb[k]==="string"&&bb[k].length>20000)delete bb[k]});t.push({at:Date.now(),nm:bb.nm||"",b:bb});while(t.length>5||JSON.stringify(t).length>400000)t.shift();await updateDoc(r,{trash:t})},
   logout:()=>{try{google.accounts.id.disableAutoSelect()}catch(e){}if(FA)FA.signOut().catch(()=>{});return signOut(auth)},
-  save:async d=>{const r=doc(db,"users",window.__duid||auth.currentUser.uid);try{const cur=await getDoc(r);if(cur.exists()){const cd=cur.data();if((cd.ts||0)>(window.__syncTs||0)&&window.__mergeCloud)d=window.__mergeCloud(cd)}}catch(e){}d={...d,ts:Math.max(Date.now(),(d.ts||0)+1)};let js=JSON.stringify(d);if(js.length>950000){d=JSON.parse(js);const L=[];(d.babies||[]).forEach(b=>(b.log||[]).forEach(l=>{if(l&&l.ph)L.push(l)}));L.sort((a,b)=>(a.d||"")<(b.d||"")?-1:1);while(L.length&&JSON.stringify(d).length>950000){delete L.shift().ph}}delete d.members;delete d.fam;delete d.famEm;await setDoc(r,d,{merge:true});return d},
-  load:async()=>{const sn=await getDoc(doc(db,"users",window.__duid||auth.currentUser.uid));return sn.exists()?sn.data():null},
+  save:async d=>{const r=doc(db,"users",window.__duid||auth.currentUser.uid);try{const cur=await getDoc(r);if(cur.exists()){const cd=cur.data();if((cd.ts||0)>(window.__syncTs||0)&&window.__mergeCloud)d=window.__mergeCloud(cd)}}catch(e){}d={...d,ts:Math.max(Date.now(),(d.ts||0)+1)};let js=JSON.stringify(d);if(js.length>950000){d=JSON.parse(js);const L=[];(d.babies||[]).forEach(b=>(b.log||[]).forEach(l=>{if(l&&l.ph)L.push(l)}));L.sort((a,b)=>(a.d||"")<(b.d||"")?-1:1);while(L.length&&JSON.stringify(d).length>950000){delete L.shift().ph}}delete d.members;delete d.fam;delete d.famEm;await setDoc(r,d,{merge:true});pingAct();return d},
+  load:async()=>{pingAct();const sn=await getDoc(doc(db,"users",window.__duid||auth.currentUser.uid));return sn.exists()?sn.data():null},
   // Cuidadores: invitaciones de un solo uso (24 h) y lista de miembros en el documento del titular
   invite:async nm=>{const u=auth.currentUser,A="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789",R=crypto.getRandomValues(new Uint8Array(22));let c="";R.forEach(x=>c+=A[x%A.length]);
     await setDoc(doc(db,"invites",c),{owner:u.uid,em:u.email||"",nm:String(nm||"").slice(0,120),used:false,at:Timestamp.now(),exp:Timestamp.fromMillis(Date.now()+864e5)});return c},
@@ -7463,7 +7468,7 @@ onAuthStateChanged(auth,async u=>{
     if(!auth.currentUser||auth.currentUser.uid!==u.uid)return;
     try{
       const T=p=>Promise.race([p,new Promise((_,no)=>setTimeout(()=>no({code:"timeout"}),to))]);
-      const snap=await T(getDoc(doc(db,"users",u.uid)));
+      const snap=await T(getDoc(doc(db,"users",u.uid)));pingAct();
       let d=snap.exists()?snap.data():null,duid=u.uid,fm=null;
       // Cuidador: sus datos son los de la familia a la que se unió (users/{titular})
       if(d&&d.fam){let lost=false;
