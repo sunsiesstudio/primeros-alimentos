@@ -3436,7 +3436,7 @@ function drawPoster(ctx,W,H,o){
   starP(ctx,980,1270,102,48,.26);ctx.fill();ctx.stroke();
   ctx.fillStyle=BLUE;ctx.textAlign="center";ctx.font='700 52px Montserrat';ctx.fillText(TT("por probar sus primeros","per haver provat els seus primers","for trying their first"),W/2,1448);
   ctx.fillStyle=GREEN;ctx.font='158px "Luckiest Guy"';ctx.fillText(TT("100 ALIMENTOS","100 ALIMENTS","100 FOODS"),W/2,1612);
-  {ctx.save();ctx.fillStyle="#6b675a";ctx.font='600 22px Montserrat';ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.fillText(TT("Planifica su menú semanal con ","Planifica el seu menú setmanal amb ","Plan their weekly menu with ")+"www.primerosalimentos.com",W/2,H-34);ctx.restore()}
+  {ctx.save();ctx.fillStyle="#6b675a";ctx.font='500 17px Montserrat';ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.fillText(TT("Planifica su menú semanal con ","Planifica el seu menú setmanal amb ","Plan their weekly menu with ")+"www.primerosalimentos.com",W/2,H-34);ctx.restore()}
   if(o.preview){ctx.save();ctx.translate(W/2,H/2);ctx.rotate(-Math.PI/6);ctx.font='700 96px Montserrat';ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineWidth=6;ctx.strokeStyle="rgba(62,76,208,.3)";ctx.fillStyle="rgba(255,255,255,.55)";
     for(let y=-1500,r=0;y<=1500;y+=240,r++)for(let x=-1800;x<=1800;x+=920){const xx=x+(r%2?460:0);ctx.strokeText(TT("VISTA PREVIA","PREVISUALITZACIÓ","PREVIEW"),xx,y);ctx.fillText(TT("VISTA PREVIA","PREVISUALITZACIÓ","PREVIEW"),xx,y)}ctx.restore()}
 }
@@ -3969,7 +3969,7 @@ async function buildPng(){DKX=false;/* para imprimir: siempre claro y con fondo 
     y+=Math.ceil(xs.length/cols)*lh+4});
   if(!tot){g.fillStyle=INK;g.font='500 20px '+FF;g.fillText(TT("Todavía no se ha registrado ningún alimento.","Encara no s'ha registrat cap aliment.","No foods logged yet."),P,y);y+=40}
   g.fillStyle=MU;g.font='500 15px '+FF;g.fillText(TT("! reacción anotada · ♥ le encanta · Anotado por la familia en Primeros alimentos. No sustituye al pediatra.","! reacció anotada · ♥ li encanta · Anotat per la família a Primers aliments. No substitueix el pediatre.","! reaction logged · ♥ loves it · Logged by the family in First foods. Not a substitute for the paediatrician."),P,H-foot+10);
-  {const fy=H-34;g.font='600 19px '+FF;g.fillStyle=MU;g.textBaseline="alphabetic";g.textAlign="center";g.fillText(TT("Planifica su menú semanal con ","Planifica el seu menú setmanal amb ","Plan their weekly menu with ")+"www.primerosalimentos.com",W/2,fy);g.textAlign="left";g.textBaseline="top"}
+  {const fy=H-34;g.font='500 15px '+FF;g.fillStyle=MU;g.textBaseline="alphabetic";g.textAlign="center";g.fillText(TT("Planifica su menú semanal con ","Planifica el seu menú setmanal amb ","Plan their weekly menu with ")+"www.primerosalimentos.com",W/2,fy);g.textAlign="left";g.textBaseline="top"}
   if(arguments[0]==="canvas")return cv;
   return new Promise(r=>cv.toBlob(r,"image/png"));
 }
@@ -5683,7 +5683,7 @@ async function posterCanvas(W,H){DKX=isDarkX();
       x.textAlign="left";x.fillStyle=MU;x.font=`600 ${fs}px Montserrat,sans-serif`;x.fillText(t,lx+fs*1.25,lgY);lx+=ws[i]})}
   // pie con la marca
   const lg=document.getElementById("blogo");x.textAlign="center";x.fillStyle=MU;x.font=`500 ${20*u}px Montserrat,sans-serif`;
-  const fy=H-foot/2+8*u;x.font=`600 ${20*u}px Montserrat,sans-serif`;x.fillText(TT("Planifica su menú semanal con ","Planifica el seu menú setmanal amb ","Plan their weekly menu with ")+"www.primerosalimentos.com",W/2,fy);
+  const fy=H-foot/2+8*u;x.font=`500 ${15*u}px Montserrat,sans-serif`;x.fillText(TT("Planifica su menú semanal con ","Planifica el seu menú setmanal amb ","Plan their weekly menu with ")+"www.primerosalimentos.com",W/2,fy);
   return c}
 function jpegPdf(bytes,w,h,Wpt,Hpt){const E=new TextEncoder(),parts=[],offs=[];let len=0;const push=b=>{if(typeof b==="string")b=E.encode(b);parts.push(b);len+=b.length};
   const obj=(i,s)=>{offs[i]=len;push(`${i} 0 obj\n${s}\nendobj\n`)};
