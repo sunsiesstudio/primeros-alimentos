@@ -7366,11 +7366,11 @@ const fail=m=>{const e=document.getElementById("gerr");if(e){e.textContent=m;if(
 window.addEventListener("error",e=>fail("Error: "+(e.message||"desconocido")));
 window.addEventListener("unhandledrejection",e=>fail("Error: "+((e.reason&&(e.reason.code||e.reason.message))||"desconocido")));
 gm.textContent="Cargando...";
-let initializeApp,getAuth,initializeAuth,indexedDBLocalPersistence,OAuthProvider,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,EmailAuthProvider,reauthenticateWithCredential,reauthenticateWithPopup,getFirestore,initializeFirestore,doc,getDoc,setDoc,deleteDoc,updateDoc,writeBatch,deleteField,Timestamp,signInWithPopup;
+let initializeApp,getAuth,initializeAuth,indexedDBLocalPersistence,OAuthProvider,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,EmailAuthProvider,reauthenticateWithCredential,reauthenticateWithPopup,getFirestore,initializeFirestore,doc,getDoc,setDoc,deleteDoc,updateDoc,writeBatch,deleteField,Timestamp,increment,signInWithPopup;
 try{
   ({initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"));
   ({getAuth,initializeAuth,indexedDBLocalPersistence,OAuthProvider,GoogleAuthProvider,signInWithCredential,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,deleteUser,EmailAuthProvider,reauthenticateWithCredential,reauthenticateWithPopup,signInWithPopup}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"));
-  ({getFirestore,initializeFirestore,doc,getDoc,setDoc,deleteDoc,updateDoc,writeBatch,deleteField,Timestamp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
+  ({getFirestore,initializeFirestore,doc,getDoc,setDoc,deleteDoc,updateDoc,writeBatch,deleteField,Timestamp,increment}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"));
 }catch(e){fail("No se pudo cargar Firebase: "+(e&&e.message));throw e}
 const CFG={apiKey:"AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ",authDomain:"primeros-alimentos.firebaseapp.com",projectId:"primeros-alimentos",appId:"1:210048481917:web:f7a4e8f31d067a7152cf14"};
 const CLIENT_ID="210048481917-ul8kftm5f33lsfc3f5lskj4au5mvm9tk.apps.googleusercontent.com";
@@ -7397,11 +7397,20 @@ let ACTK="";const pingAct=()=>{try{const u=auth.currentUser;if(!u)return;const x
   const p=(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform())||"web",k=u.uid+d+p;if(k===ACTK)return;ACTK=k;
   setDoc(doc(db,"users",u.uid),{act:{[d]:{[p]:true}}},{merge:true}).catch(()=>{ACTK=""})}catch(e){}};
 window.__pingAct=pingAct;
+// Sesiones para el admin: cuántas veces entra (una sesión nueva tras 30 min fuera) y cuánto tiempo pasa con la app visible
+const SES={on:0,off:0,ok:0};const dKey=()=>{const x=new Date();return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
+const sesFlush=()=>{try{const u=auth.currentUser;if(!u||!SES.on)return;const now=Date.now(),s=Math.min(1800,Math.round((now-SES.on)/1000));SES.on=0;SES.off=now;if(s<2)return;
+  setDoc(doc(db,"users",u.uid),{ses:{[dKey()]:{s:increment(s)}},sesT:increment(s)},{merge:true}).catch(()=>{})}catch(e){}};
+const sesStart=()=>{try{const u=auth.currentUser;if(!u||SES.on||document.hidden)return;const now=Date.now();SES.on=now;if(SES.ok&&now-SES.off<18e5)return;SES.ok=1;
+  const p=(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform())||"web";
+  setDoc(doc(db,"users",u.uid),{ses:{[dKey()]:{n:increment(1)}},sesN:increment(1),last:now,em:u.email||"",plat:{[p]:true},lang:(typeof LANG!=="undefined"&&LANG)||"es"},{merge:true}).catch(()=>{})}catch(e){}};
+document.addEventListener("visibilitychange",()=>document.hidden?sesFlush():sesStart());addEventListener("pagehide",sesFlush);
+setInterval(()=>{if(SES.on&&!document.hidden&&Date.now()-SES.on>3e5){sesFlush();SES.on=Date.now()}},6e4);
 window.cloud={
   trash:async b=>{const r=doc(db,"users",window.__duid||auth.currentUser.uid);let t=[];try{const c=await getDoc(r);t=((c.exists()&&c.data().trash)||[]).filter(x=>x&&Date.now()-(x.at||0)<30*864e5)}catch(e){}let bb=JSON.parse(JSON.stringify(b));(bb.log||[]).forEach(l=>{if(l)delete l.ph});if(JSON.stringify(bb).length>250000)Object.keys(bb).forEach(k=>{if(typeof bb[k]==="string"&&bb[k].length>20000)delete bb[k]});t.push({at:Date.now(),nm:bb.nm||"",b:bb});while(t.length>5||JSON.stringify(t).length>400000)t.shift();await updateDoc(r,{trash:t})},
   logout:()=>{try{google.accounts.id.disableAutoSelect()}catch(e){}if(FA)FA.signOut().catch(()=>{});return signOut(auth)},
   save:async d=>{const r=doc(db,"users",window.__duid||auth.currentUser.uid);try{const cur=await getDoc(r);if(cur.exists()){const cd=cur.data();if((cd.ts||0)>(window.__syncTs||0)&&window.__mergeCloud)d=window.__mergeCloud(cd)}}catch(e){}d={...d,ts:Math.max(Date.now(),(d.ts||0)+1)};let js=JSON.stringify(d);if(js.length>950000){d=JSON.parse(js);const L=[];(d.babies||[]).forEach(b=>(b.log||[]).forEach(l=>{if(l&&l.ph)L.push(l)}));L.sort((a,b)=>(a.d||"")<(b.d||"")?-1:1);while(L.length&&JSON.stringify(d).length>950000){delete L.shift().ph}}delete d.members;delete d.fam;delete d.famEm;await setDoc(r,d,{merge:true});pingAct();return d},
-  load:async()=>{pingAct();const sn=await getDoc(doc(db,"users",window.__duid||auth.currentUser.uid));return sn.exists()?sn.data():null},
+  load:async()=>{pingAct();sesStart();const sn=await getDoc(doc(db,"users",window.__duid||auth.currentUser.uid));return sn.exists()?sn.data():null},
   // Cuidadores: invitaciones de un solo uso (24 h) y lista de miembros en el documento del titular
   invite:async nm=>{const u=auth.currentUser,A="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789",R=crypto.getRandomValues(new Uint8Array(22));let c="";R.forEach(x=>c+=A[x%A.length]);
     await setDoc(doc(db,"invites",c),{owner:u.uid,em:u.email||"",nm:String(nm||"").slice(0,120),used:false,at:Timestamp.now(),exp:Timestamp.fromMillis(Date.now()+864e5)});return c},
