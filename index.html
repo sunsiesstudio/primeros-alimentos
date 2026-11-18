@@ -3969,7 +3969,7 @@ async function buildPng(){DKX=false;/* para imprimir: siempre claro y con fondo 
     y+=Math.ceil(xs.length/cols)*lh+4});
   if(!tot){g.fillStyle=INK;g.font='500 20px '+FF;g.fillText(TT("Todavía no se ha registrado ningún alimento.","Encara no s'ha registrat cap aliment.","No foods logged yet."),P,y);y+=40}
   g.fillStyle=MU;g.font='500 15px '+FF;g.fillText(TT("! reacción anotada · ♥ le encanta · Anotado por la familia en Primeros alimentos. No sustituye al pediatra.","! reacció anotada · ♥ li encanta · Anotat per la família a Primers aliments. No substitueix el pediatre.","! reaction logged · ♥ loves it · Logged by the family in First foods. Not a substitute for the paediatrician."),P,H-foot+10);
-  {const lg=document.getElementById("blogo"),lbl=TT("Hecho por ","Fet per ","Made by "),fy=H-34;g.font='500 18px '+FF;g.fillStyle=MU;g.textBaseline="alphabetic";if(lg&&lg.complete&&lg.naturalWidth){const lh=46,lw=lh*lg.naturalWidth/lg.naturalHeight,tw=g.measureText(lbl).width,sx=W/2-(tw+lw)/2;g.textAlign="left";g.fillText(lbl,sx,fy);g.drawImage(lg,sx+tw,fy-lh*.68,lw,lh)}else{g.textAlign="center";g.fillText(lbl+"sunsies studio",W/2,fy)}g.textAlign="left";g.textBaseline="top"}
+  {const fy=H-34;g.font='600 19px '+FF;g.fillStyle=MU;g.textBaseline="alphabetic";g.textAlign="center";g.fillText("www.primerosalimentos.com",W/2,fy);g.textAlign="left";g.textBaseline="top"}
   if(arguments[0]==="canvas")return cv;
   return new Promise(r=>cv.toBlob(r,"image/png"));
 }
