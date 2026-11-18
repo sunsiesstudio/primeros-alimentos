@@ -3436,7 +3436,7 @@ function drawPoster(ctx,W,H,o){
   starP(ctx,980,1270,102,48,.26);ctx.fill();ctx.stroke();
   ctx.fillStyle=BLUE;ctx.textAlign="center";ctx.font='700 52px Montserrat';ctx.fillText(TT("por probar sus primeros","per haver provat els seus primers","for trying their first"),W/2,1448);
   ctx.fillStyle=GREEN;ctx.font='158px "Luckiest Guy"';ctx.fillText(TT("100 ALIMENTOS","100 ALIMENTS","100 FOODS"),W/2,1612);
-  if(o.logo){const lw=130,lh=lw*o.logo.height/o.logo.width;ctx.drawImage(o.logo,W-lw-50,H-lh-26,lw,lh)}
+  {ctx.save();ctx.fillStyle="#6b675a";ctx.font='600 22px Montserrat';ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.fillText("www.primerosalimentos.com",W/2,H-34);ctx.restore()}
   if(o.preview){ctx.save();ctx.translate(W/2,H/2);ctx.rotate(-Math.PI/6);ctx.font='700 96px Montserrat';ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineWidth=6;ctx.strokeStyle="rgba(62,76,208,.3)";ctx.fillStyle="rgba(255,255,255,.55)";
     for(let y=-1500,r=0;y<=1500;y+=240,r++)for(let x=-1800;x<=1800;x+=920){const xx=x+(r%2?460:0);ctx.strokeText(TT("VISTA PREVIA","PREVISUALITZACIÓ","PREVIEW"),xx,y);ctx.fillText(TT("VISTA PREVIA","PREVISUALITZACIÓ","PREVIEW"),xx,y)}ctx.restore()}
 }
@@ -5683,9 +5683,7 @@ async function posterCanvas(W,H){DKX=isDarkX();
       x.textAlign="left";x.fillStyle=MU;x.font=`600 ${fs}px Montserrat,sans-serif`;x.fillText(t,lx+fs*1.25,lgY);lx+=ws[i]})}
   // pie con la marca
   const lg=document.getElementById("blogo");x.textAlign="center";x.fillStyle=MU;x.font=`500 ${20*u}px Montserrat,sans-serif`;
-  const fy=H-foot/2+8*u,lbl=TT("Hecho con Primeros alimentos · ","Fet amb Primers aliments · ","Made with First foods · ");
-  if(lg&&lg.complete&&lg.naturalWidth){const lh=46*u,lw=lh*lg.naturalWidth/lg.naturalHeight,tw=x.measureText(lbl).width;const sx=W/2-(tw+lw)/2;x.textAlign="left";x.fillText(lbl,sx,fy);x.drawImage(lg,sx+tw,fy-lh*.68,lw,lh)}
-  else x.fillText(lbl+"sunsies studio",W/2,fy);
+  const fy=H-foot/2+8*u;x.font=`600 ${20*u}px Montserrat,sans-serif`;x.fillText("www.primerosalimentos.com",W/2,fy);
   return c}
 function jpegPdf(bytes,w,h,Wpt,Hpt){const E=new TextEncoder(),parts=[],offs=[];let len=0;const push=b=>{if(typeof b==="string")b=E.encode(b);parts.push(b);len+=b.length};
   const obj=(i,s)=>{offs[i]=len;push(`${i} 0 obj\n${s}\nendobj\n`)};
