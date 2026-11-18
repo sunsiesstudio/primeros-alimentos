@@ -2871,7 +2871,7 @@ document.documentElement.lang=LANG;
   <h3 class="disp">Resumen</h3>
 </div>
   
-  <div class="thx" id="sum_th" role="group" aria-label="Modo"><button type="button" data-thx="light">Claro</button><button type="button" data-thx="dark">Oscuro</button></div>
+  <div class="thx hide" id="sum_th" role="group" aria-label="Modo"><button type="button" data-thx="light">Claro</button><button type="button" data-thx="dark">Oscuro</button></div>
   <div class="pstw"><img id="sum_pv" alt="Vista previa del resumen"></div>
   <div class="tkt-b shft sumb" style="margin-top:12px"><button class="btn p" id="sum_pdf" type="button">PDF</button><button class="btn p" id="sum_png" type="button">PNG</button><button class="btn" id="sum_txt" type="button">Texto</button></div>
 </div></div>
@@ -3910,15 +3910,15 @@ function drawAppLogo(x,cx,top,lw,G,T,BG){const LF='"Luckiest Guy","Arial Rounded
 let DKX=false;const isDarkX=()=>{if(window.__expTh)return window.__expTh==="dark";const th=document.documentElement.getAttribute("data-theme");return th==="dark"||(th!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches)};
 const DMAP={"#d6cfb4":"#36356e","#ddd7bf":"#2a2960","#cfc8ad":"#36356e","#a8a28a":"#8d8bc0","#4a4a40":"#d7d5f0","#eeead8":"#121232","#f7f4e8":"#1e1d46","#fffdf6":"#1e1d46","#2b2a26":"#f1f0ff","#262626":"#f1f0ff","#6b675a":"#aeacd8","#6b6a5c":"#aeacd8","#3e4cd0":"#a29dff","#4a8760":"#f1f0ff","#c96a47":"#ffa77c","#d8d3bc":"#36356e","#cfcab3":"#36356e","#a9a691":"#6f6da8","#9a9784":"#8d8bc0","#b3382a":"#ff8f85","#f3ddd6":"#3a2340","#3b7a55":"#9fe0b8","#dfeadf":"#1f3a3a","#7a766a":"#aeacd8","#e4e0cf":"#2a2960","#9a6a12":"#f2c66d","#f6e7c4":"#3a3220","#999":"#8d8bc0"};
 const KX=c=>DKX&&DMAP[c]||c;
-async function buildPng(){DKX=isDarkX();
+async function buildPng(){DKX=false;/* para imprimir: siempre claro y con fondo blanco */
   try{await Promise.all([document.fonts.load('48px "Luckiest Guy"'),document.fonts.load('700 28px Montserrat'),document.fonts.load('500 26px Montserrat')])}catch(e){}
   // A4 a 150 ppp
   const W=1240,H=1754,P=70,m=stats(),FF='Montserrat,Arial,sans-serif',HF='"Luckiest Guy",Arial Black,sans-serif',INK=KX("#2b2a26"),MU=KX("#6b675a");
   const cv=document.createElement("canvas");cv.width=W;cv.height=H;const g=cv.getContext("2d");
   const rr=(x,y,w,h,r)=>{g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()};
-  g.fillStyle=KX("#eeead8");g.fillRect(0,0,W,H);g.textBaseline="top";
+  g.fillStyle="#ffffff";g.fillRect(0,0,W,H);g.textBaseline="top";
   const ra=age(true),now=new Date().toLocaleDateString(LOC(),{day:"numeric",month:"long",year:"numeric"}),p=S.prefs||{};
-  let y=drawAppLogo(g,W/2,30,420,KX("#4a8760"),KX("#c96a47"),KX("#eeead8"))+22;g.textBaseline="top";
+  let y=drawAppLogo(g,W/2,30,420,"#4a8760","#c96a47","#ffffff")+22;g.textBaseline="top";
   g.fillStyle=MU;g.font='500 22px '+FF;g.textAlign="center";g.fillText(TT("Resumen para el pediatra y cuidadores","Resum per al pediatre i cuidadors","Summary for the paediatrician and carers")+" · "+(ra?moTxt(ra.mo)+" · ":"")+now,W/2,y);g.textAlign="left";y+=100;
   let nSec=0;const sec=t=>{if(nSec++){y+=10;g.fillStyle=KX("#d8d2bb");g.fillRect(P,y,W-2*P,1.5);y+=14}else y+=14;g.fillStyle=KX("#3e4cd0");g.font='30px '+HF;g.fillText(t,P,y);y+=44};
   const pill=(x,yy,t,col,bg)=>{g.font='700 17px '+FF;const w=g.measureText(t).width+38;rr(x,yy,w,32,16);g.fillStyle=bg;g.fill();g.strokeStyle=col;g.lineWidth=2;g.stroke();g.fillStyle=col;g.beginPath();g.arc(x+16,yy+16,5,0,7);g.fill();g.fillText(t,x+27,yy+8);return w};
