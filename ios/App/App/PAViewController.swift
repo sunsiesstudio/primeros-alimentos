@@ -6,6 +6,16 @@ import Capacitor
 class PAViewController: CAPBridgeViewController {
     override open func capacitorDidLoad() {
         bridge?.registerPluginInstance(SaveImagePlugin())
+        // Fondo según el modo claro u oscuro del sistema, para que no haya un destello crema al abrir o recargar en modo oscuro
+        let bg = UIColor { t in
+            t.userInterfaceStyle == .dark
+                ? UIColor(red: 0x12 / 255.0, green: 0x12 / 255.0, blue: 0x32 / 255.0, alpha: 1)
+                : UIColor(red: 0xee / 255.0, green: 0xea / 255.0, blue: 0xd8 / 255.0, alpha: 1)
+        }
+        view.backgroundColor = bg
+        webView?.backgroundColor = bg
+        webView?.scrollView.backgroundColor = bg
+        webView?.isOpaque = false
     }
 }
 
